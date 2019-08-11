@@ -72,7 +72,9 @@ Widget build(BuildContext context) {
           IconButton(
             icon: Icon(Icons.add),
             color: Color.fromRGBO(203, 99, 51, 1),
-            onPressed: (){},
+            onPressed: (){
+              Navigator.pushNamed(context, '/agregarVehiculos');
+            },
           ),
           IconButton(
             icon: Icon(Icons.note_add),

@@ -1,3 +1,4 @@
+import 'package:care_app/src/pages/agregarVehiculo_page.dart';
 import 'package:care_app/src/pages/vehiculos_page.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,7 @@ class Login extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/vehiculos': (context) => VehiculosPage(),
+        '/agregarVehiculos': (context) => AgregarVehiculoPage()
        }, 
   
       theme: ThemeData(
