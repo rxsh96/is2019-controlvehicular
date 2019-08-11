@@ -1,6 +1,6 @@
 # care_app
 
-Vehicle Control Mobile App
+CareApp for Vehicle Control
 
 ## Getting Started
 

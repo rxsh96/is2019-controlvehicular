@@ -1,11 +1,21 @@
+import 'package:care_app/src/pages/vehiculos_page.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Login UI',
       home: MyLoginPage(),
+      initialRoute: '/',
+      routes: {
+        '/vehiculos': (context) => VehiculosPage(),
+       }, 
+  
+      theme: ThemeData(
+        primaryColor: Color.fromRGBO(32, 32, 32, 1),
+      ),
     );
   }
 }
@@ -18,7 +28,6 @@ class MyLoginPage extends StatefulWidget {
 class _MyLoginPageState extends State<MyLoginPage> {
   @override
   Widget build(BuildContext context) {
-
     final usernameField = TextField(
       obscureText: false,
       decoration: InputDecoration(
@@ -58,14 +67,18 @@ class _MyLoginPageState extends State<MyLoginPage> {
     );
 
     final loginButton = BottomAppBar(
+
       color: Color.fromRGBO(203, 99, 51, 1),
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/vehiculos');
+        },
+        
         child: Text(
           "Iniciar Sesión",
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: Colors.white,
+          color: Colors.white,
           ),
         ),
       ),
@@ -84,7 +97,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                   SizedBox(
                     height: 200.0,
                     child: Image.asset(
-                      "images/logo.png",
+                      "images/careapp_logo.png",
                       fit: BoxFit.contain,
                     ),
                   ),
