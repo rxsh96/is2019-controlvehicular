@@ -13,8 +13,8 @@ class Login extends StatelessWidget {
       routes: {
         '/vehiculos': (context) => VehiculosPage(),
         '/agregarVehiculos': (context) => AgregarVehiculoPage()
-       }, 
-  
+       },
+
       theme: ThemeData(
         primaryColor: Color.fromRGBO(32, 32, 32, 1),
       ),
@@ -69,18 +69,16 @@ class _MyLoginPageState extends State<MyLoginPage> {
     );
 
     final loginButton = BottomAppBar(
-
       color: Color.fromRGBO(203, 99, 51, 1),
       child: MaterialButton(
         onPressed: () {
           Navigator.pushNamed(context, '/vehiculos');
         },
-        
         child: Text(
           "Iniciar Sesión",
           textAlign: TextAlign.center,
           style: TextStyle(
-          color: Colors.white,
+            color: Colors.white,
           ),
         ),
       ),
