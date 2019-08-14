@@ -1,4 +1,4 @@
-import 'package:care_app/src/pages/vehiculos_page.dart';
+
 import 'package:flutter/material.dart';
 
 
@@ -37,7 +37,7 @@ class _AgregarVehiculoPageState extends State<AgregarVehiculoPage> {
       body: ListView(
         padding: EdgeInsets.symmetric( horizontal: 12.0 , vertical: 30.0),
         children: <Widget>[
-          
+
           _crearInput(Icons.account_box , 'Nombre ' , 'Ingrese su nombre'),
           SizedBox(height: 15.0),
           _crearInput(Icons.confirmation_number , 'Placa' , 'Ingrese su número de placa'),

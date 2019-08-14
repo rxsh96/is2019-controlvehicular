@@ -86,9 +86,9 @@ class _VehiculosPageState extends State<VehiculosPage> {
         ),
         body: Container(
           child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: ListView(
+              //crossAxisAlignment: CrossAxisAlignment.start,
+              //mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 //Text("Selecciona tu vehículo"),
                 Center(
@@ -117,12 +117,19 @@ class _VehiculosPageState extends State<VehiculosPage> {
                     ),
                   ],
                 ),
+                
                 SizedBox(height: 20.0),
-                _crearFranjas("FILTROS", 1),
+                _crearFranjas("FILTROS", 1 ,'filtro'),
                 SizedBox(height: 8.0),
-                _crearFranjas("FRENOS", 0.85),
+                _crearFranjas("FRENOS", 0.85,'frenos'),
                 SizedBox(height: 8.0),
-                _crearFranjas("LUCES", 0.7)
+                _crearFranjas("LUCES", 0.7,'luces'),
+                SizedBox(height: 8.0),
+                _crearFranjas("MULTAS", 0.75 ,'multas'),
+                SizedBox(height: 8.0),
+                _crearFranjas("KMS", 0.85,'kilometraje'),
+                SizedBox(height: 8.0),
+                _crearFranjas("GASOLINA", 1,'gasolina')
               ],
             ),
           ),
@@ -161,31 +168,42 @@ class _VehiculosPageState extends State<VehiculosPage> {
 
             Divider(color: Colors.grey),
 
-            _crearLista('Locales'),
-            _crearLista('Viajes'),
-            _crearLista('Notificaciones'),
-            _crearLista('Encuesta'),
-            _crearLista('Guía de mantenimiento'),
-            _crearLista('Reporte de accidentes'),
+            _crearLista('Locales' , 'location_pointer'),
+            _crearLista('Viajes', 'menu_viajes'),
+            _crearLista('Notificaciones','menu_notificaciones'),
+            _crearLista('Encuesta','menu_notificaciones'),
+            _crearLista('Guía de mantenimiento','menu_guia'),
+            _crearLista('Reporte de accidentes','menu_reporte'),
 
-            Divider(color: Colors.grey, height: 65.0),
-            _crearLista('Configuración'),
+            SizedBox(height: 45.0),
+            Divider(color: Colors.grey, height: 5.0),
+            SizedBox(height: 15.0),
+            _crearLista('Configuración','menu_configuracion'),
           ],
         ),
       ),
     );
   }
 
-  Widget _crearLista(String listaNombre) {
+ 
+
+  Widget _crearLista(String listaNombre ,String icono) {
     return ListTile(
-      leading: Icon(Icons.pages, color: Color.fromRGBO(203, 99, 51, 1)),
+      //leading: Icon(Icons.pages, color: Color.fromRGBO(203, 99, 51, 1)),
+      
+      leading:Image(
+        image: AssetImage('images/$icono.png'),
+        height: 20,
+        width: 20,
+      ), 
+      
       title: Text(listaNombre,
-          style: TextStyle(color: Colors.white, fontSize: 20)),
+            style: TextStyle(color: Colors.white, fontSize: 15)),
       onTap: () {},
     );
   }
 
-  Widget _crearFranjas(String mantenimiento, double transparencia) {
+  Widget _crearFranjas(String mantenimiento, double transparencia , String icono) {
     return BottomAppBar(
       color: Color.fromRGBO(203, 99, 51, transparencia),
       child: Row(
@@ -208,7 +226,7 @@ class _VehiculosPageState extends State<VehiculosPage> {
           SizedBox(height: 85.0, width: 165),
           //Icon(Icons.airline_seat_flat_angled),
           Image(
-              image: AssetImage('images/filtro.png'),
+              image: AssetImage('images/$icono.png'),
               height: 60,
               alignment: Alignment.bottomRight)
         ],
@@ -222,7 +240,9 @@ class _VehiculosPageState extends State<VehiculosPage> {
             'https://www.expoknews.com/wp-content/uploads/2017/09/El-automo%CC%81vil-Prius-se-corona-en-el-mercado-verde-de-Me%CC%81xico2-1024x470.jpg'), 
           
           placeholder: AssetImage('images/auto-2.gif'),
-          fadeInDuration: Duration(milliseconds: 200),
+
+          fadeInDuration: Duration(milliseconds: 100),
+  
         
         );
           
