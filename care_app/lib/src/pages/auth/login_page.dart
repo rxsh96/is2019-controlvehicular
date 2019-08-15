@@ -1,26 +1,7 @@
-import 'package:care_app/src/pages/agregarVehiculo_page.dart';
-import 'package:care_app/src/pages/vehiculos_page.dart';
+
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Login UI',
-      home: MyLoginPage(),
-      initialRoute: '/',
-      routes: {
-        '/vehiculos': (context) => VehiculosPage(),
-        '/agregarVehiculos': (context) => AgregarVehiculoPage()
-       },
 
-      theme: ThemeData(
-        primaryColor: Color.fromRGBO(32, 32, 32, 1),
-      ),
-    );
-  }
-}
 
 class MyLoginPage extends StatefulWidget {
   @override
