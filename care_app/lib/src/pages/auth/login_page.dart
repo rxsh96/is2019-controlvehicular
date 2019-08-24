@@ -37,7 +37,6 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
     final registerButton = Material(
       child: MaterialButton(
-        onPressed: () {},
         child: Text(
           "¿Usuario nuevo en careapp? Regístrese ahora",
           textAlign: TextAlign.center,
@@ -45,7 +44,10 @@ class _MyLoginPageState extends State<MyLoginPage> {
             color: Color.fromRGBO(203, 99, 51, 1),
             fontSize: 12,
           ),
+          
         ),
+        onPressed: () { Navigator.pushNamed(context, '/nuevoUser'); },
+
       ),
     );
 

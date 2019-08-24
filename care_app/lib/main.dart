@@ -1,5 +1,6 @@
 import 'package:care_app/src/pages/agregarVehiculo_page.dart';
 import 'package:care_app/src/pages/auth/login_page.dart';
+import 'package:care_app/src/pages/nuevoUser_page.dart';
 import 'package:care_app/src/pages/vehiculos_page.dart';
 import 'package:flutter/material.dart';
 
@@ -11,10 +12,13 @@ void main() {
        debugShowCheckedModeBanner: false,
        initialRoute: '/',
       routes: {
-        'login': (context)=>MyLoginPage(),
-        '/vehiculos': (context) => VehiculosPage(),
-        '/agregarVehiculos': (context) => AgregarVehiculoPage()
+        '/login'           : ( context )=>MyLoginPage(),
+        '/nuevoUser'       : ( context )=>NuevoUserPage(),
+        '/vehiculos'       : ( context ) => VehiculosPage(),
+        '/agregarVehiculos': ( context ) => AgregarVehiculoPage(),
+        
        },
+
 
       //Tema general para el appbar
       theme: ThemeData(
@@ -44,6 +48,7 @@ class _MyAppState extends State<MyApp> {
             builder:(context)=> MyLoginPage(),           
           ),          
         );
+        
       
       }
     );

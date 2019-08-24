@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+
 class VehiculosPage extends StatefulWidget {
   VehiculosPage() : super();
 
@@ -100,7 +101,7 @@ class _VehiculosPageState extends State<VehiculosPage> {
                 ),
 
                 //Text('Tu vehículo: ${_selectedVehiculos.name}'),
-
+               
                 Container(child: _imagenesAuto()),
 
                 Row(
@@ -240,10 +241,7 @@ class _VehiculosPageState extends State<VehiculosPage> {
             'https://www.expoknews.com/wp-content/uploads/2017/09/El-automo%CC%81vil-Prius-se-corona-en-el-mercado-verde-de-Me%CC%81xico2-1024x470.jpg'), 
           
           placeholder: AssetImage('images/auto-2.gif'),
-
           fadeInDuration: Duration(milliseconds: 100),
-  
-        
         );
           
   }
