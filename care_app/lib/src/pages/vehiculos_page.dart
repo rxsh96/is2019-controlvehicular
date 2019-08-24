@@ -120,17 +120,17 @@ class _VehiculosPageState extends State<VehiculosPage> {
                 ),
                 
                 SizedBox(height: 20.0),
-                _crearFranjas("FILTROS", 1 ,'filtro'),
+                _crearFranjas("FILTROS", 1 ,'filtro','filtros'),
                 SizedBox(height: 8.0),
-                _crearFranjas("FRENOS", 0.85,'frenos'),
+                _crearFranjas("FRENOS", 0.85,'frenos','frenos'),
                 SizedBox(height: 8.0),
-                _crearFranjas("LUCES", 0.7,'luces'),
+                _crearFranjas("LUCES", 0.7,'luces','luces'),
                 SizedBox(height: 8.0),
-                _crearFranjas("MULTAS", 0.75 ,'multas'),
+                _crearFranjas("MULTAS", 0.75 ,'multas','multas'),
                 SizedBox(height: 8.0),
-                _crearFranjas("KMS", 0.85,'kilometraje'),
+                _crearFranjas("KMS", 0.85,'kilometraje','kilometraje'),
                 SizedBox(height: 8.0),
-                _crearFranjas("GASOLINA", 1,'gasolina')
+                _crearFranjas("GASOLINA", 1,'gasolina','gasolina')
               ],
             ),
           ),
@@ -204,34 +204,37 @@ class _VehiculosPageState extends State<VehiculosPage> {
     );
   }
 
-  Widget _crearFranjas(String mantenimiento, double transparencia , String icono) {
-    return BottomAppBar(
-      color: Color.fromRGBO(203, 99, 51, transparencia),
-      child: Row(
-        children: <Widget>[
-          MaterialButton(
-            //Para hacer el ruteo
-            onPressed: () {
-              Navigator.pushNamed(context, '/vehiculos');
-            },
-
-            child: Text(
-              mantenimiento,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
+  Widget _crearFranjas(String mantenimiento, double transparencia , String icono , String ruta) {
+    return GestureDetector(
+          onTap: (){
+            Navigator.pushNamed(context, '/$ruta');
+          },
+          child: BottomAppBar(
+        
+          color: Color.fromRGBO(203, 99, 51, transparencia),
+          child: Row(
+            children: <Widget>[
+              MaterialButton(
+                onPressed: (){},
+                child: Text(
+                  mantenimiento,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
               ),
-            ),
-          ),
 
-          SizedBox(height: 85.0, width: 165),
-          //Icon(Icons.airline_seat_flat_angled),
-          Image(
-              image: AssetImage('images/$icono.png'),
-              height: 60,
-              alignment: Alignment.bottomRight)
-        ],
-      ),
+              SizedBox(height: 85.0, width: 165),
+              //Icon(Icons.airline_seat_flat_angled),
+              Image(
+                  image: AssetImage('images/$icono.png'),
+                  height: 60,
+                  alignment: Alignment.bottomRight)
+            ],
+          ),
+          
+        ),
     );
   }
 

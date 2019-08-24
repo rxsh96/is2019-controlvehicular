@@ -21,8 +21,9 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
 
           ),
           IconButton(
+            onPressed: (){},
             icon: Image.asset('images/logo.png'),
-            tooltip: 'Closes application'
+            //tooltip: 'Prueba'
           )
         ],  
       ),
@@ -41,6 +42,7 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
                 ))
             
           ],),
+           SizedBox(height: 15.0),
           _crearInput(Icons.account_box , 'Usuario ' , 'Ingrese su usuario'),
           SizedBox(height: 15.0),
           _crearInput(Icons.font_download, 'Nombres' , 'Ingrese sus Nombres'),
