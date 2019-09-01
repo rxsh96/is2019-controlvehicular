@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext as _
-from restfulapi import models
+from api import models
 
 
 class UserAdmin(BaseUserAdmin):
