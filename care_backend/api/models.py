@@ -1,5 +1,5 @@
 from django.db import models
-from restfulapi.manager import UserManager
+from api.manager import UserManager
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
                                         PermissionsMixin
 
