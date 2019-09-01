@@ -1,0 +1,98 @@
+{% extends 'core/navs.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content1 %}
+{% comment %} {% include 'resource/includes/resource_menu.html' %} {% endcomment %}
+
+{% comment %} {% load i18n %}
+        
+{% block head %}
+{{ wizard.form.media }}
+{% endblock %} {% endcomment %}
+
+<div class="container-fluid" style="background-color: #FFFFFF !important;">
+  <div class="container">
+    <div class="justify-content-center">
+      
+      <form action="" enctype="multipart/form-data" method="post">
+          {% csrf_token %}
+          <div class="{% if form.non_field_errors %}invalid{% endif %} ">
+            {% for error in form.non_field_errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+          <div class="pt-4 pb-4">
+            <label style="font-size: 22px;" class="text-secondary">REGISTRAR NUEVO NEGOCIO</label>
+          </div>
+          
+          <div class="col-md">
+            <div class="row">
+              <div class='col-md-6 pt-2'>
+
+                <label class="text-secondary pl-2" style="font-size: 14px;">RUC</label>
+                <div class="col-md-7 form-group">
+                  <div class="border rounded">
+                    {% render_field form.ruc class="form-control" placeholder=field.label %} 
+                  </div>
+                </div>
+                <label class="text-secondary pl-2" style="font-size: 14px;">Nombre Negocio</label>
+                <div class="col-md-7 form-group">
+                  <div class="border rounded">
+                    {% render_field form.business_name class="form-control" placeholder=field.label %} 
+                  </div>
+                </div>
+                <label class="text-secondary pl-2" style="font-size: 14px;">Teléfono Negocio</label>
+                <div class="col-md-7 form-group">
+                  <div class="border rounded">
+                    {% render_field form.business_phone class="form-control" placeholder=field.label %} 
+                  </div>
+                </div>
+                <label class="text-secondary pl-2" style="font-size: 14px;">Ciudad</label>
+                <div class="col-md-7 form-group">
+                  <div class="border rounded">
+                    {% render_field form.city class="form-control" placeholder=field.label %} 
+                  </div>
+                </div>
+                <label class="text-secondary pl-2" style="font-size: 13px;">Dirección</label>
+                <div class="col-md-7 form-group">
+                  <div class="border rounded">
+                      {% render_field form.address class="form-control" placeholder=field.label %}
+                  </div>
+                </div>
+              </div>
+
+              <div class='col-md-6 pt-2'>
+                <label class="text-secondary pl-2" style="font-size: 14px;">Nombre Representante Legal</label>
+                <div class="col-md-7 form-group">
+                  <div class="border rounded">
+                    {% render_field form.legal_representative_name class="form-control" placeholder=field.label %} 
+                  </div>
+                </div>
+                <label class="text-secondary pl-2" style="font-size: 14px;">Apellido Representante Legal</label>
+                <div class="col-md-7 form-group">
+                  <div class="border rounded">
+                    {% render_field form.legal_representative_lastname class="form-control" placeholder=field.label %} 
+                  </div>
+                </div>
+                <label class="text-secondary pl-2" style="font-size: 14px;">Descripción</label>
+                <div class="col-md-7 form-group">
+                  <div class="border rounded">
+                    {% render_field form.description class="form-control" placeholder=field.label %} 
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 pl-0 pb-3 pt-4" style="margin-left: 300px;">
+            <div class="pl-0">
+              <input type="submit" class="btn btn-outline-light btn-block" style="background-color: #b24f37;" value="Guardar" />
+            </div>
+          </div>
+        </form> 
+
+    </div>
+  </div>
+</div>
+{% endblock %}

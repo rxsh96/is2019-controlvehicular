@@ -1,0 +1,85 @@
+{% load widget_tweaks %}
+{% load static %}
+
+<div class="modal-body">
+  <div class="mt-4 mb-4 ml-4 mr-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 col-md-auto">
+          <button type="button" class="close" data-dismiss="modal">x</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 col-md-auto">
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">RUC:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label style="font-size: 14px;">{{ object.ruc }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">Nombre Negocio:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label  style="font-size: 14px;">{{ object.business_name }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" class="text-secondary" style="font-size: 14px;">Teléfono Negocio:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label style="font-size: 14px;">{{ object.business_phone }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">Ciudad:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label style="font-size: 14px;">{{ object.city }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">Dirección:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label style="font-size: 14px;"> {{ object.address }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">Nombre Representante Legal:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label  style="font-size: 14px;">{{ object.legal_representative_name }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">Apellido Representante Legal:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label style="font-size: 14px;">{{ object.legal_representative_lastname }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">Descripción:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label style="font-size: 14px;">{{ object.description }}</label>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

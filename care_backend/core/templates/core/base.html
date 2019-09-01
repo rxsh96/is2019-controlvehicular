@@ -12,8 +12,7 @@
     <link href="{% static 'core/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'core/css/main.css' %}" rel="stylesheet">
     <link href="{% static 'core/css/login.css' %}" rel="stylesheet">
-    <!-- Custom fonts for this template-->
-    {% comment %} <link href="{% static 'core/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css"> {% endcomment %}
+    
     <!-- Page level plugin CSS-->
     <link href="{% static 'core/vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
     <link href="{% static 'core/css/sb-admin.css' %}" rel="stylesheet">
@@ -26,12 +25,12 @@
 
 
   <body>
-    {% block content %}{% endblock %}
+    {% block content %}{% endblock content %}
 
     <footer class="footer navbar-fixed-bottom container-fluid blockquote-footer">
       <div class="row">
         <div class="col-5 border-right">
-          <p class="mt-2 font-weight-bold text-right text-white">LOCKEC Security</p>
+          <p class="mt-2 font-weight-bold text-right text-white">CAREAPP</p>
         </div>
         <div class="col border-right">
           <p class="mt-2 text-center text-white">Todos los derechos reservados ©</p>

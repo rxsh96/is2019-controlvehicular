@@ -20,4 +20,8 @@ from api.router import router
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    #Paths del core
+    path('', include('core.urls')),
+    #Paths del affiliate_business
+    path('', include('affiliate_business.urls')),
 ]
