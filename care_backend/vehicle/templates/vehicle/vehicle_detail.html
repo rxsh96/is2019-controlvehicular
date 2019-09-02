@@ -1,0 +1,77 @@
+{% load widget_tweaks %}
+{% load static %}
+
+<div class="modal-body">
+  <div class="mt-4 mb-4 ml-4 mr-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 col-md-auto">
+          <button type="button" class="close" data-dismiss="modal">x</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 col-md-auto">
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">Marca:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label style="font-size: 14px;">{{ object.brand }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">Modelo:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label  style="font-size: 14px;">{{ object.model }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" class="text-secondary" style="font-size: 14px;">Placa:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label style="font-size: 14px;">{{ object.plate }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">Color:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label style="font-size: 14px;">{{ object.color }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">Año:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label style="font-size: 14px;"> {{ object.year }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">Descripción:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label  style="font-size: 14px;">{{ object.description }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">KM:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label style="font-size: 14px;">{{ object.km }}</label>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -42,7 +42,7 @@ class Vehicle(models.Model):
 	""" engine = models.CharField(max_length=25,default="") """
 	year = models.CharField(max_length=4)
 	description = models.TextField(max_length=255, default="")
-	km = models.ImageField(verbose_name="Imagen", upload_to="vehicles", blank=True)
+	km = models.CharField(max_length=20)
 	is_active = models.BooleanField(default=True)
 	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")

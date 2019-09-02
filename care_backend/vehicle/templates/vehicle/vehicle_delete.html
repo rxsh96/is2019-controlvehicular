@@ -1,0 +1,22 @@
+{% load widget_tweaks %}
+
+<form method="post" action="">
+  {% csrf_token %}
+
+  <div class="modal-header">
+    <h3 class="modal-title">Delete Vehicle</h3>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <p class="delete-text">¿Seguro deseas eliminar el vehículo con placa 
+      <strong>{{ object.plate }}</strong>?</p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="submit" class="delete-btn btn btn-danger">Eliminar</button>
+  </div>
+
+</form>

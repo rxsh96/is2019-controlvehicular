@@ -24,4 +24,6 @@ urlpatterns = [
     path('', include('core.urls')),
     #Paths del affiliate_business
     path('', include('affiliate_business.urls')),
+    #Paths del vehicle
+    path('', include('vehicle.urls')),
 ]

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'bootstrap_modal_forms',
     'core',
+    'vehicle',
     'affiliate_business',
     'rest_framework',
     'rest_framework.authtoken',
