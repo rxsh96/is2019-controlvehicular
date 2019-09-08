@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class VehiculosPage extends StatefulWidget {
   VehiculosPage() : super();
@@ -37,7 +37,12 @@ class _VehiculosPageState extends State<VehiculosPage> {
   void initState() {
     _dropdownMenuItems = buildDropdownMenuItems(_vehiculos);
     _selectedVehiculos = _dropdownMenuItems[0].value;
-    super.initState();
+    _saveCurrentRoute("/LoginScreen");
+  }
+
+  _saveCurrentRoute(String lastRoute) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString('LastScreenRoute', lastRoute);
   }
 
   List<DropdownMenuItem<Vehiculos>> buildDropdownMenuItems(List vehiculos) {
