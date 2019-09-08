@@ -83,10 +83,14 @@ WSGI_APPLICATION = 'care_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'care_db',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
+        } 
+} 
 
 
 # Password validation
@@ -107,6 +111,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    #'DATE_INPUT_FORMATS' : ['%m/%d/%Y'],
+    #'DEFAULT_PAGINATION_CLASS': 
+    #    'rest_framework.pagination.PageNumberPagination',
+    #    'PAGE_SIZE': 5,
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/

@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from api import views as my_view
 from api.router import router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('api/token/', my_view.TokenView.as_view()),
     #Paths del core
     path('', include('core.urls')),
     #Paths del affiliate_business
