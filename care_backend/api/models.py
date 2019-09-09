@@ -10,14 +10,23 @@ class User(AbstractBaseUser, PermissionsMixin):
 	name=models.CharField(max_length=255)
 	lastname=models.CharField(max_length=255)
 	phone_number=models.CharField(max_length=10)
-	is_active=models.BooleanField(default=True)
-	is_staff=models.BooleanField(default=False)
+	is_active=models.BooleanField(default=True, blank=True)
+	is_staff=models.BooleanField(default=False, blank=True)
 	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
 	
 	objects=UserManager()
 	USERNAME_FIELD='email'
 
+"""class EmployeeAccount(models.Model):
+	id_number = models.CharField(max_length=10, unique=True)
+	name = models.CharField(max_length=255)
+	last_name = models.CharField(max_length=255)
+	dob = models.DateField()
+	is_admin = models.BooleanField(default=False)
+	profession = models.CharField(max_length=50, default="")
+	account = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+"""
 class Affiliate_business(models.Model):
 	ruc = models.CharField(max_length=13, unique=True)
 	business_name = models.CharField(max_length=255)

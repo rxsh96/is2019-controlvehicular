@@ -28,4 +28,6 @@ urlpatterns = [
     path('', include('affiliate_business.urls')),
     #Paths del vehicle
     path('', include('vehicle.urls')),
+    #Paths del user
+    path('', include('user.urls')),
 ]

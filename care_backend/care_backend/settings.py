@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'bootstrap_modal_forms',
     'core',
     'vehicle',
+    'user',
     'affiliate_business',
     'rest_framework',
     'rest_framework.authtoken',
