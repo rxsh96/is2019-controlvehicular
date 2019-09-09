@@ -73,7 +73,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
       child: MaterialButton(
         onPressed: () {
           requestLoginAPI(
-              context, _userNameController.text, _passwordController.text);
+              context, _userNameController.text.toLowerCase(), _passwordController.text);
           //Navigator.pushNamed(context, '/vehiculos');
         },
         child: Text(
