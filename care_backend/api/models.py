@@ -44,7 +44,7 @@ class Affiliate_business(models.Model):
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
 
 class Vehicle(models.Model):
-	owner = models.ForeignKey(User, on_delete = models.CASCADE)
+	owner = models.ForeignKey(User, on_delete = models.CASCADE, null=True, blank=True)
 	brand = models.CharField(max_length=30)
 	model = models.CharField(max_length=255)
 	plate = models.CharField(max_length=10)
