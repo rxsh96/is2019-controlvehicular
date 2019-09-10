@@ -10,6 +10,7 @@ import 'package:care_app/src/pages/luces_page.dart';
 import 'package:care_app/src/pages/multas_page.dart';
 import 'package:care_app/src/pages/nuevoUser_page.dart';
 import 'package:care_app/src/pages/vehiculos_page.dart';
+import 'package:care_app/src/pages/nuevoFiltro_page.dart';
 
 
 
@@ -25,7 +26,8 @@ Map <String , WidgetBuilder > getRoutes(){
         '/luces'           : ( context ) => LucesPage(),
         '/multas'          : ( context ) => MultasPage(),
         '/kilometraje'     : ( context ) => KilometrajePage(),
-        '/gasolina'        : ( context ) => GasolinaPage()
+        '/gasolina'        : ( context ) => GasolinaPage(),
+        '/nuevoFiltro'     : ( context ) => NuevoFiltro(),
       
   };
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:care_app/src/pages/nuevoFiltro_page.dart';
 
 class FiltroPage extends StatefulWidget {
   FiltroPage({Key key}) : super(key: key);
@@ -22,12 +23,8 @@ class _FiltroPageState extends State<FiltroPage> {
             _ListarFiltro(),
             _ListarFiltro(),
             _ListarFiltro(),
-            _ListarFiltro(),
-            _ListarFiltro(),
-            _ListarFiltro(),
-            _ListarFiltro(),
-            _ListarFiltro(),
-            _ListarFiltro(),
+
+
 
 
 
@@ -40,10 +37,17 @@ class _FiltroPageState extends State<FiltroPage> {
             image: AssetImage('images/agregar_auto.png'),
             height: 35,
           ),
-        onPressed: () {
-        // Add your onPressed code here!
-        }
-    ));
+            onPressed: (){
+            //Practicando nueva forma de hacer ruteo
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return NuevoFiltro();
+                }),
+              );
+            }
+
+        ));
   }
 
 
