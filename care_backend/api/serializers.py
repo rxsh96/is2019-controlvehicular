@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model, authenticate
 from rest_framework import serializers
 from django.utils.translation import ugettext_lazy as _
-from api.models import User
+from api.models import *
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -53,3 +53,18 @@ class AuthTokenSerializer(serializers.Serializer):
             raise serializers.ValidationError(msg, code='authorization')
         attrs['user'] = user
         return attrs
+
+class MaintenanceSerializer(serializers.Serializer):
+    class Meta:
+        model = Maintenance
+        fields = '__all__'
+
+class MaintenanceDetailsSerializer(serializers.Serializer):
+    class Meta:
+        model = MaintenanceDetails
+        fields = '__all__'
+
+class VehicleSerializer(serializers.Serializer):
+    class Meta:
+        model = Vehicle
+        fields = '__all__'
