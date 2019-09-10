@@ -12,7 +12,7 @@ class ApiService {
   final JsonDecoder _decoder = new JsonDecoder();
 
   Future<dynamic> get(String url, {Map<String, String> headers}) {
-    return http.get(url, headers: headers,).then((http.Response response) {
+    return http.get(baseUrl+url, headers: headers,).then((http.Response response) {
       String res = response.body;
       int statusCode = response.statusCode;
       print("API Response: " + res);
