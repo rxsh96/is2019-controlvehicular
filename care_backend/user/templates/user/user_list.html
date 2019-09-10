@@ -42,6 +42,10 @@
                 </tr>
               </tbody>
               {% endif %}
+            {% empty %}
+              <div class="row mt-3">
+                <h2>No hay datos para presentar.</h2>
+              </div>  
             {% endfor %}
           </table>
         </div>

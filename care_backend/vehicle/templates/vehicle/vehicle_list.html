@@ -48,10 +48,11 @@
                     </button></td>
                   </tr>
                 </tbody>
-              {% else %}
-                <p class="text-secondary" style="font-size: 14px;"> No hay datos para presentar</p>
               {% endif %}
-              
+            {% empty %}
+              <div class="row mt-3">
+                <h2>No hay datos para presentar.</h2>
+              </div>  
             {% endfor %}
           </table>
         </div>

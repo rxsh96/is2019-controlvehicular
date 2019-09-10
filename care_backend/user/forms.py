@@ -7,4 +7,4 @@ from user.models import User
 class UserForm(BSModalForm):
   class Meta:
       model = User
-      fields = '__all__'
+      fields = ['email','name','lastname','phone_number','is_active','is_staff']
