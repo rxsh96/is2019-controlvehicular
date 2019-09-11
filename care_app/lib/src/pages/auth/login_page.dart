@@ -1,8 +1,7 @@
 import 'package:care_app/api/loginRequest.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-const URL = "http://www.google.com";
+import 'package:care_app/Extras/loader.dart';
 
 class MyLoginPage extends StatefulWidget {
   @override
@@ -10,9 +9,12 @@ class MyLoginPage extends StatefulWidget {
 }
 
 class _MyLoginPageState extends State<MyLoginPage> {
+  final _formKey = GlobalKey<FormState>();
+
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  bool _isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -26,20 +28,27 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final usernameField = TextField(
+
+    final usernameField = TextFormField(
       controller: _userNameController,
       obscureText: false,
       decoration: InputDecoration(
-        hintText: "Nombre de Usuario",
+        hintText: "Correo Electrónico",
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             color: Color.fromRGBO(203, 99, 51, 1),
           ),
         ),
       ),
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Ingresa tu correo';
+        }
+        return null;
+      },
     );
 
-    final passwordField = TextField(
+    final passwordField = TextFormField(
       controller: _passwordController,
       obscureText: true,
       decoration: InputDecoration(
@@ -49,6 +58,23 @@ class _MyLoginPageState extends State<MyLoginPage> {
             color: Color.fromRGBO(203, 99, 51, 1),
           ),
         ),
+      ),
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Ingresa tu contraseña';
+        }
+        return null;
+      },
+    );
+
+    final myLoginForm = Form(
+      key: _formKey,
+      child: Column(
+        children: <Widget>[
+          usernameField,
+          SizedBox(height: 10.0),
+          passwordField,
+        ],
       ),
     );
 
@@ -71,10 +97,18 @@ class _MyLoginPageState extends State<MyLoginPage> {
     final loginButton = BottomAppBar(
       color: Color.fromRGBO(203, 99, 51, 1),
       child: MaterialButton(
-        onPressed: () {
-          requestLoginAPI(
-              context, _userNameController.text.toLowerCase(), _passwordController.text);
-          //Navigator.pushNamed(context, '/vehiculos');
+        onPressed: () async {
+          if (_formKey.currentState.validate()) {
+            setState(() {
+              _isLoading = true;
+            });
+            await requestLoginAPI(context, _userNameController.text.toLowerCase(),
+                _passwordController.text);
+            setState(() {
+              _isLoading = false;
+            });
+            return;
+          }
         },
         child: Text(
           "Iniciar Sesión",
@@ -85,6 +119,16 @@ class _MyLoginPageState extends State<MyLoginPage> {
         ),
       ),
     );
+
+    Widget showLoader;
+    setState(() {
+      if(_isLoading){
+        showLoader = new Loader();
+      }
+      else{
+        showLoader = new Container();
+      }
+    });
 
     return Scaffold(
       body: Center(
@@ -103,11 +147,11 @@ class _MyLoginPageState extends State<MyLoginPage> {
                       fit: BoxFit.contain,
                     ),
                   ),
-                  usernameField,
-                  SizedBox(height: 10.0),
-                  passwordField,
+                  myLoginForm,
                   SizedBox(height: 25.0),
                   registerButton,
+                  SizedBox(height: 5.0),
+                  showLoader,
                 ],
               ),
             ),

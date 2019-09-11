@@ -23,8 +23,6 @@ Future<LoginModel> requestLoginAPI(
   if (response.statusCode == 200) {
     final responseJson = json.decode(response.body);
     saveLogin(responseJson);
-    print('ESTA ES LA INFO DEL TOKEN');
-    print(responseJson);
     Navigator.of(context).pushReplacementNamed('/vehiculos');
     return LoginModel.fromJson(responseJson);
   }
@@ -34,8 +32,8 @@ Future<LoginModel> requestLoginAPI(
     saveLogin(responseJson);
     showSimpleDialog(
         context,
-        "No es posible conectarse",
-        "Email o contraseña inválidos, trata de nuevo.",
+        "Ups",
+        "Credenciales Incorrectas.",
         "OK");
     return null;
   }
