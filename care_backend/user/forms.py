@@ -4,7 +4,7 @@ from bootstrap_modal_forms.forms import BSModalForm
 from user.models import User
 
 
-class UserForm(BSModalForm):
+class UserUpdateForm(BSModalForm):
   class Meta:
       model = User
       fields = ['email','name','lastname','phone_number','is_active','is_staff']

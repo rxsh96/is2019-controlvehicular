@@ -17,19 +17,21 @@
           <div class="text-right">
             <a class="navbar-brand ml-4 font-weight-bold  text-info" href="{% url 'crear_vehiculo' %}" style="font-size: 12px;">REGISTRAR NUEVO VEHÍCULO</a>
           </div>
-          {% for vehicle in object_list|dictsort:"year" %}
-            {% if vehicle.year != null %}
-              <table class="table table-borderless">
-                <thead>
-                  <tr class="text-center">
-                    <th scope="col"><p class="text-secondary" style="font-size: 12px;">Marca</p></th>
-                    <th scope="col"><p class="text-secondary" style="font-size: 12px;">Modelo</p></th>
-                    <th scope="col"><p class="text-secondary" style="font-size: 12px;">Placa</p></th>
-                    <th scope="col"><p class="text-secondary" style="font-size: 12px;">Color</p></th>
-                    <th scope="col"><p class="text-secondary" style="font-size: 12px;">Año</p></th>
-                    <th scope="col"><p class="text-secondary" style="font-size: 12px;">Km</p></th>
-                  </tr>
-                </thead>
+          <table class="table table-borderless">
+            {% for vehicle in object_list|dictsort:"year" %}
+              {% if vehicle.year != null %}
+                {% if forloop.first %}
+                  <thead>
+                    <tr class="text-center">
+                      <th scope="col"><p class="text-secondary" style="font-size: 12px;">Marca</p></th>
+                      <th scope="col"><p class="text-secondary" style="font-size: 12px;">Modelo</p></th>
+                      <th scope="col"><p class="text-secondary" style="font-size: 12px;">Placa</p></th>
+                      <th scope="col"><p class="text-secondary" style="font-size: 12px;">Color</p></th>
+                      <th scope="col"><p class="text-secondary" style="font-size: 12px;">Año</p></th>
+                      <th scope="col"><p class="text-secondary" style="font-size: 12px;">Km</p></th>
+                    </tr>
+                  </thead>
+                {% endif %}
             
                 <tbody>
                   <tr scope="row" class="center-block text-center border rounded-pill pt-3 pb-3">
@@ -49,13 +51,14 @@
                     </button></td>
                   </tr>
                 </tbody>
-              </table>
-            {% endif %}
-            {% empty %}
-              <div class="row mt-3">
-                <h4>No hay datos que presentar</h4>
-              </div>  
-          {% endfor %}
+                
+              {% endif %}
+              {% empty %}
+                <div class="row mt-3">
+                  <h4>No hay datos que presentar</h4>
+                </div>  
+            {% endfor %}
+          </table>
         </div>
 
         <!-- Contenido extra -->

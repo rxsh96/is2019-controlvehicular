@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from api.models import Affiliate_business
-from affiliate_business.forms import BusinessForm
+from affiliate_business.forms import BusinessUpdateForm, BusinessCreateForm
 from django.urls import reverse_lazy
 from bootstrap_modal_forms.generic import (BSModalCreateView,
                                            BSModalUpdateView,
@@ -10,6 +10,7 @@ from bootstrap_modal_forms.generic import (BSModalCreateView,
                                            BSModalDeleteView)
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 
@@ -21,8 +22,12 @@ class BusinessListView(ListView):
 class BusinessCreateView(CreateView):
   model = Affiliate_business
   template_name = 'affiliate_business/business_create.html'
-  fields = ['ruc','business_name','description','business_phone','city','legal_representative_name','legal_representative_lastname','address']
-  success_url = reverse_lazy('negocio')
+  form_class = BusinessCreateForm
+  #success_url = reverse_lazy('negocio')
+  def form_valid(self,form):
+    self.object = form.save(commit=False)
+    self.object.save()
+    return HttpResponseRedirect(reverse_lazy('negocio'))
 
 class BusinessDetailView(BSModalReadView):
   model = Affiliate_business  
@@ -31,7 +36,7 @@ class BusinessDetailView(BSModalReadView):
 class BusinessUpdateView(BSModalUpdateView):
   model = Affiliate_business
   template_name = 'affiliate_business/business_update.html'
-  form_class = BusinessForm
+  form_class = BusinessUpdateForm
   success_message = 'Éxito: Negocio actualizado.'
   success_url = reverse_lazy('negocio')
 

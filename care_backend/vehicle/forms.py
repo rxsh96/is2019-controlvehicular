@@ -4,7 +4,12 @@ from bootstrap_modal_forms.forms import BSModalForm
 from vehicle.models import Vehicle
 
 
-class VehicleForm(BSModalForm):
+class VehicleUpdateForm(BSModalForm):
   class Meta:
       model = Vehicle
       fields = '__all__'
+
+class VehicleCreateForm(forms.ModelForm):
+  class Meta:
+      model = Vehicle
+      fields = '__all__'#['brand','model','plate','color','year','description','km']

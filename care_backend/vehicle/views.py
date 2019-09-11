@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from vehicle.models import Vehicle
-from vehicle.forms import VehicleForm
+from vehicle.forms import VehicleUpdateForm, VehicleCreateForm
 from django.urls import reverse_lazy
 from bootstrap_modal_forms.generic import (BSModalCreateView,
                                            BSModalUpdateView,
@@ -21,7 +21,7 @@ class VehicleListView(ListView):
 class VehicleCreateView(CreateView):
   model = Vehicle
   template_name = 'vehicle/vehicle_create.html'
-  fields = ['brand','model','plate','color','year','description','km']
+  form_class = VehicleCreateForm
   success_url = reverse_lazy('vehiculo')
 
 class VehicleDetailView(BSModalReadView):
@@ -31,7 +31,7 @@ class VehicleDetailView(BSModalReadView):
 class VehicleUpdateView(BSModalUpdateView):
   model = Vehicle
   template_name = 'vehicle/vehicle_update.html'
-  form_class = VehicleForm
+  form_class = VehicleUpdateForm
   success_message = 'Éxito: Vehículo actualizado.'
   success_url = reverse_lazy('vehiculo')
 
