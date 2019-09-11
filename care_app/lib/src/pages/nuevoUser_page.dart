@@ -9,7 +9,7 @@ class NuevoUserPage extends StatefulWidget {
 
 class _NuevoUserPageState extends State<NuevoUserPage> {
 
-  final TextEditingController _inputUsuario = TextEditingController();
+  //final TextEditingController _inputUsuario = TextEditingController();
   final TextEditingController _inputNombre = TextEditingController();
   final TextEditingController _inputApellido = TextEditingController();
   final TextEditingController _inputMail = TextEditingController();
@@ -18,64 +18,57 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("PERFIL", style: TextStyle(fontSize: 17)),
-          actions: <Widget>[
-            IconButton(
-                //Me ingenié esta forma de regresar al page, no sé como se realiza de verdad
-                icon: Icon(Icons.arrow_back),
-                color: Color.fromRGBO(255, 255, 255, 1),
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
-            IconButton(
-              onPressed: () {},
-              icon: Image.asset('images/logo.png'),
-              //tooltip: 'Prueba'
-            )
-          ],
-        ),
-        body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 30.0),
-          children: <Widget>[
-            Stack(
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Container(
-                    child: Center(
-                  child: CircleAvatar(
-                      maxRadius: 75.0,
-                      backgroundColor: Colors.red,
-                      backgroundImage: AssetImage('images/no-image.png')),
-                ))
+                Text("Registro", style: TextStyle(fontSize: 18)),
+                Image.asset('images/logo2.png', fit: BoxFit.contain,)
               ],
             ),
-            SizedBox(height: 15.0),
-            _crearInputUsuario(Icons.account_box, 'Usuario ', 'Ingrese su usuario'),
-            SizedBox(height: 15.0),
-            _crearInputNombre(Icons.font_download, 'Nombres', 'Ingrese sus Nombres'),
-            SizedBox(height: 15.0),
-            _crearInputApellido(Icons.font_download, 'Apellidos', 'Ingrese sus apellidos'),
-            SizedBox(height: 15.0),
-            _crearInputTelefono(Icons.phone, 'Teléfono', 'Ingrese su número de teléfono'),
-            SizedBox(height: 15.0),
-            _crearInputMail(Icons.email, 'Correo', 'Ingrese su dirección de correo'),
-            SizedBox(height: 15.0),
-            _crearInputContrasena(Icons.vpn_key, 'Contraseña', 'Ingrese su contraseña'),
-            SizedBox(height: 35.0),
-            Container(
-              child: _submitVehiculo(),
-            )
-          ],
-        )
-        //onTap: () { Navigator.pop(context);}
-        );
+          ),
+          body: ListView(
+            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 30.0),
+            children: <Widget>[
+              Stack(
+                children: <Widget>[
+                  Container(
+                      child: Center(
+                    child: CircleAvatar(
+                        maxRadius: 75.0,
+                        backgroundColor: Colors.red,
+                        backgroundImage: AssetImage('images/no-image.png')),
+                  ))
+                ],
+              ),
+              //SizedBox(height: 15.0),
+              //_crearInput(Icons.account_box, 'Usuario ', 'Ingrese su usuario', _inputUsuario),
+              SizedBox(height: 15.0),
+              _crearInput(Icons.font_download, 'Nombres', 'Ingrese sus Nombres', _inputNombre),
+              SizedBox(height: 15.0),
+              _crearInput(Icons.font_download, 'Apellidos', 'Ingrese sus apellidos', _inputApellido),
+              SizedBox(height: 15.0),
+              _crearInputTelefono(Icons.phone, 'Teléfono', 'Ingrese su número de teléfono'),
+              SizedBox(height: 15.0),
+              _crearInputCorreo(Icons.email, 'Correo', 'Ingrese su dirección de correo'),
+              SizedBox(height: 15.0),
+              _crearInputContrasena(Icons.vpn_key, 'Contraseña', 'Ingrese su contraseña'),
+              SizedBox(height: 35.0),
+              Container(
+                child: _submitVehiculo(),
+              )
+            ],
+          )
+          //onTap: () { Navigator.pop(context);}
+          ),
+    );
   }
 
-  Widget _crearInputUsuario(IconData icon, String label, String hint) {
+  Widget _crearInput(IconData icon, String label, String hint, TextEditingController controller) {
     return TextField(
-      controller: _inputUsuario,
-      textCapitalization: TextCapitalization.sentences,
+      controller: controller,
       decoration: InputDecoration(
           //counter: Text('Letras 0'),
           //helperText: 'Solo es el nombre',
@@ -96,57 +89,10 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
     );
   }
 
-  Widget _crearInputNombre(IconData icon, String label, String hint) {
-    return TextField(
-      controller: _inputNombre,
-      textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(
-        //counter: Text('Letras 0'),
-        //helperText: 'Solo es el nombre',
-          labelText: label,
-          hintText: hint,
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Color.fromRGBO(203, 99, 51, 1),
-              )),
-          suffixIcon: Icon(icon)
-        /*
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      )
-      */
-
-      ),
-    );
-  }
-
-  Widget _crearInputApellido(IconData icon, String label, String hint) {
-    return TextField(
-      controller: _inputApellido,
-      textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(
-        //counter: Text('Letras 0'),
-        //helperText: 'Solo es el nombre',
-          labelText: label,
-          hintText: hint,
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Color.fromRGBO(203, 99, 51, 1),
-              )),
-          suffixIcon: Icon(icon)
-        /*
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      )
-      */
-
-      ),
-    );
-  }
-
-  Widget _crearInputMail(IconData icon, String label, String hint) {
+  Widget _crearInputCorreo(IconData icon, String label, String hint) {
     return TextField(
       controller: _inputMail,
+      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         //counter: Text('Letras 0'),
         //helperText: 'Solo es el nombre',
@@ -196,8 +142,6 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
     return TextField(
       controller: _inputContrasena,
       obscureText: true,
-      keyboardType: TextInputType.phone,
-      textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         //counter: Text('Letras 0'),
         //helperText: 'Solo es el nombre',

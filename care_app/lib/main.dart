@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:care_app/src/routes/routes.dart';
-import 'package:care_app/src/pages/splash_page.dart';
 import 'package:care_app/src/pages/vehiculos_page.dart';
+import 'package:care_app/src/pages/auth/login_page.dart';
 
 void main() {
   runApp(
@@ -14,7 +14,7 @@ void main() {
       theme: ThemeData(
         primaryColor: Color.fromRGBO(32, 32, 32, 1),
       ),
-      home: VehiculosPage(),
+      home: MyLoginPage(),
     )
     
   
