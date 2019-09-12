@@ -10,6 +10,7 @@ from bootstrap_modal_forms.generic import (BSModalCreateView,
                                            BSModalDeleteView)
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 
@@ -17,6 +18,15 @@ from django.contrib.messages.views import SuccessMessageMixin
 class UserListView(ListView):
   model = User
   template_name = 'user/user_list.html'
+
+class UserCreateView(CreateView):
+  model = User
+  template_name = 'user/user_create.html'
+  form_class = UserCreateForm
+  def form_valid(self,form):
+    self.object = form.save(commit=False)
+    self.object.save()
+    return HttpResponseRedirect(reverse_lazy('usuario'))
 
 class UserDetailView(BSModalReadView):
   model = User  

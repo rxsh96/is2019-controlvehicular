@@ -14,9 +14,9 @@
         <!--END MODAL FADE-->
 
         <div class="pb-4 pt-4">
-          {% comment %} <div class="text-right">
-            <a class="navbar-brand ml-4 font-weight-bold  text-info" href="#" style="font-size: 12px;">REGISTRAR NUEVO USUARIO</a>
-          </div> {% endcomment %}
+          <div class="text-right">
+            <a class="navbar-brand ml-4 font-weight-bold  text-info" href="{% url 'crear_usuario' %}" style="font-size: 12px;">REGISTRAR NUEVO USUARIO</a>
+          </div>
           <table class="table table-borderless">
             {% for user in object_list|dictsort:"phone_number" %}
               {% if  user.is_active == True %}
