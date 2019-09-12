@@ -54,17 +54,22 @@ class AuthTokenSerializer(serializers.Serializer):
         attrs['user'] = user
         return attrs
 
-class MaintenanceSerializer(serializers.Serializer):
+class MaintenanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Maintenance
         fields = '__all__'
 
-class MaintenanceDetailsSerializer(serializers.Serializer):
+class MaintenanceDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = MaintenanceDetails
         fields = '__all__'
 
-class VehicleSerializer(serializers.Serializer):
+class VehicleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vehicle
+        fields = '__all__'
+
+class Affiliate_businessSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Affiliate_business
         fields = '__all__'
