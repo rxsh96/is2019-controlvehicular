@@ -1,6 +1,5 @@
 import 'package:care_app/api/loginRequest.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:care_app/Extras/loader.dart';
 
 class MyLoginPage extends StatefulWidget {
@@ -18,19 +17,14 @@ class _MyLoginPageState extends State<MyLoginPage> {
   @override
   void initState() {
     super.initState();
-    _saveCurrentRoute("/login");
-  }
-
-  _saveCurrentRoute(String lastRoute) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString('LastScreenRoute', lastRoute);
   }
 
   @override
   Widget build(BuildContext context) {
 
-    final usernameField = TextFormField(
+    final emailField = TextFormField(
       controller: _userNameController,
+      keyboardType: TextInputType.emailAddress,
       obscureText: false,
       decoration: InputDecoration(
         hintText: "Correo Electrónico",
@@ -71,7 +65,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
       key: _formKey,
       child: Column(
         children: <Widget>[
-          usernameField,
+          emailField,
           SizedBox(height: 10.0),
           passwordField,
         ],

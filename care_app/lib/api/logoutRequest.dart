@@ -3,9 +3,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-import 'package:care_app/api/token/getToken.dart';
-import 'package:care_app/api/token/currentLogin.dart';
 import 'package:care_app/models/loginModel.dart';
 
 Future<LoginModel> requestLogoutAPI(BuildContext context) async {
@@ -13,9 +10,9 @@ Future<LoginModel> requestLogoutAPI(BuildContext context) async {
 
   var token;
 
-  await getToken().then((result) {
-    token = result;
-  });
+//  await getToken().then((result) {
+//    token = result;
+//  });
 
   final response = await http.post(
     url,
@@ -23,10 +20,10 @@ Future<LoginModel> requestLogoutAPI(BuildContext context) async {
   );
 
   if (response.statusCode == 200) {
-    saveLogout();
+    //saveLogout();
     return null;
   } else {
-    saveLogout();
+    //saveLogout();
     return null;
   }
 }

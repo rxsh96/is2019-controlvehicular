@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class VehiculosPage extends StatefulWidget {
   VehiculosPage() : super();
@@ -32,6 +32,7 @@ class _VehiculosPageState extends State<VehiculosPage> {
   List<Vehiculos> _vehiculos = Vehiculos.getVehiculos();
   List<DropdownMenuItem<Vehiculos>> _dropdownMenuItems;
   Vehiculos _selectedVehiculos;
+  final storage = new FlutterSecureStorage();
 
   @override
   void initState() {
@@ -41,8 +42,8 @@ class _VehiculosPageState extends State<VehiculosPage> {
   }
 
   _saveCurrentRoute(String lastRoute) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString('LastScreenRoute', lastRoute);
+    //SharedPreferences preferences = await SharedPreferences.getInstance();
+    //await preferences.setString('LastScreenRoute', lastRoute);
   }
 
   List<DropdownMenuItem<Vehiculos>> buildDropdownMenuItems(List vehiculos) {
@@ -62,6 +63,11 @@ class _VehiculosPageState extends State<VehiculosPage> {
     setState(() {
       _selectedVehiculos = _selectedVehiculos;
     });
+  }
+
+  void logout() {
+    storage.delete(key: 'token');
+    Navigator.of(context).pushReplacementNamed('/login');
   }
 
   @override
@@ -106,7 +112,7 @@ class _VehiculosPageState extends State<VehiculosPage> {
                 ),
 
                 //Text('Tu vehículo: ${_selectedVehiculos.name}'),
-               
+
                 Container(child: _imagenesAuto()),
 
                 Row(
@@ -123,19 +129,19 @@ class _VehiculosPageState extends State<VehiculosPage> {
                     ),
                   ],
                 ),
-                
+
                 SizedBox(height: 20.0),
-                _crearFranjas("FILTROS", 1 ,'filtro','filtros'),
+                _crearFranjas("FILTROS", 1, 'filtro', 'filtros'),
                 SizedBox(height: 8.0),
-                _crearFranjas("FRENOS", 0.85,'frenos','frenos'),
+                _crearFranjas("FRENOS", 0.85, 'frenos', 'frenos'),
                 SizedBox(height: 8.0),
-                _crearFranjas("LUCES", 0.7,'luces','luces'),
+                _crearFranjas("LUCES", 0.7, 'luces', 'luces'),
                 SizedBox(height: 8.0),
-                _crearFranjas("MULTAS", 0.75 ,'multas','multas'),
+                _crearFranjas("MULTAS", 0.75, 'multas', 'multas'),
                 SizedBox(height: 8.0),
-                _crearFranjas("KMS", 0.85,'kilometraje','kilometraje'),
+                _crearFranjas("KMS", 0.85, 'kilometraje', 'kilometraje'),
                 SizedBox(height: 8.0),
-                _crearFranjas("GASOLINA", 1,'gasolina','gasolina')
+                _crearFranjas("GASOLINA", 1, 'gasolina', 'gasolina')
               ],
             ),
           ),
@@ -174,83 +180,91 @@ class _VehiculosPageState extends State<VehiculosPage> {
 
             Divider(color: Colors.grey),
 
-            _crearLista('Locales' , 'location_pointer'),
+            _crearLista('Locales', 'location_pointer'),
             _crearLista('Viajes', 'menu_viajes'),
-            _crearLista('Notificaciones','menu_notificaciones'),
-            _crearLista('Encuesta','menu_notificaciones'),
-            _crearLista('Guía de mantenimiento','menu_guia'),
-            _crearLista('Reporte de accidentes','menu_reporte'),
+            _crearLista('Notificaciones', 'menu_notificaciones'),
+            _crearLista('Encuesta', 'menu_notificaciones'),
+            _crearLista('Guía de mantenimiento', 'menu_guia'),
+            _crearLista('Reporte de accidentes', 'menu_reporte'),
 
             SizedBox(height: 45.0),
             Divider(color: Colors.grey, height: 5.0),
             SizedBox(height: 15.0),
-            _crearLista('Configuración','menu_configuracion'),
+            _crearLista('Configuración', 'menu_configuracion'),
+            ListTile(
+              leading: Image.asset(
+                'images/flecha_atras.png',
+                width: 20.0,
+                height: 20.0,
+              ),
+              title: Text(
+                'Cerrar Sesión',
+                style: TextStyle(color: Colors.white, fontSize: 15),
+              ),
+              onTap: logout,
+//              ,
+            )
           ],
         ),
       ),
     );
   }
 
- 
-
-  Widget _crearLista(String listaNombre ,String icono) {
+  Widget _crearLista(String listaNombre, String icono) {
     return ListTile(
       //leading: Icon(Icons.pages, color: Color.fromRGBO(203, 99, 51, 1)),
-      
-      leading:Image(
+
+      leading: Image(
         image: AssetImage('images/$icono.png'),
         height: 20,
         width: 20,
-      ), 
-      
+      ),
+
       title: Text(listaNombre,
-            style: TextStyle(color: Colors.white, fontSize: 15)),
-      onTap: () {},
+          style: TextStyle(color: Colors.white, fontSize: 15)),
+      onTap: () => {},
     );
   }
 
-  Widget _crearFranjas(String mantenimiento, double transparencia , String icono , String ruta) {
+  Widget _crearFranjas(
+      String mantenimiento, double transparencia, String icono, String ruta) {
     return GestureDetector(
-          onTap: (){
-            Navigator.pushNamed(context, '/$ruta');
-          },
-          child: BottomAppBar(
-        
-          color: Color.fromRGBO(203, 99, 51, transparencia),
-          child: Row(
-            children: <Widget>[
-              MaterialButton(
-                onPressed: (){},
-                child: Text(
-                  mantenimiento,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
+      onTap: () {
+        Navigator.pushNamed(context, '/$ruta');
+      },
+      child: BottomAppBar(
+        color: Color.fromRGBO(203, 99, 51, transparencia),
+        child: Row(
+          children: <Widget>[
+            MaterialButton(
+              onPressed: () {},
+              child: Text(
+                mantenimiento,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
                 ),
               ),
+            ),
 
-              SizedBox(height: 85.0, width: 165),
-              //Icon(Icons.airline_seat_flat_angled),
-              Image(
-                  image: AssetImage('images/$icono.png'),
-                  height: 60,
-                  alignment: Alignment.bottomRight)
-            ],
-          ),
-          
+            SizedBox(height: 85.0, width: 165),
+            //Icon(Icons.airline_seat_flat_angled),
+            Image(
+                image: AssetImage('images/$icono.png'),
+                height: 60,
+                alignment: Alignment.bottomRight)
+          ],
         ),
+      ),
     );
   }
 
   Widget _imagenesAuto() {
     return FadeInImage(
-        image: NetworkImage(
-            'https://www.expoknews.com/wp-content/uploads/2017/09/El-automo%CC%81vil-Prius-se-corona-en-el-mercado-verde-de-Me%CC%81xico2-1024x470.jpg'), 
-          
-          placeholder: AssetImage('images/auto-2.gif'),
-          fadeInDuration: Duration(milliseconds: 100),
-        );
-          
+      image: NetworkImage(
+          'https://www.expoknews.com/wp-content/uploads/2017/09/El-automo%CC%81vil-Prius-se-corona-en-el-mercado-verde-de-Me%CC%81xico2-1024x470.jpg'),
+      placeholder: AssetImage('images/auto-2.gif'),
+      fadeInDuration: Duration(milliseconds: 100),
+    );
   }
 }

@@ -9,7 +9,7 @@ class NuevoUserPage extends StatefulWidget {
 
 class _NuevoUserPageState extends State<NuevoUserPage> {
 
-  //final TextEditingController _inputUsuario = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _inputNombre = TextEditingController();
   final TextEditingController _inputApellido = TextEditingController();
   final TextEditingController _inputMail = TextEditingController();
@@ -17,7 +17,37 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
   final TextEditingController _inputTelefono = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+    final myUserForm = Form(
+      key: _formKey,
+      child: Column(
+        children: <Widget>[
+          SizedBox(height: 15.0),
+          _crearInput(Icons.font_download, 'Nombres', 'Ingrese sus Nombres',
+              _inputNombre),
+          SizedBox(height: 15.0),
+          _crearInput(Icons.font_download, 'Apellidos',
+              'Ingrese sus apellidos', _inputApellido),
+          SizedBox(height: 15.0),
+          _crearInputTelefono(
+              Icons.phone, 'Teléfono', 'Ingrese su número de teléfono'),
+          SizedBox(height: 15.0),
+          _crearInputCorreo(
+              Icons.email, 'Correo', 'Ingrese su dirección de correo'),
+          SizedBox(height: 15.0),
+          _crearInputContrasena(
+              Icons.vpn_key, 'Contraseña', 'Ingrese su contraseña'),
+          SizedBox(height: 35.0),
+        ],
+      ),
+    );
+
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -25,7 +55,10 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text("Registro", style: TextStyle(fontSize: 18)),
-                Image.asset('images/logo2.png', fit: BoxFit.contain,)
+                Image.asset(
+                  'images/logo2.png',
+                  fit: BoxFit.contain,
+                )
               ],
             ),
           ),
@@ -45,19 +78,9 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
               ),
               //SizedBox(height: 15.0),
               //_crearInput(Icons.account_box, 'Usuario ', 'Ingrese su usuario', _inputUsuario),
-              SizedBox(height: 15.0),
-              _crearInput(Icons.font_download, 'Nombres', 'Ingrese sus Nombres', _inputNombre),
-              SizedBox(height: 15.0),
-              _crearInput(Icons.font_download, 'Apellidos', 'Ingrese sus apellidos', _inputApellido),
-              SizedBox(height: 15.0),
-              _crearInputTelefono(Icons.phone, 'Teléfono', 'Ingrese su número de teléfono'),
-              SizedBox(height: 15.0),
-              _crearInputCorreo(Icons.email, 'Correo', 'Ingrese su dirección de correo'),
-              SizedBox(height: 15.0),
-              _crearInputContrasena(Icons.vpn_key, 'Contraseña', 'Ingrese su contraseña'),
-              SizedBox(height: 35.0),
+              myUserForm,
               Container(
-                child: _submitVehiculo(),
+                child: _submitUser(),
               )
             ],
           )
@@ -66,124 +89,123 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
     );
   }
 
-  Widget _crearInput(IconData icon, String label, String hint, TextEditingController controller) {
-    return TextField(
+  Widget _crearInput(IconData icon, String label, String hint,
+      TextEditingController controller) {
+    return TextFormField(
       controller: controller,
       decoration: InputDecoration(
-          //counter: Text('Letras 0'),
-          //helperText: 'Solo es el nombre',
-          labelText: label,
-          hintText: hint,
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
+        labelText: label,
+        hintText: hint,
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
             color: Color.fromRGBO(203, 99, 51, 1),
-          )),
-          suffixIcon: Icon(icon)
-          /*
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      )
-      */
-
           ),
+        ),
+        suffixIcon: Icon(icon),
+      ),
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Ingresa tus datos';
+        }
+        return null;
+      },
     );
   }
 
   Widget _crearInputCorreo(IconData icon, String label, String hint) {
-    return TextField(
+    return TextFormField(
       controller: _inputMail,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-        //counter: Text('Letras 0'),
-        //helperText: 'Solo es el nombre',
           labelText: label,
           hintText: hint,
           focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Color.fromRGBO(203, 99, 51, 1),
-              )),
-          suffixIcon: Icon(icon)
-        /*
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      )
-      */
-
-      ),
+            borderSide: BorderSide(
+              color: Color.fromRGBO(203, 99, 51, 1),
+            ),
+          ),
+          suffixIcon: Icon(icon)),
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Ingresa tu correo';
+        }
+        return null;
+      },
     );
   }
 
   Widget _crearInputTelefono(IconData icon, String label, String hint) {
-    return TextField(
+    return TextFormField(
       controller: _inputTelefono,
       keyboardType: TextInputType.phone,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-          //counter: Text('Letras 0'),
-          //helperText: 'Solo es el nombre',
           labelText: label,
           hintText: hint,
           focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-            color: Color.fromRGBO(203, 99, 51, 1),
-          )),
-          suffixIcon: Icon(icon)
-          /*
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      )
-      */
-
+            borderSide: BorderSide(
+              color: Color.fromRGBO(203, 99, 51, 1),
+            ),
           ),
+          suffixIcon: Icon(icon)),
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Ingresa tu número de teléfono';
+        }
+        return null;
+      },
     );
   }
 
   Widget _crearInputContrasena(IconData icon, String label, String hint) {
-    return TextField(
+    return TextFormField(
       controller: _inputContrasena,
       obscureText: true,
       decoration: InputDecoration(
-        //counter: Text('Letras 0'),
-        //helperText: 'Solo es el nombre',
         labelText: label,
         hintText: hint,
         focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-          color: Color.fromRGBO(203, 99, 51, 1),
-        )),
+          borderSide: BorderSide(
+            color: Color.fromRGBO(203, 99, 51, 1),
+          ),
+        ),
         suffixIcon: Icon(icon),
-
-        /*
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      )
-      */
       ),
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Ingresa una contraseña';
+        }
+        return null;
+      },
     );
+  }
+
+  void registerUser(){
+    if (_formKey.currentState.validate()) {
+      Map<String, String> body = {
+        "name": _inputNombre.text,
+        "lastname": _inputApellido.text,
+        "phone_number": _inputTelefono.text,
+        "email": _inputMail.text.toLowerCase(),
+        "password": _inputContrasena.text,
+        "is_active": "true"
+      };
+      print('dentro del if');
+      ApiService.internal().post('users/', body: body);
+      Navigator.pushNamed(context, '/login');
+    }
+    print('fuera del if');
   }
 
 //No se como tomar un widget de otra clase .
 //Aquí podriamos reutilizar el widget CREAR FRANJA de Vehiculos_page
 
-  Widget _submitVehiculo() {
+  Widget _submitUser() {
     return BottomAppBar(
       color: Color.fromRGBO(203, 99, 51, 1),
       child: MaterialButton(
         onPressed: () {
-          //TODO: llamar al metodo post de apiService
-
-          Map<String, String> body = {
-            "name": _inputNombre.text,
-            "lastname": _inputApellido.text,
-            "phone_number": _inputTelefono.text,
-            "email": _inputMail.text.toLowerCase(),
-            "password": _inputContrasena.text,
-            "is_active": "true"
-          };
-          print(body);
-          ApiService.internal().post('users/', body: body);
-
-          Navigator.pushNamed(context, '/login');
+          registerUser();
         },
         child: Text(
           "REGISTRARSE",

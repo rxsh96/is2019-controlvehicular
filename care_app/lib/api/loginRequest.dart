@@ -1,14 +1,16 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:care_app/api/token/currentLogin.dart';
-import 'package:care_app/api/token/showDialog.dart';
+import 'package:care_app/Extras/showDialog.dart';
 import 'dart:convert';
 import 'package:care_app/models/loginModel.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 Future<LoginModel> requestLoginAPI(
-    BuildContext context, String email, String password) async {
+
+BuildContext context, String email, String password) async {
   final url = "http://192.168.0.152:8000/api/token/";
+  final storage = new FlutterSecureStorage();
 
   Map<String, String> body = {
     'email': email,
@@ -22,14 +24,12 @@ Future<LoginModel> requestLoginAPI(
 
   if (response.statusCode == 200) {
     final responseJson = json.decode(response.body);
-    saveLogin(responseJson);
+    //AQUI GUARDAMOS EL DATO DEL TOKEN EN EL TELEFONO PARA EL INICIO DE SESION
+    storage.write(key: 'token', value: responseJson['token']);
     Navigator.of(context).pushReplacementNamed('/vehiculos');
     return LoginModel.fromJson(responseJson);
   }
   else {
-    final responseJson = json.decode(response.body);
-
-    saveLogin(responseJson);
     showSimpleDialog(
         context,
         "Ups",

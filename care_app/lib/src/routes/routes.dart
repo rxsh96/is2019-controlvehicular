@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:care_app/src/pages/agregarVehiculo_page.dart';
-import 'package:care_app/src/pages/auth/login_page.dart';
+import 'package:care_app/src/pages/login_page.dart';
 import 'package:care_app/src/pages/filtros_page.dart';
 import 'package:care_app/src/pages/frenos_page.dart';
 import 'package:care_app/src/pages/gasolina_page.dart';
