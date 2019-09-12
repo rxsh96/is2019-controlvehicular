@@ -2,6 +2,8 @@ from django import forms
 from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
 from bootstrap_modal_forms.forms import BSModalForm
 from api.models import Affiliate_business
+from django.utils.translation import ugettext as _
+from django.core import validators
 
 
 
@@ -27,7 +29,23 @@ class BusinessCreateForm(forms.ModelForm):
 
   def clean_ruc(self):
     #cleaned_data = super(BusinessCreateForm, self).clean()
-    ruc = self.cleaned_data.get("ruc")
+    ruc = self.cleaned_data['ruc']
+    val = validators.RegexValidator(regex='^[0-9]{10}(001)$',message="Ruc no válido, intente nuevamente")
+    val(ruc)
     if Affiliate_business.objects.filter(ruc=ruc).exists():
-      raise forms.ValidationError("El RUC ya está registrado, prueba con otro.")
+      raise forms.ValidationError(_("El Ruc ya está registrado, prueba con otro."))
     return ruc
+
+  def clean_legal_representative_name(self):
+    #cleaned_data = super(BusinessCreateForm, self).clean()
+    legal_representative_name = self.cleaned_data['legal_representative_name']
+    val = validators.RegexValidator(regex='^[a-zA-Z\s]+$',message="Nombre no válido, no debe contener números")
+    val(legal_representative_name)
+    return legal_representative_name
+
+  def clean_legal_representative_lastname(self):
+    #cleaned_data = super(BusinessCreateForm, self).clean()
+    legal_representative_lastname = self.cleaned_data['legal_representative_lastname']
+    val = validators.RegexValidator(regex='^[a-zA-Z\s]+$',message="Apellido no válido, no debe contener números")
+    val(legal_representative_lastname)
+    return legal_representative_lastname
