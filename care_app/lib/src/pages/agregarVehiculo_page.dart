@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-
+import 'package:care_app/api/apiService.dart';
 
 class AgregarVehiculoPage extends StatefulWidget {
   AgregarVehiculoPage({Key key}) : super(key: key);
@@ -9,149 +8,192 @@ class AgregarVehiculoPage extends StatefulWidget {
 }
 
 class _AgregarVehiculoPageState extends State<AgregarVehiculoPage> {
+//  List<String> _marca = ['Chevrolet', 'Ford', 'Hyundai','Toyota','Mitsubishi', 'Mazda', 'Kia'];
+//  List<String> _modelo = ['x', 'y', 'z','w','c', 'v', 'j'];
+//  List<String> _anio = ['2010', '2011', '2012','2013','2014', '2015', '2016'];
+//  String _marcaSeleccionada = 'Ford';
 
-  List<String> _marca = ['Chevrolet', 'Ford', 'Hyundai','Toyota','Mitsubishi', 'Mazda', 'Kia'];
+  final _formKey = GlobalKey<FormState>();
 
-  List<String> _modelo = ['x', 'y', 'z','w','c', 'v', 'j'];
-  List<String> _anio = ['2010', '2011', '2012','2013','2014', '2015', '2016'];
+  final TextEditingController _nombreController = TextEditingController();
+  final TextEditingController _placaController = TextEditingController();
+  final TextEditingController _marcaController = TextEditingController();
+  final TextEditingController _modeloController = TextEditingController();
+  final TextEditingController _colorController = TextEditingController();
+  final TextEditingController _yearController = TextEditingController();
+  final TextEditingController _ultimaMatController = TextEditingController();
+  final TextEditingController _kmController = TextEditingController();
+  final TextEditingController _descripcionController = TextEditingController();
 
-  String _marcaSeleccionada = 'Ford';
-
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("AÑADIR VEHICULOS", style: TextStyle(fontSize: 17)),
-        actions: <Widget>[
-          IconButton(
-            //Me ingenié esta forma de regresar al page, no sé como se realiza de verdad
-            icon: Icon(Icons.arrow_back ),
-            color: Color.fromRGBO(32, 32, 32, 1),
-            onPressed: () { Navigator.pop(context);}
 
-          )
-        ],  
-      ),
-      
-      body: ListView(
-        padding: EdgeInsets.symmetric( horizontal: 12.0 , vertical: 30.0),
+    final myCarForm = Form(
+      key: _formKey,
+      child: ListView(
+        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
         children: <Widget>[
-
-          _crearInput(Icons.account_box , 'Nombre ' , 'Ingrese su nombre'),
           SizedBox(height: 15.0),
-          _crearInput(Icons.confirmation_number , 'Placa' , 'Ingrese su número de placa'),
+          _crearInput(Icons.account_box, 'Nombre ', 'Ingrese su nombre',
+              _nombreController),
           SizedBox(height: 15.0),
-          _crearInput(Icons.web_asset , 'Última Matrícula', 'Ingrese su última matrícula'),
+          _crearInput(Icons.directions_car, 'Placa',
+              'Ingrese su número de placa', _placaController),
           SizedBox(height: 15.0),
-          _crearInput(Icons.whatshot , 'Kilometraje' , 'Ingrese el kilometraje actual'),
+          _crearInput(Icons.directions_car, 'Marca',
+              'Ingrese la marca', _marcaController),
           SizedBox(height: 15.0),
+          _crearInput(Icons.directions_car, 'Modelo',
+              'Ingrese el modelo', _modeloController),
           SizedBox(height: 15.0),
-          _crearDrop(),
+          _crearInput(Icons.color_lens, 'Color',
+              'Ingrese el coolor', _colorController),
           SizedBox(height: 15.0),
-          _crearDrop(),
+          _crearInput(Icons.timeline, 'Año',
+              'Ingrese el año', _yearController),
           SizedBox(height: 15.0),
-          _crearDrop(),
+          _crearInput(Icons.directions_car, 'Última Matrícula',
+              'Ingrese su última matrícula', _ultimaMatController),
           SizedBox(height: 15.0),
-          _crearDrop(),
+          _crearInput(Icons.directions_car, 'Kilometraje',
+              'Ingrese el kilometraje actual', _kmController),
           SizedBox(height: 15.0),
-          _crearInput(Icons.mode_comment ,'Descripción' , 'Ingrese una descripción'),
+          _crearInput(Icons.mode_comment, 'Descripción', 'Ingrese una descripción', _descripcionController),
           SizedBox(height: 35.0),
           Container(
-             child: _submitVehiculo(),
+            child: _submitVehiculo(),
           )
-        
         ],
-      )
+      ),
+    );
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "AÑADIR VEHICULOS",
+          style: TextStyle(fontSize: 17),
+        ),
+      ),
+      body: myCarForm,
       //onTap: () { Navigator.pop(context);}
     );
   }
 
+//List <DropdownMenuItem<String>> getOpcionesDropdown(){
+//
+//  List <DropdownMenuItem<String>> lista = new List();
+//  _marca.forEach((marca){
+//lista.add(DropdownMenuItem(
+//      child: Container(
+//        child: Row(
+//          mainAxisAlignment: MainAxisAlignment.start,
+//          children: <Widget>[
+//            Icon(Icons.select_all),
+//            SizedBox(width: 100.0,),
+//            Text(marca),
+//            Expanded(child: SizedBox(width: 1.0,),),
+//          ],
+//        ),
+//        decoration: BoxDecoration(
+//          borderRadius: BorderRadius.circular(10.0),
+//          //Borde
+//          /*
+//          boxShadow: <BoxShadow>[
+//           BoxShadow(
+//             blurRadius: 1.0,
+//             spreadRadius: 1.0,
+//           ),
+//          ],
+//          */
+//          color: Colors.white,
+//        ),
+//        width: 300.0,
+//        height: 60.0,
+//      ),
+//      value: marca,
+//    ));
+//  });
+//  return lista;
+//}
+//
+//Widget _crearDrop(){
+//  return Row(
+//    children: <Widget>[
+//          DropdownButton(
+//          value: _marcaSeleccionada,
+//          items: getOpcionesDropdown(),
+//          onChanged: (opt){
+//              setState(() {
+//                _marcaSeleccionada = opt;
+//              });
+//          },
+//        ),
+//  ]);
+//}
 
-List <DropdownMenuItem<String>> getOpcionesDropdown(){
-
-  List <DropdownMenuItem<String>> lista = new List();
-  _marca.forEach((marca){
-lista.add(DropdownMenuItem(
-      child: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Icon(Icons.select_all),
-            SizedBox(width: 100.0,),
-            Text(marca),
-            Expanded(child: SizedBox(width: 1.0,),),
-          ],
+  Widget _crearInput(IconData icon, String label, String hint,
+      TextEditingController controller) {
+    return TextFormField(
+      controller: controller,
+      textCapitalization: TextCapitalization.sentences,
+      decoration: InputDecoration(
+        labelText: label,
+        hintText: hint,
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: Color.fromRGBO(203, 99, 51, 1),
+          ),
         ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          //Borde
-          /*
-          boxShadow: <BoxShadow>[
-           BoxShadow(
-             blurRadius: 1.0,
-             spreadRadius: 1.0,
-           ), 
-          ], 
-          */
-          color: Colors.white,
+        suffixIcon: Icon(icon),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0),
         ),
-        width: 300.0,
-        height: 60.0,
       ),
-      value: marca,  
-    ));
-  });
-  return lista;
-}
-
-Widget _crearDrop(){
-  return Row(
-    children: <Widget>[
-          DropdownButton(
-          value: _marcaSeleccionada,
-          items: getOpcionesDropdown(),
-          onChanged: (opt){
-              setState(() {
-                _marcaSeleccionada = opt;
-              });
-          },
-        ),
-  ]);
-}
-
-
-
-Widget _crearInput( IconData icon , String label , String hint ){
-  return TextField (
-    textCapitalization: TextCapitalization.sentences,
-    decoration: InputDecoration(
-      //counter: Text('Letras 0'),
-      //helperText: 'Solo es el nombre',
-      labelText: label ,
-      hintText: hint,
-      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(203, 99, 51, 1),)),
-      suffixIcon: Icon(icon),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      )
-
-    ),
-  );
-}
-
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Necesitamos esta información';
+        }
+        return null;
+      },
+    );
+  }
 
 //No se como tomar un widget de otra clase .
 //Aquí podriamos reutilizar el widget CREAR FRANJA de Vehiculos_page
 
-Widget _submitVehiculo(){
+  void registerVehicle(){
+    if (_formKey.currentState.validate()) {
+      Map<String, String> body = {
+        "brand": _marcaController.text,
+        "model": _modeloController.text,
+        "plate": _placaController.text,
+        "color": _colorController.text,
+        "year": _yearController.text,
+        "description": _descripcionController.text,
+        "km": _kmController.text,
+        "is_active": "true",
+      };
+      ApiService.internal().post('vehicle/', body: body);
+    }
+  }
 
-  return BottomAppBar(
+
+  Widget _submitVehiculo() {
+    return BottomAppBar(
       color: Color.fromRGBO(203, 99, 51, 1),
       child: MaterialButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/vehiculos');
-        },
+          if (_formKey.currentState.validate()) {
+            registerVehicle();
+            Navigator.pushNamed(context, '/vehiculos');
+          }
+          return;
+          },
         child: Text(
           "GUARDAR",
           textAlign: TextAlign.center,
@@ -161,9 +203,5 @@ Widget _submitVehiculo(){
         ),
       ),
     );
-
-
-}
-
-
+  }
 }

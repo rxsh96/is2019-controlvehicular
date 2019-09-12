@@ -17,12 +17,6 @@ class _MyLoginPageState extends State<MyLoginPage> {
   @override
   void initState() {
     super.initState();
-    _saveCurrentRoute("/login");
-  }
-
-  _saveCurrentRoute(String lastRoute) async {
-    //SharedPreferences preferences = await SharedPreferences.getInstance();
-    //await preferences.setString('LastScreenRoute', lastRoute);
   }
 
   @override
