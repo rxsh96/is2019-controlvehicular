@@ -23,9 +23,7 @@
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
         {% render_field field class="form-control" placeholder=field.label %}
         <div class="{% if field.errors %} invalid{% endif %}">
-          {% for error in field.errors %}
-            <p class="help-block">{{ error }}</p>
-          {% endfor %}
+          <p class="help-block">{{ field.errors }}</p>
         </div>
       </div>
     {% endfor %}

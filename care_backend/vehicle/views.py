@@ -10,6 +10,7 @@ from bootstrap_modal_forms.generic import (BSModalCreateView,
                                            BSModalDeleteView)
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 
@@ -22,7 +23,10 @@ class VehicleCreateView(CreateView):
   model = Vehicle
   template_name = 'vehicle/vehicle_create.html'
   form_class = VehicleCreateForm
-  success_url = reverse_lazy('vehiculo')
+  def form_valid(self,form):
+    self.object = form.save(commit=False)
+    self.object.save()
+    return HttpResponseRedirect(reverse_lazy('vehiculo'))
 
 class VehicleDetailView(BSModalReadView):
   model = Vehicle  

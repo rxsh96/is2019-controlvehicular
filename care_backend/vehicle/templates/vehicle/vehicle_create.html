@@ -47,6 +47,9 @@
                   <div class="border rounded">
                     {% render_field form.plate class="form-control" placeholder=field.label %} 
                   </div>
+                  <div class="{% if field.errors %} invalid{% endif %}">
+                      <p class="help-block">{{ form.errors.plate }} </p>
+                  </div>
                 </div>
                 <label class="text-secondary pl-2" style="font-size: 14px;">Color</label>
                 <div class="col-md-7 form-group">
