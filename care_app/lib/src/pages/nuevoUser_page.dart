@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:care_app/api/apiService.dart';
+import 'dart:async';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class NuevoUserPage extends StatefulWidget {
   NuevoUserPage({Key key}) : super(key: key);
@@ -8,13 +11,22 @@ class NuevoUserPage extends StatefulWidget {
 }
 
 class _NuevoUserPageState extends State<NuevoUserPage> {
-
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _inputNombre = TextEditingController();
   final TextEditingController _inputApellido = TextEditingController();
   final TextEditingController _inputMail = TextEditingController();
   final TextEditingController _inputContrasena = TextEditingController();
   final TextEditingController _inputTelefono = TextEditingController();
+
+  File _image;
+
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      _image = image;
+    });
+  }
 
   @override
   void initState() {
@@ -23,7 +35,6 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
 
   @override
   Widget build(BuildContext context) {
-
     final myUserForm = Form(
       key: _formKey,
       child: Column(
@@ -32,8 +43,8 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
           _crearInput(Icons.font_download, 'Nombres', 'Ingrese sus Nombres',
               _inputNombre),
           SizedBox(height: 15.0),
-          _crearInput(Icons.font_download, 'Apellidos',
-              'Ingrese sus apellidos', _inputApellido),
+          _crearInput(Icons.font_download, 'Apellidos', 'Ingrese sus apellidos',
+              _inputApellido),
           SizedBox(height: 15.0),
           _crearInputTelefono(
               Icons.phone, 'Teléfono', 'Ingrese su número de teléfono'),
@@ -65,19 +76,24 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
           body: ListView(
             padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 30.0),
             children: <Widget>[
-              Stack(
-                children: <Widget>[
-                  Container(
-                      child: Center(
-                    child: CircleAvatar(
-                        maxRadius: 75.0,
-                        backgroundColor: Colors.red,
-                        backgroundImage: AssetImage('images/no-image.png')),
-                  ))
-                ],
+              Container(
+                child: Center(
+                  child: RawMaterialButton(
+                    child: Container(
+                      child: _image == null
+                          ? new Icon(
+                              Icons.add_a_photo,
+                              size: 75.0,
+                            )
+                          : new CircleAvatar(
+                              backgroundImage: new FileImage(_image),
+                              radius: 50.0,
+                            ),
+                    ),
+                    onPressed: getImage,
+                  ),
+                ),
               ),
-              //SizedBox(height: 15.0),
-              //_crearInput(Icons.account_box, 'Usuario ', 'Ingrese su usuario', _inputUsuario),
               myUserForm,
               Container(
                 child: _submitUser(),
@@ -180,7 +196,7 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
     );
   }
 
-  void registerUser(){
+  void registerUser() {
     if (_formKey.currentState.validate()) {
       Map<String, String> body = {
         "name": _inputNombre.text,
