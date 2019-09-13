@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:care_app/api/apiService.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class AgregarVehiculoPage extends StatefulWidget {
   AgregarVehiculoPage({Key key}) : super(key: key);
@@ -14,6 +16,16 @@ class _AgregarVehiculoPageState extends State<AgregarVehiculoPage> {
 //  String _marcaSeleccionada = 'Ford';
 
   final _formKey = GlobalKey<FormState>();
+
+  File _image;
+
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      _image = image;
+    });
+  }
 
   final TextEditingController _nombreController = TextEditingController();
   final TextEditingController _placaController = TextEditingController();
@@ -32,7 +44,6 @@ class _AgregarVehiculoPageState extends State<AgregarVehiculoPage> {
 
   @override
   Widget build(BuildContext context) {
-
     final myCarForm = Form(
       key: _formKey,
       child: ListView(
@@ -45,17 +56,16 @@ class _AgregarVehiculoPageState extends State<AgregarVehiculoPage> {
           _crearInput(Icons.directions_car, 'Placa',
               'Ingrese su número de placa', _placaController),
           SizedBox(height: 15.0),
-          _crearInput(Icons.directions_car, 'Marca',
-              'Ingrese la marca', _marcaController),
+          _crearInput(Icons.directions_car, 'Marca', 'Ingrese la marca',
+              _marcaController),
           SizedBox(height: 15.0),
-          _crearInput(Icons.directions_car, 'Modelo',
-              'Ingrese el modelo', _modeloController),
+          _crearInput(Icons.directions_car, 'Modelo', 'Ingrese el modelo',
+              _modeloController),
           SizedBox(height: 15.0),
-          _crearInput(Icons.color_lens, 'Color',
-              'Ingrese el coolor', _colorController),
+          _crearInput(
+              Icons.color_lens, 'Color', 'Ingrese el coolor', _colorController),
           SizedBox(height: 15.0),
-          _crearInput(Icons.timeline, 'Año',
-              'Ingrese el año', _yearController),
+          _crearInput(Icons.timeline, 'Año', 'Ingrese el año', _yearController),
           SizedBox(height: 15.0),
           _crearInput(Icons.directions_car, 'Última Matrícula',
               'Ingrese su última matrícula', _ultimaMatController),
@@ -63,7 +73,40 @@ class _AgregarVehiculoPageState extends State<AgregarVehiculoPage> {
           _crearInput(Icons.directions_car, 'Kilometraje',
               'Ingrese el kilometraje actual', _kmController),
           SizedBox(height: 15.0),
-          _crearInput(Icons.mode_comment, 'Descripción', 'Ingrese una descripción', _descripcionController),
+          _crearInput(Icons.mode_comment, 'Descripción',
+              'Ingrese una descripción', _descripcionController),
+          SizedBox(height: 35.0),
+          Center(
+            child: _image == null
+                ? Text(
+                    'Agregue foto de su Vehículo',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16.0,
+                    ),
+                  )
+                : Text('Foto de su Vehículo',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16.0,
+                    )),
+          ),
+          Center(
+            child: RawMaterialButton(
+              child: Container(
+                  child: _image == null
+                      ? new Icon(
+                          Icons.add_a_photo,
+                          size: 75.0,
+                        )
+                      : new Image(
+                          image: new FileImage(_image),
+                          width: 250.0,
+                          height: 200.0,
+                        )),
+              onPressed: getImage,
+            ),
+          ),
           SizedBox(height: 35.0),
           Container(
             child: _submitVehiculo(),
@@ -166,7 +209,7 @@ class _AgregarVehiculoPageState extends State<AgregarVehiculoPage> {
 //No se como tomar un widget de otra clase .
 //Aquí podriamos reutilizar el widget CREAR FRANJA de Vehiculos_page
 
-  void registerVehicle(){
+  void registerVehicle() {
     if (_formKey.currentState.validate()) {
       Map<String, String> body = {
         "brand": _marcaController.text,
@@ -182,7 +225,6 @@ class _AgregarVehiculoPageState extends State<AgregarVehiculoPage> {
     }
   }
 
-
   Widget _submitVehiculo() {
     return BottomAppBar(
       color: Color.fromRGBO(203, 99, 51, 1),
@@ -193,7 +235,7 @@ class _AgregarVehiculoPageState extends State<AgregarVehiculoPage> {
             Navigator.pushNamed(context, '/vehiculos');
           }
           return;
-          },
+        },
         child: Text(
           "GUARDAR",
           textAlign: TextAlign.center,

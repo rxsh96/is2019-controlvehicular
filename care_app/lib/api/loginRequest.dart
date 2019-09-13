@@ -9,7 +9,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 Future<LoginModel> requestLoginAPI(
 
 BuildContext context, String email, String password) async {
-  final url = "http://192.168.0.152:8000/api/token/";
+  final url = "http://192.168.100.178:8000/api/token/";
   final storage = new FlutterSecureStorage();
 
   Map<String, String> body = {
