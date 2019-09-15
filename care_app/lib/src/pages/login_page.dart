@@ -1,6 +1,8 @@
 import 'package:care_app/api/loginRequest.dart';
 import 'package:flutter/material.dart';
 import 'package:care_app/Extras/loader.dart';
+import 'package:care_app/src/components/myTextFormField.dart';
+import 'package:care_app/src/components/myPassFormField.dart';
 
 class MyLoginPage extends StatefulWidget {
   @override
@@ -10,7 +12,7 @@ class MyLoginPage extends StatefulWidget {
 class _MyLoginPageState extends State<MyLoginPage> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _mailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   bool _isLoading = false;
@@ -22,52 +24,25 @@ class _MyLoginPageState extends State<MyLoginPage> {
   @override
   Widget build(BuildContext context) {
 
-    final emailField = TextFormField(
-      controller: _userNameController,
-      keyboardType: TextInputType.emailAddress,
-      obscureText: false,
-      decoration: InputDecoration(
-        hintText: "Correo Electrónico",
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Color.fromRGBO(203, 99, 51, 1),
-          ),
-        ),
-      ),
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Ingresa tu correo';
-        }
-        return null;
-      },
-    );
-
-    final passwordField = TextFormField(
-      controller: _passwordController,
-      obscureText: true,
-      decoration: InputDecoration(
-        hintText: "Contraseña",
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Color.fromRGBO(203, 99, 51, 1),
-          ),
-        ),
-      ),
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Ingresa tu contraseña';
-        }
-        return null;
-      },
-    );
-
     final myLoginForm = Form(
       key: _formKey,
       child: Column(
         children: <Widget>[
-          emailField,
+          MyTextFormField(
+          controller: _mailController,
+          capitalization: TextCapitalization.none,
+          textInputType: TextInputType.emailAddress,
+          label: 'Correo Electrónico',
+          icon: Icons.mail,
+          errorMsg: 'Ingresa tu correo electrónico'),
           SizedBox(height: 10.0),
-          passwordField,
+          MyPassFormField(
+            controller: _passwordController,
+            textInputType: TextInputType.text,
+            label: 'Contraseña',
+            icon: Icons.enhanced_encryption,
+            errorMsg: 'Ingresa tu contraseña',
+          ),
         ],
       ),
     );
@@ -96,7 +71,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
             setState(() {
               _isLoading = true;
             });
-            await requestLoginAPI(context, _userNameController.text.toLowerCase(),
+            await requestLoginAPI(context, _mailController.text.toLowerCase(),
                 _passwordController.text);
             setState(() {
               _isLoading = false;

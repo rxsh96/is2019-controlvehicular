@@ -3,6 +3,8 @@ import 'package:care_app/api/apiService.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:care_app/src/components/myTextFormField.dart';
+import 'package:care_app/src/components/myPassFormField.dart';
 
 class NuevoUserPage extends StatefulWidget {
   NuevoUserPage({Key key}) : super(key: key);
@@ -17,12 +19,10 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
   final TextEditingController _inputMail = TextEditingController();
   final TextEditingController _inputContrasena = TextEditingController();
   final TextEditingController _inputTelefono = TextEditingController();
-
   File _image;
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
-
     setState(() {
       _image = image;
     });
@@ -40,20 +40,45 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
       child: Column(
         children: <Widget>[
           SizedBox(height: 15.0),
-          _crearInput(Icons.font_download, 'Nombres', 'Ingrese sus Nombres',
-              _inputNombre),
+          MyTextFormField(
+              controller: _inputNombre,
+              capitalization: TextCapitalization.words,
+              textInputType: TextInputType.text,
+              label: 'Nombres',
+              icon: Icons.font_download,
+              errorMsg: 'Ingresa tu nombre'),
           SizedBox(height: 15.0),
-          _crearInput(Icons.font_download, 'Apellidos', 'Ingrese sus apellidos',
-              _inputApellido),
+          MyTextFormField(
+              controller: _inputApellido,
+              capitalization: TextCapitalization.words,
+              textInputType: TextInputType.text,
+              label: 'Apellido',
+              icon: Icons.font_download,
+              errorMsg: 'Ingresa tu apellido'),
           SizedBox(height: 15.0),
-          _crearInputTelefono(
-              Icons.phone, 'Teléfono', 'Ingrese su número de teléfono'),
+          MyTextFormField(
+              controller: _inputTelefono,
+              capitalization: TextCapitalization.none,
+              textInputType: TextInputType.phone,
+              label: 'Teléfono',
+              icon: Icons.phone,
+              errorMsg: 'Ingresa tu teléfono'),
           SizedBox(height: 15.0),
-          _crearInputCorreo(
-              Icons.email, 'Correo', 'Ingrese su dirección de correo'),
+          MyTextFormField(
+              controller: _inputMail,
+              capitalization: TextCapitalization.none,
+              textInputType: TextInputType.emailAddress,
+              label: 'Correo Electrónico',
+              icon: Icons.mail,
+              errorMsg: 'Ingresa tu correo electrónico'),
           SizedBox(height: 15.0),
-          _crearInputContrasena(
-              Icons.vpn_key, 'Contraseña', 'Ingrese su contraseña'),
+          MyPassFormField(
+            controller: _inputContrasena,
+            textInputType: TextInputType.text,
+            label: 'Contraseña',
+            icon: Icons.enhanced_encryption,
+            errorMsg: 'Ingresa una contraseña',
+          ),
           SizedBox(height: 35.0),
         ],
       ),
@@ -61,138 +86,47 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
 
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text("Registro", style: TextStyle(fontSize: 18)),
-                Image.asset(
-                  'images/logo2.png',
-                  fit: BoxFit.contain,
-                )
-              ],
-            ),
-          ),
-          body: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 30.0),
+        appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Container(
-                child: Center(
-                  child: RawMaterialButton(
-                    child: Container(
-                      child: _image == null
-                          ? new Icon(
-                              Icons.add_a_photo,
-                              size: 75.0,
-                            )
-                          : new CircleAvatar(
-                              backgroundImage: new FileImage(_image),
-                              radius: 50.0,
-                            ),
-                    ),
-                    onPressed: getImage,
-                  ),
-                ),
-              ),
-              myUserForm,
-              Container(
-                child: _submitUser(),
+              Text("Registro", style: TextStyle(fontSize: 18)),
+              Image.asset(
+                'images/logo2.png',
+                fit: BoxFit.contain,
               )
             ],
-          )
-          //onTap: () { Navigator.pop(context);}
-          ),
-    );
-  }
-
-  Widget _crearInput(IconData icon, String label, String hint,
-      TextEditingController controller) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: label,
-        hintText: hint,
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Color.fromRGBO(203, 99, 51, 1),
           ),
         ),
-        suffixIcon: Icon(icon),
-      ),
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Ingresa tus datos';
-        }
-        return null;
-      },
-    );
-  }
-
-  Widget _crearInputCorreo(IconData icon, String label, String hint) {
-    return TextFormField(
-      controller: _inputMail,
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-          labelText: label,
-          hintText: hint,
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Color.fromRGBO(203, 99, 51, 1),
+        body: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 30.0),
+          children: <Widget>[
+            Container(
+              child: Center(
+                child: RawMaterialButton(
+                  child: Container(
+                    child: _image == null
+                        ? new Icon(
+                            Icons.add_a_photo,
+                            size: 75.0,
+                          )
+                        : new CircleAvatar(
+                            backgroundImage: new FileImage(_image),
+                            radius: 50.0,
+                          ),
+                  ),
+                  onPressed: getImage,
+                ),
+              ),
             ),
-          ),
-          suffixIcon: Icon(icon)),
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Ingresa tu correo';
-        }
-        return null;
-      },
-    );
-  }
-
-  Widget _crearInputTelefono(IconData icon, String label, String hint) {
-    return TextFormField(
-      controller: _inputTelefono,
-      keyboardType: TextInputType.phone,
-      textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(
-          labelText: label,
-          hintText: hint,
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Color.fromRGBO(203, 99, 51, 1),
-            ),
-          ),
-          suffixIcon: Icon(icon)),
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Ingresa tu número de teléfono';
-        }
-        return null;
-      },
-    );
-  }
-
-  Widget _crearInputContrasena(IconData icon, String label, String hint) {
-    return TextFormField(
-      controller: _inputContrasena,
-      obscureText: true,
-      decoration: InputDecoration(
-        labelText: label,
-        hintText: hint,
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Color.fromRGBO(203, 99, 51, 1),
-          ),
+            myUserForm,
+            Container(
+              child: _submitUser(),
+            )
+          ],
         ),
-        suffixIcon: Icon(icon),
+        //onTap: () { Navigator.pop(context);}
       ),
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Ingresa una contraseña';
-        }
-        return null;
-      },
     );
   }
 
@@ -206,15 +140,10 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
         "password": _inputContrasena.text,
         "is_active": "true"
       };
-      print('dentro del if');
       ApiService.internal().post('users/', body: body);
       Navigator.pushNamed(context, '/login');
     }
-    print('fuera del if');
   }
-
-//No se como tomar un widget de otra clase .
-//Aquí podriamos reutilizar el widget CREAR FRANJA de Vehiculos_page
 
   Widget _submitUser() {
     return BottomAppBar(
