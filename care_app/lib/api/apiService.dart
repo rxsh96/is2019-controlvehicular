@@ -4,7 +4,7 @@ import 'dart:convert';
 
 class ApiService {
 
-  static final baseUrl = "http://192.168.100.178:8000/api/";
+  static final baseUrl = "http://192.168.0.152:8000/api/";
 
   static ApiService _instance = new ApiService.internal();
   ApiService.internal();
@@ -12,12 +12,10 @@ class ApiService {
   final JsonDecoder _decoder = new JsonDecoder();
 
 
-
-  Future<dynamic> get(String url, {Map<String, String> headers}) {
-    return http.get(baseUrl+url, headers: headers,).then((http.Response response) {
+  Future<dynamic> get(String url) {
+    return http.get(baseUrl+url).then((http.Response response) {
       String res = response.body;
       int statusCode = response.statusCode;
-      print("API Response: " + res);
       if (statusCode < 200 || statusCode > 400 || json == null) {
         res = "{\"status\":" + statusCode.toString() +
             ",\"message\":\"error\",\"response\":" + res + "}";

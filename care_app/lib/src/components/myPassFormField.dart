@@ -7,6 +7,7 @@ class MyPassFormField extends StatefulWidget {
   final String hint;
   final IconData icon;
   final String errorMsg;
+  final bool isLogin;
 
   MyPassFormField(
       {this.controller,
@@ -14,7 +15,8 @@ class MyPassFormField extends StatefulWidget {
       this.label,
       this.hint,
       this.icon,
-      this.errorMsg});
+      this.errorMsg,
+      this.isLogin});
 
   @override
   _MyPassFormFieldState createState() => _MyPassFormFieldState(
@@ -23,7 +25,8 @@ class MyPassFormField extends StatefulWidget {
       label: label,
       hint: hint,
       icon: icon,
-      errorMsg: errorMsg);
+      errorMsg: errorMsg,
+      isLogin: isLogin);
 }
 
 class _MyPassFormFieldState extends State<MyPassFormField> {
@@ -33,6 +36,7 @@ class _MyPassFormFieldState extends State<MyPassFormField> {
   String hint;
   IconData icon;
   String errorMsg;
+  bool isLogin;
 
   _MyPassFormFieldState(
       {this.controller,
@@ -40,7 +44,8 @@ class _MyPassFormFieldState extends State<MyPassFormField> {
       this.label,
       this.hint,
       this.icon,
-      this.errorMsg});
+      this.errorMsg,
+      this.isLogin});
 
   bool _obscureText = true;
 
@@ -60,7 +65,7 @@ class _MyPassFormFieldState extends State<MyPassFormField> {
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
-        suffixIcon: GestureDetector(
+        suffixIcon: isLogin ? Icon(icon) : GestureDetector(
           onTap: _toggle,
           child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
         ),
@@ -74,7 +79,7 @@ class _MyPassFormFieldState extends State<MyPassFormField> {
         if (value.isEmpty) {
           return errorMsg;
         }
-        if (value.length < 5) {
+        if (!isLogin && value.length < 5) {
           return 'La contraseña debe tener mínimo 5 caracteres';
         }
         return null;

@@ -78,6 +78,7 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
             label: 'Contraseña',
             icon: Icons.enhanced_encryption,
             errorMsg: 'Ingresa una contraseña',
+            isLogin: false,
           ),
           SizedBox(height: 35.0),
         ],
@@ -94,7 +95,7 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
               Image.asset(
                 'images/logo2.png',
                 fit: BoxFit.contain,
-              )
+              ),
             ],
           ),
         ),
@@ -106,13 +107,19 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
                 child: RawMaterialButton(
                   child: Container(
                     child: _image == null
-                        ? new Icon(
-                            Icons.add_a_photo,
-                            size: 75.0,
-                          )
-                        : new CircleAvatar(
-                            backgroundImage: new FileImage(_image),
+                        ? CircleAvatar(
+                            child: Icon(
+                              Icons.add_a_photo,
+                              size: 50.0,
+                              color: Colors.white,
+                            ),
+                            backgroundColor: Color.fromRGBO(203, 99, 51, 1),
                             radius: 50.0,
+                          )
+                        : CircleAvatar(
+                            backgroundImage: FileImage(_image),
+                            radius: 50.0,
+                            backgroundColor: Color.fromRGBO(203, 99, 51, 1),
                           ),
                   ),
                   onPressed: getImage,
@@ -120,11 +127,9 @@ class _NuevoUserPageState extends State<NuevoUserPage> {
               ),
             ),
             myUserForm,
-            Container(
-              child: _submitUser(),
-            )
           ],
         ),
+        bottomNavigationBar: _submitUser(),
         //onTap: () { Navigator.pop(context);}
       ),
     );

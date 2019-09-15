@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:care_app/api/apiService.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:care_app/src/components/myTextFormField.dart';
 
 class AgregarVehiculoPage extends StatefulWidget {
   AgregarVehiculoPage({Key key}) : super(key: key);
@@ -50,67 +51,115 @@ class _AgregarVehiculoPageState extends State<AgregarVehiculoPage> {
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
         children: <Widget>[
           SizedBox(height: 15.0),
-          _crearInput(Icons.account_box, 'Nombre ', 'Ingrese su nombre',
-              _nombreController),
+          MyTextFormField(
+              controller: _nombreController,
+              capitalization: TextCapitalization.words,
+              textInputType: TextInputType.text,
+              label: 'Nombre',
+              hint: 'Ejemplo: Mi Viajero - Mi Taxi - Personal',
+              icon: Icons.account_box,
+              errorMsg: 'Ingresa un nombre'),
           SizedBox(height: 15.0),
-          _crearInput(Icons.directions_car, 'Placa',
-              'Ingrese su número de placa', _placaController),
+          MyTextFormField(
+              controller: _placaController,
+              capitalization: TextCapitalization.words,
+              textInputType: TextInputType.text,
+              label: 'Placa',
+              hint: 'Formato: ABC-1234',
+              icon: Icons.directions_car,
+              errorMsg: 'Ingresa la placa del vehículo'),
           SizedBox(height: 15.0),
-          _crearInput(Icons.directions_car, 'Marca', 'Ingrese la marca',
-              _marcaController),
+          MyTextFormField(
+              controller: _marcaController,
+              capitalization: TextCapitalization.words,
+              textInputType: TextInputType.text,
+              label: 'Marca',
+              icon: Icons.directions_car,
+              errorMsg: 'Ingresa la marca del vehículo'),
           SizedBox(height: 15.0),
-          _crearInput(Icons.directions_car, 'Modelo', 'Ingrese el modelo',
-              _modeloController),
+          MyTextFormField(
+              controller: _modeloController,
+              capitalization: TextCapitalization.words,
+              textInputType: TextInputType.text,
+              label: 'Modelo',
+              icon: Icons.directions_car,
+              errorMsg: 'Ingresa el modelo del vehículo'),
           SizedBox(height: 15.0),
-          _crearInput(
-              Icons.color_lens, 'Color', 'Ingrese el coolor', _colorController),
+          MyTextFormField(
+              controller: _colorController,
+              capitalization: TextCapitalization.words,
+              textInputType: TextInputType.text,
+              label: 'Color',
+              icon: Icons.color_lens,
+              errorMsg: 'Ingresa el color del vehículo'),
           SizedBox(height: 15.0),
-          _crearInput(Icons.timeline, 'Año', 'Ingrese el año', _yearController),
+          MyTextFormField(
+              controller: _yearController,
+              capitalization: TextCapitalization.words,
+              textInputType: TextInputType.number,
+              label: 'Año',
+              icon: Icons.timeline,
+              errorMsg: 'Ingresa el año del vehículo'),
           SizedBox(height: 15.0),
-          _crearInput(Icons.directions_car, 'Última Matrícula',
-              'Ingrese su última matrícula', _ultimaMatController),
+          MyTextFormField(
+              controller: _ultimaMatController,
+              capitalization: TextCapitalization.words,
+              textInputType: TextInputType.datetime,
+              label: 'Última Matrícula',
+              hint: 'dd/MM/YYYY',
+              icon: Icons.color_lens,
+              errorMsg: 'Ingresa la última matrícula del vehículo'),
           SizedBox(height: 15.0),
-          _crearInput(Icons.directions_car, 'Kilometraje',
-              'Ingrese el kilometraje actual', _kmController),
+          MyTextFormField(
+              controller: _kmController,
+              capitalization: TextCapitalization.none,
+              textInputType: TextInputType.number,
+              label: 'Kilometraje',
+              icon: Icons.directions_car,
+              errorMsg: 'Ingresa el kilometraje del vehículo'),
           SizedBox(height: 15.0),
-          _crearInput(Icons.mode_comment, 'Descripción',
-              'Ingrese una descripción', _descripcionController),
+          MyTextFormField(
+              controller: _descripcionController,
+              capitalization: TextCapitalization.sentences,
+              textInputType: TextInputType.text,
+              label: 'Descripción',
+              icon: Icons.mode_comment,
+              errorMsg: 'Ingresa una descripción para el vehículo'),
           SizedBox(height: 35.0),
           Center(
             child: _image == null
                 ? Text(
-                    'Agregue foto de su Vehículo',
+                    'Agregue una foto de su Vehículo',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16.0,
                     ),
                   )
-                : Text('Foto de su Vehículo',
+                : Text(
+                    'Foto de su Vehículo',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16.0,
-                    )),
+                    ),
+                  ),
           ),
           Center(
             child: RawMaterialButton(
               child: Container(
-                  child: _image == null
-                      ? new Icon(
-                          Icons.add_a_photo,
-                          size: 75.0,
-                        )
-                      : new Image(
-                          image: new FileImage(_image),
-                          width: 250.0,
-                          height: 200.0,
-                        )),
+                child: _image == null
+                    ? Icon(
+                        Icons.add_a_photo,
+                        size: 75.0,
+                      )
+                    : Image(
+                        image: new FileImage(_image),
+                        height: 200.0,
+                        width: 300.0,
+                      ),
+              ),
               onPressed: getImage,
             ),
           ),
-          SizedBox(height: 35.0),
-          Container(
-            child: _submitVehiculo(),
-          )
         ],
       ),
     );
@@ -123,6 +172,7 @@ class _AgregarVehiculoPageState extends State<AgregarVehiculoPage> {
         ),
       ),
       body: myCarForm,
+      bottomNavigationBar: _submitVehiculo(),
       //onTap: () { Navigator.pop(context);}
     );
   }
@@ -178,36 +228,6 @@ class _AgregarVehiculoPageState extends State<AgregarVehiculoPage> {
 //        ),
 //  ]);
 //}
-
-  Widget _crearInput(IconData icon, String label, String hint,
-      TextEditingController controller) {
-    return TextFormField(
-      controller: controller,
-      textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(
-        labelText: label,
-        hintText: hint,
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Color.fromRGBO(203, 99, 51, 1),
-          ),
-        ),
-        suffixIcon: Icon(icon),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-      ),
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Necesitamos esta información';
-        }
-        return null;
-      },
-    );
-  }
-
-//No se como tomar un widget de otra clase .
-//Aquí podriamos reutilizar el widget CREAR FRANJA de Vehiculos_page
 
   void registerVehicle() {
     if (_formKey.currentState.validate()) {
