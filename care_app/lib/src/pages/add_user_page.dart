@@ -1,18 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:care_app/api/apiService.dart';
 import 'dart:async';
 import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:care_app/src/components/myTextFormField.dart';
-import 'package:care_app/src/components/myPassFormField.dart';
+import 'package:care_app/api/api_service.dart';
+import 'package:care_app/src/components/my_text_form_field.dart';
+import 'package:care_app/src/components/my_pass_form_field.dart';
 
-class NuevoUserPage extends StatefulWidget {
-  NuevoUserPage({Key key}) : super(key: key);
+class AddUserPage extends StatefulWidget {
+  AddUserPage({Key key}) : super(key: key);
 
-  _NuevoUserPageState createState() => _NuevoUserPageState();
+  _AddUserPageState createState() => _AddUserPageState();
 }
 
-class _NuevoUserPageState extends State<NuevoUserPage> {
+class _AddUserPageState extends State<AddUserPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _inputNombre = TextEditingController();
   final TextEditingController _inputApellido = TextEditingController();

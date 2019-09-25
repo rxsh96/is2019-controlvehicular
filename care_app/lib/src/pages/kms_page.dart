@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class KilometrajePage extends StatefulWidget {
-  KilometrajePage({Key key}) : super(key: key);
+class KmsPage extends StatefulWidget {
+  KmsPage({Key key}) : super(key: key);
 
-  _KilometrajePageState createState() => _KilometrajePageState();
+  _KmsPageState createState() => _KmsPageState();
 }
 
-class _KilometrajePageState extends State<KilometrajePage> {
+class _KmsPageState extends State<KmsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

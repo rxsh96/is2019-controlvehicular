@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
+class AddFilterPage extends StatefulWidget {
+  AddFilterPage({Key key}) : super(key: key);
 
-class NuevoFiltro extends StatefulWidget {
-  NuevoFiltro({Key key}) : super(key: key);
-
-  _NuevoFiltroState createState() => _NuevoFiltroState();
+  _AddFilterPageState createState() => _AddFilterPageState();
 }
 
-class _NuevoFiltroState extends State<NuevoFiltro> {
+class _AddFilterPageState extends State<AddFilterPage> {
 
 
   TextEditingController _inputFieldDateController = new TextEditingController();

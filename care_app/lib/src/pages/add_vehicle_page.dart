@@ -1,16 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:care_app/api/apiService.dart';
 import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:care_app/src/components/myTextFormField.dart';
+import 'package:care_app/api/api_service.dart';
+import 'package:care_app/src/components/my_text_form_field.dart';
 
-class AgregarVehiculoPage extends StatefulWidget {
-  AgregarVehiculoPage({Key key}) : super(key: key);
+class AddVehiclePage extends StatefulWidget {
+  AddVehiclePage({Key key}) : super(key: key);
 
-  _AgregarVehiculoPageState createState() => _AgregarVehiculoPageState();
+  _AddVehiclePageState createState() => _AddVehiclePageState();
 }
 
-class _AgregarVehiculoPageState extends State<AgregarVehiculoPage> {
+class _AddVehiclePageState extends State<AddVehiclePage> {
 //  List<String> _marca = ['Chevrolet', 'Ford', 'Hyundai','Toyota','Mitsubishi', 'Mazda', 'Kia'];
 //  List<String> _modelo = ['x', 'y', 'z','w','c', 'v', 'j'];
 //  List<String> _anio = ['2010', '2011', '2012','2013','2014', '2015', '2016'];
