@@ -67,3 +67,9 @@ class MaintenanceDetails(models.Model):
 	local = models.ForeignKey(Affiliate_business, null=True, blank=True, on_delete = models.CASCADE)
 	date =  models.DateTimeField()
 	price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+
+class ProfilePicture(models.Model):
+	user = models.ForeignKey(User,on_delete = models.CASCADE)
+	file = models.ImageField(blank=False, null=False)	
+	def __str__(self):
+		return self.file.name
