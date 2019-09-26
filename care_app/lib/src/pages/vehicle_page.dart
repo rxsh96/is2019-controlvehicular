@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import 'package:care_app/services/api.dart';
+
 class VehiclePage extends StatefulWidget {
 
   VehiclePage() : super();
@@ -34,6 +36,7 @@ class _VehiclePageState extends State<VehiclePage> {
   List<DropdownMenuItem<Vehiculos>> _dropdownMenuItems;
   Vehiculos _selectedVehiculos;
   final storage = new FlutterSecureStorage();
+  final API api = new API();
 
   @override
   void initState() {
@@ -82,7 +85,10 @@ class _VehiclePageState extends State<VehiclePage> {
             IconButton(
               icon: Icon(Icons.note_add),
               color: Color.fromRGBO(203, 99, 51, 1),
-              onPressed: () {},
+              onPressed: () async {
+                var response = await api.get(endPoint: 'vehicle/', id: 2);
+                print(response);
+              },
             ),
             IconButton(
               icon: Icon(Icons.event_note),
