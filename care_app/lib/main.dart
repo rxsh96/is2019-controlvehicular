@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:care_app/src/routes/routes.dart';
-import 'package:care_app/src/pages/vehiculos_page.dart';
-import 'package:care_app/src/pages/login_page.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import 'package:care_app/src/pages/login_page.dart';
+import 'package:care_app/src/pages/vehicle_page.dart';
+import 'package:care_app/src/routes/routes.dart';
 
 void main() async {
 
@@ -19,7 +20,7 @@ void main() async {
       theme: ThemeData(
         primaryColor: Color.fromRGBO(32, 32, 32, 1),
       ),
-      home: _token == null ? MyLoginPage() : VehiculosPage(),
+      home: _token == null ? LoginPage() : VehiclePage(),
     )
     
   

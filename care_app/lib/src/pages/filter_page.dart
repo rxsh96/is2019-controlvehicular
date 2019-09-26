@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:care_app/src/pages/nuevoFiltro_page.dart';
 
-class FiltroPage extends StatefulWidget {
-  FiltroPage({Key key}) : super(key: key);
+import 'package:care_app/src/pages/add_filter_page.dart';
 
-  _FiltroPageState createState() => _FiltroPageState();
+class FilterPage extends StatefulWidget {
+  FilterPage({Key key}) : super(key: key);
+
+  _FilterPageState createState() => _FilterPageState();
 }
 
-class _FiltroPageState extends State<FiltroPage> {
+class _FilterPageState extends State<FilterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +43,7 @@ class _FiltroPageState extends State<FiltroPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return NuevoFiltro();
+                  return AddFilterPage();
                 }),
               );
             }

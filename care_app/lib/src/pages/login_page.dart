@@ -1,15 +1,16 @@
-import 'package:care_app/api/loginRequest.dart';
 import 'package:flutter/material.dart';
-import 'package:care_app/Extras/loader.dart';
-import 'package:care_app/src/components/myTextFormField.dart';
-import 'package:care_app/src/components/myPassFormField.dart';
 
-class MyLoginPage extends StatefulWidget {
+import 'package:care_app/api/login_request.dart';
+import 'package:care_app/extras/loader.dart';
+import 'package:care_app/src/components/my_text_form_field.dart';
+import 'package:care_app/src/components/my_pass_form_field.dart';
+
+class LoginPage extends StatefulWidget {
   @override
-  _MyLoginPageState createState() => _MyLoginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _MyLoginPageState extends State<MyLoginPage> {
+class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _mailController = TextEditingController();

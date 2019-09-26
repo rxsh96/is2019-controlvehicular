@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:care_app/models/userModel.dart';
 
-class VehiculosPage extends StatefulWidget {
+import 'package:care_app/services/api.dart';
 
-  VehiculosPage() : super();
+class VehiclePage extends StatefulWidget {
+
+  VehiclePage() : super();
 
   static final String routeName = 'vehiculos';
 
   @override
-  _VehiculosPageState createState() => _VehiculosPageState();
+  _VehiclePageState createState() => _VehiclePageState();
 }
 
 class Vehiculos {
@@ -30,11 +31,12 @@ class Vehiculos {
   }
 }
 
-class _VehiculosPageState extends State<VehiculosPage> {
+class _VehiclePageState extends State<VehiclePage> {
   List<Vehiculos> _vehiculos = Vehiculos.getVehiculos();
   List<DropdownMenuItem<Vehiculos>> _dropdownMenuItems;
   Vehiculos _selectedVehiculos;
   final storage = new FlutterSecureStorage();
+  final API api = new API();
 
   @override
   void initState() {
@@ -83,7 +85,10 @@ class _VehiculosPageState extends State<VehiculosPage> {
             IconButton(
               icon: Icon(Icons.note_add),
               color: Color.fromRGBO(203, 99, 51, 1),
-              onPressed: () {},
+              onPressed: () async {
+                var response = await api.get(endPoint: 'vehicle/', id: 2);
+                print(response);
+              },
             ),
             IconButton(
               icon: Icon(Icons.event_note),
