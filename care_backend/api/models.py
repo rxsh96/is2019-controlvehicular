@@ -70,6 +70,6 @@ class MaintenanceDetails(models.Model):
 
 class ProfilePicture(models.Model):
 	user = models.ForeignKey(User,on_delete = models.CASCADE)
-	file = models.ImageField(blank=False, null=False)	
+	file = models.ImageField(blank=False, null=False, upload_to="profilepic")	
 	def __str__(self):
 		return self.file.name
