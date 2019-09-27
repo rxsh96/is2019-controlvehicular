@@ -73,3 +73,9 @@ class Affiliate_businessSerializer(serializers.ModelSerializer):
     class Meta:
         model = Affiliate_business
         fields = '__all__'
+
+
+class ProfilePictureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfilePicture
+        fields = "__all__"

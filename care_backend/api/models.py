@@ -18,6 +18,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 	objects=UserManager()
 	USERNAME_FIELD='email'
 
+class ProfilePicture(models.Model):
+	file = models.ImageField(blank=False, null=False, upload_to="profilepic")	
+	user = models.ForeignKey(User,on_delete = models.CASCADE)
+
+	def __str__(self):
+		return self.file.name
+	
 """class EmployeeAccount(models.Model):
 	id_number = models.CharField(max_length=10, unique=True)
 	name = models.CharField(max_length=255)
@@ -67,3 +74,4 @@ class MaintenanceDetails(models.Model):
 	local = models.ForeignKey(Affiliate_business, null=True, blank=True, on_delete = models.CASCADE)
 	date =  models.DateTimeField()
 	price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+
