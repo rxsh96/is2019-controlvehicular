@@ -6,6 +6,7 @@ from rest_framework.exceptions import ParseError
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import status
 from PIL import Image
 
 from api import models as api_model
