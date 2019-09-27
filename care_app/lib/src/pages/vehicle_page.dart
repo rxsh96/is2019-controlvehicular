@@ -1,8 +1,13 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:care_app/services/api.dart';
+import 'package:care_app/api/api_service.dart';
+import 'package:care_app/models/vehicle_model.dart';
 
 class VehiclePage extends StatefulWidget {
 
@@ -37,6 +42,7 @@ class _VehiclePageState extends State<VehiclePage> {
   Vehiculos _selectedVehiculos;
   final storage = new FlutterSecureStorage();
   final API api = new API();
+  final ApiService aservice = new ApiService();
 
   @override
   void initState() {
@@ -70,6 +76,7 @@ class _VehiclePageState extends State<VehiclePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         appBar: AppBar(
           title: Text("MIS VEHICULOS", style: TextStyle(fontSize: 17)),
@@ -86,9 +93,10 @@ class _VehiclePageState extends State<VehiclePage> {
               icon: Icon(Icons.note_add),
               color: Color.fromRGBO(203, 99, 51, 1),
               onPressed: () async {
-                var response = await api.get(endPoint: 'vehicle/', id: 2);
+                //var response = await aservice.get('vehicle/');
+                var response = await api.get(endPoint: 'vehicle');
                 print(response);
-              },
+              }
             ),
             IconButton(
               icon: Icon(Icons.event_note),
@@ -130,6 +138,7 @@ class _VehiclePageState extends State<VehiclePage> {
                     ),
                   ],
                 ),
+
 
                 SizedBox(height: 20.0),
                 _crearFranjas("FILTROS", 1, 'filtro', 'filtros'),

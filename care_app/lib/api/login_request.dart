@@ -11,7 +11,7 @@ import 'package:care_app/models/login_model.dart';
 
 Future<LoginModel> requestLoginAPI(
     BuildContext context, String email, String password) async {
-  final url = "http://192.168.0.121:8000/api/token/";
+  final url = "http://192.168.0.152:8000/api/token/";
   final storage = new FlutterSecureStorage();
   SharedPreferences preferences = await SharedPreferences.getInstance();
 
