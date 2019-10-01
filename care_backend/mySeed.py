@@ -8,16 +8,17 @@ django.setup()
 
 seeder = Seed.seeder()
 
-from api.models import User 
+from api.models import User, Vehicle
 seeder.add_entity(User, 75)
-#inserted_pks = seeder.execute()
+seeder.add_entity(Vehicle, 50)
+inserted_pks = seeder.execute()
 
-# seeder.add_entity(User, 50, {
-#    'email'= lambda x: seeder.faker.email(),
-# 	'name'= lambda x: seeder.faker.name(),
-# 	'lastname'= lambda x: seeder.faker.name(),
-# 	'phone_number'= lambda x: random.randint(1000,9999),
-# })
+seeder.add_entity(Vehicle, 50, {
+    'owner':    lambda x: random.randint(1,75),
+    'plate': lambda x: seeder.faker.name(),
+    'year': lambda x: random.randint(1950, 2020),
+})
+seeder.execute()
 
 # TAMBIEN EXISTE
 '''
@@ -38,4 +39,4 @@ PARA POBLAR LA BASE DE DATOS
 EN 1. ME CERCIORO DE QUE EL USER EXISTA PRIMERO QUE CUALQUIER OTRO MODELO DEBIDO A QUE EL PK ES FK DE LOS DEMAS MODELOS
 EN 2. CREO DATOS PARA LOS DEMAS MODELOS. PUEDE QUE SALGA ERROR POR VIOLAR LA REGLA DE UNIQUE, ESTO YA ES AL AZAR.
 '''
-seeder.execute()
+
