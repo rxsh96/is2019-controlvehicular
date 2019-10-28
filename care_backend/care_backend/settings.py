@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'api',
     'django_seed',
     'filters',
+    'rest_auth',
 ]
 
 MIDDLEWARE = [
@@ -149,3 +150,11 @@ AUTH_USER_MODEL = 'api.User'
 
 MEDIA_URL =  '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'g7daw2018@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'g7daw2018@gmail.com'
+EMAIL_HOST_PASSWORD = 'abrs2019ESPOL'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587

@@ -19,11 +19,17 @@ from api import views as my_view
 from api.router import router
 from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls import url
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/token/', my_view.TokenView.as_view()),
+    url(r'^password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        TemplateView.as_view(template_name="user/password_reset_confirm.html"),
+        name='password_reset_confirm'),
+    path('api/rest-auth/', include('rest_auth.urls')),
     #Paths del core
     path('', include('core.urls')),
     #Paths del affiliate_business
