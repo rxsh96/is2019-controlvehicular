@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
-from api.models import Affiliate_business
+from affiliate_business.models import City, Province, Affiliate_business
 from affiliate_business.forms import BusinessUpdateForm, BusinessCreateForm
 from django.urls import reverse_lazy
 from bootstrap_modal_forms.generic import (BSModalCreateView,
@@ -45,3 +45,9 @@ class BusinessDeleteView(BSModalDeleteView):
     template_name = 'affiliate_business/business_delete.html'
     success_message = 'Éxito: Negocio eliminado.'
     success_url = reverse_lazy('negocio')
+
+#Functions
+def load_cities(request):
+    province_id = request.GET.get('province')
+    cities = City.objects.filter(province_id=province_id).order_by('city')
+    return render(request, 'affiliate_business/city_dropdown_list_options.html', {'cities': cities})

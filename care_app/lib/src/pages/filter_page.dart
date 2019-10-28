@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:care_app/src/pages/add_filter_page.dart';
 
 class FilterPage extends StatefulWidget {
-  FilterPage({Key key}) : super(key: key);
+  const FilterPage({Key key}) : super(key: key);
 
+  @override
   _FilterPageState createState() => _FilterPageState();
 }
 
@@ -13,7 +14,7 @@ class _FilterPageState extends State<FilterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
        appBar: AppBar(
-         title: Text("MIS VEHICULOS", style: TextStyle(fontSize: 17)),
+         title: Text('MIS VEHICULOS', style: TextStyle(fontSize: 17),),
 
        ),
       body: ListView(
@@ -33,17 +34,16 @@ class _FilterPageState extends State<FilterPage> {
 
       ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Color.fromRGBO(32, 32, 32, 1),
+          backgroundColor: const Color.fromRGBO(32, 32, 32, 1),
           child:Image(
-            image: AssetImage('images/agregar_auto.png'),
+            image: const AssetImage('images/agregar_auto.png'),
             height: 35,
           ),
             onPressed: (){
             //Practicando nueva forma de hacer ruteo
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return AddFilterPage();
+              Navigator.push<Object>(
+                context, MaterialPageRoute(builder: (BuildContext context) {
+                  return const AddFilterPage();
                 }),
               );
             }

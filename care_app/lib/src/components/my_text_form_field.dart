@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:care_app/extras/validator.dart';
 
 class MyTextFormField extends StatefulWidget {
+  const MyTextFormField(
+      {this.controller,
+        this.capitalization,
+        this.textInputType,
+        this.label,
+        this.hint,
+        this.icon,
+        this.errorMsg});
+
   final TextEditingController controller;
   final TextCapitalization capitalization;
   final TextInputType textInputType;
@@ -10,14 +19,7 @@ class MyTextFormField extends StatefulWidget {
   final IconData icon;
   final String errorMsg;
 
-  MyTextFormField(
-      {this.controller,
-      this.capitalization,
-      this.textInputType,
-      this.label,
-      this.hint,
-      this.icon,
-      this.errorMsg});
+
 
   @override
   _MyTextFormFieldState createState() => _MyTextFormFieldState(
@@ -31,6 +33,15 @@ class MyTextFormField extends StatefulWidget {
 }
 
 class _MyTextFormFieldState extends State<MyTextFormField> {
+  _MyTextFormFieldState(
+      {this.controller,
+        this.capitalization,
+        this.textInputType,
+        this.label,
+        this.hint,
+        this.icon,
+        this.errorMsg});
+
   TextEditingController controller;
   TextCapitalization capitalization;
   TextInputType textInputType;
@@ -39,14 +50,7 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
   IconData icon;
   String errorMsg;
 
-  _MyTextFormFieldState(
-      {this.controller,
-      this.capitalization,
-      this.textInputType,
-      this.label,
-      this.hint,
-      this.icon,
-      this.errorMsg});
+
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +64,11 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
         suffixIcon: Icon(icon),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Color.fromRGBO(203, 99, 51, 1),
+            color: const Color.fromRGBO(203, 99, 51, 1),
           ),
         ),
       ),
-      validator: (value) {
+      validator: (String value) {
         if (value.isEmpty) {
           return errorMsg;
         }

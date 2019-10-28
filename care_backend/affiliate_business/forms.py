@@ -1,7 +1,7 @@
 from django import forms
 from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
 from bootstrap_modal_forms.forms import BSModalForm
-from api.models import Affiliate_business
+from affiliate_business.models import Affiliate_business, City
 from django.utils.translation import ugettext as _
 from django.core import validators
 
@@ -21,11 +21,25 @@ class BusinessCreateForm(forms.ModelForm):
       'business_name': forms.TextInput(attrs={'class':'form-control'}),
       'description': forms.Textarea(attrs={'class':'form-control','rows':5}),
       'business_phone': forms.TextInput(attrs={'class':'form-control'}),
-      'city': forms.TextInput(attrs={'class':'form-control'}),
+      'province': forms.Select(attrs={'class':'form-control'}),
+      'city': forms.Select(attrs={'class':'form-control'}),
       'legal_representative_name': forms.TextInput(attrs={'class':'form-control'}),
       'legal_representative_lastname': forms.TextInput(attrs={'class':'form-control'}),
       'address': forms.TextInput(attrs={'class':'form-control'}),
     }
+    
+  def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+    self.fields['city'].queryset = City.objects.none()
+
+    if 'province' in self.data:
+      try:
+        province_id = int(self.data.get('province'))
+        self.fields['city'].queryset = City.objects.filter(province_id=province_id).order_by('city')
+      except (ValueError, TypeError):
+        pass  # invalid input from the client; ignore and fallback to empty City queryset
+    elif self.instance.pk:
+      self.fields['city'].queryset = self.instance.country.city_set.order_by('city')
 
   def clean_ruc(self):
     #cleaned_data = super(BusinessCreateForm, self).clean()

@@ -6,17 +6,17 @@ import 'package:http/http.dart' as http;
 import 'package:care_app/models/login_model.dart';
 
 Future<LoginModel> requestLogoutAPI(BuildContext context) async {
-  final url = "http://192.168.0.152:8000/api/token/";
+  const String url = 'http://192.168.0.152:8000/api/token/';
 
-  var token;
+  String token;
 
 //  await getToken().then((result) {
 //    token = result;
 //  });
 
-  final response = await http.post(
+  final http.Response response = await http.post(
     url,
-    headers: {HttpHeaders.authorizationHeader: "Token $token"},
+    headers: {HttpHeaders.authorizationHeader: 'Token $token'},
   );
 
   if (response.statusCode == 200) {

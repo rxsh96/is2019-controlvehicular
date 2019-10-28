@@ -3,7 +3,9 @@ from api.manager import UserManager
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
                                         PermissionsMixin
-
+import datetime
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.utils.translation import ugettext_lazy as _
 
 class User(AbstractBaseUser, PermissionsMixin):
 	'''Custom User Model that supports using email instead of username'''
@@ -27,7 +29,33 @@ class ProfilePicture(models.Model):
 
 	def __str__(self):
 		return self.file.name
+
+class Province(models.Model):
+	province = models.CharField(max_length=254)
+
+	def __str__(self):
+		return self.province
+
+class City(models.Model):
+	city = models.CharField(max_length=254)
+	province = models.ForeignKey(Province, on_delete=models.CASCADE)
 	
+	def __str__(self):
+		return self.city
+
+class Brand(models.Model):
+	brand = models.CharField(max_length=254)
+
+	def __str__(self):
+		return self.brand
+
+class Model(models.Model):
+	model = models.CharField(max_length=254)
+	brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.model
+
 """class EmployeeAccount(models.Model):
 	id_number = models.CharField(max_length=10, unique=True)
 	name = models.CharField(max_length=255)
@@ -42,7 +70,8 @@ class Affiliate_business(models.Model):
 	business_name = models.CharField(max_length=255)
 	description = models.TextField(max_length=255,null=True, blank=True)
 	business_phone = models.CharField(max_length=13)
-	city = models.CharField(max_length=255)
+	province = models.ForeignKey(Province, on_delete=models.SET_NULL, null=True)
+	city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
 	legal_representative_name = models.CharField(max_length=255)
 	legal_representative_lastname = models.CharField(max_length=255)
 	address = models.CharField(max_length=255)
@@ -53,21 +82,29 @@ class Affiliate_business(models.Model):
 	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
 
+	def __str__(self):
+		return self.business_name
+
 class Vehicle(models.Model):
+	YEAR_CHOICES = [(y,y) for y in range(1960, (datetime.date.today().year)+2)]
 	owner = models.ForeignKey(User, on_delete = models.CASCADE, null=True, blank=True)
-	brand = models.CharField(max_length=30)
-	model = models.CharField(max_length=255)
+	brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True)
+	model = models.ForeignKey(Model, on_delete=models.SET_NULL, null=True)
 	plate = models.CharField(max_length=10)
 	color = models.CharField(max_length=20)
 	""" engine = models.CharField(max_length=25,default="") """
-	year = models.CharField(max_length=4)
+	year = models.IntegerField(choices=YEAR_CHOICES,default=datetime.datetime.now().year,)
 	description = models.TextField(max_length=255, default="")
 	km = models.CharField(max_length=20)
 	is_active = models.BooleanField(default=True)
 	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
+<<<<<<< HEAD
 	imageURL = models.CharField(max_length=500, null=True, blank=True)
 
+=======
+		
+>>>>>>> 20ea9f94498cb30cd67fc827adc569a5790cc2d6
 class Maintenance(models.Model):
 	description = models.TextField(max_length=255, default="")
 	m_type = models.CharField(max_length=255, primary_key=True)
@@ -78,4 +115,3 @@ class MaintenanceDetails(models.Model):
 	local = models.ForeignKey(Affiliate_business, null=True, blank=True, on_delete = models.CASCADE)
 	date =  models.DateTimeField()
 	price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
-

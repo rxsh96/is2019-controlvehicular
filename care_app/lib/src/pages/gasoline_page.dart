@@ -10,7 +10,7 @@ class _GasolinePageState extends State<GasolinePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(child: Text('Gasolina Page')),
+        body: Center(child: const Text('Gasolina Page')),
     );
   }
 }

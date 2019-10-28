@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
-from vehicle.models import Vehicle
+from vehicle.models import Vehicle,Brand, Model
 from vehicle.forms import VehicleUpdateForm, VehicleCreateForm
 from django.urls import reverse_lazy
 from bootstrap_modal_forms.generic import (BSModalCreateView,
@@ -44,3 +44,9 @@ class VehicleDeleteView(BSModalDeleteView):
     template_name = 'vehicle/vehicle_delete.html'
     success_message = 'Éxito: Vehículo eliminado.'
     success_url = reverse_lazy('vehiculo')
+
+#Functions
+def load_models(request):
+    brand_id = request.GET.get('brand')
+    models = Model.objects.filter(brand_id=brand_id).order_by('model')
+    return render(request, 'vehicle/model_dropdown_list_options.html', {'models': models})

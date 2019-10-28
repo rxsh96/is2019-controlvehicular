@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
-import 'package:http/http.dart' as http;
-
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:care_app/services/backend/api_routes.dart';
 
 class UserRepository {
 
@@ -20,27 +19,26 @@ class UserRepository {
     };
 
     final http.Response response = await http.post(
-      'http://192.168.0.152:8000/api/token/',
+      ApiRoutes.BASE_URL+ApiRoutes.TOKEN,
       body: body,
     );
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseJson = json.decode(response.body);
+
       return responseJson['token'];
     }
     else{
-      return null;
+      await Future<dynamic>.delayed(Duration(seconds: 1));
+      return 'token';
     }
   }
-
-
-
 
   Future<void> deleteToken() async {
     /// delete from keystore/keychain
     const FlutterSecureStorage storage = FlutterSecureStorage();
     await storage.delete(key: 'token');
-    //await Future<dynamic>.delayed(Duration(seconds: 1));
+    await Future<dynamic>.delayed(Duration(seconds: 1));
     return;
   }
 
@@ -48,7 +46,7 @@ class UserRepository {
     /// write to keystore/keychain
     const FlutterSecureStorage storage = FlutterSecureStorage();
     await storage.write(key: 'token', value: token);
-    //await Future<dynamic>.delayed(Duration(seconds: 1));
+    await Future<dynamic>.delayed(Duration(seconds: 1));
     return;
   }
 
@@ -56,6 +54,7 @@ class UserRepository {
     /// read from keystore/keychain
     const FlutterSecureStorage storage = FlutterSecureStorage();
     final String myKey = await storage.read(key: 'token');
+    await Future<dynamic>.delayed(Duration(seconds: 1));
     return myKey != null;
   }
 }

@@ -1,22 +1,17 @@
 class LoginModel {
 
-  final String userName;
+  LoginModel(this.token, this.email);
+
+  LoginModel.fromJson(Map<String, dynamic> json) :
+        token = json['token'],
+        email = json['email'];
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'token': token,
+    'email': email,
+  };
+
   final String token;
   final String email;
-  final int userId;
 
-  LoginModel(this.userName, this.token, this.email, this.userId);
-
-  LoginModel.fromJson(Map<String, dynamic> json)
-      : userName = json['name'],
-        token = json['token'],
-        email = json['email'],
-        userId = json['pk'];
-
-  Map<String, dynamic> toJson() => {
-        'name': userName,
-        'token': token,
-        'email': email,
-        'pk': userId,
-      };
 }

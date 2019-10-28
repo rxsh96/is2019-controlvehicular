@@ -15,7 +15,7 @@
   <div class="container">
     <div class="justify-content-center">
       
-      <form action="" enctype="multipart/form-data" method="post">
+      <form action="" id="businessForm" enctype="multipart/form-data" method="post" data-cities-url="{% url 'ajax_load_cities' %}" novalidate>
           {% csrf_token %}
           
           <div class="pt-4 pb-4">
@@ -50,6 +50,12 @@
                 <div class="col-md-7 form-group">
                   <div class="border rounded">
                     {% render_field form.business_phone  placeholder=field.label %} 
+                  </div>
+                </div>
+                <label class="text-secondary pl-2" style="font-size: 14px;">Provincia</label>
+                <div class="col-md-7 form-group">
+                  <div class="border rounded">
+                    {% render_field form.province placeholder=field.label %} 
                   </div>
                 </div>
                 <label class="text-secondary pl-2" style="font-size: 14px;">Ciudad</label>
@@ -105,4 +111,22 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  $("#id_province").change(function () {
+    var url = $("#businessForm").attr("data-cities-url");  // get the url of the `load_cities` view
+    var provinceId = $(this).val();  // get the selected country ID from the HTML input
+
+    $.ajax({                       // initialize an AJAX request
+      url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+      data: {
+        'province': provinceId       // add the country id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_cities` view function
+        $("#id_city").html(data);  // replace the contents of the city input with the data that came from the server
+      }
+    });
+  });
+</script>
 {% endblock %}

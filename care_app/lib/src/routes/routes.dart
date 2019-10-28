@@ -14,16 +14,16 @@ import 'package:care_app/src/pages/vehicle_page.dart';
 
 Map<String, WidgetBuilder> getRoutes() {
   return <String, WidgetBuilder>{
-    '/login': (context) => LoginPage(),
-    '/nuevoUser': (context) => AddUserPage(),
-    '/vehiculos': (context) => VehiclePage(),
-    '/agregarVehiculos': (context) => AddVehiclePage(),
-    '/filtros': (context) => FilterPage(),
-    '/frenos': (context) => BrakesPage(),
-    '/luces': (context) => LigthsPage(),
-    '/multas': (context) => TransitTaxesPage(),
-    '/kilometraje': (context) => KmsPage(),
-    '/gasolina': (context) => GasolinePage(),
-    '/nuevoFiltro': (context) => AddFilterPage(),
+    //'/loginPage': (BuildContext context) => LoginPage(),
+    '/addUserPage': (BuildContext context) => const AddUserPage(),
+    //'/vehiclePage': (BuildContext context) => const VehiclePage(),
+    '/addVehiclePage': (BuildContext context) => const AddVehiclePage(),
+    '/filterPage': (BuildContext context) => const FilterPage(),
+    '/brakePage': (BuildContext context) => const BrakesPage(),
+    '/lightPage': (BuildContext context) => LigthsPage(),
+    '/transitTaxPage': (BuildContext context) => TransitTaxesPage(),
+    '/kmPage': (BuildContext context) => KmsPage(),
+    '/gasolinePage': (BuildContext context) => GasolinePage(),
+    '/addFilterPage': (BuildContext context) => const AddFilterPage(),
   };
 }

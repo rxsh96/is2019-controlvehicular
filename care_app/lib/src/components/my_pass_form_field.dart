@@ -1,15 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MyPassFormField extends StatefulWidget {
-  final TextEditingController controller;
-  final TextInputType textInputType;
-  final String label;
-  final String hint;
-  final IconData icon;
-  final String errorMsg;
-  final bool isLogin;
-
-  MyPassFormField(
+  const MyPassFormField(
       {this.controller,
       this.textInputType,
       this.label,
@@ -17,6 +9,14 @@ class MyPassFormField extends StatefulWidget {
       this.icon,
       this.errorMsg,
       this.isLogin});
+
+  final TextEditingController controller;
+  final TextInputType textInputType;
+  final String label;
+  final String hint;
+  final IconData icon;
+  final String errorMsg;
+  final bool isLogin;
 
   @override
   _MyPassFormFieldState createState() => _MyPassFormFieldState(
@@ -30,6 +30,16 @@ class MyPassFormField extends StatefulWidget {
 }
 
 class _MyPassFormFieldState extends State<MyPassFormField> {
+
+  _MyPassFormFieldState(
+      {this.controller,
+        this.textInputType,
+        this.label,
+        this.hint,
+        this.icon,
+        this.errorMsg,
+        this.isLogin});
+
   TextEditingController controller;
   TextInputType textInputType;
   String label;
@@ -37,15 +47,6 @@ class _MyPassFormFieldState extends State<MyPassFormField> {
   IconData icon;
   String errorMsg;
   bool isLogin;
-
-  _MyPassFormFieldState(
-      {this.controller,
-      this.textInputType,
-      this.label,
-      this.hint,
-      this.icon,
-      this.errorMsg,
-      this.isLogin});
 
   bool _obscureText = true;
 
@@ -65,17 +66,20 @@ class _MyPassFormFieldState extends State<MyPassFormField> {
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
-        suffixIcon: isLogin ? Icon(icon) : GestureDetector(
-          onTap: _toggle,
-          child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
-        ),
+        suffixIcon: isLogin
+            ? Icon(icon)
+            : GestureDetector(
+                onTap: _toggle,
+                child: Icon(
+                    _obscureText ? Icons.visibility : Icons.visibility_off),
+              ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Color.fromRGBO(203, 99, 51, 1),
+            color: const Color.fromRGBO(203, 99, 51, 1),
           ),
         ),
       ),
-      validator: (value) {
+      validator: (String value) {
         if (value.isEmpty) {
           return errorMsg;
         }

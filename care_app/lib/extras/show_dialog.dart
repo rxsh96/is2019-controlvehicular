@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-void showSimpleDialog(BuildContext context, String title, String message, String buttonLabel) {
+void showSimpleDialog<T>(BuildContext context, String title, String message, String buttonLabel) {
   // flutter defined function
-  showDialog(
+  showDialog<T>(
     context: context,
     builder: (BuildContext context) {
       // return object of type Dialog
       return AlertDialog(
-        title: new Text(title),
-        content: new Text(message),
+        title: Text(title),
+        content: Text(message),
         actions: <Widget>[
           // usually buttons at the bottom of the dialog
-          new FlatButton(
-            child: new Text(buttonLabel),
+          FlatButton(
+            child: Text(buttonLabel),
             onPressed: () {
               Navigator.of(context).pop();
             },

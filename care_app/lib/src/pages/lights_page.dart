@@ -11,7 +11,7 @@ class _LigthsPageState extends State<LigthsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       
-      body: Center(child: Text('Luces Page')),
+      body: Center(child: const Text('Luces Page')),
     );
   }
 }

@@ -10,7 +10,7 @@ class _KmsPageState extends State<KmsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(child: Text('Kilometraje Page')),
+        body: Center(child: const Text('Kilometraje Page')),
     );
   }
 }

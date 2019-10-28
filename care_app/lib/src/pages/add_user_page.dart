@@ -1,70 +1,70 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'package:mime/mime.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:care_app/api/api_service.dart';
+import 'package:care_app/models/user_model.dart';
+import 'package:http/http.dart' as http;
 import 'package:care_app/src/components/my_text_form_field.dart';
 import 'package:care_app/src/components/my_pass_form_field.dart';
+import 'package:care_app/services/backend/api.dart';
 
 class AddUserPage extends StatefulWidget {
-  AddUserPage({Key key}) : super(key: key);
+  const AddUserPage({Key key}) : super(key: key);
 
+  @override
   _AddUserPageState createState() => _AddUserPageState();
 }
 
 class _AddUserPageState extends State<AddUserPage> {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController _inputNombre = TextEditingController();
-  final TextEditingController _inputApellido = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _inputName = TextEditingController();
+  final TextEditingController _inputLastName = TextEditingController();
   final TextEditingController _inputMail = TextEditingController();
-  final TextEditingController _inputContrasena = TextEditingController();
-  final TextEditingController _inputTelefono = TextEditingController();
+  final TextEditingController _inputPassword = TextEditingController();
+  final TextEditingController _inputPhone = TextEditingController();
   File _image;
+  final API api = API();
 
-  Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+  Future<void> getImage({ImageSource source}) async {
+    final File image = await ImagePicker.pickImage(source: source);
     setState(() {
       _image = image;
     });
   }
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final myUserForm = Form(
+    final Form myUserForm = Form(
       key: _formKey,
       child: Column(
         children: <Widget>[
-          SizedBox(height: 15.0),
+          const SizedBox(height: 15.0),
           MyTextFormField(
-              controller: _inputNombre,
+              controller: _inputName,
               capitalization: TextCapitalization.words,
               textInputType: TextInputType.text,
               label: 'Nombres',
               icon: Icons.font_download,
               errorMsg: 'Ingresa tu nombre'),
-          SizedBox(height: 15.0),
+          const SizedBox(height: 15.0),
           MyTextFormField(
-              controller: _inputApellido,
+              controller: _inputLastName,
               capitalization: TextCapitalization.words,
               textInputType: TextInputType.text,
               label: 'Apellido',
               icon: Icons.font_download,
               errorMsg: 'Ingresa tu apellido'),
-          SizedBox(height: 15.0),
+          const SizedBox(height: 15.0),
           MyTextFormField(
-              controller: _inputTelefono,
+              controller: _inputPhone,
               capitalization: TextCapitalization.none,
               textInputType: TextInputType.phone,
               label: 'Teléfono',
               icon: Icons.phone,
               errorMsg: 'Ingresa tu teléfono'),
-          SizedBox(height: 15.0),
+          const SizedBox(height: 15.0),
           MyTextFormField(
               controller: _inputMail,
               capitalization: TextCapitalization.none,
@@ -72,16 +72,16 @@ class _AddUserPageState extends State<AddUserPage> {
               label: 'Correo Electrónico',
               icon: Icons.mail,
               errorMsg: 'Ingresa tu correo electrónico'),
-          SizedBox(height: 15.0),
+          const SizedBox(height: 15.0),
           MyPassFormField(
-            controller: _inputContrasena,
+            controller: _inputPassword,
             textInputType: TextInputType.text,
             label: 'Contraseña',
             icon: Icons.enhanced_encryption,
             errorMsg: 'Ingresa una contraseña',
             isLogin: false,
           ),
-          SizedBox(height: 35.0),
+          const SizedBox(height: 35.0),
         ],
       ),
     );
@@ -92,7 +92,7 @@ class _AddUserPageState extends State<AddUserPage> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text("Registro", style: TextStyle(fontSize: 18)),
+              Text('Registro', style: TextStyle(fontSize: 18)),
               Image.asset(
                 'images/logo2.png',
                 fit: BoxFit.contain,
@@ -101,7 +101,7 @@ class _AddUserPageState extends State<AddUserPage> {
           ),
         ),
         body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 30.0),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 30.0),
           children: <Widget>[
             Container(
               child: Center(
@@ -114,16 +114,16 @@ class _AddUserPageState extends State<AddUserPage> {
                               size: 50.0,
                               color: Colors.white,
                             ),
-                            backgroundColor: Color.fromRGBO(203, 99, 51, 1),
+                            backgroundColor: const Color.fromRGBO(203, 99, 51, 1),
                             radius: 50.0,
                           )
                         : CircleAvatar(
                             backgroundImage: FileImage(_image),
                             radius: 50.0,
-                            backgroundColor: Color.fromRGBO(203, 99, 51, 1),
+                            backgroundColor: const Color.fromRGBO(203, 99, 51, 1),
                           ),
                   ),
-                  onPressed: getImage,
+                  onPressed: () {getImage(source: ImageSource.camera);}
                 ),
               ),
             ),
@@ -136,30 +136,41 @@ class _AddUserPageState extends State<AddUserPage> {
     );
   }
 
+
   void registerUser() {
     if (_formKey.currentState.validate()) {
-      Map<String, String> body = {
-        "name": _inputNombre.text,
-        "lastname": _inputApellido.text,
-        "phone_number": _inputTelefono.text,
-        "email": _inputMail.text.toLowerCase(),
-        "password": _inputContrasena.text,
-        "is_active": "true"
+
+      final Map<String, String> body = <String, String>{
+        'name': _inputName.text,
+        'lastname': _inputLastName.text,
+        'phone_number': _inputPhone.text,
+        'email': _inputMail.text.toLowerCase(),
+        'password': _inputPassword.text,
+        'is_active': 'true'
       };
-      ApiService.internal().post('users/', body: body);
-      Navigator.pushNamed(context, '/login');
+
+      if(_image != null){
+        final Map<String, String> img = <String, String>{
+          'file': _inputName.text,
+          'user': '1',
+        };
+        //api.postImage(img: img);
+      }
+      api.postUser(user: body);
+      //api<User>('users/', body: body);
+      Navigator.pushNamed(context, '/loginPage');
     }
   }
 
   Widget _submitUser() {
     return BottomAppBar(
-      color: Color.fromRGBO(203, 99, 51, 1),
+      color: const Color.fromRGBO(203, 99, 51, 1),
       child: MaterialButton(
         onPressed: () {
           registerUser();
         },
         child: Text(
-          "REGISTRARSE",
+          'REGISTRARSE',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,
