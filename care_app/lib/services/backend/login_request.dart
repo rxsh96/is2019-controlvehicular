@@ -11,29 +11,29 @@ import 'package:care_app/models/login_model.dart';
 
 Future<LoginModel> requestLoginAPI(
     BuildContext context, String email, String password) async {
-  final url = "http://192.168.0.152:8000/api/token/";
-  final storage = new FlutterSecureStorage();
-  SharedPreferences preferences = await SharedPreferences.getInstance();
+  const String url = 'http:// 172.20.134.89:8000/api/token/';
+  const FlutterSecureStorage storage = FlutterSecureStorage();
+  final SharedPreferences preferences = await SharedPreferences.getInstance();
 
-  Map<String, String> body = {
+  final Map<String, String> body =
+  <String, String>{
     'email': email,
     'password': password,
   };
 
-  final response = await http.post(
+  final http.Response response = await http.post(
     url,
     body: body,
   );
 
   if (response.statusCode == 200) {
-    final responseJson = json.decode(response.body);
-    //AQUI GUARDAMOS EL DATO DEL TOKEN EN EL TELEFONO PARA EL INICIO DE SESION
+    final Map<String, dynamic> responseJson = json.decode(response.body);
     storage.write(key: 'token', value: responseJson['token']);
-    preferences.setString("email", body['email']);
+    preferences.setString('email', body['email']);
     Navigator.of(context).pushReplacementNamed('/vehiculos');
     return LoginModel.fromJson(responseJson);
   } else {
-    showSimpleDialog(context, "Ups", "Credenciales Incorrectas.", "OK");
+    showSimpleDialog<String>(context, 'Ups', 'Credenciales Incorrectas.', 'OK');
     return null;
   }
 }

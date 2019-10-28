@@ -1,5 +1,6 @@
 from django.db import models
 from api.manager import UserManager
+from django.utils.translation import gettext as _
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
                                         PermissionsMixin
 
@@ -19,6 +20,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 	USERNAME_FIELD='email'
 
 class ProfilePicture(models.Model):
+	creation_date = models.DateTimeField(auto_now_add=True, editable=False)
+	modified_date = models.DateTimeField(auto_now=True)
 	file = models.ImageField(blank=False, null=False, upload_to="profilepic")	
 	user = models.ForeignKey(User,on_delete = models.CASCADE)
 
@@ -63,6 +66,7 @@ class Vehicle(models.Model):
 	is_active = models.BooleanField(default=True)
 	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
+	imageURL = models.CharField(max_length=500, null=True, blank=True)
 
 class Maintenance(models.Model):
 	description = models.TextField(max_length=255, default="")

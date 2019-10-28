@@ -14,10 +14,28 @@ from filters.mixins import (
     FiltersMixin,
 )
 
-class UserView(viewsets.ModelViewSet):
+class UserView(FiltersMixin, viewsets.ModelViewSet):
     """Create a new user in the system"""
+    # queryset = api_model.User.objects.prefetch_related(
+    #     'lastname'  # use prefetch_related to minimize db hits.
+    # ).all()
     queryset = api_model.User.objects.all()
     serializer_class = UserSerializer
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('id', 'email', 'is_active' )
+    ordering = ('id','is_active',)
+
+    filter_mappings = {
+        'id': 'id',
+        'email': 'email',
+        'name': 'name',
+        'lastname': 'lastname',
+        'phone_number': 'phone_number',
+        'is_active': 'is_active',
+        'is_staff': 'is_staff',
+        'created': 'created',
+        'updated': 'updated',
+    }
 
 class TokenView(ObtainAuthToken):
     """Create a new auth token for the user"""
@@ -60,25 +78,16 @@ class VehicleView(FiltersMixin, viewsets.ModelViewSet):
         'updated': 'updated',
     }
 
-
-
 class Affiliate_businessView(viewsets.ModelViewSet):
     """Create a new Affiliate_business in the system"""
     queryset = api_model.Affiliate_business.objects.all()
     serializer_class = Affiliate_businessSerializer
 
+    
 class ImageUploadParser(FileUploadParser):
     media_type = 'image/*'
 
-class PPUploadView(APIView):
+class PPUploadView(viewsets.ModelViewSet):
     parser_class = (ImageUploadParser,)
-
-    def post(self, request, *args, **kwargs):
-
-      file_serializer = ProfilePictureSerializer(data=request.data)
-
-      if file_serializer.is_valid():
-          file_serializer.save()
-          return Response(file_serializer.data, status=status.HTTP_201_CREATED)
-      else:
-          return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    queryset = api_model.ProfilePicture.objects.all()
+    serializer_class = ProfilePictureSerializer

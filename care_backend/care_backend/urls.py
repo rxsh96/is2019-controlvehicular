@@ -32,7 +32,7 @@ urlpatterns = [
     path('', include('vehicle.urls')),
     #Paths del user
     path('', include('user.urls')),
-    path('upload/', my_view.PPUploadView.as_view()),
+    #path('upload/', my_view.PPUploadView.as_view()),
 ]
 
 if settings.DEBUG:

@@ -8,7 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
     """Serializer for the users object"""
     class Meta:
         model = User
-        fields = ('name','lastname','phone_number','email', 'password', 'name','is_active')
+        fields = ('id','name','lastname','phone_number','email', 'password', 'name','is_active')
         extra_kwargs = {'password': 
                             {'write_only': True, 
                             'min_length': 5, 
@@ -74,6 +74,10 @@ class Affiliate_businessSerializer(serializers.ModelSerializer):
         model = Affiliate_business
         fields = '__all__'
 
+# class ImageSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Image
+#         fields = ('image_file',)
 
 class ProfilePictureSerializer(serializers.ModelSerializer):
     class Meta:
