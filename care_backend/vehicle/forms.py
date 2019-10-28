@@ -48,7 +48,7 @@ class VehicleCreateForm(forms.ModelForm):
       except (ValueError, TypeError):
         pass  # invalid input from the client; ignore and fallback to empty City queryset
     elif self.instance.pk:
-      self.fields['model'].queryset = self.instance.country.city_set.order_by('model')
+      self.fields['model'].queryset = self.instance.country.city_set.order_by('model_vehicle')
 
   def clean_plate(self):
     plate = self.cleaned_data['plate']
