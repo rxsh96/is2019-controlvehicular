@@ -14,8 +14,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class API {
 
-  static const String _BASE_URL = 'http://172.21.4.223:8000/api/';
-
   Future<String> getEmail() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.getString('email');
@@ -23,7 +21,7 @@ class API {
 
   Future<User> getUser() async {
     final String email = await getEmail();
-    final http.Response response = await getClient().get(_BASE_URL+ApiRoutes.USERS+'?email=$email');
+    final http.Response response = await getClient().get(ApiRoutes.BASE_URL+ApiRoutes.USERS+'?email=$email');
     return compute(parseUser, response.body);
   }
 
@@ -34,22 +32,23 @@ class API {
   Future<List<Vehicle>> fetchVehicles() async {
     final User user = await getUser();
     final int id = user.id;
-    final http.Response response = await getClient().get(_BASE_URL+ApiRoutes.VEHICLES+'?owner=$id');
+    final String url = ApiRoutes.BASE_URL+ApiRoutes.VEHICLES+'?owner=$id';
+    final http.Response response = await getClient().get(url);
     return compute(parseVehicles, response.body);
   }
 
   Future<User> postUser({Map<String, String> user}) async {
-    final  http.Response response = await getClient().post(_BASE_URL + ApiRoutes.USERS, body: user);
+    final  http.Response response = await getClient().post(ApiRoutes.BASE_URL + ApiRoutes.USERS, body: user);
     return compute(parseUser, response.body);
   }
 
   Future<Vehicle> postVehicle({Map<String, String> vehicle}) async {
-    final  http.Response response = await getClient().post(_BASE_URL + ApiRoutes.VEHICLES, body: vehicle);
+    final  http.Response response = await getClient().post(ApiRoutes.BASE_URL + ApiRoutes.VEHICLES, body: vehicle);
     return compute(parseVehicle, response.body);
   }
 
   Future<ProfileImage> postImage({Map<String, String> img}) async{
-    final  http.Response response = await getClient().post(_BASE_URL + ApiRoutes.UPLOAD_PROFILE_IMG, body: img);
+    final  http.Response response = await getClient().post(ApiRoutes.BASE_URL + ApiRoutes.UPLOAD_PROFILE_IMG, body: img);
     return json.decode(response.body);
   }
 

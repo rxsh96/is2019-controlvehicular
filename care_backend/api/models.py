@@ -99,12 +99,8 @@ class Vehicle(models.Model):
 	is_active = models.BooleanField(default=True)
 	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
-<<<<<<< HEAD
 	imageURL = models.CharField(max_length=500, null=True, blank=True)
 
-=======
-		
->>>>>>> 20ea9f94498cb30cd67fc827adc569a5790cc2d6
 class Maintenance(models.Model):
 	description = models.TextField(max_length=255, default="")
 	m_type = models.CharField(max_length=255, primary_key=True)

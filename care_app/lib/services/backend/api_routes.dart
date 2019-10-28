@@ -1,6 +1,6 @@
 class ApiRoutes{
 
-  static const String BASE_URL = 'http://192.168.0.152:8000/api/';
+  static const String BASE_URL = 'http://172.20.131.196:8000/api/';
   static const String TOKEN = 'token/';
   static const String USERS = 'users/';
   static const String VEHICLES = 'vehicle/';

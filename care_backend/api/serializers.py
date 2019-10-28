@@ -83,3 +83,13 @@ class ProfilePictureSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProfilePicture
         fields = "__all__"
+
+class BrandSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Brand
+        fields = "__all__"
+
+class ModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Model
+        fields = "__all__"

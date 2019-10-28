@@ -25,7 +25,8 @@ class UserRepository {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseJson = json.decode(response.body);
-
+      const FlutterSecureStorage storage = FlutterSecureStorage();
+      await storage.write(key: 'email', value: body['email']);
       return responseJson['token'];
     }
     else{
@@ -35,7 +36,6 @@ class UserRepository {
   }
 
   Future<void> deleteToken() async {
-    /// delete from keystore/keychain
     const FlutterSecureStorage storage = FlutterSecureStorage();
     await storage.delete(key: 'token');
     await Future<dynamic>.delayed(Duration(seconds: 1));
@@ -43,7 +43,6 @@ class UserRepository {
   }
 
   Future<void> persistToken(String token) async {
-    /// write to keystore/keychain
     const FlutterSecureStorage storage = FlutterSecureStorage();
     await storage.write(key: 'token', value: token);
     await Future<dynamic>.delayed(Duration(seconds: 1));
@@ -51,7 +50,6 @@ class UserRepository {
   }
 
   Future<bool> hasToken() async {
-    /// read from keystore/keychain
     const FlutterSecureStorage storage = FlutterSecureStorage();
     final String myKey = await storage.read(key: 'token');
     await Future<dynamic>.delayed(Duration(seconds: 1));

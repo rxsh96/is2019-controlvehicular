@@ -91,3 +91,11 @@ class PPUploadView(viewsets.ModelViewSet):
     parser_class = (ImageUploadParser,)
     queryset = api_model.ProfilePicture.objects.all()
     serializer_class = ProfilePictureSerializer
+
+class BrandView(viewsets.ModelViewSet):
+    queryset = api_model.Brand.objects.all()
+    serializer_class = BrandSerializer
+
+class ModelView(viewsets.ModelViewSet):
+    queryset = api_model.Model.objects.all()
+    serializer_class = ModelSerializer

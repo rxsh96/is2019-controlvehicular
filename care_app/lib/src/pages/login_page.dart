@@ -39,7 +39,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: BlocProvider(
+        body: BlocProvider<LoginBloc>(
           builder: (BuildContext context){
             return LoginBloc(
               authenticationBloc: BlocProvider.of<AuthenticationBloc>(context),
