@@ -34,11 +34,11 @@ class _MyCardButtonState extends State<MyCardButton> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             MaterialButton(
-              onPressed: () {},
+              onPressed: null,
               child: Text(
                 text,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
             ),
             const SizedBox(

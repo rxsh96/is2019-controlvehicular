@@ -10,6 +10,7 @@ import 'package:care_app/login/login.dart';
 import 'package:care_app/src/pages/vehicle_page.dart';
 import 'package:care_app/extras/circular_loader.dart';
 
+import 'package:care_app/src/routes/routes.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
@@ -54,6 +55,8 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+      routes: getRoutes(),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (BuildContext context, AuthenticationState state) {
           if (state is AuthenticationUninitialized) {
@@ -69,6 +72,9 @@ class App extends StatelessWidget {
             return LoadingIndicator();
           }
         },
+      ),
+      theme: ThemeData(
+        primaryColor: const Color.fromRGBO(32, 32, 32, 1),
       ),
     );
   }

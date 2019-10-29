@@ -11,24 +11,46 @@ import 'package:care_app/src/components/my_card_button.dart';
 
 import 'package:care_app/models/vehicle_model.dart';
 
+class VehiclePage extends StatefulWidget {
+  @override
+  _VehiclePageState createState() => _VehiclePageState();
+}
 
-class VehiclePage extends StatelessWidget {
+class _VehiclePageState extends State<VehiclePage> {
+//  @override
+//  Widget build(BuildContext context) {
+//    return Container();
+//  }
+//}
+//
+//
+//class VehiclePage extends StatelessWidget {
   final API api = API();
 
   Future<List<Vehicle>> getCars() async {
-    return await api.fetchVehicles();
+    print('FETCHING GETCARS');
+    final List<Vehicle> myList = await api.fetchVehicles();
+    print('GETCARS FETCHED');
+    for (Vehicle v in myList) {
+      print('=================================================');
+      print(v.toString());
+    }
+    return myList;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MIS VEHÍCULOS', style: TextStyle(fontSize: 16)),
+        title: const Text(
+          'MIS VEHÍCULOS',
+          style: TextStyle(fontSize: 16),
+        ),
         actions: <Widget>[
           MyIconButton(
             icon: Icons.add,
             color: const Color.fromRGBO(203, 99, 51, 1),
-            route: '/addVehiclePage',
+            route: 'addVehiclePage',
           ),
           MyIconButton(
             icon: Icons.note_add,
@@ -50,30 +72,36 @@ class VehiclePage extends StatelessWidget {
                 width: 50,
                 child: FutureBuilder<List<Vehicle>>(
                   future: getCars(),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Vehicle>> snapshot) {
                     return snapshot.hasData
                         ? Container(
-                      child: Swiper(
-                        itemBuilder: (BuildContext context, int index) {
-                          return Image.network(
-                            snapshot.data[index].imageURL,
-                            fit: BoxFit.fill,
-                          );
-                        },
-                        itemCount: snapshot.data.length,
-                        pagination: const SwiperPagination(
-                          builder: DotSwiperPaginationBuilder(
-                            color: Colors.white,
-                            activeColor: Color.fromRGBO(210, 100, 50, 1),
-                          ),
-                        ),
-                        control: const SwiperControl(
-                          color: Color.fromRGBO(210, 100, 50, 1),
-                        ),
-                      ),
-                    )
-                        : Center(child: const CircularProgressIndicator());
+                            child: Swiper(
+                              itemBuilder: (BuildContext context, int index) {
+                                print(
+                                    'ESTOY DENTRO DEL ITEM BUILDER DEL SWIPER');
+                                print(index);
+                                print(snapshot.data[index]);
+
+                                return Text(
+                                  snapshot.data[index].imageURL,
+                                  //fit: BoxFit.fill,
+                                ); //
+                              },
+                              itemCount: snapshot.data.length,
+                              pagination: const SwiperPagination(
+                                builder: DotSwiperPaginationBuilder(
+                                  color: Colors.white,
+                                  activeColor: Color.fromRGBO(210, 100, 50, 1),
+                                ),
+                              ),
+                              control: const SwiperControl(
+                                color: Color.fromRGBO(210, 100, 50, 1),
+                              ),
+                            ),
+                          )
+                        : FadeInImage.assetNetwork(
+                            placeholder: 'images/auto-2.gif', image: '',fit: BoxFit.fill,);
                   },
                 ),
               ),
@@ -267,4 +295,3 @@ class _VehiclePageState extends State<VehiclePage> {
   }
  }
 */
-

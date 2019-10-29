@@ -16,7 +16,7 @@ Map<String, WidgetBuilder> getRoutes() {
   return <String, WidgetBuilder>{
     //'/loginPage': (BuildContext context) => LoginPage(),
     '/addUserPage': (BuildContext context) => const AddUserPage(),
-    //'/vehiclePage': (BuildContext context) => const VehiclePage(),
+    '/vehiclePage': (BuildContext context) =>  VehiclePage(),
     '/addVehiclePage': (BuildContext context) => const AddVehiclePage(),
     '/filterPage': (BuildContext context) => const FilterPage(),
     '/brakePage': (BuildContext context) => const BrakesPage(),

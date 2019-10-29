@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 import 'package:care_app/services/backend/api_routes.dart';
 
@@ -25,8 +27,8 @@ class UserRepository {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseJson = json.decode(response.body);
-      const FlutterSecureStorage storage = FlutterSecureStorage();
-      await storage.write(key: 'email', value: body['email']);
+      final SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('email', body['email']);
       return responseJson['token'];
     }
     else{

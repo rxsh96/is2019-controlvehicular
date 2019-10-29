@@ -44,48 +44,57 @@ class _MyMenuState extends State<MyMenu> {
             const MyMenuOptions(
               optionName: 'Locales',
               icon: 'location_pointer',
-              onTap: null,
+              route: null,
             ),
             const MyMenuOptions(
               optionName: 'Viajes',
               icon: 'menu_viajes',
-              onTap: null,
+              route: null,
             ),
             const MyMenuOptions(
               optionName: 'Notificaciones',
               icon: 'menu_notificaciones',
-              onTap: null,
+              route: null,
             ),
             const MyMenuOptions(
               optionName: 'Encuesta',
               icon: 'menu_notificaciones',
-              onTap: null,
+              route: null,
             ),
             const MyMenuOptions(
               optionName: 'Guía de mantenimiento',
               icon: 'menu_guia',
-              onTap: null,
+              route: null,
             ),
             const MyMenuOptions(
               optionName: 'Reporte de accidentes',
               icon: 'menu_reporte',
-              onTap: null,
+              route: null,
             ),
             const SizedBox(height: 45.0),
-
             Divider(color: Colors.grey, height: 5.0),
-
             const SizedBox(height: 15.0),
             const MyMenuOptions(
               optionName: 'Configuración',
               icon: 'menu_configuracion',
-              onTap: null,
+              route: null,
             ),
-            RaisedButton(
-                child: const Text('Cerrar Sesión'),
-                onPressed: () {
+            ListTile(
+              leading: Image.asset(
+                'images/flecha_atras.png',
+                width: 20,
+                height: 20,
+              ),
+              title: GestureDetector(
+                child: const Text(
+                  'Cerrar Sesión',
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                ),
+                onTap: () {
                   BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
-                }),
+                },
+              ),
+            ),
           ],
         ),
       ),

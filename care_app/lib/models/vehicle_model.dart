@@ -48,9 +48,18 @@ class Vehicle {
     return data;
   }
 
+
+  @override
+  String toString() {
+    return 'Vehicle{id: $id, brand: $brand, model: $model, plate: $plate, '
+        'color: $color, year: $year, description: $description, km: $km, '
+        'isActive: $isActive, created: $created, updated: $updated, '
+        'imageURL: $imageURL, owner: $owner}';
+  }
+
   int id;
-  String brand;
-  String model;
+  int brand;
+  int model;
   String plate;
   String color;
   String year;

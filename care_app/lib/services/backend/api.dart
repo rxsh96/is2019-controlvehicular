@@ -34,6 +34,9 @@ class API {
     final int id = user.id;
     final String url = ApiRoutes.BASE_URL+ApiRoutes.VEHICLES+'?owner=$id';
     final http.Response response = await getClient().get(url);
+    if(response.statusCode == 200)
+      print('GET VEHICULE DONE');
+    return json.decode(response.body);
     return compute(parseVehicles, response.body);
   }
 

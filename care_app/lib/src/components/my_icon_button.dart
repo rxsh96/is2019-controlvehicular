@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:care_app/src/pages/add_vehicle_page.dart';
 
 class MyIconButton extends StatefulWidget {
   const MyIconButton({this.icon, this.color, this.route});
@@ -25,7 +26,9 @@ class _MyIconButtonState extends State<MyIconButton> {
       icon: Icon(icon),
       color: color,
       onPressed: () {
-        Navigator.pushNamed(context, route);
+        Navigator.pushNamed(context, '/$route');
+        //Navigator.push<dynamic>(
+        //    context, MaterialPageRoute<dynamic>(builder: (BuildContext context) => const AddVehiclePage()));
       },
     );
   }
