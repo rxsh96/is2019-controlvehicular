@@ -69,6 +69,22 @@ class _LoginFormState extends State<LoginForm> {
       ),
     );
 
+    final Material forgotButton = Material(
+      child: MaterialButton(
+        child: const Text(
+          '¿Olvidaste tu contraseña?',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Color.fromRGBO(203, 99, 51, 1),
+            fontSize: 12,
+          ),
+        ),
+        onPressed: () {
+          Navigator.pushNamed(context, '/resetPasswordPage');
+        },
+      ),
+    );
+
 
     return BlocListener<LoginBloc, LoginState>(
       listener: (BuildContext context, LoginState state) {
@@ -89,6 +105,8 @@ class _LoginFormState extends State<LoginForm> {
                 myLoginForm,
                 const SizedBox(height: 25.0),
                 registerButton,
+                const SizedBox(height: 5.0),
+                forgotButton,
                 const SizedBox(height: 5.0),
                 MaterialButton(
                   color: const Color.fromRGBO(203, 99, 51, 1),

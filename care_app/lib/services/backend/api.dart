@@ -35,8 +35,6 @@ class API {
     final String url = ApiRoutes.BASE_URL+ApiRoutes.VEHICLES+'?owner=$id';
     final http.Response response = await getClient().get(url);
     if(response.statusCode == 200)
-      print('GET VEHICULE DONE');
-    return json.decode(response.body);
     return compute(parseVehicles, response.body);
   }
 
@@ -44,6 +42,11 @@ class API {
     final  http.Response response = await getClient().post(ApiRoutes.BASE_URL + ApiRoutes.USERS, body: user);
     return compute(parseUser, response.body);
   }
+
+  Future<bool> postReset({Map<String, String> body}) async {
+    final  http.Response response = await getClient().post(ApiRoutes.BASE_URL + ApiRoutes.RESET, body: body);
+    return response.statusCode == 200;
+}
 
   Future<Vehicle> postVehicle({Map<String, String> vehicle}) async {
     final  http.Response response = await getClient().post(ApiRoutes.BASE_URL + ApiRoutes.VEHICLES, body: vehicle);

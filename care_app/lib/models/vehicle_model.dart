@@ -62,7 +62,7 @@ class Vehicle {
   int model;
   String plate;
   String color;
-  String year;
+  int year;
   String description;
   String km;
   bool isActive;

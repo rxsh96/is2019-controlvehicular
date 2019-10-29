@@ -1,7 +1,8 @@
 class ApiRoutes{
 
-  static const String BASE_URL = 'http://192.168.0.152:8000/api/';
-  static const String TOKEN = 'token/';
+  static const String BASE_URL = 'http://172.20.134.130:8000/api/';
+  static const String TOKEN = 'rest-auth/login/';
+  static const String RESET = 'rest-auth/password/reset/';
   static const String USERS = 'users/';
   static const String VEHICLES = 'vehicle/';
   static const String MAINTENANCE = 'mantenimiento/';

@@ -34,7 +34,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           password: event.password,
         );
 
-        if(token != 'token' && token != 'Unable to authenticate with provided credentials'){
+        if(token != 'key' && token != 'Unable to authenticate with provided credentials'){
           authenticationBloc.add(LoggedIn(token: token));
           yield LoginInitial();
         }

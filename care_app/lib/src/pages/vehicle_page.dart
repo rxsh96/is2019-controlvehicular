@@ -26,14 +26,9 @@ class _VehiclePageState extends State<VehiclePage> {
   final API api = API();
 
   Future<List<Vehicle>> getCars() async {
-    print('FETCHING GETCARS');
-    final List<Vehicle> myList = await api.fetchVehicles();
-    print('GETCARS FETCHED');
-    for (Vehicle v in myList) {
-      print('=================================================');
-      print(v.toString());
-    }
-    return myList;
+    final List<Vehicle> myVehicles = await api.fetchVehicles();
+    //await Future<dynamic>.delayed(Duration(seconds: 5));
+    return myVehicles;
   }
 
   @override
@@ -67,39 +62,47 @@ class _VehiclePageState extends State<VehiclePage> {
             children: <Widget>[
               Container(
                 height: 200,
-                width: 50,
                 child: FutureBuilder<List<Vehicle>>(
                   future: getCars(),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<Vehicle>> snapshot) {
                     return snapshot.hasData
                         ? Container(
-                            child: Swiper(
-                              itemBuilder: (BuildContext context, int index) {
-                                print(
-                                    'ESTOY DENTRO DEL ITEM BUILDER DEL SWIPER');
-                                print(index);
-                                print(snapshot.data[index]);
-
-                                return Text(
-                                  snapshot.data[index].imageURL,
-                                  //fit: BoxFit.fill,
-                                ); //
-                              },
-                              itemCount: snapshot.data.length,
-                              pagination: const SwiperPagination(
-                                builder: DotSwiperPaginationBuilder(
-                                  color: Colors.white,
-                                  activeColor: Color.fromRGBO(210, 100, 50, 1),
-                                ),
-                              ),
-                              control: const SwiperControl(
-                                color: Color.fromRGBO(210, 100, 50, 1),
-                              ),
-                            ),
+                            child: snapshot.data.isNotEmpty
+                                ? Swiper(
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return FadeInImage.assetNetwork(
+                                        image: snapshot.data[index].imageURL,
+                                        placeholder: 'images/auto-2.gif',
+                                        fit: BoxFit.fill,
+                                      ); //
+                                    },
+                                    itemCount: snapshot.data.length,
+                                    pagination: const SwiperPagination(
+                                      builder: DotSwiperPaginationBuilder(
+                                        color: Colors.white,
+                                        activeColor:
+                                            Color.fromRGBO(210, 100, 50, 1),
+                                      ),
+                                    ),
+                                    control: const SwiperControl(
+                                      color: Color.fromRGBO(210, 100, 50, 1),
+                                    ),
+                                  )
+                                : const Center(
+                                    child: Text(
+                                        'Actualmente no tienes registrado ningún vehículo'),
+                                  ),
                           )
-                        : FadeInImage.assetNetwork(
-                            placeholder: 'images/auto-2.gif', image: '',fit: BoxFit.fill,);
+//                        : FadeInImage.assetNetwork(
+//                            placeholder: 'images/auto-2.gif', image: '',fit: BoxFit.fill,);
+                        : const Center(
+                            child: SizedBox(
+                              height: 20.0,
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
                   },
                 ),
               ),

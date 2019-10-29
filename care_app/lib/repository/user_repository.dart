@@ -29,31 +29,31 @@ class UserRepository {
       final Map<String, dynamic> responseJson = json.decode(response.body);
       final SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setString('email', body['email']);
-      return responseJson['token'];
+      return responseJson['key'];
     }
     else{
       await Future<dynamic>.delayed(Duration(seconds: 1));
-      return 'token';
+      return 'key';
     }
   }
 
   Future<void> deleteToken() async {
     const FlutterSecureStorage storage = FlutterSecureStorage();
-    await storage.delete(key: 'token');
+    await storage.delete(key: 'key');
     await Future<dynamic>.delayed(Duration(seconds: 1));
     return;
   }
 
   Future<void> persistToken(String token) async {
     const FlutterSecureStorage storage = FlutterSecureStorage();
-    await storage.write(key: 'token', value: token);
+    await storage.write(key: 'key', value: token);
     await Future<dynamic>.delayed(Duration(seconds: 1));
     return;
   }
 
   Future<bool> hasToken() async {
     const FlutterSecureStorage storage = FlutterSecureStorage();
-    final String myKey = await storage.read(key: 'token');
+    final String myKey = await storage.read(key: 'key');
     await Future<dynamic>.delayed(Duration(seconds: 1));
     return myKey != null;
   }

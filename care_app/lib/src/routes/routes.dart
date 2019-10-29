@@ -8,7 +8,7 @@ import 'package:care_app/src/pages/filter_page.dart';
 import 'package:care_app/src/pages/gasoline_page.dart';
 import 'package:care_app/src/pages/kms_page.dart';
 import 'package:care_app/src/pages/lights_page.dart';
-import 'package:care_app/src/pages/login_page.dart';
+import 'package:care_app/src/pages/password_reset_page.dart';
 import 'package:care_app/src/pages/transit_taxes_page.dart';
 import 'package:care_app/src/pages/vehicle_page.dart';
 
@@ -16,6 +16,7 @@ Map<String, WidgetBuilder> getRoutes() {
   return <String, WidgetBuilder>{
     //'/loginPage': (BuildContext context) => LoginPage(),
     '/addUserPage': (BuildContext context) => const AddUserPage(),
+    '/resetPasswordPage': (BuildContext context) => PasswordResetPage(),
     '/vehiclePage': (BuildContext context) =>  VehiclePage(),
     '/addVehiclePage': (BuildContext context) => const AddVehiclePage(),
     '/filterPage': (BuildContext context) => const FilterPage(),
