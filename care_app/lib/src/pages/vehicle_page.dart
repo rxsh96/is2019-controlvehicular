@@ -155,6 +155,12 @@ class _VehiclePageState extends State<VehiclePage> {
                 icon: 'gasolina',
                 route: 'gasolinePage',
               ),
+              const MyCardButton(
+                text: 'MAPA',
+                transparency: 1,
+                icon: 'gasolina',
+                route: 'gasolineras',
+              ),
             ],
           ),
         ),
