@@ -1,11 +1,7 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:mime/mime.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:care_app/api/api_service.dart';
-import 'package:care_app/models/user_model.dart';
-import 'package:http/http.dart' as http;
 import 'package:care_app/src/components/my_text_form_field.dart';
 import 'package:care_app/src/components/my_pass_form_field.dart';
 import 'package:care_app/services/backend/api.dart';
@@ -92,7 +88,7 @@ class _AddUserPageState extends State<AddUserPage> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text('Registro', style: TextStyle(fontSize: 18)),
+              const Text('Registro', style: TextStyle(fontSize: 18)),
               Image.asset(
                 'images/logo2.png',
                 fit: BoxFit.contain,
@@ -149,13 +145,13 @@ class _AddUserPageState extends State<AddUserPage> {
         'is_active': 'true'
       };
 
-      if(_image != null){
-        final Map<String, String> img = <String, String>{
-          'file': _inputName.text,
-          'user': '1',
-        };
-        //api.postImage(img: img);
-      }
+//      if(_image != null){
+//        final Map<String, String> img = <String, String>{
+//          'file': _inputName.text,
+//          'user': '1',
+//        };
+//        //api.postImage(img: img);
+//      }
       api.postUser(user: body);
       //api<User>('users/', body: body);
       Navigator.pushNamed(context, '/loginPage');
