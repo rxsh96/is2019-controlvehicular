@@ -128,8 +128,8 @@ class Travel(models.Model):
 	no_passanger = models.PositiveSmallIntegerField(blank=True, null=True, default=1)
 
 class Expense(models.Model):
-	STATUS = Choices('Gasolina', 'Alimentos', 'Peaje', 'Hospedaje', 'Otros')
-	type_ex = StatusField()
+	#STATUS = Choices('Gasolina', 'Alimentos', 'Peaje', 'Hospedaje', 'Otros')
+	#type_ex = StatusField()
 	expense_value = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
 	payment_method = models.CharField(max_length=255)
 	date = models.DateTimeField(default=timezone.now)
