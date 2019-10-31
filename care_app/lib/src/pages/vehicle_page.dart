@@ -159,7 +159,7 @@ class _VehiclePageState extends State<VehiclePage> {
                 text: 'MAPA',
                 transparency: 1,
                 icon: 'gasolina',
-                route: 'gasolineras',
+                route: 'gasolinerasPage',
               ),
             ],
           ),

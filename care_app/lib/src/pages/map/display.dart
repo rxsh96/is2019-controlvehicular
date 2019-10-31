@@ -45,12 +45,12 @@ class _DisplayState extends State<Display> {
         // Center(
         //  child: Text('Estas en la pantalla ${widget.tab}'),
         // ),
-        makeCard('localdetail'),
-        makeCard('localdetail'),
-        makeCard('localdetail'),
-        makeCard('localdetail'),
-        makeCard('localdetail'),
-        makeCard('localdetail')
+        makeCard('localDetailPage'),
+        makeCard('localDetailPage'),
+        makeCard('localDetailPage'),
+        makeCard('localDetailPage'),
+        makeCard('localDetailPage'),
+        makeCard('localDetailPage')
         
 
       ]

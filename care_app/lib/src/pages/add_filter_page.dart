@@ -10,7 +10,7 @@ class AddFilterPage extends StatefulWidget {
 class _AddFilterPageState extends State<AddFilterPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SafeArea(
         child: Scaffold(
       appBar: AppBar(
         title: Text('MIS VEHICULOS', style: TextStyle(fontSize: 17)),
@@ -31,10 +31,10 @@ class _AddFilterPageState extends State<AddFilterPage> {
           const SizedBox(height: 5.0),
           _crearInput(
               Icons.explore, 'Dirección', 'Ingrese la dirección del servicio'),
-          const SizedBox(height: 35.0),
-          _submitVehiculo(context)
+
         ],
       ),
+          bottomNavigationBar: _submitVehiculo(context),
     ));
   }
 
