@@ -99,3 +99,11 @@ class BrandView(viewsets.ModelViewSet):
 class ModelView(viewsets.ModelViewSet):
     queryset = api_model.Model.objects.all()
     serializer_class = ModelSerializer
+
+class TravelView(viewsets.ModelViewSet):
+    queryset = api_model.Travel.objects.all()
+    serializer_class = TravelSerializer
+
+class ExpenseView(viewsets.ModelViewSet):
+    queryset = api_model.Expense.objects.all()
+    serializer_class = ExpenseSerializer

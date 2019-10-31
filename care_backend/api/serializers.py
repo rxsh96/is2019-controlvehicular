@@ -93,3 +93,13 @@ class ModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Model
         fields = "__all__"
+
+class TravelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Travel
+        fields = "__all__"
+
+class ExpenseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Expense
+        fields = "__all__"
