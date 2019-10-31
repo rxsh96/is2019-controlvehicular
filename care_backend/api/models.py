@@ -111,3 +111,15 @@ class MaintenanceDetails(models.Model):
 	local = models.ForeignKey(Affiliate_business, null=True, blank=True, on_delete = models.CASCADE)
 	date =  models.DateTimeField()
 	price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+
+class Travel(models.Model):
+	vehicle = models.ForeignKey(Vehicle, null=True, blank=True, on_delete = models.CASCADE)
+	description = models.TextField(max_length=255, default="")
+	start_place = models.CharField(max_length=255)
+	end_place = models.CharField(max_length=255)
+	start_km = models.PositiveIntegerField(blank=True, null=True)
+	final_km = models.PositiveIntegerField(blank=True, null=True)
+	start_time = models.TimeField()
+	end_time = models.TimeField(blank=True, null=True)	
+	is_active = models.BooleanField(default=True)
+	no_passanger = models.PositiveSmallIntegerField(blank=True, null=True, default=1)
