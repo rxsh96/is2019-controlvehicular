@@ -72,8 +72,8 @@ final TextEditingController _textController2 = TextEditingController();
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           
-          _crearFlat('Desafiliarme' , 'gasolineras'),
-          _crearFlat('Ver en mapa', 'gasolineras')
+          _crearFlat('Desafiliarme' , 'gasolinerasPage'),
+          _crearFlat('Ver en mapa', 'gasolinerasPage')
 
           
         ],

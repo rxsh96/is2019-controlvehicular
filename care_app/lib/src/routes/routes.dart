@@ -15,7 +15,8 @@ import 'package:care_app/src/pages/vehicle_page.dart';
 import 'package:care_app/src/pages/map/gasolina_page.dart';
 import 'package:care_app/src/pages/map/local_detail_page.dart';
 import 'package:care_app/src/pages/map/locales_page.dart';
-
+import 'package:care_app/src/pages/add_trip_page.dart';
+import 'package:care_app/src/pages/trip_page.dart';
 Map<String, WidgetBuilder> getRoutes() {
   return <String, WidgetBuilder>{
     //'/loginPage': (BuildContext context) => LoginPage(),
@@ -31,8 +32,10 @@ Map<String, WidgetBuilder> getRoutes() {
     '/kmPage': (BuildContext context) => KmsPage(),
     '/gasolinePage': (BuildContext context) => GasolinePage(),
     '/addFilterPage': (BuildContext context) => const AddFilterPage(),
-    '/gasolineras' : (BuildContext context ) => GasolinaPage(),
-    '/locales'               : (BuildContext context ) => const LocalesPage(),
-    '/localdetail'           : (BuildContext context ) => LocalDetailPage()
+    '/gasolinerasPage' : (BuildContext context ) => GasolinaPage(),
+    '/localesPage'               : (BuildContext context ) => const LocalesPage(),
+    '/localDetailPage'           : (BuildContext context ) => LocalDetailPage(),
+    '/tripPage' : (BuildContext context ) => TripPage(),
+    '/addTripPage' : (BuildContext context ) => AddTripPage(),
   };
 }

@@ -55,12 +55,12 @@ class _MyMenuState extends State<MyMenu> {
               const MyMenuOptions(
                 optionName: 'Locales',
                 icon: 'location_pointer',
-                route: 'locales',
+                route: 'localesPage',
               ),
               const MyMenuOptions(
                 optionName: 'Viajes',
                 icon: 'menu_viajes',
-                route: null,
+                route: 'tripPage',
               ),
               const MyMenuOptions(
                 optionName: 'Notificaciones',

@@ -3,6 +3,7 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
+import django.utils.timezone
 
 
 class Migration(migrations.Migration):
@@ -59,6 +60,17 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='Expense',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('expense_value', models.DecimalField(blank=True, decimal_places=2, max_digits=6, null=True)),
+                ('payment_method', models.CharField(max_length=255)),
+                ('date', models.DateTimeField(default=django.utils.timezone.now)),
+                ('address', models.CharField(blank=True, max_length=255)),
+                ('name', models.CharField(blank=True, max_length=255)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Maintenance',
             fields=[
                 ('description', models.TextField(default='', max_length=255)),
@@ -96,6 +108,22 @@ class Migration(migrations.Migration):
                 ('brand', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='api.Brand')),
                 ('model', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='api.Model')),
                 ('owner', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Travel',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('description', models.TextField(default='', max_length=255)),
+                ('start_place', models.CharField(max_length=255)),
+                ('end_place', models.CharField(max_length=255)),
+                ('start_km', models.PositiveIntegerField(blank=True, null=True)),
+                ('final_km', models.PositiveIntegerField(blank=True, null=True)),
+                ('start_time', models.TimeField()),
+                ('end_time', models.TimeField(blank=True, null=True)),
+                ('is_active', models.BooleanField(default=True)),
+                ('no_passanger', models.PositiveSmallIntegerField(blank=True, default=1, null=True)),
+                ('vehicle', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='api.Vehicle')),
             ],
         ),
         migrations.CreateModel(
