@@ -8,7 +8,7 @@ from filters.validations import (
 )
 
 # make a validation schema for players filter query params
-vehicle_query_schema = base_query_param_schema.extend(
+'''vehicle_query_schema = base_query_param_schema.extend(
     {
         "id": IntegerLike(),
         "brand": six.text_type,  # Depends on python version
@@ -21,8 +21,9 @@ vehicle_query_schema = base_query_param_schema.extend(
         "owner": CSVofIntegers(),  # /?team_id=1,2,3
         "created": DatetimeWithTZ(),
         "updated": DatetimeWithTZ(),
+        "imageURL": six.text_type, 
     }
-)
+)'''
 
 '''
 class Vehicle(models.Model):

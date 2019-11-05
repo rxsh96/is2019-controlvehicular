@@ -15,6 +15,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 	phone_number=models.CharField(max_length=10)
 	is_active=models.BooleanField(default=True, blank=True)
 	is_staff=models.BooleanField(default=False, blank=True)
+	is_business_owner=models.BooleanField(default=False, blank=True)
 	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
 	

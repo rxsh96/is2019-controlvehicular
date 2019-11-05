@@ -76,6 +76,7 @@ class VehicleView(FiltersMixin, viewsets.ModelViewSet):
         'is_active': 'is_active',
         'created': 'created',
         'updated': 'updated',
+        'imageURL': 'imageURL',
     }
 
 class Affiliate_businessView(viewsets.ModelViewSet):

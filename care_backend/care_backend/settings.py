@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -153,6 +154,13 @@ AUTH_USER_MODEL = 'api.User'
 
 MEDIA_URL =  '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+#AUTH REDIRECT
+LOGOUT_REDIRECT_URL = '/login/'
+LOGIN_REDIRECT_URL ='usuario'
+LOGIN_URL = '/login/'
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'g7daw2018@gmail.com'

@@ -4,6 +4,8 @@ from django.views.generic.edit import CreateView
 from affiliate_business.models import City, Province, Affiliate_business
 from affiliate_business.forms import BusinessUpdateForm, BusinessCreateForm
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from bootstrap_modal_forms.generic import (BSModalCreateView,
                                            BSModalUpdateView,
                                            BSModalReadView,
@@ -11,14 +13,17 @@ from bootstrap_modal_forms.generic import (BSModalCreateView,
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
+from api.decorators import admin_required
 # Create your views here.
 
 
 # BUSINESS
+@method_decorator([login_required,admin_required], name='dispatch')
 class BusinessListView(ListView):
   model = Affiliate_business
   template_name = 'affiliate_business/business_list.html'
 
+@method_decorator([login_required,admin_required], name='dispatch')
 class BusinessCreateView(CreateView):
   model = Affiliate_business
   template_name = 'affiliate_business/business_create.html'
@@ -29,10 +34,12 @@ class BusinessCreateView(CreateView):
     self.object.save()
     return HttpResponseRedirect(reverse_lazy('negocio'))
 
+@method_decorator([login_required,admin_required], name='dispatch')
 class BusinessDetailView(BSModalReadView):
   model = Affiliate_business  
   template_name = 'affiliate_business/business_detail.html'
 
+@method_decorator([login_required,admin_required], name='dispatch')
 class BusinessUpdateView(BSModalUpdateView):
   model = Affiliate_business
   template_name = 'affiliate_business/business_update.html'
@@ -40,6 +47,7 @@ class BusinessUpdateView(BSModalUpdateView):
   success_message = 'Éxito: Negocio actualizado.'
   success_url = reverse_lazy('negocio')
 
+@method_decorator([login_required,admin_required], name='dispatch')
 class BusinessDeleteView(BSModalDeleteView):
     model = Affiliate_business
     template_name = 'affiliate_business/business_delete.html'

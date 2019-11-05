@@ -4,6 +4,8 @@ from django.views.generic.edit import CreateView
 from vehicle.models import Vehicle,Brand, Model
 from vehicle.forms import VehicleUpdateForm, VehicleCreateForm
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from bootstrap_modal_forms.generic import (BSModalCreateView,
                                            BSModalUpdateView,
                                            BSModalReadView,
@@ -11,14 +13,17 @@ from bootstrap_modal_forms.generic import (BSModalCreateView,
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
+from api.decorators import admin_required
 # Create your views here.
 
 
-# BUSINESS
+# VEHICLE
+@method_decorator([login_required,admin_required], name='dispatch')
 class VehicleListView(ListView):
   model = Vehicle
   template_name = 'vehicle/vehicle_list.html'
 
+@method_decorator([login_required,admin_required], name='dispatch')
 class VehicleCreateView(CreateView):
   model = Vehicle
   template_name = 'vehicle/vehicle_create.html'
@@ -28,10 +33,12 @@ class VehicleCreateView(CreateView):
     self.object.save()
     return HttpResponseRedirect(reverse_lazy('vehiculo'))
 
+@method_decorator([login_required,admin_required], name='dispatch')
 class VehicleDetailView(BSModalReadView):
   model = Vehicle  
   template_name = 'vehicle/vehicle_detail.html'
 
+@method_decorator([login_required,admin_required], name='dispatch')
 class VehicleUpdateView(BSModalUpdateView):
   model = Vehicle
   template_name = 'vehicle/vehicle_update.html'
@@ -39,6 +46,7 @@ class VehicleUpdateView(BSModalUpdateView):
   success_message = 'Éxito: Vehículo actualizado.'
   success_url = reverse_lazy('vehiculo')
 
+@method_decorator([login_required,admin_required], name='dispatch')
 class VehicleDeleteView(BSModalDeleteView):
     model = Vehicle
     template_name = 'vehicle/vehicle_delete.html'

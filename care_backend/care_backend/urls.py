@@ -39,6 +39,8 @@ urlpatterns = [
     #Paths del user
     path('', include('user.urls')),
     #path('upload/', my_view.PPUploadView.as_view()),
+    #Paths del loggin
+    path('', include('django.contrib.auth.urls')),
 ]
 
 if settings.DEBUG:
