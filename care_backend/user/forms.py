@@ -84,10 +84,12 @@ class UserUpdateForm(BSModalForm):
   def clean_phone_number(self):
     #cleaned_data = super(BusinessCreateForm, self).clean()
     phone_number = self.cleaned_data['phone_number']
+    old_phone_number = self.instance.phone_number
     val = validators.RegexValidator(regex='^(09)[0-9]{8}$',message="Número de teléfono no válido, intente nuevamente")
     val(phone_number)
-    if User.objects.filter(phone_number=phone_number).exists():
-      raise forms.ValidationError(_("El número de teléfono ya está registrado, prueba con otro."))
+    if phone_number != old_phone_number:
+      if User.objects.filter(phone_number=phone_number).exists():
+        raise forms.ValidationError(_("El número de teléfono ya está registrado, prueba con otro."))
     return phone_number
   
   def clean_name(self):
