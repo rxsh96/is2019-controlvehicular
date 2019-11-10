@@ -17,8 +17,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 	lastname=models.CharField(max_length=255)
 	phone_number=models.CharField(max_length=10)
 	is_active=models.BooleanField(default=True, blank=True)
-	is_staff=models.BooleanField(default=False, blank=True)
-	is_business_owner=models.BooleanField(default=False, blank=True)
+	is_staff=models.BooleanField(default=False, blank=True,verbose_name="Administrador")
+	is_business_owner=models.BooleanField(default=False, blank=True,verbose_name="Dueño de Negocio")
 	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
 	
@@ -89,6 +89,7 @@ class Affiliate_business(models.Model):
 	def __str__(self):
 		return self.business_name
 
+
 class Vehicle(models.Model):
 	YEAR_CHOICES = [(y,y) for y in range(1960, (datetime.date.today().year)+2)]
 	owner = models.ForeignKey(User, on_delete = models.CASCADE, null=True, blank=True)
@@ -107,10 +108,23 @@ class Vehicle(models.Model):
 
 class Maintenance(models.Model):
 	description = models.TextField(max_length=255, default="")
-	m_type = models.CharField(max_length=255, primary_key=True)
+	m_name = models.CharField(max_length=255, primary_key=True)
+	is_change = models.BooleanField(default=False)
+	is_maintenance = models.BooleanField(default=False)
+
+	def __str__(self):
+		return self.m_name
+
+class Maintenance_Type(models.Model):
+	mt_name = models.CharField(max_length=255, primary_key=True)
+	maintenance = models.ForeignKey(Maintenance, on_delete=models.SET_NULL, null=True)
+
+	def __str__(self):
+		return self.mt_name
 
 class MaintenanceDetails(models.Model):
 	maintenance = models.ForeignKey(Maintenance, on_delete = models.CASCADE)
+	m_type = models.ForeignKey(Maintenance_Type, on_delete = models.CASCADE)
 	vehicle = models.ManyToManyField(Vehicle)
 	local = models.ForeignKey(Affiliate_business, null=True, blank=True, on_delete = models.CASCADE)
 	date =  models.DateTimeField()

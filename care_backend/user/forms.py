@@ -5,19 +5,38 @@ from user.models import User
 from django.core import validators
 from django.utils.translation import ugettext as _
 from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth.forms import UserCreationForm
 
 
 class UserCreateForm(forms.ModelForm):
+  password = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
+  password2 = forms.CharField(label='Confirmación contraseña', widget=forms.PasswordInput)
+
   class Meta:
     model = User
-    exclude = ('created','updated','is_active','is_staff')
+    exclude = ('created','updated','is_active')
     widgets = {
       'email': forms.EmailInput(attrs={'class':'form-control'}),
       'name': forms.TextInput(attrs={'class':'form-control'}),
       'lastname': forms.TextInput(attrs={'class':'form-control'}),
       'phone_number': forms.TextInput(attrs={'class':'form-control'}),
-      'password': forms.PasswordInput(attrs={'class':'form-control'}),
+      #'password': forms.PasswordInput(attrs={'class':'form-control'}),
+      #'password2': forms.PasswordInput(attrs={'class':'form-control'}),
     }
+  
+  def clean_password2(self):
+    password = self.cleaned_data.get("password")
+    password2 = self.cleaned_data.get("password2")
+    if password and password2 and password != password2:
+      raise forms.ValidationError("Contraseña no coincide")
+    return password2
+
+  def save(self, commit=True):
+    user = super().save(commit=False)
+    user.set_password(self.cleaned_data["password"])
+    if commit:
+      user.save()
+    return user
 
   def clean_phone_number(self):
     #cleaned_data = super(BusinessCreateForm, self).clean()
@@ -39,7 +58,7 @@ class UserCreateForm(forms.ModelForm):
 
   def clean_email(self):
     email = self.cleaned_data.get("email")
-    if User.objects.filter(email=email).exist():
+    if User.objects.filter(email=email).exists():
       raise forms.ValidationError(_("El email ya está registrado, prueba con otro."))
     return email
   
@@ -60,7 +79,7 @@ class UserCreateForm(forms.ModelForm):
 class UserUpdateForm(BSModalForm):
   class Meta:
     model = User
-    fields = ['email','name','lastname','phone_number','is_active','is_staff']
+    fields = ['email','name','lastname','phone_number','is_active','is_staff','is_business_owner']
 
   def clean_phone_number(self):
     #cleaned_data = super(BusinessCreateForm, self).clean()

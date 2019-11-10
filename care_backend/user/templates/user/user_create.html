@@ -67,16 +67,38 @@
                       <p class="help-block">{{ form.errors.email }} </p>
                   </div>
                 </div>
-                <label class="text-secondary pl-2" style="font-size: 14px;">Password:</label>
+                                
+              </div>      
+
+              <div class='col-md-6 pt-2'>
+                <label class="text-secondary" style="font-size: 14px;">Tipo de Usuario</label>
+                <div class="form-group">{{form.is_staff}}
+                  <label class="pl-2" for="{{ form.is_staff.id_for_label }}" class="control-label">{{ form.is_staff.label }}</label>
+                </div>
+                <div class="form-group">{{form.is_business_owner}}
+                  <label class="pl-2" for="{{ form.is_business_owner.id_for_label }}" class="control-label">{{ form.is_business_owner.label }}</label>
+                </div>
+                
+                <label class="text-secondary " style="font-size: 14px;">Password:</label>
                 <div class="col-md-7 form-group">
                   <div class="border rounded">
-                    {% render_field form.password placeholder=field.label %} 
+                    {% render_field form.password placeholder=field.label class="form-control" %} 
                   </div>
                   <div class="{% if field.errors %} invalid{% endif %}">
                       <p class="help-block">{{ form.errors.password }} </p>
                   </div>
-                </div>                
-              </div>            
+                </div>
+
+                <label class="text-secondary " style="font-size: 14px;">Confirmación de Password:</label>
+                <div class="col-md-7 form-group">
+                  <div class="border rounded">
+                    {% render_field form.password2 placeholder=field.label class="form-control" %} 
+                  </div>
+                  <div class="{% if field.errors %} invalid{% endif %}">
+                      <p class="help-block">{{ form.errors.password2 }} </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="col-md-3 pl-0 pb-3 pt-5" style="margin-left: 300px;">
