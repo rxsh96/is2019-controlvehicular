@@ -13,7 +13,7 @@ from bootstrap_modal_forms.generic import (BSModalCreateView,
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
-from api.decorators import admin_required
+from api.decorators import admin_required, business_owner_required
 # Create your views here.
 
 
