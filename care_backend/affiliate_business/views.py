@@ -22,6 +22,7 @@ from api.decorators import admin_required
 class BusinessListView(ListView):
   model = Affiliate_business
   template_name = 'affiliate_business/business_list.html'
+  paginate_by = 10
 
 @method_decorator([login_required,admin_required], name='dispatch')
 class BusinessCreateView(CreateView):

@@ -20,6 +20,7 @@ from api.decorators import admin_required, business_owner_required
 class UserListView(ListView):
   model = User
   template_name = 'user/user_list.html'
+  paginate_by = 10
 
 @method_decorator([login_required,admin_required], name='dispatch')
 class UserCreateView(CreateView):

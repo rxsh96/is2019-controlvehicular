@@ -22,6 +22,7 @@ from api.decorators import admin_required
 class VehicleListView(ListView):
   model = Vehicle
   template_name = 'vehicle/vehicle_list.html'
+  paginate_by = 10
 
 @method_decorator([login_required,admin_required], name='dispatch')
 class VehicleCreateView(CreateView):
