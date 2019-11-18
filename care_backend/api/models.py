@@ -25,6 +25,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 	objects=UserManager()
 	USERNAME_FIELD='email'
 
+	def __str__(self):
+		return self.name+' '+self.lastname
+
 class ProfilePicture(models.Model):
 	creation_date = models.DateTimeField(auto_now_add=True, editable=False)
 	modified_date = models.DateTimeField(auto_now=True)
@@ -78,6 +81,7 @@ class Affiliate_business(models.Model):
 	city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
 	legal_representative_name = models.CharField(max_length=255)
 	legal_representative_lastname = models.CharField(max_length=255)
+	business_owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 	address = models.CharField(max_length=255)
 	""" contact_name = models.CharField(max_length=255)
 	contact_lastname = models.CharField(max_length=255)

@@ -91,6 +91,15 @@
                       <p class="invalid-feedback">{{ form.errors.legal_representative_lastname }}</p>
                   </div>
                 </div>
+                <label class="text-secondary pl-2" style="font-size: 14px;">Dueño de Negocio</label>
+                <div class="col-md-7 form-group">
+                  <div class="border rounded">
+                    {% render_field form.business_owner  placeholder=field.label %} 
+                  </div>
+                  <div class="{% if field.errors %} has-error{% endif %}">
+                      <p class="invalid-feedback">{{ form.errors.business_owner }}</p>
+                  </div>
+                </div>
                 <label class="text-secondary pl-2" style="font-size: 14px;">Descripción</label>
                 <div class="col-md-7 form-group">
                   <div class="border rounded">

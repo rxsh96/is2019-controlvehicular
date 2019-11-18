@@ -3,6 +3,6 @@ from .views import NavPageView, HomePageView
 
 urlpatterns = [
     path('', HomePageView.as_view(), name="home"),
-    path('', NavPageView.as_view(), name="principal"),
+    path('Principal/', NavPageView.as_view(), name="principal"),
 
 ]

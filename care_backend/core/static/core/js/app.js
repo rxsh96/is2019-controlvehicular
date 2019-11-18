@@ -45,6 +45,12 @@ $(function () {
     $(this).modalForm({formURL: $(this).data('id')});
   })
 
+// DUEÑO DE NEGOCIO AFILIADO
+  //Listar usuarios
+  $(".user_owner_detail").each(function () {
+    $(this).modalForm({formURL: $(this).data('id')});
+  });
+
 // Messages
   $(".alert").fadeTo(2000, 500).slideUp(500, function(){
     $(".alert").slideUp(500);

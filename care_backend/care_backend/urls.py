@@ -36,6 +36,8 @@ urlpatterns = [
     path('', include('affiliate_business.urls')),
     #Paths del vehicle
     path('', include('vehicle.urls')),
+    #Paths del business_owner
+    path('', include('business_owner.urls')),
     #Paths del user
     path('', include('user.urls')),
     #path('upload/', my_view.PPUploadView.as_view()),

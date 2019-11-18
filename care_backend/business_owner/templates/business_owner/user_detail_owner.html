@@ -1,0 +1,79 @@
+{% load widget_tweaks %}
+{% load static %}
+
+
+<div class="modal-header">
+  <h3 class="modal-title">Detalle de Usuario</h3>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <div class="mt-4 mb-4 ml-4 mr-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 col-md-auto">
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">Teléfono:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label style="font-size: 14px;">{{ object.phone_number }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">Nombres:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label  style="font-size: 14px;">{{ object.name }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" class="text-secondary" style="font-size: 14px;">Apellidos:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label style="font-size: 14px;">{{ object.lastname }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">Email:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label style="font-size: 14px;">{{ object.email }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">Activado:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label style="font-size: 14px;"> {{ object.is_active }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">Fecha de creación:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label  style="font-size: 14px;">{{ object.created }}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-auto">
+              <label class="text-secondary" style="font-size: 14px;">Fecha de actualización:</label>
+            </div>
+            <div class="col-lg-6 col-md-auto">
+              <label style="font-size: 14px;">{{ object.updated }}</label>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -6,10 +6,8 @@ from user.forms import UserUpdateForm, UserCreateForm
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from bootstrap_modal_forms.generic import (BSModalCreateView,
-                                           BSModalUpdateView,
-                                           BSModalReadView,
-                                           BSModalDeleteView)
+from bootstrap_modal_forms.generic import (BSModalCreateView,BSModalUpdateView,BSModalReadView,
+BSModalDeleteView)
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
