@@ -110,6 +110,9 @@ class Vehicle(models.Model):
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
 	imageURL = models.CharField(max_length=500, null=True, blank=True)
 
+	def __str__(self):
+		return self.plate
+
 class Maintenance(models.Model):
 	description = models.TextField(max_length=255, default="")
 	m_name = models.CharField(max_length=255, primary_key=True)
@@ -129,10 +132,12 @@ class Maintenance_Type(models.Model):
 class MaintenanceDetails(models.Model):
 	maintenance = models.ForeignKey(Maintenance, on_delete = models.CASCADE)
 	m_type = models.ForeignKey(Maintenance_Type, on_delete = models.CASCADE)
-	vehicle = models.ManyToManyField(Vehicle)
+	vehicle = models.ForeignKey(Vehicle, on_delete = models.CASCADE, null=True)
 	local = models.ForeignKey(Affiliate_business, null=True, blank=True, on_delete = models.CASCADE)
-	date =  models.DateTimeField()
+	date =  models.DateTimeField(default=timezone.now)
 	price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación",blank=True,null=True)
+
 
 class Travel(models.Model):
 	vehicle = models.ForeignKey(Vehicle, null=True, blank=True, on_delete = models.CASCADE)

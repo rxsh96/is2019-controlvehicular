@@ -46,7 +46,7 @@ $(function () {
   })
 
 // DUEÑO DE NEGOCIO AFILIADO
-  //Listar usuarios
+  //Listar detalles usuarios
   $(".user_owner_detail").each(function () {
     $(this).modalForm({formURL: $(this).data('id')});
   });
