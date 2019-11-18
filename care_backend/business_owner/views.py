@@ -21,6 +21,7 @@ class UserOwnerListView(ListView):
   model = User
   template_name = 'business_owner/user_list_owner.html'
   queryset = User.objects.filter(is_staff=False,is_business_owner=False,is_superuser=False)
+  paginate_by = 10
 
 
 @method_decorator([login_required,business_owner_required], name='dispatch')
@@ -44,6 +45,7 @@ class UserOwnerDetailView(BSModalReadView):
 class VehicleClientListView(ListView):
   model = Vehicle
   template_name = 'business_owner/vehicle_list_owner.html'
+  paginate_by = 10
 
   def get_queryset(self):
     return Vehicle.objects.filter(owner=self.kwargs['pk'])
@@ -53,6 +55,7 @@ class VehicleClientListView(ListView):
 class MaintenanceDetailView(ListView):
   model = MaintenanceDetails  
   template_name = 'business_owner/maintenance_detail.html'
+  paginate_by = 10
 
   def get_queryset(self):
     return MaintenanceDetails.objects.filter(vehicle=self.kwargs['pk'])
