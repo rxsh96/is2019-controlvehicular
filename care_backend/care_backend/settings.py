@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'bootstrap_modal_forms',
     'core',
     'vehicle',
+    'business_owner',
     'user',
     'affiliate_business',
     'rest_framework',
@@ -158,7 +159,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 #AUTH REDIRECT
 LOGOUT_REDIRECT_URL = '/login/'
-LOGIN_REDIRECT_URL ='usuario'
+LOGIN_REDIRECT_URL ='principal'
 LOGIN_URL = '/login/'
 
 

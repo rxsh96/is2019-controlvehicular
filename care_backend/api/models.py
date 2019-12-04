@@ -25,6 +25,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 	objects=UserManager()
 	USERNAME_FIELD='email'
 
+	def __str__(self):
+		return self.name+' '+self.lastname
+
 class ProfilePicture(models.Model):
 	creation_date = models.DateTimeField(auto_now_add=True, editable=False)
 	modified_date = models.DateTimeField(auto_now=True)
@@ -78,6 +81,7 @@ class Affiliate_business(models.Model):
 	city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
 	legal_representative_name = models.CharField(max_length=255)
 	legal_representative_lastname = models.CharField(max_length=255)
+	business_owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 	address = models.CharField(max_length=255)
 	""" contact_name = models.CharField(max_length=255)
 	contact_lastname = models.CharField(max_length=255)
@@ -85,6 +89,8 @@ class Affiliate_business(models.Model):
 	contact_phone_number = models.CharField(max_length=13) """
 	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
+	lon = models.DecimalField(max_digits=22, decimal_places=16, null=True)
+	lat = models.DecimalField(max_digits=22, decimal_places=16, null=True)
 
 	def __str__(self):
 		return self.business_name
@@ -106,6 +112,9 @@ class Vehicle(models.Model):
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
 	imageURL = models.CharField(max_length=500, null=True, blank=True)
 
+	def __str__(self):
+		return self.plate
+
 class Maintenance(models.Model):
 	description = models.TextField(max_length=255, default="")
 	m_name = models.CharField(max_length=255, primary_key=True)
@@ -125,10 +134,12 @@ class Maintenance_Type(models.Model):
 class MaintenanceDetails(models.Model):
 	maintenance = models.ForeignKey(Maintenance, on_delete = models.CASCADE)
 	m_type = models.ForeignKey(Maintenance_Type, on_delete = models.CASCADE)
-	vehicle = models.ManyToManyField(Vehicle)
+	vehicle = models.ForeignKey(Vehicle, on_delete = models.CASCADE, null=True)
 	local = models.ForeignKey(Affiliate_business, null=True, blank=True, on_delete = models.CASCADE)
-	date =  models.DateTimeField()
+	date =  models.DateTimeField(default=timezone.now)
 	price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación",blank=True,null=True)
+
 
 class Travel(models.Model):
 	vehicle = models.ForeignKey(Vehicle, null=True, blank=True, on_delete = models.CASCADE)

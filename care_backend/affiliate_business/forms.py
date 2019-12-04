@@ -25,6 +25,7 @@ class BusinessCreateForm(forms.ModelForm):
       'city': forms.Select(attrs={'class':'form-control'}),
       'legal_representative_name': forms.TextInput(attrs={'class':'form-control'}),
       'legal_representative_lastname': forms.TextInput(attrs={'class':'form-control'}),
+      'business_owner': forms.Select(attrs={'class':'form-control'}),
       'address': forms.TextInput(attrs={'class':'form-control'}),
     }
     

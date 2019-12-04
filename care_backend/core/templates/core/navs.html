@@ -18,72 +18,139 @@
         {% endfor %}
       {% endif %}
     </div>
-        
-        <div class="container-fluid">
-          <div class="row">
-            
-              <div class="col-md-3">
-                <div class="avatar navbar-brand">
-                  <img class="sizelogo" src="{% static 'core/img/careapp_logo_white.png' %}" alt="CareApp_Logo" />
-                </div>
-              </div>
-              
-              <div class="row align-items-center col-md-6">
-                <div class="col-md text-center"><a class="navbar-brand text-white font-weight-bold" href="{% url 'usuario' %}" style="font-size: 15px;">Usuarios</a></div>
-                <div class="col-md text-center"><a class="navbar-brand text-white font-weight-bold" href="{% url 'negocio' %}" style="font-size: 15px;">Negocio Afiliado</a></div>
-                <div class="col-md text-center"><a class="navbar-brand text-white font-weight-bold" href="{% url 'vehiculo' %}" style="font-size: 15px;">Vehículos</a></div>
-                <div class="col-md text-center"><a class="navbar-brand text-white font-weight-bold" href="#" style="font-size: 15px;">Reportes</a></div>
-              </div>
-                
-              
-              <div class="row align-items-end justify-content-end col-md-3">
-                <ul class="nav-pills list-inline">  
-                <!--notificaciones-->
-                  <li class="nav-item dropdown list-inline-item no-arrow mt-2">
-                    <a class="nav-link" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <img src="{% static 'core/img/notificaciones.png' %}"style="display:flex; width: 22px; height: 22px;"/>
-                      <span class="badge badge-danger">9+</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-                      <a class="dropdown-item" href="">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                  </li>
-            
-                <!--Mensajeria-->
-                  <li class="nav-item dropdown list-inline-item no-arrow">
-                    <a class="nav-link" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <img src="{% static 'core/img/mensajería.png' %}"style="display:flex; width: 30px; height: 15px;"/>
-                      <span class="badge badge-danger"></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                  </li>
-              
-                <!--Opciones de usuario-->
-                  <li class="nav-item dropdown list-inline-item no-arrow">
-                    <a class="nav-link pt-4" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <img src="{% static 'core/img/avatar2.png' %}"style="display:flex; width: 45px; height: 45px;"/>
-                    </a>
-                    <!--<p>{{request.user.name}}</p>-->
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                      <a class="dropdown-item" href="#">Configuración</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="{% url 'logout' %}">Salir</a>
-                    </div>
-                  </li>
-                </ul>
 
+    {% if not request.user.is_business_owner %}
+      <div class="container-fluid">
+        <div class="row">
+          
+            <div class="col-md-3">
+              <div class="avatar navbar-brand">
+                <img class="sizelogo" src="{% static 'core/img/careapp_logo_white.png' %}" alt="CareApp_Logo" />
               </div>
-          </div>
+            </div>
+            
+            <div class="row align-items-center col-md-6">
+              <div class="col-md text-center"><a class="navbar-brand text-white font-weight-bold" href="{% url 'usuario' %}" style="font-size: 15px;">Usuarios</a></div>
+              <div class="col-md text-center"><a class="navbar-brand text-white font-weight-bold" href="{% url 'negocio' %}" style="font-size: 15px;">Negocio Afiliado</a></div>
+              <div class="col-md text-center"><a class="navbar-brand text-white font-weight-bold" href="{% url 'vehiculo' %}" style="font-size: 15px;">Vehículos</a></div>
+              <div class="col-md text-center"><a class="navbar-brand text-white font-weight-bold" href="#" style="font-size: 15px;">Reportes</a></div>
+            </div>
+              
+            
+            <div class="row align-items-end justify-content-end col-md-3">
+              <ul class="nav-pills list-inline">  
+              <!--notificaciones-->
+                <li class="nav-item dropdown list-inline-item no-arrow mt-2">
+                  <a class="nav-link" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{% static 'core/img/notificaciones.png' %}"style="display:flex; width: 22px; height: 22px;"/>
+                    <span class="badge badge-danger">9+</span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+                    <a class="dropdown-item" href="">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </li>
+          
+              <!--Mensajeria-->
+                <li class="nav-item dropdown list-inline-item no-arrow">
+                  <a class="nav-link" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{% static 'core/img/mensajería.png' %}"style="display:flex; width: 30px; height: 15px;"/>
+                    <span class="badge badge-danger"></span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </li>
+            
+              <!--Opciones de usuario-->
+                <li class="nav-item dropdown list-inline-item no-arrow">
+                  <a class="nav-link pt-4" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{% static 'core/img/avatar2.png' %}"style="display:flex; width: 45px; height: 45px;"/>
+                  </a>
+                  <!--<p>{{request.user.name}}</p>-->
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="#">Configuración</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'logout' %}">Salir</a>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
         </div>
-      
+      </div>
+
+    {% else %}  
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+              <div class="avatar navbar-brand">
+                <img class="sizelogo" src="{% static 'core/img/careapp_logo_white.png' %}" alt="CareApp_Logo" />
+              </div>
+            </div>
+            
+            <div class="row align-items-center col-md-6">
+              <div class="col-md text-center"><a class="navbar-brand text-white font-weight-bold" href="{% url 'usuario_owner' %}" style="font-size: 15px;">Clientes</a></div>
+              <div class="col-md text-center"><a class="navbar-brand text-white font-weight-bold" href="{% url 'negocio' %}" style="font-size: 15px;">PENDIENTE</a></div>
+              <div class="col-md text-center"><a class="navbar-brand text-white font-weight-bold" href="{% url 'vehiculo' %}" style="font-size: 15px;">PENDIENTE</a></div>
+              <div class="col-md text-center"><a class="navbar-brand text-white font-weight-bold" href="#" style="font-size: 15px;">PENDIENTE</a></div>
+            </div>
+              
+            
+            <div class="row align-items-end justify-content-end col-md-3">
+              <ul class="nav-pills list-inline">  
+              <!--notificaciones-->
+                <li class="nav-item dropdown list-inline-item no-arrow mt-2">
+                  <a class="nav-link" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{% static 'core/img/notificaciones.png' %}"style="display:flex; width: 22px; height: 22px;"/>
+                    <span class="badge badge-danger">9+</span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+                    <a class="dropdown-item" href="">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </li>
+          
+              <!--Mensajeria-->
+                <li class="nav-item dropdown list-inline-item no-arrow">
+                  <a class="nav-link" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{% static 'core/img/mensajería.png' %}"style="display:flex; width: 30px; height: 15px;"/>
+                    <span class="badge badge-danger"></span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </li>
+            
+              <!--Opciones de usuario-->
+                <li class="nav-item dropdown list-inline-item no-arrow">
+                  <a class="nav-link pt-4" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{% static 'core/img/avatar2.png' %}"style="display:flex; width: 45px; height: 45px;"/>
+                  </a>
+                  <!--<p>{{request.user.name}}</p>-->
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="#">Configuración</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'logout' %}">Salir</a>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
+        </div>
+      </div>
+    {% endif %}
+
   </div>  
   
   {% block content1 %}{% endblock %}

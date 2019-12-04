@@ -56,22 +56,6 @@
           </div>
           <div class="row">
             <div class="col-lg-6 col-md-auto">
-              <label class="text-secondary" style="font-size: 14px;">Tipo:</label>
-            </div>
-            <div class="col-lg-6 col-md-auto">
-              <label style="font-size: 14px;"> 
-              {% if object.is_business_owner %}
-                    Dueño de Negocio
-                  {% elif object.is_superuser or object.is_staff %}
-                    Administrador
-                  {% else %}  
-                    Usuario Móvil
-                  {% endif %}
-              </label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6 col-md-auto">
               <label class="text-secondary" style="font-size: 14px;">Fecha de creación:</label>
             </div>
             <div class="col-lg-6 col-md-auto">
