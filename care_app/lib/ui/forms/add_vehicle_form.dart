@@ -36,6 +36,7 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
 
   @override
   Widget build(BuildContext context) {
+
     return Consumer<VehicleProvider>(
 
       builder: (BuildContext context, VehicleProvider vehicleProvider, _) =>

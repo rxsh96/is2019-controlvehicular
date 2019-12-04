@@ -1,8 +1,8 @@
-import 'dart:io';
-
+import 'package:care_app/core/src/enums/my_enum.dart';
 import 'package:care_app/core/src/provider/login_provider.dart';
 import 'package:care_app/ui/components/my_password_form_field.dart';
 import 'package:care_app/ui/components/my_text_form_field.dart';
+import 'package:care_app/ui/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,123 +20,110 @@ class _AddUserFormState extends State<AddUserForm> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  File _image;
+  //File _image;
 
   @override
   Widget build(BuildContext context) {
-
-    final Form myUserForm = Form(
-      key: _formKey,
-      child: Column(
-        children: <Widget>[
-          const SizedBox(height: 15.0),
-          MyTextFormField(
-              controller: _inputName,
-              capitalization: TextCapitalization.words,
-              textInputType: TextInputType.text,
-              label: 'Nombres',
-              icon: Icons.font_download,
-              errorMsg: 'Ingresa tu nombre'),
-          const SizedBox(height: 15.0),
-          MyTextFormField(
-              controller: _inputLastName,
-              capitalization: TextCapitalization.words,
-              textInputType: TextInputType.text,
-              label: 'Apellido',
-              icon: Icons.font_download,
-              errorMsg: 'Ingresa tu apellido'),
-          const SizedBox(height: 15.0),
-          MyTextFormField(
-              controller: _inputPhone,
-              capitalization: TextCapitalization.none,
-              textInputType: TextInputType.phone,
-              label: 'Teléfono',
-              icon: Icons.phone,
-              errorMsg: 'Ingresa tu teléfono'),
-          const SizedBox(height: 15.0),
-          MyTextFormField(
-              controller: _inputMail,
-              capitalization: TextCapitalization.none,
-              textInputType: TextInputType.emailAddress,
-              label: 'Correo Electrónico',
-              icon: Icons.mail,
-              errorMsg: 'Ingresa tu correo electrónico'),
-          const SizedBox(height: 15.0),
-          MyPassFormField(
-            controller: _inputPassword,
-            textInputType: TextInputType.text,
-            label: 'Contraseña',
-            icon: Icons.enhanced_encryption,
-            errorMsg: 'Ingresa una contraseña',
-            isLogin: false,
-          ),
-          const SizedBox(height: 35.0),
-        ],
-      ),
-    );
-
-    return Consumer<LoginProvider>(
-      builder: (BuildContext context, LoginProvider loginProvider, _) =>
-          Scaffold(
-        appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              const Text('Registro', style: TextStyle(fontSize: 18)),
-              Image.asset(
-                'images/logo2.png',
-                fit: BoxFit.contain,
-              ),
-            ],
-          ),
-        ),
-        body: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 30.0),
-          children: <Widget>[
+    return Consumer<LoginProvider>(builder:
+        (BuildContext context, LoginProvider loginProvider, Widget widget) =>
             Container(
-              child: Center(
-                child: RawMaterialButton(
-                    child: Container(
-                      child: _image == null
-                          ? CircleAvatar(
-                              child: Icon(
-                                Icons.add_a_photo,
-                                size: 50.0,
-                                color: Colors.white,
-                              ),
-                              backgroundColor:
-                                  const Color.fromRGBO(203, 99, 51, 1),
-                              radius: 50.0,
-                            )
-                          : CircleAvatar(
-                              backgroundImage: FileImage(_image),
-                              radius: 50.0,
-                              backgroundColor:
-                                  const Color.fromRGBO(203, 99, 51, 1),
-                            ),
+              child: Column(
+                children: <Widget>[
+                  Form(
+          key: _formKey,
+          child: Column(
+                  children: <Widget>[
+                    const SizedBox(height: 15.0),
+                    MyTextFormField(
+                        controller: _inputName,
+                        capitalization: TextCapitalization.words,
+                        textInputType: TextInputType.text,
+                        label: 'Nombres',
+                        icon: Icons.font_download,
+                        errorMsg: 'Ingresa tu nombre'),
+                    const SizedBox(height: 15.0),
+                    MyTextFormField(
+                        controller: _inputLastName,
+                        capitalization: TextCapitalization.words,
+                        textInputType: TextInputType.text,
+                        label: 'Apellido',
+                        icon: Icons.font_download,
+                        errorMsg: 'Ingresa tu apellido'),
+                    const SizedBox(height: 15.0),
+                    MyTextFormField(
+                        controller: _inputPhone,
+                        capitalization: TextCapitalization.none,
+                        textInputType: TextInputType.phone,
+                        label: 'Teléfono',
+                        icon: Icons.phone,
+                        errorMsg: 'Ingresa tu teléfono'),
+                    const SizedBox(height: 15.0),
+                    MyTextFormField(
+                        controller: _inputMail,
+                        capitalization: TextCapitalization.none,
+                        textInputType: TextInputType.emailAddress,
+                        label: 'Correo Electrónico',
+                        icon: Icons.mail,
+                        errorMsg: 'Ingresa tu correo electrónico'),
+                    const SizedBox(height: 15.0),
+                    MyPassFormField(
+                      controller: _inputPassword,
+                      textInputType: TextInputType.text,
+                      label: 'Contraseña',
+                      icon: Icons.enhanced_encryption,
+                      errorMsg: 'Ingresa una contraseña',
+                      isLogin: false,
                     ),
-                    onPressed: () {}),
-              ),
-            ),
-            myUserForm,
-          ],
-        ),
-        bottomNavigationBar: BottomAppBar(
-          color: const Color.fromRGBO(203, 99, 51, 1),
-          child: MaterialButton(
-            onPressed: () {
-              if (_formKey.currentState.validate()) {}
-            },
-            child: const Text(
-              'GUARDAR',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
+                    const SizedBox(height: 35.0),
+                  ],
           ),
         ),
-      ),
-    );
+                  if (loginProvider.state == ViewState.Busy)
+                    const CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        Color.fromRGBO(203, 99, 51, 1),
+                      ),
+                    ),
+                  if (loginProvider.state == ViewState.Idle)
+                    MaterialButton(
+                      color: const Color.fromRGBO(203, 99, 51, 1),
+                      onPressed: () async {
+                        if (_formKey.currentState.validate()) {
+
+                        final Map<String, String> userMap = <String, String>{
+                            'name': _inputName.text,
+                            'lastname': _inputLastName.text,
+                            'phone_number': _inputPhone.text,
+                            'email': _inputMail.text.toLowerCase(),
+                            'password': _inputPassword.text,
+                            'is_active': 'true'
+                          };
+                      final bool response = await loginProvider.saveUser(userMap);
+                          if (!response) {
+                            Scaffold.of(context).showSnackBar(
+                              SnackBar(
+                                content: const Text('Ha surgido un problema. Inténtalo de nuevo.'),
+                              ),
+                            );
+                          } else {
+                            Scaffold.of(context).showSnackBar(
+                              SnackBar(
+                                content: const Text('¡Registro exitoso!'),
+                              ),
+                            );
+                            await Future<dynamic>.delayed(Duration(seconds: 3));
+                            Navigator.pushNamed(context, LoginPage.ID);
+                          }
+                        }
+                      },
+                      child: const Text(
+                        'Registrarme',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+      );
   }
 }

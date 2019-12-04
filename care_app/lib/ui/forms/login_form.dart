@@ -3,6 +3,7 @@ import 'package:care_app/core/src/enums/view_state_enum.dart';
 import 'package:care_app/core/src/provider/login_provider.dart';
 import 'package:care_app/ui/components/my_password_form_field.dart';
 import 'package:care_app/ui/components/my_text_form_field.dart';
+import 'package:care_app/ui/pages/add_user_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -56,7 +57,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
         ),
         onPressed: () {
-          Navigator.pushNamed(context, '/addUserPage');
+          Navigator.pushNamed(context, AddUserPage.ID);
         },
       ),
     );

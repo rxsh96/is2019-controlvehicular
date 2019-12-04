@@ -1,4 +1,5 @@
 
+import 'package:care_app/ui/pages/add_user_page.dart';
 import 'package:care_app/ui/pages/add_vehicle_page.dart';
 import 'package:care_app/ui/pages/filter_page.dart';
 import 'package:care_app/ui/pages/login_page.dart';
@@ -21,6 +22,8 @@ class Router {
             ));
       case LoginPage.ID:
         return MaterialPageRoute<LoginPage>(builder: (_) => LoginPage());
+      case AddUserPage.ID:
+        return MaterialPageRoute<AddUserPage>(builder: (_) => AddUserPage());
       case VehiclePage.ID:
         return MaterialPageRoute<VehiclePage>(builder: (_) => VehiclePage());
       case FilterPage.ID:

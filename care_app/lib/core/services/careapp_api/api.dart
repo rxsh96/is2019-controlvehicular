@@ -44,6 +44,14 @@ class API {
     return null;
   }
 
+  Future<Map<String, dynamic>> postUser({@required Map<String, dynamic> user}) async {
+    final MyResponse response = await _apiHelper.post<User>(endPoint: ApiRoutes.USERS, data: user);
+    if(response.isSuccess){
+      return _decoder.convert(response.result);
+    }
+    return <String, dynamic>{'error': 'error'};
+  }
+
   ///Function that returns [List<Vehicle>] of the [User]
   Future<List<Vehicle>> getUserVehicles({@required String email}) async {
     final MyResponse response = await _apiHelper.get<Vehicle>(endPoint: ApiRoutes.VEHICLES, queryParam: '?email='+email);
@@ -56,8 +64,7 @@ class API {
 
   Future<Map<String, dynamic>> postVehicle({@required Vehicle vehicle}) async {
     final Map<String, dynamic> data = vehicle.toJson();
-    final MyResponse response = await _apiHelper.post<Map<String, dynamic>>(
-        data: data, endPoint: ApiRoutes.VEHICLES);
+    final MyResponse response = await _apiHelper.post<Map<String, dynamic>>(endPoint: ApiRoutes.VEHICLES, data: data);
     if (response.isSuccess) {
       return _decoder.convert(response.result);
     }
