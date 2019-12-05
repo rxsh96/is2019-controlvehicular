@@ -1,38 +1,27 @@
-import 'dart:io';
-
+import 'package:care_app/core/src/models/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-
 import 'package:care_app/core/src/provider/vehicle_provider.dart';
-import 'package:care_app/ui/components/app_bar_action_button.dart';
 import 'package:care_app/ui/forms/add_vehicle_form.dart';
 import 'package:care_app/ui/pages/base_page.dart';
 
 
 class AddVehiclePage extends StatefulWidget {
+
+  const AddVehiclePage(this._user);
+
+  final User _user;
+
   static const String ID = 'addVehiclePage';
 
   @override
-  _AddVehiclePageState createState() => _AddVehiclePageState();
+  _AddVehiclePageState createState() => _AddVehiclePageState(_user);
 }
 
 class _AddVehiclePageState extends State<AddVehiclePage> {
 
-  File _image;
+  _AddVehiclePageState(this._user);
 
-  Future<void> getImageFromGallery() async {
-    final File image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _image = image;
-    });
-  }
-
-  Future<void> getImageFromCamera() async {
-    final File image = await ImagePicker.pickImage(source: ImageSource.camera);
-    setState(() {
-      _image = image;
-    });
-  }
+  User _user;
 
   @override
   Widget build(BuildContext context) {
@@ -46,20 +35,8 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
               'AÑADIR VEHÍCULO',
               style: TextStyle(fontSize: 16),
             ),
-            actions: <Widget>[
-              AppBarButton(
-                icon: Icons.camera_alt,
-                color: const Color.fromRGBO(203, 99, 51, 1),
-                function: getImageFromCamera,
-              ),
-              AppBarButton(
-                icon: Icons.folder_open,
-                color: const Color.fromRGBO(203, 99, 51, 1),
-                function: getImageFromGallery,
-              ),
-            ],
           ),
-          body: AddVehicleForm(_image),
+          body: AddVehicleForm(_user),
         ),
       ),
     );

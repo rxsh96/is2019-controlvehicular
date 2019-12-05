@@ -36,9 +36,23 @@ class LoginProvider extends BaseProvider {
     return response;
   }
 
+  Future<void> getProfilePic() async {
+    setState(ViewState.Busy);
+    final User u = await _auth.loadAuthUser();
+    await _userRepository.getProfilePicURL(u.id);
+    setState(ViewState.Idle);
+  }
+
   Future<bool> saveImage(Map<String, dynamic> image) async {
     setState(ViewState.Busy);
     final bool response = await _userRepository.addImage(image);
+    setState(ViewState.Idle);
+    return response;
+  }
+  
+  Future<bool> resetPassword(Map<String, dynamic> data) async {
+    setState(ViewState.Busy);
+    final bool response = await _userRepository.passwordReset(data);
     setState(ViewState.Idle);
     return response;
   }
@@ -75,5 +89,7 @@ class LoginProvider extends BaseProvider {
   }
 
   User get user => _user;
+
+  String get profileImageURL => _userRepository.profileImageURL;
 
 }

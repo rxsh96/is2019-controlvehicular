@@ -5,6 +5,8 @@ class GasolinePage extends StatefulWidget {
   GasolinePage({Key key}) : super(key: key);
 
   _GasolinePageState createState() => _GasolinePageState();
+
+  static const String ID = 'gasolinePage';
 }
 
 class _GasolinePageState extends State<GasolinePage> {

@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 
 import 'display.dart';
 
-class LocalesPage extends StatefulWidget {
-  const LocalesPage({Key key}) : super(key: key);
+class LocalsPage extends StatefulWidget {
+
+
+  const LocalsPage({Key key}) : super(key: key);
+
+  static const String ID= 'localsPage';
 
   @override
-  _LocalesPageState createState() => _LocalesPageState();
+  _LocalsPageState createState() => _LocalsPageState();
 }
 
-class _LocalesPageState extends State<LocalesPage> with SingleTickerProviderStateMixin {
+class _LocalsPageState extends State<LocalsPage> with SingleTickerProviderStateMixin {
 
   TabController _controller;
 

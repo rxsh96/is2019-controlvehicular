@@ -1,6 +1,4 @@
-
 import 'package:care_app/core/locator.dart';
-import 'package:care_app/core/src/enums/view_state_enum.dart';
 import 'package:care_app/core/src/models/vehicle_model.dart';
 import 'package:care_app/core/src/provider/login_provider.dart';
 import 'package:care_app/core/src/provider/vehicle_provider.dart';
@@ -8,6 +6,8 @@ import 'package:care_app/ui/components/my_card_button.dart';
 import 'package:care_app/ui/components/my_icon_component.dart';
 import 'package:care_app/ui/components/my_menu.dart';
 import 'package:care_app/ui/pages/add_vehicle_page.dart';
+import 'package:care_app/ui/pages/gasoline_page.dart';
+import 'package:care_app/ui/pages/map/gasoline_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +24,7 @@ class VehiclePage extends StatelessWidget {
       onModelReady: (VehicleProvider vehicleProvider){
         vehicleProvider.fetchVehicleModels();
         vehicleProvider.fetchVehicleBrands();
+        locator<LoginProvider>().getProfilePic();
       },
       builder: (BuildContext context, VehicleProvider vehicleProvider, Widget child) =>
           SafeArea(
@@ -38,6 +39,7 @@ class VehiclePage extends StatelessWidget {
                     icon: Icons.add,
                     color: const Color.fromRGBO(203, 99, 51, 1),
                     route: AddVehiclePage.ID,
+                    argument: Provider.of<LoginProvider>(context).user,
                   ),
                   MyIconButton(
                     icon: Icons.note_add,
@@ -59,17 +61,25 @@ class VehiclePage extends StatelessWidget {
                         builder: (BuildContext context,
                             AsyncSnapshot<List<Vehicle>> snapshot) {
                           if (snapshot.connectionState == ConnectionState.done) {
-                            if (!snapshot.hasData) {
-                              return const Text(
-                                  '¡No tienes vehículos registrados!');
+                            if (snapshot.data.isEmpty) {
+                              return const Center(
+                                child: Text(
+                                    '¡No tienes vehículos registrados!'),
+                              );
                             }
                             return Swiper(
                               itemBuilder: (BuildContext context, int index) {
                                 //vehicleProvider.selectVehicle(snapshot.data[index]);
-                                return FadeInImage.assetNetwork(
-                                  image: snapshot.data[index].imageURL,
-                                  placeholder: 'images/auto-2.gif',
-                                  fit: BoxFit.fill,
+                                if(snapshot.data[index].imageURL != null){
+                                  return FadeInImage.assetNetwork(
+                                    image: snapshot.data[index].imageURL,
+                                    placeholder: 'images/auto-2.gif',
+                                    fit: BoxFit.fill,
+                                  );
+                                }
+                                return const Center(
+                                  child: Text(
+                                      'Hubo un problema descargando la imagen'),
                                 );
                               },
                               itemCount: snapshot.data.length,
@@ -134,13 +144,13 @@ class VehiclePage extends StatelessWidget {
                     text: 'GASOLINA',
                     transparency: 1,
                     icon: 'gasolina',
-                    route: 'gasolinePage',
+                    route: GasolinePage.ID,
                   ),
                   const MyCardButton(
-                    text: 'MAPA',
+                    text: 'MAPA GASOLINERAS',
                     transparency: 1,
                     icon: 'gasolina',
-                    route: 'gasolinerasPage',
+                    route: GasolineMapPage.ID,
                   ),
                 ],
               ),

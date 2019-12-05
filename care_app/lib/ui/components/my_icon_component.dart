@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class MyIconButton extends StatefulWidget {
-  const MyIconButton({this.icon, this.color, this.route});
+  const MyIconButton({this.icon, this.color, this.route, this.argument});
 
   final IconData icon;
   final Color color;
   final String route;
+  final Object argument;
 
   @override
   _MyIconButtonState createState() =>
-      _MyIconButtonState(icon: icon, color: color, route: route);
+      _MyIconButtonState(icon: icon, color: color, route: route, argument: argument);
 }
 
 class _MyIconButtonState extends State<MyIconButton> {
-  _MyIconButtonState({this.icon, this.color, this.route});
+  _MyIconButtonState({this.icon, this.color, this.route, this.argument});
 
   final IconData icon;
   final Color color;
   final String route;
+  final Object argument;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class _MyIconButtonState extends State<MyIconButton> {
       icon: Icon(icon),
       color: color,
       onPressed: () {
-        Navigator.pushNamed(context, '$route');
+        Navigator.pushNamed(context, '$route', arguments: argument);
       },
     );
   }

@@ -37,7 +37,7 @@ class API {
 
   ///Function that returns [User] information from backend.
   Future<User> getUser({@required String email}) async {
-    final MyResponse response = await _apiHelper.get<User>(endPoint: ApiRoutes.USERS, queryParam: '?email='+email);
+    final MyResponse response = await _apiHelper.get<User>(endPoint: ApiRoutes.USERS, queryParam: '?email=$email');
     if(response.isSuccess){
       final List<dynamic> jsonUser = _decoder.convert(response.result.toString());
       return User.fromJson(jsonUser[0]);
@@ -46,8 +46,8 @@ class API {
   }
 
   ///Function that returns [List<Vehicle>] of the [User]
-  Future<List<Vehicle>> getUserVehicles({@required String email}) async {
-    final MyResponse response = await _apiHelper.get<Vehicle>(endPoint: ApiRoutes.VEHICLES, queryParam: '?email='+email);
+  Future<List<Vehicle>> getUserVehicles({@required int owner}) async {
+    final MyResponse response = await _apiHelper.get<Vehicle>(endPoint: ApiRoutes.VEHICLES, queryParam: '?owner=$owner');
     if(response.isSuccess){
       final String vehicleResponse = response.result.toString();
       return compute(parseVehicles, vehicleResponse);
@@ -55,8 +55,25 @@ class API {
     return null;
   }
 
+  Future<ProfileImageModel> getProfilePicURL({@required int owner}) async {
+    final MyResponse response = await _apiHelper.get<ProfileImageModel>(endPoint: ApiRoutes.UPLOAD_PROFILE_IMG, queryParam: '?owner=$owner');
+    if(response.isSuccess){
+      final List<dynamic> jsonUser = _decoder.convert(response.result.toString());
+      return ProfileImageModel.fromJson(jsonUser[0]);
+    }
+    return null;
+  }
+
   Future<Map<String, dynamic>> postUser({@required Map<String, dynamic> user}) async {
     final MyResponse response = await _apiHelper.post<User>(endPoint: ApiRoutes.USERS, data: user);
+    if(response.isSuccess){
+      return _decoder.convert(response.result);
+    }
+    return <String, dynamic>{'error': 'error'};
+  }
+
+  Future<Map<String, dynamic>> postPasswordReset({Map<String, String> data}) async {
+    final  MyResponse response = await _apiHelper.post<dynamic>(endPoint: ApiRoutes.RESET, data: data);
     if(response.isSuccess){
       return _decoder.convert(response.result);
     }
@@ -71,9 +88,8 @@ class API {
     return <String, dynamic>{'error': 'error'};
   }
 
-  Future<Map<String, dynamic>> postVehicle({@required Vehicle vehicle}) async {
-    final Map<String, dynamic> data = vehicle.toJson();
-    final MyResponse response = await _apiHelper.post<Map<String, dynamic>>(endPoint: ApiRoutes.VEHICLES, data: data);
+  Future<Map<String, dynamic>> postVehicle({@required Map<String, dynamic> vehicle}) async {
+    final MyResponse response = await _apiHelper.post<Map<String, dynamic>>(endPoint: ApiRoutes.VEHICLES, data: vehicle);
     if (response.isSuccess) {
       return _decoder.convert(response.result);
     }

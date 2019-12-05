@@ -1,11 +1,13 @@
+import 'package:care_app/core/src/models/user_model.dart';
 import 'package:flutter/material.dart';
 
-class MyProfilePage extends StatefulWidget {
-  @override
-  _MyProfilePageState createState() => _MyProfilePageState();
-}
+class MyProfilePage extends StatelessWidget {
+  const MyProfilePage(this.user);
 
-class _MyProfilePageState extends State<MyProfilePage> {
+  static const String ID = 'myProfilePage';
+
+  final User user;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -21,22 +23,19 @@ class _MyProfilePageState extends State<MyProfilePage> {
           children: <Widget>[
             const CircleAvatar(
               backgroundColor: Colors.grey,
-              child: Text('User', style: TextStyle(color: Colors.black),),
+              child: Text(
+                'User',
+                style: TextStyle(color: Colors.black),
+              ),
               radius: 60.0,
             ),
-            const SizedBox(height: 20,),
-            const Text(
-              'Ricardo Serrano',
-              style: TextStyle(
-                fontSize: 30.0,
-              ),
+            const SizedBox(
+              height: 20,
             ),
             Text(
-              'Descripcion',
-              style: TextStyle(
-                fontSize: 20.0,
-                letterSpacing: 2.0,
-                fontWeight: FontWeight.bold,
+              user.name + ' ' + user.lastname,
+              style: const TextStyle(
+                fontSize: 30.0,
               ),
             ),
             const SizedBox(
@@ -48,14 +47,15 @@ class _MyProfilePageState extends State<MyProfilePage> {
             ),
             Card(
               color: Colors.white,
-              margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+              margin:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
               child: ListTile(
                 leading: Icon(
                   Icons.phone,
                 ),
-                title: const Text(
-                  'Telefono',
-                  style: TextStyle(
+                title: Text(
+                  user.phone_number,
+                  style: const TextStyle(
                     fontSize: 20.0,
                   ),
                 ),
@@ -63,14 +63,15 @@ class _MyProfilePageState extends State<MyProfilePage> {
             ),
             Card(
               color: Colors.white,
-              margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+              margin:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
               child: ListTile(
                 leading: Icon(
                   Icons.email,
                 ),
-                title: const Text(
-                  'Email',
-                  style: TextStyle(
+                title: Text(
+                  user.email,
+                  style: const TextStyle(
                     fontSize: 20.0,
                   ),
                 ),

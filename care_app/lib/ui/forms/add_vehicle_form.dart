@@ -1,23 +1,28 @@
 import 'dart:io';
+import 'package:care_app/core/src/enums/view_state_enum.dart';
+import 'package:care_app/core/src/models/brand_model.dart';
+import 'package:care_app/core/src/models/model_model.dart';
+import 'package:care_app/core/src/models/user_model.dart';
 import 'package:care_app/core/src/provider/vehicle_provider.dart';
 import 'package:care_app/ui/components/my_text_form_field.dart';
 import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class AddVehicleForm extends StatefulWidget {
+  const AddVehicleForm(this._user);
 
-  AddVehicleForm(this._image);
-
-  File _image;
+  final User _user;
 
   @override
-  _AddVehicleFormState createState() => _AddVehicleFormState(_image);
+  _AddVehicleFormState createState() => _AddVehicleFormState(_user);
 }
 
 class _AddVehicleFormState extends State<AddVehicleForm> {
+  _AddVehicleFormState(this._user);
 
-  _AddVehicleFormState(this._image);
+  User _user;
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _licensePlateController = TextEditingController();
@@ -33,168 +38,221 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
 
   File _image;
 
+  Future<void> getImageFromGallery() async {
+    final File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image;
+    });
+  }
+
+  void cleanFields() {
+    _nameController.text = _licensePlateController.text =
+        _brandController.text = _modelController.text = _colorController.text =
+            _yearController.text = _lastMatController.text =
+                _kmController.text = _descriptionController.text = '';
+    setState(() {
+      _image = null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Consumer<VehicleProvider>(
+        builder: (BuildContext context, VehicleProvider vehicleProvider, _) {
+      final List<String> models = <String>[];
+      for (ModelModel v in vehicleProvider.models) {
+        models.add(v.model);
+      }
 
-      builder: (BuildContext context, VehicleProvider vehicleProvider, _) =>
-    Scaffold(
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-          children: <Widget>[
-            const SizedBox(height: 15.0),
-            MyTextFormField(
-              controller: _nameController,
-              capitalization: TextCapitalization.words,
-              textInputType: TextInputType.text,
-              label: 'Nombre',
-              hint: 'Ejemplo: Mi Viajero - Mi Taxi - Personal',
-              icon: Icons.account_box,
-              errorMsg: 'Ingresa un nombre',
-            ),
-            const SizedBox(height: 15.0),
-            MyTextFormField(
-              controller: _licensePlateController,
-              capitalization: TextCapitalization.words,
-              textInputType: TextInputType.text,
-              label: 'Placa',
-              hint: 'Formato: ABC-1234',
-              icon: Icons.directions_car,
-              errorMsg: 'Ingresa la placa del vehículo',
-            ),
-            const SizedBox(height: 15.0),
-//            MyTextFormField(
-//              controller: _brandController,
-//              capitalization: TextCapitalization.words,
-//              textInputType: TextInputType.text,
-//              label: 'Marca',
-//              icon: Icons.directions_car,
-//              errorMsg: 'Ingresa la marca del vehículo',
-//            ),
-            const SizedBox(height: 15.0),
+      final List<String> brands = <String>[];
+      for (BrandModel b in vehicleProvider.brands) {
+        brands.add(b.brand);
+      }
 
-              DropDownField(
-                value: vehicleProvider.models[0].model,
-                itemsVisibleInDropdown: 1,
-                icon: Icon(Icons.directions_car),
-                labelText: 'Modelo',
-                items: vehicleProvider.models,
-                strict: false,
-                onValueChanged: (dynamic value) {
-
-                },
+      return Scaffold(
+        body: Form(
+          key: _formKey,
+          child: ListView(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 30.0, vertical: 5.0),
+            children: <Widget>[
+              const SizedBox(height: 15.0),
+              Center(
+                child: RawMaterialButton(
+                  child: Container(
+                    child: _image == null
+                        ? CircleAvatar(
+                            child: Icon(
+                              Icons.directions_car,
+                              size: 80.0,
+                              color: Colors.black,
+                            ),
+                            backgroundColor:
+                                const Color.fromRGBO(203, 99, 51, 1),
+                            radius: 80.0,
+                          )
+                        : CircleAvatar(
+                            backgroundImage: FileImage(_image),
+                            radius: 80.0,
+                            backgroundColor:
+                                const Color.fromRGBO(203, 99, 51, 1),
+                          ),
+                  ),
+                  onPressed: getImageFromGallery,
+                ),
               ),
-
+              const SizedBox(height: 35.0),
+              MyTextFormField(
+                controller: _nameController,
+                capitalization: TextCapitalization.words,
+                textInputType: TextInputType.text,
+                label: 'Nombre',
+                hint: 'Ejemplo: Mi Viajero - Mi Taxi - Personal',
+                icon: Icons.account_box,
+                errorMsg: 'Ingresa un nombre',
+              ),
+              const SizedBox(height: 15.0),
+              MyTextFormField(
+                controller: _licensePlateController,
+                capitalization: TextCapitalization.words,
+                textInputType: TextInputType.text,
+                label: 'Placa',
+                hint: 'Formato: ABC-1234',
+                icon: Icons.directions_car,
+                errorMsg: 'Ingresa la placa del vehículo',
+              ),
+              const SizedBox(height: 15.0),
               DropDownField(
-                value: vehicleProvider.brands[0].brand,
+                value: 'Ingresa tu marca',
                 itemsVisibleInDropdown: 1,
                 icon: Icon(Icons.directions_car),
                 labelText: 'Marca',
-                items: vehicleProvider.brands,
+                items: brands,
                 strict: false,
                 onValueChanged: (dynamic value) {
-
+                  final int index = brands.indexOf(value) + 1;
+                  print('EL INDEX DE LA MARCA ES: $index');
+                  _brandController.text = index.toString();
                 },
               ),
-
-            const SizedBox(height: 15.0),
-            MyTextFormField(
-              controller: _colorController,
-              capitalization: TextCapitalization.words,
-              textInputType: TextInputType.text,
-              label: 'Color',
-              icon: Icons.color_lens,
-              errorMsg: 'Ingresa el color del vehículo',
-            ),
-            const SizedBox(height: 15.0),
-            MyTextFormField(
-              controller: _yearController,
-              capitalization: TextCapitalization.words,
-              textInputType: TextInputType.number,
-              label: 'Año',
-              icon: Icons.timeline,
-              errorMsg: 'Ingresa el año del vehículo',
-            ),
-            const SizedBox(height: 15.0),
-            MyTextFormField(
-              controller: _lastMatController,
-              capitalization: TextCapitalization.words,
-              textInputType: TextInputType.datetime,
-              label: 'Última Matrícula',
-              hint: 'dd/MM/YYYY',
-              icon: Icons.color_lens,
-              errorMsg: 'Ingresa la última matrícula del vehículo',
-            ),
-            const SizedBox(height: 15.0),
-            MyTextFormField(
-              controller: _kmController,
-              capitalization: TextCapitalization.none,
-              textInputType: TextInputType.number,
-              label: 'Kilometraje',
-              icon: Icons.directions_car,
-              errorMsg: 'Ingresa el kilometraje del vehículo',
-            ),
-            const SizedBox(height: 15.0),
-            MyTextFormField(
-              controller: _descriptionController,
-              capitalization: TextCapitalization.sentences,
-              textInputType: TextInputType.text,
-              label: 'Descripción',
-              icon: Icons.mode_comment,
-              errorMsg: 'Ingresa una descripción para el vehículo',
-            ),
-            const SizedBox(height: 35.0),
-            Center(
-              child: Container(
-                height: 50.0,
-                child: _image == null
-                    ? Icon(
-                        Icons.add_a_photo,
-                        size: 50.0,
-                      )
-                    : Image(
-                        image: FileImage(_image),
-                        height: 50.0,
-                      ),
+              const SizedBox(height: 15.0),
+              DropDownField(
+                value: 'Ingresa tu modelo',
+                itemsVisibleInDropdown: 1,
+                icon: Icon(Icons.directions_car),
+                labelText: 'Modelo',
+                items: models,
+                strict: false,
+                onValueChanged: (dynamic value) {
+                  final int index = models.indexOf(value) + 1;
+                  print('EL INDEX DEL MODELO ES: $index');
+                  _modelController.text = index.toString();
+                },
               ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: const Color.fromRGBO(203, 99, 51, 1),
-        child: MaterialButton(
-          onPressed: () {
-            if (_formKey.currentState.validate()) {
-              final Map<String, dynamic> vehicle = <String, dynamic>{
-                'plate': _licensePlateController.text,
-                'brand': int.parse(_brandController.text),
-                'model': int.parse(_modelController.text),
-                'color': _colorController.text,
-                'year': int.parse(_yearController.text),
-                'km': _kmController.text,
-                'description': _descriptionController.text,
-              };
+              const SizedBox(height: 15.0),
+              MyTextFormField(
+                controller: _colorController,
+                capitalization: TextCapitalization.words,
+                textInputType: TextInputType.text,
+                label: 'Color',
+                icon: Icons.color_lens,
+                errorMsg: 'Ingresa el color del vehículo',
+              ),
+              const SizedBox(height: 15.0),
+              MyTextFormField(
+                controller: _yearController,
+                capitalization: TextCapitalization.words,
+                textInputType: TextInputType.number,
+                label: 'Año',
+                icon: Icons.timeline,
+                errorMsg: 'Ingresa el año del vehículo',
+              ),
+              const SizedBox(height: 15.0),
+              MyTextFormField(
+                controller: _lastMatController,
+                capitalization: TextCapitalization.words,
+                textInputType: TextInputType.datetime,
+                label: 'Última Matrícula',
+                hint: 'dd/MM/YYYY',
+                icon: Icons.color_lens,
+                errorMsg: 'Ingresa la última matrícula del vehículo',
+              ),
+              const SizedBox(height: 15.0),
+              MyTextFormField(
+                controller: _kmController,
+                capitalization: TextCapitalization.none,
+                textInputType: TextInputType.number,
+                label: 'Kilometraje',
+                icon: Icons.directions_car,
+                errorMsg: 'Ingresa el kilometraje del vehículo',
+              ),
+              const SizedBox(height: 15.0),
+              MyTextFormField(
+                controller: _descriptionController,
+                capitalization: TextCapitalization.sentences,
+                textInputType: TextInputType.text,
+                label: 'Descripción',
+                icon: Icons.mode_comment,
+                errorMsg: 'Ingresa una descripción para el vehículo',
+              ),
+              const SizedBox(height: 35.0),
+              if (vehicleProvider.state == ViewState.Busy)
+                const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Color.fromRGBO(203, 99, 51, 1),
+                  ),
+                ),
+              if (vehicleProvider.state == ViewState.Idle)
+                MaterialButton(
+                  color: const Color.fromRGBO(203, 99, 51, 1),
+                  onPressed: () async {
+                    if (_formKey.currentState.validate() && _image != null) {
+                      final String imgResponse =
+                          await vehicleProvider.saveVehiclePic(_image);
+                      final Map<String, dynamic> vehicle = <String, dynamic>{
+                        'plate': _licensePlateController.text.toUpperCase(),
+                        'brand': _brandController.text.toString(),
+                        'model': _modelController.text.toString(),
+                        'color': _colorController.text,
+                        'year': _yearController.text.toString(),
+                        'km': _kmController.text,
+                        'description': _descriptionController.text,
+                        'owner': _user.id.toString(),
+                        'is_active': 'true',
+                        'imageURL': imgResponse.toString(),
+                      };
+                      final Map<String, dynamic> response =
+                          await vehicleProvider.saveVehicle(vehicle);
 
-              if(_image != null){
-                print('SI HAY FOTO');
-              }
-
-            }
-          },
-          child: const Text(
-            'GUARDAR',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-            ),
+                      if (response.containsKey('error')) {
+                        Scaffold.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text(
+                                'Ha surgido un problema. Inténtalo de nuevo.'),
+                          ),
+                        );
+                      } else {
+                        Scaffold.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text('¡Registro exitoso!'),
+                          ),
+                        );
+                        cleanFields();
+                      }
+                    }
+                  },
+                  child: const Text(
+                    'Añadir Vehículo',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+            ],
           ),
         ),
-      ),
-    ),
-    );
+      );
+    });
   }
 }
