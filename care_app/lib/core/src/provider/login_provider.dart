@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:care_app/core/locator.dart';
 import 'package:care_app/core/services/auth/auth_service.dart';
 import 'package:care_app/core/src/enums/my_enum.dart';
@@ -20,12 +22,27 @@ class LoginProvider extends BaseProvider {
   User _user;
 
 
-  Future<bool> saveUser(Map<String, dynamic> user) async {
+  Future<Map<String, dynamic>> saveUser(Map<String, dynamic> user) async {
     setState(ViewState.Busy);
-    final bool response = await _userRepository.addUser(user);
+    final Map<String, dynamic> response = await _userRepository.addUser(user);
     setState(ViewState.Idle);
     return response;
   }
+
+  Future<String> saveProfilePic(File image) async {
+    setState(ViewState.Busy);
+    final String response = await _userRepository.uploadProfilePic(image);
+    setState(ViewState.Idle);
+    return response;
+  }
+
+  Future<bool> saveImage(Map<String, dynamic> image) async {
+    setState(ViewState.Busy);
+    final bool response = await _userRepository.addImage(image);
+    setState(ViewState.Idle);
+    return response;
+  }
+
 
   Future<bool> isSignedIn() async {
     final bool hasToken = await _auth.hasToken();

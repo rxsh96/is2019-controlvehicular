@@ -1,8 +1,8 @@
-class ProfileImage {
+class ProfileImageModel {
 
-  ProfileImage({this.file, this.user});
+  ProfileImageModel({this.file, this.user});
 
-  ProfileImage.fromJson(Map<String, dynamic> json) {
+  ProfileImageModel.fromJson(Map<String, dynamic> json) {
     file = json['file'];
     user = json['user'];
   }
@@ -14,5 +14,5 @@ class ProfileImage {
     return data;
   }
   String file;
-  String user;
+  int user;
 }

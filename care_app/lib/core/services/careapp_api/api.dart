@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:care_app/core/src/models/brand_model.dart';
+import 'package:care_app/core/src/models/image_model.dart';
 import 'package:care_app/core/src/models/model_model.dart';
 import 'package:care_app/core/src/models/user_model.dart';
 import 'package:flutter/foundation.dart';
@@ -44,14 +45,6 @@ class API {
     return null;
   }
 
-  Future<Map<String, dynamic>> postUser({@required Map<String, dynamic> user}) async {
-    final MyResponse response = await _apiHelper.post<User>(endPoint: ApiRoutes.USERS, data: user);
-    if(response.isSuccess){
-      return _decoder.convert(response.result);
-    }
-    return <String, dynamic>{'error': 'error'};
-  }
-
   ///Function that returns [List<Vehicle>] of the [User]
   Future<List<Vehicle>> getUserVehicles({@required String email}) async {
     final MyResponse response = await _apiHelper.get<Vehicle>(endPoint: ApiRoutes.VEHICLES, queryParam: '?email='+email);
@@ -60,6 +53,22 @@ class API {
       return compute(parseVehicles, vehicleResponse);
     }
     return null;
+  }
+
+  Future<Map<String, dynamic>> postUser({@required Map<String, dynamic> user}) async {
+    final MyResponse response = await _apiHelper.post<User>(endPoint: ApiRoutes.USERS, data: user);
+    if(response.isSuccess){
+      return _decoder.convert(response.result);
+    }
+    return <String, dynamic>{'error': 'error'};
+  }
+
+  Future<Map<String, dynamic>> postProfilePic({@required Map<String, dynamic> image}) async {
+    final MyResponse response = await _apiHelper.post<ProfileImageModel>(endPoint: ApiRoutes.UPLOAD_PROFILE_IMG, data: image);
+    if(response.isSuccess){
+      return _decoder.convert(response.result);
+    }
+    return <String, dynamic>{'error': 'error'};
   }
 
   Future<Map<String, dynamic>> postVehicle({@required Vehicle vehicle}) async {

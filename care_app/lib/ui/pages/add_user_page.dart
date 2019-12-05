@@ -5,17 +5,14 @@ import 'package:flutter/material.dart';
 
 import 'base_page.dart';
 
-class AddUserPage extends StatelessWidget {
+class AddUserPage extends StatefulWidget {
   static const String ID = 'addUserPage';
 
-   File _image;
+  @override
+  _AddUserPageState createState() => _AddUserPageState();
+}
 
-//  Future<void> getImageFromCamera({ImageSource source}) async {
-//    final File image = await ImagePicker.pickImage(source: source);
-//    setState(() {
-//      _image = image;
-//    });
-//  }
+class _AddUserPageState extends State<AddUserPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -39,30 +36,30 @@ class AddUserPage extends StatelessWidget {
           body:  ListView(
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 30.0),
           children: <Widget>[
-            Container(
-              child: Center(
-                child: RawMaterialButton(
-                  child: Container(
-                    child: _image == null
-                        ? CircleAvatar(
-                            child: Icon(
-                              Icons.add_a_photo,
-                              size: 50.0,
-                              color: Colors.white,
-                            ),
-                            backgroundColor: const Color.fromRGBO(203, 99, 51, 1),
-                            radius: 50.0,
-                          )
-                        : CircleAvatar(
-                            backgroundImage: FileImage(_image),
-                            radius: 50.0,
-                            backgroundColor: const Color.fromRGBO(203, 99, 51, 1),
-                          ),
-                  ),
-                  onPressed: () {}
-                ),
-              ),
-            ),
+//            Container(
+//              child: Center(
+//                child: RawMaterialButton(
+//                  child: Container(
+//                    child: _image == null
+//                        ? CircleAvatar(
+//                            child: Icon(
+//                              Icons.add_a_photo,
+//                              size: 50.0,
+//                              color: Colors.white,
+//                            ),
+//                            backgroundColor: const Color.fromRGBO(203, 99, 51, 1),
+//                            radius: 50.0,
+//                          )
+//                        : CircleAvatar(
+//                            backgroundImage: FileImage(_image),
+//                            radius: 50.0,
+//                            backgroundColor: const Color.fromRGBO(203, 99, 51, 1),
+//                          ),
+//                  ),
+//                  onPressed: getImageFromGallery,
+//                ),
+//              ),
+//            ),
             AddUserForm(),
           ],
         ),

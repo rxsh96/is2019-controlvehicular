@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:care_app/core/src/models/vehicle_model.dart';
 import 'package:care_app/core/src/provider/vehicle_provider.dart';
 import 'package:care_app/ui/components/my_text_form_field.dart';
 import 'package:dropdownfield/dropdownfield.dart';
@@ -8,9 +7,9 @@ import 'package:provider/provider.dart';
 
 class AddVehicleForm extends StatefulWidget {
 
-  const AddVehicleForm(this._image);
+  AddVehicleForm(this._image);
 
-  final File _image;
+  File _image;
 
   @override
   _AddVehicleFormState createState() => _AddVehicleFormState(_image);
@@ -170,21 +169,20 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
         child: MaterialButton(
           onPressed: () {
             if (_formKey.currentState.validate()) {
-              final Vehicle vehicle = Vehicle(
-                plate: _licensePlateController.text,
-                brand: int.parse(_brandController.text),
-                model: int.parse(_modelController.text),
-                color: _colorController.text,
-                year: int.parse(_yearController.text),
-                km: _kmController.text,
-                description: _descriptionController.text,
-              );
-              print(vehicle.toString());
-              print(Provider.of<VehicleProvider>(context));
-//              Provider.of<VehicleProvider>(context).saveVehicle(vehicle);
-//            vehicleProvider
-//            registerVehicle();
-//            Navigator.pushNamed(context, '/vehiclePage');
+              final Map<String, dynamic> vehicle = <String, dynamic>{
+                'plate': _licensePlateController.text,
+                'brand': int.parse(_brandController.text),
+                'model': int.parse(_modelController.text),
+                'color': _colorController.text,
+                'year': int.parse(_yearController.text),
+                'km': _kmController.text,
+                'description': _descriptionController.text,
+              };
+
+              if(_image != null){
+                print('SI HAY FOTO');
+              }
+
             }
           },
           child: const Text(
