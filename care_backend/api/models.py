@@ -95,6 +95,9 @@ class Affiliate_business(models.Model):
 	def __str__(self):
 		return self.business_name
 
+class Affiliate_business_Clients(models.Model):
+	client =  models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+	business = models.ForeignKey(Affiliate_business, on_delete=models.SET_NULL, null=True)
 
 class Vehicle(models.Model):
 	YEAR_CHOICES = [(y,y) for y in range(1960, (datetime.date.today().year)+2)]
