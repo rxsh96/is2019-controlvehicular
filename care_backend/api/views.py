@@ -90,13 +90,20 @@ class Affiliate_businessView(viewsets.ModelViewSet):
     serializer_class = Affiliate_businessSerializer
 
     
-class ImageUploadParser(FileUploadParser):
-    media_type = 'image/*'
+'''class ImageUploadParser(FileUploadParser):
+    media_type = 'image/*'''
 
-class PPUploadView(viewsets.ModelViewSet):
-    parser_class = (ImageUploadParser,)
+class PPUploadView(FiltersMixin, viewsets.ModelViewSet):
+    #parser_class = (ImageUploadParser,)
     queryset = api_model.ProfilePicture.objects.all()
     serializer_class = ProfilePictureSerializer
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('id', 'user', 'creation_date')
+    ordering = ('user')
+
+    filter_mappings = {
+        'user': 'user',
+    }
 
 class BrandView(viewsets.ModelViewSet):
     queryset = api_model.Brand.objects.all()

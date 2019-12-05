@@ -1,0 +1,1 @@
+enum AuthEvent{AppStarted, LoggedIn, LoggedOut}

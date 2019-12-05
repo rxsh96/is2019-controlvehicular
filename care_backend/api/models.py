@@ -31,11 +31,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 class ProfilePicture(models.Model):
 	creation_date = models.DateTimeField(auto_now_add=True, editable=False)
 	modified_date = models.DateTimeField(auto_now=True)
-	file = models.ImageField(blank=False, null=False, upload_to="profilepic")	
-	user = models.ForeignKey(User,on_delete = models.CASCADE)
+	file = models.CharField(max_length=255)	
+	user = models.ForeignKey(User, on_delete = models.CASCADE)
 
 	def __str__(self):
-		return self.file.name
+		return self.user
 
 class Province(models.Model):
 	province = models.CharField(max_length=254)

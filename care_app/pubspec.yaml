@@ -4,7 +4,7 @@ description: CareApp for Vehicle Control
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -12,24 +12,23 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  bloc: ^1.0.0
   cupertino_icons: ^0.1.2
-  dio: ^2.2.2
   dropdown_formfield: ^0.1.1
   dropdownfield: ^1.0.3
   email_validator: ^1.0.0
-  flutter_bloc: ^1.0.0
+  firebase_analytics: ^5.0.2
+  firebase_core: ^0.4.0+9
+  firebase_storage: ^3.0.8
   flutter_map: ^0.1.2
-  equatable: ^0.6.1
   flutter_secure_storage: ^3.3.1
   flutter_swiper: ^1.1.6
   flutter_datetime_picker: ^1.2.8
+  get_it: ^3.0.3
   http: ^0.12.0+2
   image_picker: ^0.6.1+8
-  mime: ^0.9.6+3
+  provider: ^3.1.0+1
   shared_preferences: ^0.5.3+4
   progress_hud: ^1.1.0
-  rxdart: ^0.22.2
 
 
 
