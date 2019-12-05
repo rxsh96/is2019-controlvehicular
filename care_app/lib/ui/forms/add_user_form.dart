@@ -33,6 +33,13 @@ class _AddUserFormState extends State<AddUserForm> {
     });
   }
 
+  void cleanFields(){
+    _inputPassword.text = _inputPhone.text = _inputLastName.text = _inputName.text = _inputMail.text = '';
+    setState(() {
+      _image = null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<LoginProvider>(
@@ -158,8 +165,7 @@ class _AddUserFormState extends State<AddUserForm> {
                           content: const Text('¡Registro exitoso!'),
                         ),
                       );
-                      await Future<dynamic>.delayed(Duration(seconds: 1));
-                      Navigator.pushNamed(context, LoginPage.ID);
+                      cleanFields();
                     }
                   }
                 },

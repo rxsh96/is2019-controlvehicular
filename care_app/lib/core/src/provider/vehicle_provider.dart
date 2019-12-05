@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:care_app/core/services/careapp_api/api.dart';
 import 'package:care_app/core/src/enums/view_state_enum.dart';
 import 'package:care_app/core/src/models/brand_model.dart';
@@ -19,17 +21,26 @@ class VehicleProvider extends BaseProvider{
 
   Future<List<Vehicle>> fetchUserVehicles(User user) async{
     setState(ViewState.Busy);
-    final List<Vehicle> vehicles = await _api.getUserVehicles(email: user.email);
+    final List<Vehicle> vehicles = await _api.getUserVehicles(owner: user.id);
     _vehicles = vehicles;
     setState(ViewState.Idle);
     notifyListeners();
     return vehicles;
   }
 
-  Future<bool> saveVehicle(Vehicle vehicle) async{
-    return await _vehicleRepository.addVehicle(vehicle);
+  Future<Map<String, dynamic>> saveVehicle(Map<String, dynamic> vehicle) async{
+    setState(ViewState.Busy);
+    final Map<String, dynamic> response = await _vehicleRepository.addVehicle(vehicle);
+    setState(ViewState.Idle);
+    return response;
   }
 
+  Future<String> saveVehiclePic(File image) async {
+    setState(ViewState.Busy);
+    final String response = await _vehicleRepository.uploadVehicleImage(image);
+    setState(ViewState.Idle);
+    return response;
+  }
 
   Future<bool> fetchVehicleModels() async {
     return await _vehicleRepository.fetchVehicleModels();

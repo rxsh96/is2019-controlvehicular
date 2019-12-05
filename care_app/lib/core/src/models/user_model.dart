@@ -18,7 +18,7 @@ class User {
     lastname = json['lastname'];
     phone_number = json['phone_number'];
     email = json['email'];
-    is_active = json['is_active'];
+    is_active = json['is_active'].toString();
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{

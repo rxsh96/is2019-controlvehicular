@@ -1,7 +1,7 @@
-
 import 'package:care_app/core/locator.dart';
 import 'package:care_app/core/src/provider/login_provider.dart';
 import 'package:care_app/ui/pages/login_page.dart';
+import 'package:care_app/ui/pages/my_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,10 +28,14 @@ class MyMenu extends StatelessWidget {
                       child: GestureDetector(
                         child: const CircleAvatar(
                           backgroundColor: Colors.grey,
+                          child: Text(
+                            'User',
+                            style: TextStyle(color: Colors.black),
+                          ),
                           radius: 40.0,
                         ),
                         onTap: () {
-                          Navigator.pushNamed(context, '/myProfilePage');
+                          Navigator.pushNamed(context, MyProfilePage.ID, arguments: Provider.of<LoginProvider>(context).user);
                         },
                       ),
                     ),
@@ -42,7 +46,7 @@ class MyMenu extends StatelessWidget {
                             color: const Color.fromRGBO(203, 99, 51, 1),
                             fontSize: 16),),
                       onTap: () {
-                        Navigator.pushNamed(context, '/myProfilePage');
+                        Navigator.pushNamed(context, MyProfilePage.ID, arguments: Provider.of<LoginProvider>(context).user);
                       },
                     )
                   ],

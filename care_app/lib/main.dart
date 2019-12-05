@@ -34,8 +34,8 @@ class App extends StatelessWidget {
                 return VehiclePage();
               default:
                 return Scaffold(
-                  body: Center(
-                    child: const Text('SURGIO UN PROBLEMA'),
+                  body: const Center(
+                    child: Text('SURGIO UN PROBLEMA'),
                   ),
                 );
             }

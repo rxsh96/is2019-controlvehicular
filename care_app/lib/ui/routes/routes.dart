@@ -1,8 +1,11 @@
 
+import 'package:care_app/core/src/models/user_model.dart';
 import 'package:care_app/ui/pages/add_user_page.dart';
 import 'package:care_app/ui/pages/add_vehicle_page.dart';
 import 'package:care_app/ui/pages/filter_page.dart';
 import 'package:care_app/ui/pages/login_page.dart';
+import 'package:care_app/ui/pages/my_profile_page.dart';
+import 'package:care_app/ui/pages/password_reset_page.dart';
 import 'package:care_app/ui/pages/vehicle_page.dart';
 import 'package:flutter/material.dart';
 
@@ -24,12 +27,18 @@ class Router {
         return MaterialPageRoute<LoginPage>(builder: (_) => LoginPage());
       case AddUserPage.ID:
         return MaterialPageRoute<AddUserPage>(builder: (_) => AddUserPage());
+      case PasswordResetPage.ID:
+        return MaterialPageRoute<PasswordResetPage>(builder: (_) => PasswordResetPage());
       case VehiclePage.ID:
         return MaterialPageRoute<VehiclePage>(builder: (_) => VehiclePage());
+      case MyProfilePage.ID:
+        final User user = settings.arguments;
+        return MaterialPageRoute<MyProfilePage>(builder: (_) => MyProfilePage(user));
       case FilterPage.ID:
         return MaterialPageRoute<FilterPage>(builder: (_) => FilterPage());
       case AddVehiclePage.ID:
-        return MaterialPageRoute<AddVehiclePage>(builder: (_) => AddVehiclePage());
+        final User user = settings.arguments;
+        return MaterialPageRoute<AddVehiclePage>(builder: (_) => AddVehiclePage(user));
       default:
         return MaterialPageRoute<Scaffold>(
             builder: (_) => Scaffold(
