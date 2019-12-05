@@ -3,6 +3,8 @@ from api.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.conf import settings
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 # Create your models here.
 @receiver(post_save, sender=User)
 def notify_service_details(sender, instance, **kwargs):
