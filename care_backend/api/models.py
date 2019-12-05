@@ -164,3 +164,8 @@ class Expense(models.Model):
 	date = models.DateTimeField(default=timezone.now)
 	address = models.CharField(max_length=255, blank=True)
 	name = models.CharField(max_length=255, blank=True)
+
+class Advertisement(models.Model):
+	affiliate_business = models.ForeignKey(Affiliate_business, null=True, blank=True, on_delete = models.CASCADE)
+	description = models.CharField(max_length=255)
+	banner = models.CharField(max_length=500, null=True, blank=True)
