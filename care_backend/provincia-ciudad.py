@@ -1,5 +1,5 @@
 import psycopg2
-conn = psycopg2.connect("host=localhost dbname=care_db user=postgres password=geartreakpgadmin#1")
+conn = psycopg2.connect("host=localhost dbname=care_db user=postgres password=postgres")
 cur = conn.cursor()
 with open('csv-ciudades.csv', 'r') as f:
     next(f) # Skip the header row.
