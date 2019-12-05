@@ -6,15 +6,17 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
-class GasolinePage extends StatefulWidget {
+class GasolineMapPage extends StatefulWidget {
 
-  const GasolinePage({Key key}) : super(key: key);
+  const GasolineMapPage({Key key}) : super(key: key);
 
   @override
-  _GasolinePageState createState() => _GasolinePageState();
+  _GasolineMapPageState createState() => _GasolineMapPageState();
+
+  static const String ID ='gasolineMapPage';
 }
 
-class _GasolinePageState extends State<GasolinePage> {
+class _GasolineMapPageState extends State<GasolineMapPage> {
 
   final CameraPosition _position = CameraPosition(
       target: const LatLng(37.43296265331129, -122.08832357078792),
