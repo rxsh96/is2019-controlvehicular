@@ -1,0 +1,126 @@
+{% extends 'core/navs.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content1 %}
+{% comment %} {% include 'resource/includes/resource_menu.html' %} {% endcomment %}
+
+{% comment %} {% load i18n %}
+        
+{% block head %}
+{{ wizard.form.media }}
+{% endblock %} {% endcomment %}
+
+<div class="container-fluid" style="background-color: #FFFFFF !important;">
+  <div class="container">
+    <div class="justify-content-center">
+      
+      <form action="" id="businessForm" enctype="multipart/form-data" method="post" data-cities-url="{% url 'ajax_load_cities' %}" novalidate>
+          {% csrf_token %}
+          
+          <div class="pt-4 pb-4">
+            <label style="font-size: 22px;" class="text-secondary">REGISTRAR NUEVO NEGOCIO</label>
+          </div>
+          {% comment %} <div class="{% if form.non_field_errors %}invalid{% endif %} ">
+            {% for error in form.non_field_errors %}
+              {{ error }}
+            {% endfor %}
+          </div> {% endcomment %}
+          
+          <div class="col-md">
+            <div class="row">
+              <div class='col-md-6 pt-2'>
+
+                <label class="text-secondary pl-2" style="font-size: 14px;">Negocio Afiliado</label>
+                <div class="col-md-7 form-group">
+                  <div class="border rounded">
+                    {% render_field form.affiliate_business placeholder=field.label %} 
+                  </div>
+                  <div class="{% if field.errors %} has-error{% endif %}">
+                      <p class="invalid-feedback">{{ form.errors.affiliate_business }}</p>
+                  </div>
+                </div>
+                <label class="text-secondary pl-2" style="font-size: 14px;">Descripción</label>
+                <div class="col-md-7 form-group">
+                  <div class="border rounded">
+                    {% render_field form.description placeholder=field.label %} 
+                  </div>
+                </div>
+                <label class="text-secondary pl-2" style="font-size: 14px;">Estado</label>
+                <div class="col-md-7 form-group">
+                  <div class="border rounded">
+                    {% render_field form.status  placeholder=field.label %} 
+                  </div>
+                </div>                
+                <label class="text-secondary pl-2" style="font-size: 14px;">Imagen</label>
+                <div class="col-md-7 form-group">
+                  <div class="border rounded">
+                    <input type="file" name="files[]" id="files">
+                    <input type="hidden" name="url" id="url">
+                    <button type="button" onclick="uploadimage()">Upload</button><br><br>                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 pl-0 pb-3 pt-5" style="margin-left: 300px;">
+            <div class="pl-0">
+              <input type="submit" class="btn btn-outline-light btn-block" style="background-color: #b24f37;" value="Guardar" />
+            </div>
+          </div>
+        </form> 
+
+    </div>
+  </div>
+</div>
+
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+
+<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-storage.js"></script>
+
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAeKbaAxQ1fGlXkUxTSazgQDiBLVNLMdSw",
+    authDomain: "controlvehicular-f4cb7.firebaseapp.com",
+    databaseURL: "https://controlvehicular-f4cb7.firebaseio.com",
+    projectId: "controlvehicular-f4cb7",
+    storageBucket: "controlvehicular-f4cb7.appspot.com",
+    messagingSenderId: "492004147155",
+    appId: "1:492004147155:web:711ae806e3fcfede207926",
+    measurementId: "G-M1NQTG0NV3"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+    // Get a reference to the storage service, which is used to create references in your storage bucket
+
+
+  function uploadimage(){
+
+    var storage = firebase.storage();
+    var file = document.getElementById("files").files[0];
+    var storageRef = storage.ref();
+    var folder = "ads/"
+    var thisref = storageRef.child(folder.concat(file.name)).put(file);
+    thisref.on('state_changed',function(snapshot){
+    console.log("file uplaoded succesfully");
+    },
+    function(error) {
+    },
+    function() {
+    // Upload completed successfully, now we can get the download URL
+    var downloadURL = thisref.snapshot.downloadURL;
+    console.log("got url");
+    document.getElementById("url").value = downloadURL;
+    alert("file uploaded successfully");
+    });
+  }
+</script>
+{% endblock %}

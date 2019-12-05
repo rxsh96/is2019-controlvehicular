@@ -40,6 +40,8 @@ urlpatterns = [
     path('', include('business_owner.urls')),
     #Paths del user
     path('', include('user.urls')),
+    #Paths del advertisement
+    path('', include('advertisement.urls')),
     #path('upload/', my_view.PPUploadView.as_view()),
     #Paths del loggin
     path('', include('django.contrib.auth.urls')),

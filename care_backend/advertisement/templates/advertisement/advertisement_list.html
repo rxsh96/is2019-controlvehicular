@@ -1,0 +1,72 @@
+{% extends 'core/navs.html' %}
+{% load static %}
+
+{% block content1 %}
+  {% comment %} {% include 'resource/includes/resource_menu.html' %} {% endcomment %}
+
+  <div class="container-fluid" style="background-color: #FFFFFF !important;">
+    <div class="container">
+      <div class="justify-content-center">
+
+
+        <!--MODAL FADE-->
+        {% include 'advertisement/modal.html' %}
+        <!--END MODAL FADE-->
+
+        <div class="pb-4 pt-4">
+          <div class="text-right">
+              <a class="navbar-brand ml-4 font-weight-bold  text-info" href="{% url 'crear_anuncio' %}" style="font-size: 12px;">REGISTRAR NUEVO ANUNCIO</a>
+          </div>
+          <table class="table table-borderless">
+            {% for ad in object_list %}
+
+              {% if forloop.first %}
+                <thead>
+                  <tr class="text-center">
+                    <th scope="col"><p class="text-secondary" style="font-size: 12px;">Id</p></th>
+                    <th scope="col"><p class="text-secondary" style="font-size: 12px;">Descripción</p></th>
+                    <th scope="col"><p class="text-secondary" style="font-size: 12px;">Negocio Afiliado</p></th>
+                    <th scope="col"><p class="text-secondary" style="font-size: 12px;">Estado</p></th>
+                  </tr>
+                </thead>
+              {% endif %}
+              
+              <tbody>
+                <tr scope="row" class="center-block text-center border rounded-pill pt-3 pb-3">
+                  <td><p class="mt-3 font-weight-bold text-secondary" style="font-size: 15px;">{{ad.id}}</p></td>
+                  <td><p class="mt-3 font-weight-bold text-secondary" style="font-size: 15px;">{{ad.description}}</p></td>
+                  <td><p class="mt-3 font-weight-bold text-secondary" style="font-size: 15px;">{{ad.affiliate_business}}</p></td>
+                  <td><p class="mt-3 font-weight-bold text-secondary" style="font-size: 15px;">{{ad.status}}</p></td>
+                  <td class="pt-0"><button type="button" class="btn mt-4 btn-sm text-white" 
+                  style="background-color: #b24f37;" data-id="#"><span class="fa fa-eye"></span></button></td>
+                  <td class="pt-0"><button type="button" class=" btn mt-4 btn-sm btn-primary" data-id="#">
+                    <span class="fa fa-pencil"></span>
+                  </button></td>
+                  <td class="pt-0"><button type="button" class="btn mt-4 btn-sm btn-danger" data-id="#">
+                    <span class="fa fa-trash"></span>
+                  </button></td>
+                </tr>
+              </tbody>
+              {% empty %}
+                <div class="row mt-3">
+                  <h4>No hay datos que presentar</h4>
+                </div>
+            {% endfor %}
+          </table>
+        </div>
+
+        <!-- Contenido extra -->
+        <div class="pb-5">
+        </div>
+        <div class="pb-5">
+        </div>
+        <div class="pb-5">
+        </div>
+        <div class="pb-5">
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

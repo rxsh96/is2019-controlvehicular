@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'vehicle',
     'business_owner',
     'user',
+    'advertisement',
     'affiliate_business',
     'rest_framework',
     'rest_framework.authtoken',
