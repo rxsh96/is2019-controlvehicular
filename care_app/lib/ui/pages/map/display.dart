@@ -1,3 +1,4 @@
+import 'package:care_app/ui/pages/map/local_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 
@@ -12,29 +13,29 @@ class Display extends StatefulWidget {
 
 class _DisplayState extends State<Display> {
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _myActivity = '';
-  //   _myActivityResult = '';
-  // }
+   @override
+   void initState() {
+     super.initState();
+     _myActivity = '';
+     _myActivityResult = '';
+   }
 
-  // _saveForm() {
-  //   var form = formKey.currentState;
-  //   if (form.validate()) {
-  //     form.save();
-  //     setState(() {
-  //       _myActivityResult = _myActivity;
-  //     });
-  //   }
-  // } 
+   void _saveForm() {
+     var form = formKey.currentState;
+     if (form.validate()) {
+       form.save();
+       setState(() {
+         _myActivityResult = _myActivity;
+       });
+     }
+   }
 
 
   String _myActivity;
 
   String _myActivityResult;
 
-  final formKey = new GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
 
   @override
@@ -45,12 +46,12 @@ class _DisplayState extends State<Display> {
         // Center(
         //  child: Text('Estas en la pantalla ${widget.tab}'),
         // ),
-        makeCard('localDetailPage'),
-        makeCard('localDetailPage'),
-        makeCard('localDetailPage'),
-        makeCard('localDetailPage'),
-        makeCard('localDetailPage'),
-        makeCard('localDetailPage')
+        makeCard(LocalDetailPage.ID),
+        makeCard(LocalDetailPage.ID),
+        makeCard(LocalDetailPage.ID),
+        makeCard(LocalDetailPage.ID),
+        makeCard(LocalDetailPage.ID),
+        makeCard(LocalDetailPage.ID)
         
 
       ]
@@ -93,21 +94,21 @@ class _DisplayState extends State<Display> {
           onTap: (){
             //Aquí pasaremos el parámetro para redirigir al perfil del local
             //Navigator.pushNamed(context, '/$ruta', arguments: argumento);
-            Navigator.pushNamed(context, '/$ruta');
+            Navigator.pushNamed(context, '$ruta');
           },
         child: Card(
 
         elevation: 8.0,
-        margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+        margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
         child: Container(
           decoration: BoxDecoration(color: Color.fromRGBO(103, 110, 122, .6)),
           child: ListTile(
           contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           leading: Container(
             padding: EdgeInsets.only(right: 12.0),
-            decoration: new BoxDecoration(
-                border: new Border(
-                    right: new BorderSide(width: 1.0, color: Colors.white24))),
+            decoration: BoxDecoration(
+                border: Border(
+                    right: BorderSide(width: 1.0, color: Colors.white24))),
             child: Icon(Icons.local_car_wash, color: Colors.white),
           ),
           title: Text(

@@ -1,7 +1,9 @@
 import 'package:care_app/core/locator.dart';
 import 'package:care_app/core/src/provider/login_provider.dart';
 import 'package:care_app/ui/pages/login_page.dart';
+import 'package:care_app/ui/pages/map/locals_page.dart';
 import 'package:care_app/ui/pages/my_profile_page.dart';
+import 'package:care_app/ui/pages/trip_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -57,12 +59,12 @@ class MyMenu extends StatelessWidget {
               const MyMenuOptions(
                 optionName: 'Locales',
                 icon: 'location_pointer',
-                route: 'localesPage',
+                route: LocalsPage.ID,
               ),
               const MyMenuOptions(
                 optionName: 'Viajes',
                 icon: 'menu_viajes',
-                route: 'tripPage',
+                route: TripPage.ID,
               ),
               const MyMenuOptions(
                 optionName: 'Notificaciones',

@@ -1,8 +1,14 @@
+import 'package:care_app/ui/pages/gasoline_page.dart';
 import 'package:flutter/material.dart';
+
+import 'gasoline_page.dart';
 
 class LocalDetailPage extends StatefulWidget {
   @override
   _LocalDetailPageState createState() => _LocalDetailPageState();
+
+  static const String ID = 'localDetailPage';
+
 }
 
 class _LocalDetailPageState extends State<LocalDetailPage> {
@@ -72,8 +78,8 @@ final TextEditingController _textController2 = TextEditingController();
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           
-          _crearFlat('Desafiliarme' , 'gasolinerasPage'),
-          _crearFlat('Ver en mapa', 'gasolinerasPage')
+          _crearFlat('Desafiliarme' , GasolineMapPage.ID),
+          _crearFlat('Ver en mapa', GasolineMapPage.ID),
 
           
         ],
@@ -92,7 +98,7 @@ final TextEditingController _textController2 = TextEditingController();
          splashColor: Colors.blueAccent,
          onPressed: () {
            //Aquí pasamos el parámetro del lat y long de este local como un argument a la ruta
-           Navigator.pushNamed(context, '/$ruta');
+           Navigator.pushNamed(context, '$ruta');
          },
          child: Text(
           "$texto",

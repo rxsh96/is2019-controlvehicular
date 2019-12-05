@@ -6,6 +6,8 @@ import 'package:care_app/ui/components/my_card_button.dart';
 import 'package:care_app/ui/components/my_icon_component.dart';
 import 'package:care_app/ui/components/my_menu.dart';
 import 'package:care_app/ui/pages/add_vehicle_page.dart';
+import 'package:care_app/ui/pages/gasoline_page.dart';
+import 'package:care_app/ui/pages/map/gasoline_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
@@ -142,13 +144,13 @@ class VehiclePage extends StatelessWidget {
                     text: 'GASOLINA',
                     transparency: 1,
                     icon: 'gasolina',
-                    route: 'gasolinePage',
+                    route: GasolinePage.ID,
                   ),
                   const MyCardButton(
-                    text: 'MAPA',
+                    text: 'MAPA GASOLINERAS',
                     transparency: 1,
                     icon: 'gasolina',
-                    route: 'gasolinerasPage',
+                    route: GasolineMapPage.ID,
                   ),
                 ],
               ),

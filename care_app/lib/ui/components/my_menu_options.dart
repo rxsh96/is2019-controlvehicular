@@ -36,7 +36,7 @@ class _MyMenuOptionsState extends State<MyMenuOptions> {
           style: const TextStyle(color: Colors.white, fontSize: 15),
         ),
         onTap: () {
-          Navigator.pushNamed(context, '/$route');
+          Navigator.pushNamed(context, '$route');
         },
       ),
     );

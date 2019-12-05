@@ -1,3 +1,4 @@
+import 'package:care_app/ui/pages/vehicle_page.dart';
 import 'package:flutter/material.dart';
 
 class AddFilterPage extends StatefulWidget {
@@ -152,7 +153,7 @@ class _AddFilterPageState extends State<AddFilterPage> {
       color: const Color.fromRGBO(203, 99, 51, 1),
       child: MaterialButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/vehiculos');
+          Navigator.pushNamed(context, VehiclePage.ID);
         },
         child: Text(
           'GUARDAR',
