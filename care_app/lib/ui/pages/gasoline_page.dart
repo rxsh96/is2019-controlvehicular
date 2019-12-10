@@ -1,9 +1,12 @@
-import 'package:care_app/ui/components/my_text_form_field.dart';
 import 'package:flutter/material.dart';
 
-class GasolinePage extends StatefulWidget {
-  GasolinePage({Key key}) : super(key: key);
+import 'package:care_app/ui/components/my_text_form_field.dart';
 
+
+class GasolinePage extends StatefulWidget {
+  const GasolinePage({Key key}) : super(key: key);
+
+  @override
   _GasolinePageState createState() => _GasolinePageState();
 
   static const String ID = 'gasolinePage';
@@ -153,7 +156,7 @@ class _GasolinePageState extends State<GasolinePage> {
           onPressed: () {
 
           },
-          child: Text(
+          child: const Text(
             'Registrar',
             textAlign: TextAlign.center,
             style: TextStyle(

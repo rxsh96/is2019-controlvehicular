@@ -1,15 +1,10 @@
 import 'dart:convert';
 
-import 'package:care_app/core/src/models/brand_model.dart';
-import 'package:care_app/core/src/models/image_model.dart';
-import 'package:care_app/core/src/models/model_model.dart';
-import 'package:care_app/core/src/models/user_model.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:care_app/core/src/models/model_files.dart';
 
 import 'api_files.dart';
-
 
 class API {
   final ApiHelper _apiHelper = ApiHelper();

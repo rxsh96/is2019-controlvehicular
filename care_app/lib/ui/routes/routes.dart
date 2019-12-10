@@ -1,21 +1,9 @@
-
-import 'package:care_app/core/src/models/user_model.dart';
-import 'package:care_app/ui/pages/add_trip_page.dart';
-import 'package:care_app/ui/pages/add_user_page.dart';
-import 'package:care_app/ui/pages/add_vehicle_page.dart';
-import 'package:care_app/ui/pages/expenses_page.dart';
-import 'package:care_app/ui/pages/filter_page.dart';
-import 'package:care_app/ui/pages/gasoline_page.dart';
-import 'package:care_app/ui/pages/login_page.dart';
-import 'package:care_app/ui/pages/map/gasoline_page.dart';
-import 'package:care_app/ui/pages/map/local_detail_page.dart';
-import 'package:care_app/ui/pages/map/locals_page.dart';
-import 'package:care_app/ui/pages/my_profile_page.dart';
-import 'package:care_app/ui/pages/password_reset_page.dart';
-import 'package:care_app/ui/pages/trip_page.dart';
-import 'package:care_app/ui/pages/vehicle_page.dart';
 import 'package:flutter/material.dart';
 
+import 'package:care_app/core/src/models/user_model.dart';
+import 'package:care_app/core/src/repository/user_repository.dart';
+
+import 'package:care_app/ui/pages/pages_files.dart';
 
 class Router {
 
@@ -43,7 +31,7 @@ class Router {
       case TripPage.ID:
         return MaterialPageRoute<TripPage>(builder: (_) => TripPage());
       case GasolinePage.ID:
-        return MaterialPageRoute<GasolinePage>(builder: (_) => GasolinePage());
+        return MaterialPageRoute<GasolinePage>(builder: (_) => const GasolinePage());
       case GasolineMapPage.ID:
         return MaterialPageRoute<GasolineMapPage>(builder: (_) => const GasolineMapPage());
       case AddTripPage.ID:
@@ -53,10 +41,10 @@ class Router {
       case LocalDetailPage.ID:
         return MaterialPageRoute<LocalDetailPage>(builder: (_) => LocalDetailPage());
       case MyProfilePage.ID:
-        final User user = settings.arguments;
-        return MaterialPageRoute<MyProfilePage>(builder: (_) => MyProfilePage(user));
+        final UserRepository userRepo = settings.arguments;
+        return MaterialPageRoute<MyProfilePage>(builder: (_) => MyProfilePage(userRepo));
       case FilterPage.ID:
-        return MaterialPageRoute<FilterPage>(builder: (_) => FilterPage());
+        return MaterialPageRoute<FilterPage>(builder: (_) => const FilterPage());
       case AddVehiclePage.ID:
         final User user = settings.arguments;
         return MaterialPageRoute<AddVehiclePage>(builder: (_) => AddVehiclePage(user));

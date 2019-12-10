@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:care_app/core/src/enums/view_state_enum.dart';
 import 'package:care_app/core/src/provider/login_provider.dart';
@@ -5,8 +7,7 @@ import 'package:care_app/ui/components/my_password_form_field.dart';
 import 'package:care_app/ui/components/my_text_form_field.dart';
 import 'package:care_app/ui/pages/add_user_page.dart';
 import 'package:care_app/ui/pages/password_reset_page.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 
 class LoginForm extends StatefulWidget {
   @override
@@ -107,7 +108,7 @@ class _LoginFormState extends State<LoginForm> {
                     if (!response) {
                       Scaffold.of(context).showSnackBar(
                         SnackBar(
-                          content: const Text('Credenciales Inválidas'),
+                          content: const Text('No se puede iniciar sesión con las credenciales proporcionadas'),
                         ),
                       );
                     } else {

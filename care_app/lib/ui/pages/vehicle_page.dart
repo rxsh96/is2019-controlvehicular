@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:provider/provider.dart';
+
 import 'package:care_app/core/locator.dart';
 import 'package:care_app/core/src/models/vehicle_model.dart';
 import 'package:care_app/core/src/provider/login_provider.dart';
@@ -8,9 +12,6 @@ import 'package:care_app/ui/components/my_menu.dart';
 import 'package:care_app/ui/pages/add_vehicle_page.dart';
 import 'package:care_app/ui/pages/gasoline_page.dart';
 import 'package:care_app/ui/pages/map/gasoline_page.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:provider/provider.dart';
 
 import 'base_page.dart';
 import 'filter_page.dart';
@@ -39,7 +40,7 @@ class VehiclePage extends StatelessWidget {
                     icon: Icons.add,
                     color: const Color.fromRGBO(203, 99, 51, 1),
                     route: AddVehiclePage.ID,
-                    argument: Provider.of<LoginProvider>(context).user,
+                    argument: Provider.of<LoginProvider>(context).userRepository.user,
                   ),
                   MyIconButton(
                     icon: Icons.note_add,
@@ -57,7 +58,7 @@ class VehiclePage extends StatelessWidget {
                     height: 200.0,
                     child: FutureBuilder<List<Vehicle>>(
                         future: locator<VehicleProvider>().fetchUserVehicles(
-                            Provider.of<LoginProvider>(context).user),
+                            Provider.of<LoginProvider>(context).userRepository.user),
                         builder: (BuildContext context,
                             AsyncSnapshot<List<Vehicle>> snapshot) {
                           if (snapshot.connectionState == ConnectionState.done) {
@@ -147,7 +148,7 @@ class VehiclePage extends StatelessWidget {
                     route: GasolinePage.ID,
                   ),
                   const MyCardButton(
-                    text: 'MAPA GASOLINERAS',
+                    text: 'GASOLINERAS',
                     transparency: 1,
                     icon: 'gasolina',
                     route: GasolineMapPage.ID,

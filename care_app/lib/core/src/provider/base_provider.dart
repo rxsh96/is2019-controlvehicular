@@ -1,5 +1,6 @@
-import 'package:care_app/core/src/enums/my_enum.dart';
 import 'package:flutter/foundation.dart';
+
+import 'package:care_app/core/src/enums/my_enum.dart';
 
 class BaseProvider extends ChangeNotifier {
 

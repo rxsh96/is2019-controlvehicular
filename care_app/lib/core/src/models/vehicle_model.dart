@@ -8,9 +8,6 @@ class Vehicle {
         this.year,
         this.description,
         this.km,
-//        this.isActive,
-//        this.created,
-//        this.updated,
         this.imageURL,
         this.owner});
 
@@ -33,9 +30,6 @@ class Vehicle {
     year = json['year'];
     description = json['description'];
     km = json['km'];
-//    isActive = json['is_active'];
-//    created = json['created'];
-//    updated = json['updated'];
     imageURL = json['imageURL'];
     owner = json['owner'];
   }
@@ -50,9 +44,6 @@ class Vehicle {
     data['year'] = year;
     data['description'] = description;
     data['km'] = km;
-//    data['is_active'] = isActive;
-//    data['created'] = created;
-//    data['updated'] = updated;
     data['imageURL'] = imageURL;
     data['owner'] = owner;
     return data;
@@ -62,7 +53,6 @@ class Vehicle {
   String toString() {
     return 'Vehicle{id: $id, brand: $brand, model: $model, plate: $plate, '
         'color: $color, year: $year, description: $description, km: $km, '
-        //'isActive: $isActive, created: $created, updated: $updated, '
         'imageURL: $imageURL, owner: $owner}';
   }
 
@@ -74,9 +64,6 @@ class Vehicle {
   int year;
   String description;
   String km;
-//  bool isActive;
-//  String created;
-//  String updated;
   String imageURL;
   int owner;
 }

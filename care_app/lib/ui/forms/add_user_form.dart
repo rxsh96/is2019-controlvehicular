@@ -1,13 +1,14 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+
 import 'package:care_app/core/src/enums/my_enum.dart';
 import 'package:care_app/core/src/provider/login_provider.dart';
 import 'package:care_app/ui/components/my_password_form_field.dart';
 import 'package:care_app/ui/components/my_text_form_field.dart';
-import 'package:care_app/ui/pages/login_page.dart';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
+
 
 class AddUserForm extends StatefulWidget {
   @override
@@ -149,7 +150,7 @@ class _AddUserFormState extends State<AddUserForm> {
                         'file': downloadURL,
                         'user': response['id'].toString(),
                       };
-                      final bool imageResponse = await loginProvider.saveImage(imageMap);
+                      await loginProvider.saveImage(imageMap);
                     }
 
                     if (response.containsKey('error')) {

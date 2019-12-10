@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class KmsPage extends StatefulWidget {
-  KmsPage({Key key}) : super(key: key);
+  const KmsPage({Key key}) : super(key: key);
 
+  @override
   _KmsPageState createState() => _KmsPageState();
 }
 

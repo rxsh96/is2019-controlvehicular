@@ -11,7 +11,7 @@ class _BrakesPageState extends State<BrakesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(child: const Text('Frenos Page')),
+        body: const Center(child: Text('Frenos Page')),
     );
   }
 }

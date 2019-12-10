@@ -3,8 +3,6 @@ import 'package:care_app/core/src/provider/vehicle_provider.dart';
 import 'package:care_app/core/src/repository/user_repository.dart';
 import 'package:care_app/core/src/repository/vehicle_repository.dart';
 import 'package:get_it/get_it.dart';
-
-import 'services/auth/auth_service.dart';
 import 'services/careapp_api/api.dart';
 
 GetIt locator = GetIt.instance;

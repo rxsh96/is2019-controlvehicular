@@ -1,12 +1,14 @@
-import 'package:care_app/core/src/models/user_model.dart';
 import 'package:flutter/material.dart';
 
+import 'package:care_app/core/src/repository/user_repository.dart';
+
+
 class MyProfilePage extends StatelessWidget {
-  const MyProfilePage(this.user);
+  const MyProfilePage(this.userRepo);
 
   static const String ID = 'myProfilePage';
 
-  final User user;
+  final UserRepository userRepo;
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +23,20 @@ class MyProfilePage extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const CircleAvatar(
-              backgroundColor: Colors.grey,
-              child: Text(
-                'User',
-                style: TextStyle(color: Colors.black),
+            ClipOval(
+              child: FadeInImage(
+                image: NetworkImage(userRepo.profileImageURL),
+                placeholder: const AssetImage('images/auto-2.gif'),
+                width: 200,
+                height: 200,
+                fit: BoxFit.cover,
               ),
-              radius: 60.0,
             ),
             const SizedBox(
               height: 20,
             ),
             Text(
-              user.name + ' ' + user.lastname,
+              userRepo.user.name + ' ' + userRepo.user.lastname,
               style: const TextStyle(
                 fontSize: 30.0,
               ),
@@ -54,7 +57,7 @@ class MyProfilePage extends StatelessWidget {
                   Icons.phone,
                 ),
                 title: Text(
-                  user.phone_number,
+                  userRepo.user.phone_number,
                   style: const TextStyle(
                     fontSize: 20.0,
                   ),
@@ -70,7 +73,7 @@ class MyProfilePage extends StatelessWidget {
                   Icons.email,
                 ),
                 title: Text(
-                  user.email,
+                  userRepo.user.email,
                   style: const TextStyle(
                     fontSize: 20.0,
                   ),

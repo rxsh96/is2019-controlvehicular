@@ -1,17 +1,20 @@
 import 'dart:io';
 
-import 'package:care_app/core/services/careapp_api/api.dart';
-import 'package:care_app/core/src/models/image_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
 
+import 'package:care_app/core/locator.dart';
+import 'package:care_app/core/services/careapp_api/api.dart';
+import 'package:care_app/core/src/models/image_model.dart';
+import 'package:care_app/core/src/models/user_model.dart';
 
-import '../../locator.dart';
+
 
 class UserRepository{
 
   final API _api = locator<API>();
 
+  User user;
   String _profileImageURL;
 
   Future<Map<String, dynamic>> addUser(Map<String, dynamic> user) async {

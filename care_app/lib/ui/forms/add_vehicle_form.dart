@@ -1,14 +1,17 @@
 import 'dart:io';
+
+import 'package:dropdownfield/dropdownfield.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+
 import 'package:care_app/core/src/enums/view_state_enum.dart';
 import 'package:care_app/core/src/models/brand_model.dart';
 import 'package:care_app/core/src/models/model_model.dart';
 import 'package:care_app/core/src/models/user_model.dart';
 import 'package:care_app/core/src/provider/vehicle_provider.dart';
 import 'package:care_app/ui/components/my_text_form_field.dart';
-import 'package:dropdownfield/dropdownfield.dart';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
+
 
 class AddVehicleForm extends StatefulWidget {
   const AddVehicleForm(this._user);

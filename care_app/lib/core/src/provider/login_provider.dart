@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:care_app/core/locator.dart';
@@ -19,7 +18,6 @@ class LoginProvider extends BaseProvider {
   final UserRepository _userRepository = locator<UserRepository>();
 
   AuthenticationService _auth;
-  User _user;
 
 
   Future<Map<String, dynamic>> saveUser(Map<String, dynamic> user) async {
@@ -61,9 +59,8 @@ class LoginProvider extends BaseProvider {
   Future<bool> isSignedIn() async {
     final bool hasToken = await _auth.hasToken();
     if(hasToken){
-      _user = await _auth.loadAuthUser();
+      _userRepository.user = await _auth.loadAuthUser();
       setAuthStatus(AuthStatus.Authenticated);
-      notifyListeners();
       return true;
     }
     setAuthStatus(AuthStatus.Unauthenticated);
@@ -75,9 +72,8 @@ class LoginProvider extends BaseProvider {
     setAuthStatus(AuthStatus.Authenticating);
     final bool response =  await _auth.authenticate(email: email, password: password);
     if(response){
-      _user = await _auth.loadAuthUserWithEmail(email: email);
+      _userRepository.user = await _auth.loadAuthUserWithEmail(email: email);
       setAuthStatus(AuthStatus.Authenticated);
-      notifyListeners();
     }
     setState(ViewState.Idle);
     return response;
@@ -88,8 +84,9 @@ class LoginProvider extends BaseProvider {
     setAuthStatus(AuthStatus.Unauthenticated);
   }
 
-  User get user => _user;
 
   String get profileImageURL => _userRepository.profileImageURL;
+
+  UserRepository get userRepository => _userRepository;
 
 }

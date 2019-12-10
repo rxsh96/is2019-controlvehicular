@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-class LigthsPage extends StatefulWidget {
-  LigthsPage({Key key}) : super(key: key);
+class LightsPage extends StatefulWidget {
+  const LightsPage({Key key}) : super(key: key);
 
-  _LigthsPageState createState() => _LigthsPageState();
+  @override
+  _LightsPageState createState() => _LightsPageState();
 }
 
-class _LigthsPageState extends State<LigthsPage> {
+class _LightsPageState extends State<LightsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

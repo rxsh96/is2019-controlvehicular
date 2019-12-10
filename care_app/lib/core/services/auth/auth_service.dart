@@ -1,16 +1,10 @@
-import 'dart:async';
-
-import 'package:care_app/core/services/careapp_api/api.dart';
-import 'package:care_app/core/src/models/user_model.dart';
-
-import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../locator.dart';
+import 'package:care_app/core/locator.dart';
+import 'package:care_app/core/services/careapp_api/api.dart';
+import 'package:care_app/core/src/models/model_files.dart';
 
 class AuthenticationService{
 
