@@ -1,6 +1,6 @@
-import 'package:care_app/core/extras/validator.dart';
 import 'package:flutter/material.dart';
 
+import 'package:care_app/core/extras/validator.dart';
 
 class MyTextFormField extends StatefulWidget {
   const MyTextFormField(

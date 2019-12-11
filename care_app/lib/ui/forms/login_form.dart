@@ -1,3 +1,6 @@
+import 'package:care_app/core/extras/connectivity.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:care_app/core/src/enums/view_state_enum.dart';
 import 'package:care_app/core/src/provider/login_provider.dart';
@@ -5,8 +8,6 @@ import 'package:care_app/ui/components/my_password_form_field.dart';
 import 'package:care_app/ui/components/my_text_form_field.dart';
 import 'package:care_app/ui/pages/add_user_page.dart';
 import 'package:care_app/ui/pages/password_reset_page.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -19,9 +20,12 @@ class _LoginFormState extends State<LoginForm> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  void cleanFields(){
+    _usernameController.text = _passwordController.text = '';
+  }
+
   @override
   Widget build(BuildContext context) {
-
     final Form myLoginForm = Form(
       key: _formKey,
       child: Column(
@@ -59,6 +63,7 @@ class _LoginFormState extends State<LoginForm> {
         ),
         onPressed: () {
           Navigator.pushNamed(context, AddUserPage.ID);
+          cleanFields();
         },
       ),
     );
@@ -75,6 +80,7 @@ class _LoginFormState extends State<LoginForm> {
         ),
         onPressed: () {
           Navigator.pushNamed(context, PasswordResetPage.ID);
+          cleanFields();
         },
       ),
     );
@@ -102,16 +108,41 @@ class _LoginFormState extends State<LoginForm> {
                 color: const Color.fromRGBO(203, 99, 51, 1),
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    final bool response = await loginProvider.signIn(
-                        _usernameController.text, _passwordController.text);
-                    if (!response) {
-                      Scaffold.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text('Credenciales Inválidas'),
-                        ),
-                      );
+                    final bool connectivity =
+                        await MyConnectivity.checkConnectivity();
+                    if (connectivity) {
+                      final bool response = await loginProvider.signIn(
+                          _usernameController.text, _passwordController.text);
+                      if (!response) {
+                        Scaffold.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text(
+                                'No se puede iniciar sesión con las credenciales proporcionadas'),
+                          ),
+                        );
+                      } else {
+                        Navigator.pushNamed(context, '/');
+                      }
                     } else {
-                      Navigator.pushNamed(context, '/');
+                      showDialog<dynamic>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text(
+                                '¡Ups!',
+                              ),
+                              content:
+                                  const Text('Conéctate a internet primero'),
+                              actions: <Widget>[
+                                FlatButton(
+                                  child: const Text('Ok'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          });
                     }
                   }
                 },

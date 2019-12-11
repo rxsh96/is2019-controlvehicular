@@ -1,5 +1,6 @@
-import 'package:care_app/ui/pages/vehicle_page.dart';
 import 'package:flutter/material.dart';
+
+import 'package:care_app/ui/pages/vehicle_page.dart';
 
 class AddFilterPage extends StatefulWidget {
   const AddFilterPage({Key key}) : super(key: key);
@@ -14,7 +15,9 @@ class _AddFilterPageState extends State<AddFilterPage> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text('MIS VEHICULOS', style: TextStyle(fontSize: 17)),
+        title: const Text('MIS VEHICULOS',
+            style: TextStyle(fontSize: 17),
+        ),
       ),
       body: ListView(
         children: <Widget>[

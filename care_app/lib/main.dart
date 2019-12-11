@@ -1,13 +1,14 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:care_app/core/locator.dart';
+import 'package:care_app/core/src/enums/auth_state_enum.dart';
+import 'package:care_app/core/src/provider/login_provider.dart';
 import 'package:care_app/ui/pages/login_page.dart';
 import 'package:care_app/ui/pages/splash_page.dart';
 import 'package:care_app/ui/pages/vehicle_page.dart';
 import 'package:care_app/ui/routes/routes.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'core/locator.dart';
-import 'core/src/enums/auth_state_enum.dart';
-import 'core/src/provider/login_provider.dart';
 
 void main() {
   setupLocator();

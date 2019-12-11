@@ -1,15 +1,10 @@
 import 'dart:convert';
 
-import 'package:care_app/core/src/models/brand_model.dart';
-import 'package:care_app/core/src/models/image_model.dart';
-import 'package:care_app/core/src/models/model_model.dart';
-import 'package:care_app/core/src/models/user_model.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:care_app/core/src/models/model_files.dart';
 
 import 'api_files.dart';
-
 
 class API {
   final ApiHelper _apiHelper = ApiHelper();
@@ -55,8 +50,8 @@ class API {
     return null;
   }
 
-  Future<ProfileImageModel> getProfilePicURL({@required int owner}) async {
-    final MyResponse response = await _apiHelper.get<ProfileImageModel>(endPoint: ApiRoutes.UPLOAD_PROFILE_IMG, queryParam: '?owner=$owner');
+  Future<ProfileImageModel> getProfilePicURL({@required int id}) async {
+    final MyResponse response = await _apiHelper.get<ProfileImageModel>(endPoint: ApiRoutes.UPLOAD_PROFILE_IMG, queryParam: '?user=$id');
     if(response.isSuccess){
       final List<dynamic> jsonUser = _decoder.convert(response.result.toString());
       return ProfileImageModel.fromJson(jsonUser[0]);

@@ -96,7 +96,7 @@ DATABASES = {
         'PASSWORD': 'postgres',
         'HOST': 'localhost',
         'PORT': '5432',
-        } 
+    } 
 } 
 
 
@@ -163,6 +163,7 @@ LOGOUT_REDIRECT_URL = '/login/'
 LOGIN_REDIRECT_URL ='principal'
 LOGIN_URL = '/login/'
 
+DEFAULT_CHARSET = 'utf-8'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'g7daw2018@gmail.com'

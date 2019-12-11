@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:care_app/core/locator.dart';
 import 'package:care_app/core/services/careapp_api/api.dart';
 import 'package:care_app/core/src/enums/view_state_enum.dart';
 import 'package:care_app/core/src/models/brand_model.dart';
@@ -7,7 +8,6 @@ import 'package:care_app/core/src/models/model_files.dart';
 import 'package:care_app/core/src/models/model_model.dart';
 import 'package:care_app/core/src/repository/vehicle_repository.dart';
 
-import '../../locator.dart';
 import 'base_provider.dart';
 
 class VehicleProvider extends BaseProvider{
@@ -35,9 +35,9 @@ class VehicleProvider extends BaseProvider{
     return response;
   }
 
-  Future<String> saveVehiclePic(File image) async {
+  Future<String> saveVehiclePic(User user, File image) async {
     setState(ViewState.Busy);
-    final String response = await _vehicleRepository.uploadVehicleImage(image);
+    final String response = await _vehicleRepository.uploadVehicleImage(user, image);
     setState(ViewState.Idle);
     return response;
   }
