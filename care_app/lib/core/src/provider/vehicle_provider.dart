@@ -35,9 +35,9 @@ class VehicleProvider extends BaseProvider{
     return response;
   }
 
-  Future<String> saveVehiclePic(File image) async {
+  Future<String> saveVehiclePic(User user, File image) async {
     setState(ViewState.Busy);
-    final String response = await _vehicleRepository.uploadVehicleImage(image);
+    final String response = await _vehicleRepository.uploadVehicleImage(user, image);
     setState(ViewState.Idle);
     return response;
   }

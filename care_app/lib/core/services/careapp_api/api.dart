@@ -50,8 +50,8 @@ class API {
     return null;
   }
 
-  Future<ProfileImageModel> getProfilePicURL({@required int owner}) async {
-    final MyResponse response = await _apiHelper.get<ProfileImageModel>(endPoint: ApiRoutes.UPLOAD_PROFILE_IMG, queryParam: '?owner=$owner');
+  Future<ProfileImageModel> getProfilePicURL({@required int id}) async {
+    final MyResponse response = await _apiHelper.get<ProfileImageModel>(endPoint: ApiRoutes.UPLOAD_PROFILE_IMG, queryParam: '?user=$id');
     if(response.isSuccess){
       final List<dynamic> jsonUser = _decoder.convert(response.result.toString());
       return ProfileImageModel.fromJson(jsonUser[0]);

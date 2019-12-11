@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:care_app/core/src/models/user_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
 
@@ -29,8 +30,9 @@ class VehicleRepository{
     return _brands != null;
   }
 
-  Future<String> uploadVehicleImage(File image) async {
-    final StorageReference storageReference = FirebaseStorage.instance.ref().child('vehicle-pictures/${path.basename(image.path)}}');
+
+  Future<String> uploadVehicleImage(User user, File image) async {
+    final StorageReference storageReference = FirebaseStorage.instance.ref().child('images/'+user.email+'/vehicle-pictures/${path.basename(image.path)}}');
     final StorageUploadTask uploadTask = storageReference.putFile(image);
     final StorageTaskSnapshot downloadUrl = await uploadTask.onComplete;
     final String url = await downloadUrl.ref.getDownloadURL();

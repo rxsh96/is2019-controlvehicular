@@ -211,7 +211,7 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
                   onPressed: () async {
                     if (_formKey.currentState.validate() && _image != null) {
                       final String imgResponse =
-                          await vehicleProvider.saveVehiclePic(_image);
+                          await vehicleProvider.saveVehiclePic(_user, _image);
                       final Map<String, dynamic> vehicle = <String, dynamic>{
                         'plate': _licensePlateController.text.toUpperCase(),
                         'brand': _brandController.text.toString(),

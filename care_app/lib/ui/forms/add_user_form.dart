@@ -145,7 +145,7 @@ class _AddUserFormState extends State<AddUserForm> {
                     final Map<String, dynamic> response = await loginProvider.saveUser(userMap);
 
                     if (_image != null) {
-                      final String downloadURL = await loginProvider.saveProfilePic(_image);
+                      final String downloadURL = await loginProvider.saveProfilePic(_inputMail.text, _image);
                       final Map<String, dynamic> imageMap = <String, dynamic>{
                         'file': downloadURL,
                         'user': response['id'].toString(),
@@ -164,9 +164,12 @@ class _AddUserFormState extends State<AddUserForm> {
                       Scaffold.of(context).showSnackBar(
                         SnackBar(
                           content: const Text('¡Registro exitoso!'),
+                          duration: Duration(seconds: 2),
                         ),
                       );
                       cleanFields();
+                      await Future<dynamic>.delayed(Duration(seconds: 2));
+                      Navigator.pushNamed(context, '/');
                     }
                   }
                 },

@@ -16,6 +16,8 @@ class MyMenu extends StatelessWidget {
     final String pictureURL =
         Provider.of<LoginProvider>(context).userRepository.profileImageURL;
 
+    print('EN MYMENU, ESTA ES LA URL: $pictureURL');
+
     return SafeArea(
       child: Drawer(
         child: Container(
@@ -118,7 +120,7 @@ class MyMenu extends StatelessWidget {
                   ),
                   onTap: () {
                     locator<LoginProvider>().signOut();
-                    Navigator.pushNamed(context, LoginPage.ID);
+                    Navigator.of(context).pushNamedAndRemoveUntil(LoginPage.ID, (Route<dynamic> route) => false);
                   },
                 ),
               ),

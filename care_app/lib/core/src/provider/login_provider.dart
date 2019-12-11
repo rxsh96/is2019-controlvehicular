@@ -27,9 +27,9 @@ class LoginProvider extends BaseProvider {
     return response;
   }
 
-  Future<String> saveProfilePic(File image) async {
+  Future<String> saveProfilePic(String userEmail, File image) async {
     setState(ViewState.Busy);
-    final String response = await _userRepository.uploadProfilePic(image);
+    final String response = await _userRepository.uploadProfilePic(userEmail, image);
     setState(ViewState.Idle);
     return response;
   }
@@ -37,6 +37,7 @@ class LoginProvider extends BaseProvider {
   Future<void> getProfilePic() async {
     setState(ViewState.Busy);
     final User u = await _auth.loadAuthUser();
+    print('LOGIN PROVIDER GETPROFILEPIC: '+u.toString());
     await _userRepository.getProfilePicURL(u.id);
     setState(ViewState.Idle);
   }
