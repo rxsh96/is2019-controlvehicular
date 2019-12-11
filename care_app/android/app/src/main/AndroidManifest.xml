@@ -5,7 +5,7 @@
         android:label="CareApp"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDN1Xb8SdeECKWI9aHZtfasUZBrKrilOT4"/>
+            android:value="AIzaSyAGa9TrDnkKoicrJPQIcy0VOYlVCc_636k"/>
         <activity android:name=".MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
