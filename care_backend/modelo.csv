@@ -4,35 +4,173 @@
 3,A4,4
 4,A5,4
 5,A6,4
-6,A8,4
-7,Q5,4
-8,Q7,4
-9,Q8,4
-10,Optima,3
-11,Río Cross,3
-12,Cerato Koup,3
-13,Cerato Hatchback,3
-14,Río Hatchback,3
-15,Cerato Sedán,3
-16,Soul,3
-17,Grand Carnival,3
-18,Carens,3
-19,S-Cross,2
-20,Grand Vitara SZ,2
-21,Tracker,2
-22,Captiva,2
-23,Equinox,2
-24,Trailblazer,2
-25,Blazer RS,2
-26,Tahoe,2
-27,D-Max,2
-28,N300 Cargo,2
-29,Azera,1
-30,I30,1
-31,Sonata,1
-32,Santa Fé,1
-33,Tucson,1
-34,Creta,1
-35,Porter,1
-36,H-1,1
-37,Accent,1
+6,A7,4
+7,A8,4
+8,Q2,4
+9,Q3,4
+10,Q5,4
+11,Q7,4
+12,Q8,4
+13,TT,4
+14,Optima,3
+15,Río Cross,3
+16,Cerato Koup,3
+17,Cerato Hatchback,3
+18,Río Hatchback,3
+19,Cerato Sedán,3
+20,Soul,3
+21,Grand Carnival,3
+22,Carens,3
+23,Spark,2
+24,Beat,2
+25,Sail,2
+26,Cavalier,2
+27,S-Cross,2
+28,Grand Vitara SZ,2
+29,Tracker,2
+30,Captiva,2
+31,Equinox,2
+32,Trailblazer,2
+33,Blazer RS,2
+34,Tahoe,2
+35,D-Max,2
+36,N300 Cargo,2
+37,I10,1
+38,I10 Sedán,1
+39,Elantra,1
+40,Acera,1
+41,I30,1
+42,Sonata,1
+43,Santa Fé,1
+44,Tucson,1
+45,Creta,1
+46,Porter,1
+47,H-1,1
+48,Accent,1
+49,Yaris,5
+50,Yaris Sedán,5
+51,Yaris Hatchback,5
+52,Corolla,5
+53,New Corolla,5
+54,Pruis C Sport,5
+55,Pruis 3G,5
+56,Pruis 4G,5
+57,Innova 7,5
+58,All New Innova 8,5
+59,RAV 4,5
+60,New RAV 4,5
+61,Fortuner,5
+62,All New Fortuner,5
+63,Land Cruiser 200,5
+64,Land Cruiser Prado,5
+65,4 Runner,5
+66,Fj Cruiser,5
+67,Hilux,5
+68,New Hilux,5
+69,Raptor,6
+70,F-150,6
+71,Ranger,6
+72,Explorer,6
+73,Edge,6
+74,Mustang,6
+75,Escape,6
+76,Gol,7
+77,Voyage,7
+78,Saveiro,7
+79,Polo,7
+80,Virtus,7
+81,Golf,7
+82,Scirocco,7
+83,Beetle,7
+84,Tiguan,7
+85,Atlas,7
+86,Amarok,7
+87,Transporter,7
+88,Multivan,7
+89,Crafter,7
+90,Mazda 2,8
+91,Mazda 3,8
+92,Mazda 6,8
+93,CX-3,8
+94,CX-5,8
+95,CX-9,8
+96,MX-5,8
+97,K60,9
+98,Fulwin Sport 2,9
+99,Tiggo 2,9
+100,Tiggo 3,9
+101,Tiggo 4,9
+102,Tiggo 5,9
+103,Tiggo 7,9
+104,Tiggo 8,9
+105,Alto 800,10
+106,Alto K10,10
+107,Celerio,10
+108,Celerio GTS,10
+109,Dzire,10
+110,Ciaz,10
+111,Baleno,10
+112,Nuevo Swift,10
+113,Ignis,10
+114,Swift Boosterjet,10
+115,Swift Sport,10
+116,Grand Nomade,10
+117,S-Cross,10
+118,Nuevo Vitara,10
+119,Grand Vitara,10
+120,Logan 8V,11
+121,Nuevo Logan 8V,11
+122,Nuevo Logan 16V,11
+123,Sandero 8V,11
+124,Sandero 16V,11
+125,Sandero GTS,11
+126,Stepway,11
+127,Duster 1.6,11
+128,Duster 2.0,11
+129,Koleos,11
+130,A30,12
+131,S50,12
+132,AX 3,12
+133,AX 4,12
+134,AX 5,12
+135,AX 7,12
+136,Glory 560,12
+137,Glory 580,12
+138,Joyear X3,12
+139,SX 5,12
+140,SX 6,12
+141,Citivan,12
+142,DFA 1040,12
+143,ASX,13
+144,L200,13
+145,Eclipse Cross,13
+146,Outlander,13
+147,Montero,13
+148,Montero Sport,13
+149,Lancer,13
+150,C30 Classic,14
+151,C30 Plus,14
+152,M4,14
+153,Great Wall 3,14
+154,Great Wall 6,14
+155,Wingle 5,14
+156,Wingle 6,14
+157,Wingle 7,14
+158,CR-V,15
+159,CR-V Hybrid,15
+160,Jazz,15
+161,HR-V,15
+162,WR-V,15
+163,Pilot,15
+164,Accord,15
+165,Civic,15
+166,Civic Type R,15
+167,Civic Tourer,15
+168,V3,16
+169,CS15,16
+170,CS35,16
+171,CS55,16
+172,CS75,16
+173,Star 5 Pick Up,16
+174,Star 5 Van Cargo,16
+175,Star 5 Furgón,16

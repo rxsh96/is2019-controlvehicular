@@ -118,14 +118,22 @@ class Vehicle(models.Model):
 	def __str__(self):
 		return self.plate
 
+class Maintenance_item(models.Model):
+	item = models.CharField(max_length=255, unique=True)
+
 class Maintenance(models.Model):
-	description = models.TextField(max_length=255, default="")
-	m_name = models.CharField(max_length=255, primary_key=True)
-	is_change = models.BooleanField(default=False)
-	is_maintenance = models.BooleanField(default=False)
+	brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True)
+	model = models.ForeignKey(Model, on_delete=models.SET_NULL, null=True)
+	m_name = models.ForeignKey(Maintenance_item, on_delete=models.SET_NULL, null=True)
+	km = models.CharField(max_length=20,null=True)
+	month = models.CharField(max_length=3,null=True)
+	km_to_inspect = models.CharField(max_length=20,null=True)
+	is_change = models.IntegerField(blank=True,null=True,default=0)
+	is_maintenance = models.IntegerField(blank=True,null=True,default=0)
+	description = models.TextField(max_length=255, default="",null=True)
 
 	def __str__(self):
-		return self.m_name
+		return self.m_name	
 
 class Maintenance_Type(models.Model):
 	mt_name = models.CharField(max_length=255, primary_key=True)
