@@ -122,8 +122,8 @@ class Vehicle(models.Model):
 		return self.plate
 
 class Maintenance_item(models.Model):
-	item = models.CharField(max_length=255, primary_key=True)
-	#Type = models.CharField(max_length=255, primary_key=True)
+	item = models.CharField(max_length=255)
+	itype = models.CharField(max_length=255,blank=True,null=True)
 
 class Maintenance(models.Model):
 	brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True)
@@ -139,17 +139,17 @@ class Maintenance(models.Model):
 	def __str__(self):
 		return self.m_name
 
-class Maintenance_Type(models.Model):
+""" class Maintenance_Type(models.Model):
 	mt_name = models.CharField(max_length=255, primary_key=True)
 	maintenance = models.ForeignKey(Maintenance, on_delete=models.SET_NULL, null=True)
 
 	def __str__(self):
-		return self.mt_name
+		return self.mt_name """
 
 class MaintenanceDetails(models.Model):
-	#item = models.ForeignKey(Maintenance_item, on_delete = models.CASCADE)
-	maintenance = models.ForeignKey(Maintenance, on_delete = models.CASCADE)
-	m_type = models.ForeignKey(Maintenance_Type, on_delete = models.CASCADE)
+	item = models.ForeignKey(Maintenance_item, null=True, blank=True, on_delete = models.CASCADE)
+	#maintenance = models.ForeignKey(Maintenance, on_delete = models.CASCADE)
+	#m_type = models.ForeignKey(Maintenance_Type, on_delete = models.CASCADE)
 	vehicle = models.ForeignKey(Vehicle, on_delete = models.CASCADE, null=True)
 	local = models.ForeignKey(Affiliate_business, null=True, blank=True, on_delete = models.CASCADE)
 	date =  models.DateTimeField(default=timezone.now)

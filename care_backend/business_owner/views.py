@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
-from business_owner.models import User,Vehicle,Brand, Model,MaintenanceDetails,Maintenance_Type,Maintenance,Affiliate_business_Clients
+from business_owner.models import User,Vehicle,Brand, Model,MaintenanceDetails,Maintenance,Affiliate_business_Clients
 from business_owner.forms import UserOwnerCreateForm, ClientOwnerCreateForm
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -44,6 +44,11 @@ class ClientOwnerAddView(CreateView):
     self.object = form.save(commit=False)
     self.object.save()
     return HttpResponseRedirect(reverse_lazy('usuario_owner'))
+    
+  def get_form_kwargs(self):
+        kwargs = super(ClientOwnerAddView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
 @method_decorator([login_required,business_owner_required], name='dispatch')
 class UserOwnerDetailView(BSModalReadView):

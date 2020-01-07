@@ -63,11 +63,6 @@ class MaintenanceDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = MaintenanceDetails
         fields = '__all__'
-
-class MaintenanceTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Maintenance_Type
-        fields = '__all__'
         
 class VehicleSerializer(serializers.ModelSerializer):
     class Meta:
