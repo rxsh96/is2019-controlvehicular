@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
-from business_owner.models import User,Vehicle,Brand, Model,MaintenanceDetails,Maintenance_Type,Maintenance
-from business_owner.forms import UserOwnerCreateForm
+from business_owner.models import User,Vehicle,Brand, Model,MaintenanceDetails,Maintenance_Type,Maintenance,Affiliate_business_Clients
+from business_owner.forms import UserOwnerCreateForm, ClientOwnerCreateForm
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -29,6 +29,17 @@ class UserOwnerCreateView(CreateView):
   model = User
   template_name = 'business_owner/user_create_owner.html'
   form_class = UserOwnerCreateForm
+  def form_valid(self,form):
+    self.object = form.save(commit=False)
+    self.object.save()
+    return HttpResponseRedirect(reverse_lazy('usuario_owner'))
+
+@method_decorator([login_required,business_owner_required], name='dispatch')
+class ClientOwnerAddView(CreateView):
+  model = Affiliate_business_Clients
+  template_name = 'business_owner/add_client.html'
+  queryset = Affiliate_business_Clients.objects.filter(client__is_business_owner=False,client__is_staff=False)
+  form_class = ClientOwnerCreateForm
   def form_valid(self,form):
     self.object = form.save(commit=False)
     self.object.save()

@@ -15,7 +15,10 @@
 
         <div class="pb-4 pt-4">
           <div class="text-right">
-            <a class="navbar-brand ml-4 font-weight-bold  text-info" href="{% url 'crear_usuario_owner' %}" style="font-size: 12px;">REGISTRAR NUEVO USUARIO</a>
+            <a class="navbar-brand ml-4 font-weight-bold  text-info" href="{% url 'crear_usuario_owner' %}" style="font-size: 12px;">REGISTRAR NUEVO USUARIO CLIENTE</a>
+          </div>
+          <div class="text-right">
+            <a class="navbar-brand ml-4 font-weight-bold  text-info" href="{% url 'añadir_cliente' %}" style="font-size: 12px;">AÑADIR CLIENTE</a>
           </div>
           <table class="table table-borderless">
             {% for user_owner in object_list|dictsort:"phone_number" %}

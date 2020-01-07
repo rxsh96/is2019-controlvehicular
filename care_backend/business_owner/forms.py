@@ -1,7 +1,7 @@
 from django import forms
 from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
 from bootstrap_modal_forms.forms import BSModalForm
-from business_owner.models import User
+from business_owner.models import User,Affiliate_business_Clients
 from django.core import validators
 from django.utils.translation import ugettext as _
 from django.contrib.auth.password_validation import validate_password
@@ -75,3 +75,9 @@ class UserOwnerCreateForm(forms.ModelForm):
     val = validators.RegexValidator(regex='^[a-zA-Z\s]+$',message="Nombre no válido, no debe contener números")
     val(lastname)
     return lastname
+
+class ClientOwnerCreateForm(forms.ModelForm):
+
+  class Meta:
+    model = Affiliate_business_Clients
+    exclude = ('created','updated')
