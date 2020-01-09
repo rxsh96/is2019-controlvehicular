@@ -21,6 +21,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 	is_business_owner=models.BooleanField(default=False, blank=True,verbose_name="Dueño de Negocio")
 	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
+	#add_by = models.ForeignKey(Affiliate_business, on_delete=models.CASCADE, null=True, blank=True)
 	
 	objects=UserManager()
 	USERNAME_FIELD='email'
@@ -98,6 +99,8 @@ class Affiliate_business(models.Model):
 class Affiliate_business_Clients(models.Model):
 	client =  models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 	business = models.ForeignKey(Affiliate_business, on_delete=models.SET_NULL, null=True)
+	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación",null=True,blank=True)
+	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición",null=True,blank=True)
 
 class Vehicle(models.Model):
 	YEAR_CHOICES = [(y,y) for y in range(1960, (datetime.date.today().year)+2)]
@@ -118,25 +121,35 @@ class Vehicle(models.Model):
 	def __str__(self):
 		return self.plate
 
+class Maintenance_item(models.Model):
+	item = models.CharField(max_length=255)
+	itype = models.CharField(max_length=255,blank=True,null=True)
+
 class Maintenance(models.Model):
-	description = models.TextField(max_length=255, default="")
-	m_name = models.CharField(max_length=255, primary_key=True)
+	brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True)
+	model = models.ForeignKey(Model, on_delete=models.SET_NULL, null=True)
+	m_name = models.ForeignKey(Maintenance_item, on_delete=models.SET_NULL, null=True)
+	km = models.CharField(max_length=20,null=True)
+	month = models.CharField(max_length=3,null=True)
+	km_to_inspect = models.CharField(max_length=20,null=True)
 	is_change = models.BooleanField(default=False)
 	is_maintenance = models.BooleanField(default=False)
+	description = models.TextField(max_length=255, default="")
 
 	def __str__(self):
 		return self.m_name
 
-class Maintenance_Type(models.Model):
+""" class Maintenance_Type(models.Model):
 	mt_name = models.CharField(max_length=255, primary_key=True)
 	maintenance = models.ForeignKey(Maintenance, on_delete=models.SET_NULL, null=True)
 
 	def __str__(self):
-		return self.mt_name
+		return self.mt_name """
 
 class MaintenanceDetails(models.Model):
-	maintenance = models.ForeignKey(Maintenance, on_delete = models.CASCADE)
-	m_type = models.ForeignKey(Maintenance_Type, on_delete = models.CASCADE)
+	item = models.ForeignKey(Maintenance_item, null=True, blank=True, on_delete = models.CASCADE)
+	#maintenance = models.ForeignKey(Maintenance, on_delete = models.CASCADE)
+	#m_type = models.ForeignKey(Maintenance_Type, on_delete = models.CASCADE)
 	vehicle = models.ForeignKey(Vehicle, on_delete = models.CASCADE, null=True)
 	local = models.ForeignKey(Affiliate_business, null=True, blank=True, on_delete = models.CASCADE)
 	date =  models.DateTimeField(default=timezone.now)

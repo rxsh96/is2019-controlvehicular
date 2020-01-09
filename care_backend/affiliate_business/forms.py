@@ -15,7 +15,7 @@ class BusinessUpdateForm(BSModalForm):
 class BusinessCreateForm(forms.ModelForm):
   class Meta:
     model = Affiliate_business
-    exclude = ('created','updated',)
+    exclude = ('created','updated','lon','lat')
     widgets = {
       'ruc': forms.TextInput(attrs={'class':'form-control'}),
       'business_name': forms.TextInput(attrs={'class':'form-control'}),

@@ -51,11 +51,6 @@ class MaintenanceDetailsView(viewsets.ModelViewSet):
     """Create a new MaintenanceDetails in the system"""
     queryset = api_model.MaintenanceDetails.objects.all()
     serializer_class = MaintenanceDetailsSerializer
-
-class MaintenanceTypeView(viewsets.ModelViewSet):
-    """Create a new MaintenanceDetails in the system"""
-    queryset = api_model.Maintenance_Type.objects.all()
-    serializer_class = MaintenanceTypeSerializer
     
 class VehicleView(FiltersMixin, viewsets.ModelViewSet):
     """Create a new vehicle in the system"""
