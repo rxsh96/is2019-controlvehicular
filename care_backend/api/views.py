@@ -170,6 +170,10 @@ class TravelView(viewsets.ModelViewSet):
     queryset = api_model.Travel.objects.all()
     serializer_class = TravelSerializer
 
+class Affiliate_business_ClientsView(viewsets.ModelViewSet):
+    queryset = api_model.Affiliate_business_Clients.objects.all()
+    serializer_class = AffiliateBusinessClientsSerializer
+
 class ExpenseView(viewsets.ModelViewSet):
     queryset = api_model.Expense.objects.prefetch_related(
         'id'  # use prefetch_related to minimize db hits.
