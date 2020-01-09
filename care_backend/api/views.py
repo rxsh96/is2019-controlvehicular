@@ -42,15 +42,50 @@ class TokenView(ObtainAuthToken):
     serializer_class = AuthTokenSerializer
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
 
-class MaintenanceView(viewsets.ModelViewSet):
+class MaintenanceView(FiltersMixin, viewsets.ModelViewSet):
     """Create a new Maintenance in the system"""
-    queryset = api_model.Maintenance.objects.all()
+    #queryset = api_model.Maintenance.objects.all()
+    queryset = api_model.Maintenance.objects.prefetch_related(
+        'm_name'  # use prefetch_related to minimize db hits.
+    ).all()
     serializer_class = MaintenanceSerializer
 
-class MaintenanceDetailsView(viewsets.ModelViewSet):
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('id', 'm_name', 'brand','model')
+    ordering = ('id',)
+
+    filter_mappings = {
+        'brand': 'brand',
+        'model': 'model',
+        'm_name': 'm_name',
+        'month': 'month',
+        'km_to_inspect': 'km_to_inspect',
+        'description': 'description',
+        'km': 'km',
+        'is_change': 'is_change',
+        'is_maintenance': 'is_maintenance',
+        'description': 'description',
+    }
+
+class MaintenanceDetailsView(FiltersMixin, viewsets.ModelViewSet):
     """Create a new MaintenanceDetails in the system"""
-    queryset = api_model.MaintenanceDetails.objects.all()
+    queryset = api_model.MaintenanceDetails.objects.prefetch_related(
+        'item'  # use prefetch_related to minimize db hits.
+    ).all()
     serializer_class = MaintenanceDetailsSerializer
+
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('id', 'vehicle', 'local')
+    ordering = ('id',)
+
+    filter_mappings = {
+        'item': 'item',
+        'vehicle': 'vehicle',
+        'local': 'local',
+        'date': 'date',
+        'price': 'price',
+        'created': 'created',
+    }
     
 class VehicleView(FiltersMixin, viewsets.ModelViewSet):
     """Create a new vehicle in the system"""
@@ -79,10 +114,33 @@ class VehicleView(FiltersMixin, viewsets.ModelViewSet):
         'imageURL': 'imageURL',
     }
 
-class Affiliate_businessView(viewsets.ModelViewSet):
+class Affiliate_businessView(FiltersMixin, viewsets.ModelViewSet):
     """Create a new Affiliate_business in the system"""
-    queryset = api_model.Affiliate_business.objects.all()
+    queryset = api_model.Affiliate_business.objects.prefetch_related(
+        'ruc'  # use prefetch_related to minimize db hits.
+    ).all()
     serializer_class = Affiliate_businessSerializer
+
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('id', 'ruc', 'business_name')
+    ordering = ('id',)
+
+    filter_mappings = {
+        'ruc': 'ruc',
+        'business_name': 'business_name',
+        'business_phone': 'business_phone',
+        'province': 'province',
+        'city': 'city',
+        'legal_representative_name': 'legal_representative_name',
+        'description': 'description',
+        'legal_representative_lastname': 'legal_representative_lastname',
+        'business_owner': 'business_owner',
+        'address': 'address',
+        'created': 'created',
+        'updated': 'updated',
+        'lon': 'lon',
+        'lat': 'lat',
+    }
 
     
 '''class ImageUploadParser(FileUploadParser):
