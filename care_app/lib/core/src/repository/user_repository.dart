@@ -22,6 +22,10 @@ class UserRepository{
   }
 
 
+  Future<bool> isSignedUp(String userEmail) async {
+    return await _api.getUser(email: userEmail) != null;
+  }
+
   Future<String> uploadProfilePic(String userEmail, File image) async {
     final StorageReference storageReference = FirebaseStorage.instance.ref().child('images/$userEmail/profile-pictures/${path.basename(image.path)}}');
     final StorageUploadTask uploadTask = storageReference.putFile(image);

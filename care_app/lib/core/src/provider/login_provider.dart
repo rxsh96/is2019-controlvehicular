@@ -56,6 +56,9 @@ class LoginProvider extends BaseProvider {
     return response;
   }
 
+  Future<bool> isSignedUp(String userEmail) async {
+    return await _userRepository.isSignedUp(userEmail);
+  }
 
   Future<bool> isSignedIn() async {
     final bool hasToken = await _auth.hasToken();

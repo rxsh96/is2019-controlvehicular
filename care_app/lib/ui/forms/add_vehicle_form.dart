@@ -62,6 +62,7 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
   Widget build(BuildContext context) {
     return Consumer<VehicleProvider>(
         builder: (BuildContext context, VehicleProvider vehicleProvider, _) {
+
       final List<String> models = <String>[];
       for (ModelModel v in vehicleProvider.models) {
         models.add(v.model);
@@ -71,6 +72,17 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
       for (BrandModel b in vehicleProvider.brands) {
         brands.add(b.brand);
       }
+
+      final Map<dynamic, dynamic> brandModel = <dynamic, dynamic>{};
+      for(int brand = 0 ; brand < vehicleProvider.brands.length; brand++){
+        for(int model = 0; model < vehicleProvider.models.length; model++){
+          if(vehicleProvider.brands[brand].id == vehicleProvider.models[model].brand){
+            brandModel[vehicleProvider.brands[brand].brand] = vehicleProvider.models[model].model;
+          }
+        }
+      }
+
+
 
       return Scaffold(
         body: Form(

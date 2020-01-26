@@ -35,7 +35,10 @@ class API {
     final MyResponse response = await _apiHelper.get<User>(endPoint: ApiRoutes.USERS, queryParam: '?email=$email');
     if(response.isSuccess){
       final List<dynamic> jsonUser = _decoder.convert(response.result.toString());
-      return User.fromJson(jsonUser[0]);
+      if(jsonUser.isNotEmpty){
+        return User.fromJson(jsonUser[0]);
+      }
+      return null;
     }
     return null;
   }

@@ -111,18 +111,30 @@ class _LoginFormState extends State<LoginForm> {
                     final bool connectivity =
                         await MyConnectivity.checkConnectivity();
                     if (connectivity) {
-                      final bool response = await loginProvider.signIn(
-                          _usernameController.text, _passwordController.text);
-                      if (!response) {
+                      final bool isUserSignedUp = await loginProvider.isSignedUp(_usernameController.text);
+                      if(isUserSignedUp){
+                        final bool response = await loginProvider.signIn(
+                            _usernameController.text, _passwordController.text);
+                        if (!response) {
+                          Scaffold.of(context).showSnackBar(
+                            SnackBar(
+                              content: const Text(
+                                  'No se puede iniciar sesión con las credenciales proporcionadas'),
+                            ),
+                          );
+                        } else {
+                          Navigator.pushNamed(context, '/');
+                        }
+                      }
+                      else{
                         Scaffold.of(context).showSnackBar(
                           SnackBar(
                             content: const Text(
-                                'No se puede iniciar sesión con las credenciales proporcionadas'),
+                                'Usuario no registrado'),
                           ),
                         );
-                      } else {
-                        Navigator.pushNamed(context, '/');
                       }
+
                     } else {
                       showDialog<dynamic>(
                           context: context,
