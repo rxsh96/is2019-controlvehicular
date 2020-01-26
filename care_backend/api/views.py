@@ -170,6 +170,25 @@ class TravelView(viewsets.ModelViewSet):
     queryset = api_model.Travel.objects.all()
     serializer_class = TravelSerializer
 
+class Affiliate_business_ClientsView(viewsets.ModelViewSet):
+    queryset = api_model.Affiliate_business_Clients.objects.all()
+    serializer_class = AffiliateBusinessClientsSerializer
+
 class ExpenseView(viewsets.ModelViewSet):
-    queryset = api_model.Expense.objects.all()
+    queryset = api_model.Expense.objects.prefetch_related(
+        'id'  # use prefetch_related to minimize db hits.
+    ).all()
     serializer_class = ExpenseSerializer
+
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('id', 'expense_value', 'payment_method', 'date')
+    ordering = ('id',)
+
+    filter_mappings = {
+        'expense_value': 'expense_value',
+        'payment_method': 'payment_method',
+        'local': 'local',
+        'date': 'date',
+        'address': 'address',
+        'name': 'name',
+    }

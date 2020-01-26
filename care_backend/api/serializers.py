@@ -99,6 +99,11 @@ class TravelSerializer(serializers.ModelSerializer):
         model = Travel
         fields = "__all__"
 
+class AffiliateBusinessClientsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Affiliate_business_Clients
+        fields = "__all__"
+
 class ExpenseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Expense
