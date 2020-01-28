@@ -5,7 +5,7 @@ export 'expenses_page.dart';
 export 'filter_page.dart';
 export 'gasoline_page.dart';
 export 'login_page.dart';
-export 'map/gasoline_page.dart';
+export 'map/gasoline_map_page.dart';
 export 'map/local_detail_page.dart';
 export 'map/locals_page.dart';
 export 'my_profile_page.dart';
