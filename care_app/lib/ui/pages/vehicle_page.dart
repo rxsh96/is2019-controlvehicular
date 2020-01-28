@@ -151,7 +151,7 @@ class VehiclePage extends StatelessWidget {
                     text: 'GASOLINERAS',
                     transparency: 1,
                     icon: 'gasolina',
-                    route: GasolineMapPage.ID,
+                    route: GasolinePage.ID,
                   ),
                 ],
               ),
