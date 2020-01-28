@@ -1,7 +1,7 @@
 import 'package:care_app/ui/pages/gasoline_page.dart';
 import 'package:flutter/material.dart';
 
-import 'gasoline_page.dart';
+import 'gasoline_map_page.dart';
 
 class LocalDetailPage extends StatefulWidget {
   @override

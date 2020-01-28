@@ -8,15 +8,15 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 
 
-class GasolinaPage extends StatefulWidget {
-  const GasolinaPage({Key key}) : super(key: key);
+class GasolineMapPage extends StatefulWidget {
+  const GasolineMapPage({Key key}) : super(key: key);
     
   static const String ID = 'gasolineMapPage';
 
-  _GasolinaPageState createState() => _GasolinaPageState();
+  _GasolineMapPageState createState() => _GasolineMapPageState();
 }
 
-class _GasolinaPageState extends State<GasolinaPage> {
+class _GasolineMapPageState extends State<GasolineMapPage> {
 
   Completer<GoogleMapController> controller1;
   static LatLng _initialPosition;
