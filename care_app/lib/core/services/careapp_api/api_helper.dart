@@ -11,7 +11,7 @@ class ApiHelper {
   static final ApiHelper _instance = ApiHelper.internal();
 
   ///Contains the Base URL for API
-  static const String _BASE_URL = 'http://172.19.66.39:8000/api/';
+  static const String _BASE_URL = 'http://192.168.100.31:8000/api/';
 
   http.Client getHttpClient() {
     return http.Client();

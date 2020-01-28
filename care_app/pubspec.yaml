@@ -32,6 +32,7 @@ dependencies:
   intl: ^0.16.0
   provider: ^3.1.0+1
   shared_preferences: ^0.5.3+4
+  sliding_up_panel: ^1.0.0
 
 
 

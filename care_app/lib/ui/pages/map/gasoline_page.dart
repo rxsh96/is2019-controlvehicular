@@ -1,26 +1,28 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
+import 'package:care_app/ui/components/sliding_up.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class GasolineMapPage extends StatefulWidget {
-  GasolineMapPage({Key key}) : super(key: key);
 
+
+class GasolinaPage extends StatefulWidget {
+  const GasolinaPage({Key key}) : super(key: key);
+    
   static const String ID = 'gasolineMapPage';
 
-  _GasolineMapPage createState() => _GasolineMapPage();
+  _GasolinaPageState createState() => _GasolinaPageState();
 }
 
-class _GasolineMapPage extends State<GasolineMapPage> {
+class _GasolinaPageState extends State<GasolinaPage> {
 
   Completer<GoogleMapController> controller1;
-
-  //static LatLng _center = LatLng(-15.4630239974464, 28.363397732282127);
   static LatLng _initialPosition;
   final  Set<Marker> _markers = Set();
   // Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
+  //Map<MarkerId,Marker> _markers = Map();
 
   static  LatLng _lastMapPosition = _initialPosition;
 
@@ -29,9 +31,11 @@ class _GasolineMapPage extends State<GasolineMapPage> {
     super.initState();
     _getUserLocation();
   }
-  void _getUserLocation() async {
-    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(position.latitude, position.longitude);
+
+
+  Future<void> _getUserLocation() async {
+    final Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    final List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(position.latitude, position.longitude);
     setState(() {
       _initialPosition = LatLng(position.latitude, position.longitude);
       print('${placemark[0].name}');
@@ -39,9 +43,9 @@ class _GasolineMapPage extends State<GasolineMapPage> {
   }
 
 
-  void _onMapCreated(GoogleMapController controller) {
+  Future<void> _onMapCreated(GoogleMapController controller) {
     setState(() {
-      //  controller1.Carcomplete(controller);
+        // controller1.Carcomplete(controller);
     });
   }
 
@@ -55,19 +59,36 @@ class _GasolineMapPage extends State<GasolineMapPage> {
     });
   }
 
-  void _onCameraMove(CameraPosition position) {
+  Future<void> _onCameraMove(CameraPosition position) {
     _lastMapPosition = position.target;
   }
 
-  void _onAddMarkerButtonPressed() {
+
+  Future<void> _updateMarkerPosition( MarkerId markerId , LatLng p){
+    //_markers[markerId] = _markers[markerId].copyWith(positionParam: p);
+
+    //_markers[markerId] = _markers.add(Marker(markerId: markerId));
+    print("la nueva posicion es $p");
+  }
+
+  Future<void> _onAddMarkerButtonPressed() {
+
+    final id = "${_markers.length}";
+    final markerId = MarkerId(id);
+
     setState(() {
       _markers.add(
           Marker(
-              markerId: MarkerId(_lastMapPosition.toString()),
+              // markerId: MarkerId(_lastMapPosition.toString()),
+              markerId: MarkerId(id),
               position: _lastMapPosition,
+              draggable: true,
+
+              onDragEnd: ( _lastMapPosition) => _updateMarkerPosition(markerId, _lastMapPosition),
+              
               infoWindow: InfoWindow(
-                  title: "Nombre de  gasolinera",
-                  snippet: "Snnipet",
+                  title: "Gasolinera ",
+                  snippet: "${_lastMapPosition.latitude}, ${_lastMapPosition.longitude} ",
                   onTap: (){
                   }
               ),
@@ -75,8 +96,36 @@ class _GasolineMapPage extends State<GasolineMapPage> {
               },
 
               icon: BitmapDescriptor.defaultMarker));
-
+              setState(() {
+                //Aquí se actualiza el estado del marker
+               //_markers[markerId]= _markers;
+              });
+      
     });
+  }
+
+  Widget pop(){
+    return Positioned(
+      left: 20,
+      right: 20,
+      top: 20,
+      child: SafeArea(
+          child: Container(
+            child: Row(children: <Widget>[
+              FloatingActionButton(
+                backgroundColor: Colors.black,
+                onPressed: (){
+                  Navigator.pop(context);
+                },
+                child: Icon( 
+                  Icons.arrow_back_ios,
+                  color: Colors.deepOrange,
+                  )
+              )
+            ],),    
+        ),
+      ),
+    );
   }
   Widget mapButton(Function function, Icon icon, Color color) {
     return RawMaterialButton(
@@ -92,13 +141,15 @@ class _GasolineMapPage extends State<GasolineMapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _initialPosition == null ? Container(child: Center(child:Text('Cargando mapa..', style: TextStyle(fontFamily: 'Avenir-Medium', color: Colors.grey[400]),),),) : Container(
-        child: Stack(children: <Widget>[
+        child: SlidingUpPanel(
+          body: Stack(children: <Widget>[
           GoogleMap(
-            markers: _markers,
+            markers:_markers,
+            // markers: Set.of(_markers.values),
             mapType: _currentMapType,
             initialCameraPosition: CameraPosition(
               target: _initialPosition,
-              zoom: 25.4746,
+              zoom: 18.4746,
             ),
             onMapCreated: _onMapCreated,
             zoomGesturesEnabled: true,
@@ -106,8 +157,10 @@ class _GasolineMapPage extends State<GasolineMapPage> {
             myLocationEnabled: true,
             compassEnabled: true,
             myLocationButtonEnabled: false,
+            
 
           ),
+          
           Align(
             alignment: Alignment.topRight,
             child: Container(
@@ -117,7 +170,7 @@ class _GasolineMapPage extends State<GasolineMapPage> {
                     mapButton(_onAddMarkerButtonPressed,
                         Icon(
                             Icons.add_location
-                        ), Colors.blue),
+                        ), Colors.grey),
                     mapButton(
                         _onMapTypeButtonPressed,
                         Icon(
@@ -125,12 +178,18 @@ class _GasolineMapPage extends State<GasolineMapPage> {
                               fontFamily: CupertinoIcons.iconFont,
                               fontPackage: CupertinoIcons.iconFontPackage),
                         ),
-                        Colors.green),
+                        Colors.deepOrange[300]),
                   ],
                 )),
-          )
+          ),
+          pop(),
         ]),
+        panel: Sliding(),
+        )
       ),
     );
   }
 }
+
+
+

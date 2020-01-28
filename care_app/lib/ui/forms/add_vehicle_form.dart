@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:care_app/ui/pages/vehicle_page.dart';
 import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -213,6 +214,7 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
               const SizedBox(height: 35.0),
               if (vehicleProvider.state == ViewState.Busy)
                 const CircularProgressIndicator(
+                  
                   valueColor: AlwaysStoppedAnimation<Color>(
                     Color.fromRGBO(203, 99, 51, 1),
                   ),
@@ -247,10 +249,13 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
                           ),
                         );
                       } else {
+                        
                         Scaffold.of(context).showSnackBar(
                           SnackBar(
                             content: const Text('¡Registro exitoso!'),
                           ),
+                          //Navigator.pushNamed(context, VehiclePage.ID)
+
                         );
                         cleanFields();
                       }
