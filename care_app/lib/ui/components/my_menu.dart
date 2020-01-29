@@ -1,3 +1,4 @@
+import 'package:care_app/ui/pages/accident_report_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -97,7 +98,7 @@ class MyMenu extends StatelessWidget {
               const MyMenuOptions(
                 optionName: 'Reporte de accidentes',
                 icon: 'menu_reporte',
-                route: null,
+                route: AccidentReportPage.ID,
               ),
               const SizedBox(height: 45.0),
               const Divider(color: Colors.grey, height: 5.0),

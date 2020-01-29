@@ -11,6 +11,7 @@ import 'package:care_app/ui/components/my_icon_component.dart';
 import 'package:care_app/ui/components/my_menu.dart';
 import 'package:care_app/ui/pages/add_vehicle_page.dart';
 import 'package:care_app/ui/pages/gasoline_page.dart';
+import 'package:care_app/ui/pages/map/gasoline_page.dart';
 
 import 'base_page.dart';
 import 'filter_page.dart';
@@ -150,7 +151,7 @@ class VehiclePage extends StatelessWidget {
                     text: 'GASOLINERAS',
                     transparency: 1,
                     icon: 'gasolina',
-                    route: GasolinePage.ID,
+                    route: GasolinaPage.ID,
                   ),
                 ],
               ),
@@ -160,3 +161,37 @@ class VehiclePage extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

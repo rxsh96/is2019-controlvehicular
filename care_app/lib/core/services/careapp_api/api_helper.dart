@@ -11,7 +11,7 @@ class ApiHelper {
   static final ApiHelper _instance = ApiHelper.internal();
 
   ///Contains the Base URL for API
-  static const String _BASE_URL = 'http://http://472713ae.ngrok.io/api/';
+  static const String _BASE_URL = 'http://2f074e49.ngrok.io/api/';
 
   http.Client getHttpClient() {
     return http.Client();

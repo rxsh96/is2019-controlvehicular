@@ -1,4 +1,5 @@
 import 'package:care_app/ui/pages/gasoline_page.dart';
+import 'package:care_app/ui/pages/map/gasoline_page.dart';
 import 'package:flutter/material.dart';
 
 import 'gasoline_map_page.dart';
@@ -30,7 +31,7 @@ final TextEditingController _textController2 = TextEditingController();
     return Scaffold(
        appBar: AppBar(
          backgroundColor: Theme.of(context).primaryColor,
-         title: Text('LOCALES'),
+         title: const Text('LOCALES'),
        ),
        body: _showLocal(),
 
@@ -55,9 +56,9 @@ final TextEditingController _textController2 = TextEditingController();
                  fontSize: 10
                 ),
              ), 
-             trailing: CircleAvatar(
+             trailing: const CircleAvatar(
              radius: 70.0,
-             backgroundColor: Color.fromRGBO(103, 110, 122, .9)),
+             backgroundColor:  Color.fromRGBO(103, 110, 122, .9)),
            ),
           ),
           _crearInput( _textController1 ,Icons.map , 'Dirección' , 'Ingrese la dirección del local'),
@@ -78,8 +79,8 @@ final TextEditingController _textController2 = TextEditingController();
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           
-          _crearFlat('Desafiliarme' , GasolinePage.ID),
-          _crearFlat('Ver en mapa', GasolinePage.ID),
+          _crearFlat('Desafiliarme' , GasolinaPage.ID),
+          _crearFlat('Ver en mapa', GasolinaPage.ID),
 
           
         ],
@@ -111,7 +112,7 @@ final TextEditingController _textController2 = TextEditingController();
  Widget _crearInput( TextEditingController _textController ,IconData icon , String label , String hint ){
    
   return Padding(
-    padding: EdgeInsets.symmetric( horizontal: 12.0 , vertical: 5.0),
+    padding: const EdgeInsets.symmetric( horizontal: 12.0 , vertical: 5.0),
     child: TextField (
       controller: _textController,
       textCapitalization: TextCapitalization.sentences,
@@ -120,7 +121,7 @@ final TextEditingController _textController2 = TextEditingController();
         //helperText: 'Solo es el nombre',
           labelText: label ,
           hintText: hint,
-          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Color.fromRGBO(203, 99, 51, 1),)),
+          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: const Color.fromRGBO(203, 99, 51, 1),)),
           suffixIcon: Icon(icon),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
