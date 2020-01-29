@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CommentsPage extends StatefulWidget {
+
+
+  
   @override
   _CommentsPageState createState() => _CommentsPageState();
   static const String ID = 'comments';
@@ -9,24 +12,22 @@ class CommentsPage extends StatefulWidget {
 
 class _CommentsPageState extends State<CommentsPage> {
 
-   Color color ;
-   Icon emoji ;
+    bool flag = true;
+    Icon emoji = Icon( Icons.mood_bad );
+    Color color = Colors.grey;
+    
 
 
-   Widget _floatingButton( Icon emoji, Color color){
-     emoji = Icon( Icons.mood_bad );
-     color = Colors.grey;
+   Widget _floatingButton( ){ 
      return FloatingActionButton.extended(
-            label: const Text('¿Te gusta CareApp?'),     
-            icon: emoji,
-            backgroundColor: color,
+            label: flag ? const Text('¿Te gusta CareApp?', style: TextStyle(color: Colors.white)) 
+                        : const Text('Gracias por valorar.',  style: TextStyle(color: Colors.black)),     
+            icon: flag ? emoji :Icon( Icons.mood , color: Colors.black ) ,
+            backgroundColor: flag ? color : Colors.yellow ,
             onPressed: (){
               print('hiakjhakhakgha');
-                setState(() {
-                    emoji = Icon( Icons.mood );
-                    color = Colors.yellow;
-     
-                });
+              flag = true;
+              setState(()=>flag= false);
             });
    }
 
@@ -84,7 +85,7 @@ class _CommentsPageState extends State<CommentsPage> {
                 
                Column(
                   children: <Widget>[
-                         _floatingButton( emoji , color)
+                         _floatingButton( )
 
                       ],
                 )
