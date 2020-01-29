@@ -18,9 +18,13 @@ class GasolinaPage extends StatefulWidget {
 }
 
 class _GasolinaPageState extends State<GasolinaPage> {
-
-  
+  PanelController pc = PanelController();
+  String localName ='Nombre de local';
+  double lat;
+  double long;
+  String idMarker;
   bool flag = false;
+  double height=0;
   Completer<GoogleMapController> controller1;
   static LatLng _initialPosition;
   final  Set<Marker> _markers = Set();
@@ -68,10 +72,10 @@ class _GasolinaPageState extends State<GasolinaPage> {
 
 
   void _updateMarkerPosition( MarkerId markerId , LatLng p){
-    //_markers[markerId] = _markers[markerId].copyWith(positionParam: p);
 
     //_markers[markerId] = _markers.add(Marker(markerId: markerId));
-    print("la nueva posicion es $p");
+    _markers.add(Marker(markerId: markerId));
+    print('la nueva posicion es $p');
   }
 
   void _onAddMarkerButtonPressed() {
@@ -95,11 +99,15 @@ class _GasolinaPageState extends State<GasolinaPage> {
                   onTap: (){
                     setState(() {
                       flag =true;
+                      height = 120;
+                      pc.show();
+                      idMarker= id;
+                      lat = _lastMapPosition.latitude;
+                      long = _lastMapPosition.longitude;
                     });
                   }
               ),
-              onTap: (){
-              },
+
 
               icon: BitmapDescriptor.defaultMarker));
               setState(() {
@@ -148,6 +156,8 @@ class _GasolinaPageState extends State<GasolinaPage> {
     return Scaffold(
       body: _initialPosition == null ? Container(child: Center(child:Text('Cargando mapa..', style: TextStyle(fontFamily: 'Avenir-Medium', color: Colors.grey[400]),),),) : Container(
         child: SlidingUpPanel(
+          controller: pc,
+          minHeight: height,
           body: Stack(children: <Widget>[
           GoogleMap(
             markers:_markers,
@@ -189,7 +199,7 @@ class _GasolinaPageState extends State<GasolinaPage> {
           ),
           pop(),
         ]),
-        panel: flag ? Sliding():Container(),
+        panel: Sliding(name: localName, position:_lastMapPosition , pc:pc),
         )
       ),
     );
