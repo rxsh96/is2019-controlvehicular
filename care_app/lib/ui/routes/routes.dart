@@ -32,13 +32,8 @@ class Router {
         return MaterialPageRoute<TripPage>(builder: (_) => TripPage());
       case GasolinePage.ID:
         return MaterialPageRoute<GasolinePage>(builder: (_) => const GasolinePage());
-<<<<<<< HEAD
       case GasolinePage.ID:
         return MaterialPageRoute<GasolinePage>(builder: (_) => GasolinePage());
-=======
-      case GasolineMapPage.ID:
-        return MaterialPageRoute<GasolineMapPage>(builder: (_) => const GasolineMapPage());
->>>>>>> 39f0560cedf0119c4806b4fef27b00aff8b39efe
       case AddTripPage.ID:
         return MaterialPageRoute<AddTripPage>(builder: (_) => AddTripPage());
       case LocalsPage.ID:
