@@ -1,6 +1,7 @@
 import 'package:care_app/ui/pages/accident_report_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:care_app/core/locator.dart';
 import 'package:care_app/core/src/provider/login_provider.dart';
@@ -10,6 +11,7 @@ import 'package:care_app/ui/pages/my_profile_page.dart';
 import 'package:care_app/ui/pages/trip_page.dart';
 
 import 'my_menu_options.dart';
+
 
 class MyMenu extends StatelessWidget {
   @override
@@ -86,7 +88,7 @@ class MyMenu extends StatelessWidget {
                 route: null,
               ),
               const MyMenuOptions(
-                optionName: 'Encuesta',
+                optionName: 'Comentarios y Sugerencias',
                 icon: 'menu_notificaciones',
                 route: null,
               ),
@@ -95,10 +97,17 @@ class MyMenu extends StatelessWidget {
                 icon: 'menu_guia',
                 route: null,
               ),
-              const MyMenuOptions(
-                optionName: 'Reporte de accidentes',
-                icon: 'menu_reporte',
-                route: AccidentReportPage.ID,
+              ListTile(
+                leading: Icon(Icons.call, color: const Color.fromRGBO(203, 99, 50, 1),),
+                title: GestureDetector(
+                  child: const Text(
+                    'Botón de Pánico',
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                  onTap: () {
+                    launch('tel://911');
+                  },
+                ),
               ),
               const SizedBox(height: 45.0),
               const Divider(color: Colors.grey, height: 5.0),

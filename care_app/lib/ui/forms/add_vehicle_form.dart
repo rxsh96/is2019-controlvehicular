@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:care_app/ui/pages/vehicle_page.dart';
+import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -59,6 +60,7 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Consumer<VehicleProvider>(
@@ -73,6 +75,19 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
       for (BrandModel b in vehicleProvider.brands) {
         brands.add(b.brand);
       }
+
+      final Map<dynamic, dynamic> vehiclesBrandsModels = <dynamic, dynamic>{};
+      for(int i = 0 ; i < vehicleProvider.brands.length ; i++){
+        final String brand = vehicleProvider.brands[i].brand;
+        final List<String> models = <String>[];
+        for(int j = 0 ; j < vehicleProvider.models.length ; j++){
+          if(vehicleProvider.brands[i].id == vehicleProvider.models[j].brand){
+            models.add(vehicleProvider.models[j].model);
+          }
+        }
+        vehiclesBrandsModels.addAll(<String, List<String>>{brand : models});
+      }
+
 
       final Map<dynamic, dynamic> brandModel = <dynamic, dynamic>{};
       for(int brand = 0 ; brand < vehicleProvider.brands.length; brand++){
@@ -138,9 +153,11 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
                 errorMsg: 'Ingresa la placa del vehículo',
               ),
               const SizedBox(height: 15.0),
+
+
               DropDownField(
                 value: 'Ingresa tu marca',
-                itemsVisibleInDropdown: 1,
+                itemsVisibleInDropdown: 3,
                 icon: Icon(Icons.directions_car),
                 labelText: 'Marca',
                 items: brands,
@@ -154,7 +171,7 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
               const SizedBox(height: 15.0),
               DropDownField(
                 value: 'Ingresa tu modelo',
-                itemsVisibleInDropdown: 1,
+                itemsVisibleInDropdown: 3,
                 icon: Icon(Icons.directions_car),
                 labelText: 'Modelo',
                 items: models,
@@ -223,6 +240,7 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
                 MaterialButton(
                   color: const Color.fromRGBO(203, 99, 51, 1),
                   onPressed: () async {
+                    print(vehiclesBrandsModels);
                     if (_formKey.currentState.validate() && _image != null) {
                       final String imgResponse =
                           await vehicleProvider.saveVehiclePic(_user, _image);
