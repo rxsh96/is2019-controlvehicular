@@ -1,4 +1,5 @@
 import 'package:care_app/ui/pages/accident_report_page.dart';
+import 'package:care_app/ui/pages/comments_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -90,12 +91,17 @@ class MyMenu extends StatelessWidget {
               const MyMenuOptions(
                 optionName: 'Comentarios y Sugerencias',
                 icon: 'menu_notificaciones',
-                route: null,
+                route: CommentsPage.ID,
               ),
               const MyMenuOptions(
                 optionName: 'Guía de mantenimiento',
                 icon: 'menu_guia',
                 route: null,
+              ),
+              const MyMenuOptions(
+                optionName: 'Reporte de incidentes',
+                icon: 'menu_reporte',
+                route: AccidentReportPage.ID,
               ),
               ListTile(
                 leading: Icon(Icons.call, color: const Color.fromRGBO(203, 99, 50, 1),),
@@ -109,9 +115,9 @@ class MyMenu extends StatelessWidget {
                   },
                 ),
               ),
-              const SizedBox(height: 45.0),
+              const SizedBox(height: 10.0),
               const Divider(color: Colors.grey, height: 5.0),
-              const SizedBox(height: 15.0),
+              const SizedBox(height: 5.0),
               const MyMenuOptions(
                 optionName: 'Configuración',
                 icon: 'menu_configuracion',

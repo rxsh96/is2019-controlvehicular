@@ -12,7 +12,7 @@ class ApiHelper {
 
   ///Contains the Base URL for API
 
-  static const String _BASE_URL = 'http://172.20.139.77:8000/api/';
+  static const String _BASE_URL = 'http://c064c2ae.ngrok.io/api/';
 
 
   http.Client getHttpClient() {

@@ -62,6 +62,7 @@ class _AccidentReportPageState extends State<AccidentReportPage> {
            padding: const EdgeInsets.all(12.0),
            child: Center(
               child: RawMaterialButton(
+                
                   child: Container(
                       child: _image == null
                           ? CircleAvatar(
@@ -107,7 +108,7 @@ class _AccidentReportPageState extends State<AccidentReportPage> {
                 Column(
                   children: <Widget>[
                         FloatingActionButton.extended(
-                          label: Text('Mapa'),
+                          label: const Text('Mapa'),
                           onPressed: (){},
                           icon: Icon(Icons.remove_red_eye),
                           // shape: CircleBorder(),

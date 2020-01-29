@@ -1,4 +1,5 @@
 import 'package:care_app/ui/pages/accident_report_page.dart';
+import 'package:care_app/ui/pages/comments_page.dart';
 import 'package:care_app/ui/pages/map/gasoline_page.dart';
 import 'package:flutter/material.dart';
 
@@ -44,6 +45,8 @@ class Router {
         return MaterialPageRoute<LocalDetailPage>(builder: (_) => LocalDetailPage());
       case AccidentReportPage.ID:
         return MaterialPageRoute<AccidentReportPage>(builder: (_) => AccidentReportPage());
+      case CommentsPage.ID:
+        return MaterialPageRoute<CommentsPage>(builder: (_) => CommentsPage());
       case MyProfilePage.ID:
         final UserRepository userRepo = settings.arguments;
         return MaterialPageRoute<MyProfilePage>(builder: (_) => MyProfilePage(userRepo));
