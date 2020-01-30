@@ -1,8 +1,5 @@
-import 'package:care_app/ui/pages/gasoline_page.dart';
 import 'package:care_app/ui/pages/map/gasoline_page.dart';
 import 'package:flutter/material.dart';
-
-import 'gasoline_map_page.dart';
 
 class LocalDetailPage extends StatefulWidget {
   @override
@@ -78,11 +75,8 @@ final TextEditingController _textController2 = TextEditingController();
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          
-          _crearFlat('Desafiliarme' , GasolinaPage.ID),
-          _crearFlat('Ver en mapa', GasolinaPage.ID),
-
-          
+          _crearFlat('Desafiliarme' , GasolinePage.ID),
+          _crearFlat('Ver en mapa', GasolinePage.ID),
         ],
       ),
     );

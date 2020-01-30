@@ -1,13 +1,9 @@
-import 'package:care_app/ui/pages/accident_report_page.dart';
-import 'package:care_app/ui/pages/comments_page.dart';
-import 'package:care_app/ui/pages/map/gasoline_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:care_app/core/src/models/user_model.dart';
 import 'package:care_app/core/src/repository/user_repository.dart';
 
 import 'package:care_app/ui/pages/pages_files.dart';
-
 class Router {
 
   static const String initialRoute = 'loginPage';
@@ -23,38 +19,54 @@ class Router {
             ));
       case LoginPage.ID:
         return MaterialPageRoute<LoginPage>(builder: (_) => LoginPage());
+
       case AddUserPage.ID:
         return MaterialPageRoute<AddUserPage>(builder: (_) => AddUserPage());
+
       case PasswordResetPage.ID:
         return MaterialPageRoute<PasswordResetPage>(builder: (_) => PasswordResetPage());
+
       case VehiclePage.ID:
         return MaterialPageRoute<VehiclePage>(builder: (_) => VehiclePage());
+
       case ExpensesPage.ID:
         return MaterialPageRoute<ExpensesPage>(builder: (_) => ExpensesPage());
+
       case TripPage.ID:
         return MaterialPageRoute<TripPage>(builder: (_) => TripPage());
+
+      case AddCostGasolinePage.ID:
+        return MaterialPageRoute<AddCostGasolinePage>(builder: (_) => const AddCostGasolinePage());
+
       case GasolinePage.ID:
         return MaterialPageRoute<GasolinePage>(builder: (_) => const GasolinePage());
-      case GasolinaPage.ID:
-        return MaterialPageRoute<GasolinePage>(builder: (_) => const GasolinaPage());
+
       case AddTripPage.ID:
         return MaterialPageRoute<AddTripPage>(builder: (_) => AddTripPage());
+
       case LocalsPage.ID:
         return MaterialPageRoute<LocalsPage>(builder: (_) => const LocalsPage());
+
       case LocalDetailPage.ID:
         return MaterialPageRoute<LocalDetailPage>(builder: (_) => LocalDetailPage());
+
       case AccidentReportPage.ID:
         return MaterialPageRoute<AccidentReportPage>(builder: (_) => AccidentReportPage());
+
       case CommentsPage.ID:
         return MaterialPageRoute<CommentsPage>(builder: (_) => CommentsPage());
+
       case MyProfilePage.ID:
         final UserRepository userRepo = settings.arguments;
         return MaterialPageRoute<MyProfilePage>(builder: (_) => MyProfilePage(userRepo));
+
       case FilterPage.ID:
         return MaterialPageRoute<FilterPage>(builder: (_) => const FilterPage());
+
       case AddVehiclePage.ID:
         final User user = settings.arguments;
         return MaterialPageRoute<AddVehiclePage>(builder: (_) => AddVehiclePage(user));
+
       default:
         return MaterialPageRoute<Scaffold>(
             builder: (_) => Scaffold(

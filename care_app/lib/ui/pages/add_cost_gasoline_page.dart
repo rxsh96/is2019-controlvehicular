@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:care_app/ui/components/my_text_form_field.dart';
 
 
-class GasolinePage extends StatefulWidget {
-  const GasolinePage({Key key}) : super(key: key);
+class AddCostGasolinePage extends StatefulWidget {
+  const AddCostGasolinePage({Key key}) : super(key: key);
 
   @override
-  _GasolinePageState createState() => _GasolinePageState();
+  _AddCostGasolinePageState createState() => _AddCostGasolinePageState();
 
   static const String ID = 'gasolinePage';
 }
 
-class _GasolinePageState extends State<GasolinePage> {
+class _AddCostGasolinePageState extends State<AddCostGasolinePage> {
   final TextEditingController _type = TextEditingController();
   final TextEditingController _value = TextEditingController();
   final TextEditingController _date = TextEditingController();

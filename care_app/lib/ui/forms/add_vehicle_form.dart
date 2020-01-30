@@ -66,39 +66,6 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
     return Consumer<VehicleProvider>(
         builder: (BuildContext context, VehicleProvider vehicleProvider, _) {
 
-      final List<String> models = <String>[];
-      for (ModelModel v in vehicleProvider.models) {
-        models.add(v.model);
-      }
-
-      final List<String> brands = <String>[];
-      for (BrandModel b in vehicleProvider.brands) {
-        brands.add(b.brand);
-      }
-
-      final Map<dynamic, dynamic> vehiclesBrandsModels = <dynamic, dynamic>{};
-      for(int i = 0 ; i < vehicleProvider.brands.length ; i++){
-        final String brand = vehicleProvider.brands[i].brand;
-        final List<String> models = <String>[];
-        for(int j = 0 ; j < vehicleProvider.models.length ; j++){
-          if(vehicleProvider.brands[i].id == vehicleProvider.models[j].brand){
-            models.add(vehicleProvider.models[j].model);
-          }
-        }
-        vehiclesBrandsModels.addAll(<String, List<String>>{brand : models});
-      }
-
-
-      final Map<dynamic, dynamic> brandModel = <dynamic, dynamic>{};
-      for(int brand = 0 ; brand < vehicleProvider.brands.length; brand++){
-        for(int model = 0; model < vehicleProvider.models.length; model++){
-          if(vehicleProvider.brands[brand].id == vehicleProvider.models[model].brand){
-            brandModel[vehicleProvider.brands[brand].brand] = vehicleProvider.models[model].model;
-          }
-        }
-      }
-
-
 
       return Scaffold(
         body: Form(
@@ -155,33 +122,7 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
               const SizedBox(height: 15.0),
 
 
-              DropDownField(
-                value: 'Ingresa tu marca',
-                itemsVisibleInDropdown: 3,
-                icon: Icon(Icons.directions_car),
-                labelText: 'Marca',
-                items: brands,
-                strict: false,
-                onValueChanged: (dynamic value) {
-                  final int index = brands.indexOf(value) + 1;
-                  print('EL INDEX DE LA MARCA ES: $index');
-                  _brandController.text = index.toString();
-                },
-              ),
-              const SizedBox(height: 15.0),
-              DropDownField(
-                value: 'Ingresa tu modelo',
-                itemsVisibleInDropdown: 3,
-                icon: Icon(Icons.directions_car),
-                labelText: 'Modelo',
-                items: models,
-                strict: false,
-                onValueChanged: (dynamic value) {
-                  final int index = models.indexOf(value) + 1;
-                  print('EL INDEX DEL MODELO ES: $index');
-                  _modelController.text = index.toString();
-                },
-              ),
+
               const SizedBox(height: 15.0),
               MyTextFormField(
                 controller: _colorController,
@@ -244,7 +185,7 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
                 MaterialButton(
                   color: const Color.fromRGBO(203, 99, 51, 1),
                   onPressed: () async {
-                    print(vehiclesBrandsModels);
+                    //print(vehiclesBrandsModelsList);
                     if (_formKey.currentState.validate() && _image != null) {
                       final String imgResponse =
                           await vehicleProvider.saveVehiclePic(_user, _image);

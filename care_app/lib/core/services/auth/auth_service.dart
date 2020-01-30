@@ -26,6 +26,7 @@ class AuthenticationService{
   Future<User> loadAuthUser() async{
     final String email = await getEmail();
     final User user = await _api.getUser(email: email);
+    print(user.toString());
     if(user != null){
       return user;
     }
