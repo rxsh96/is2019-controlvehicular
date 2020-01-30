@@ -15,7 +15,7 @@ class VehicleRepository{
 
   List<ModelModel> _models;
   List<BrandModel> _brands;
-  List<dynamic> _vehiclesBrandsModelsList;
+  final List<dynamic> _vehiclesBrandsModelsList = <dynamic>[];
 
   Future<Map<String, dynamic>> addVehicle(Map<String, dynamic> vehicle) async {
     return await _api.postVehicle(vehicle: vehicle);
@@ -32,7 +32,7 @@ class VehicleRepository{
   }
 
 
-  Future<void> joinBrandModel() async{
+  Future<bool> joinBrandModel() async{
     await fetchVehicleModels();
     await fetchVehicleBrands();
     for(int i = 0 ; i < _brands.length ; i++){
@@ -46,6 +46,7 @@ class VehicleRepository{
       final Map<dynamic, dynamic> tmp = <dynamic, dynamic>{'brand':brand, 'models':modelList};
       _vehiclesBrandsModelsList.add(tmp);
     }
+    return _vehiclesBrandsModelsList != null;
   }
 
 

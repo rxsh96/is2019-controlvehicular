@@ -19,6 +19,7 @@ class MyMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final String pictureURL =
         Provider.of<LoginProvider>(context).userRepository.profileImageURL;
+    print(pictureURL);
 
     print('EN MYMENU, ESTA ES LA URL: $pictureURL');
 

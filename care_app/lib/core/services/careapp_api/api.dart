@@ -57,7 +57,10 @@ class API {
     final MyResponse response = await _apiHelper.get<ProfileImageModel>(endPoint: ApiRoutes.UPLOAD_PROFILE_IMG, queryParam: '?user=$id');
     if(response.isSuccess){
       final List<dynamic> jsonUser = _decoder.convert(response.result.toString());
-      return ProfileImageModel.fromJson(jsonUser[0]);
+      if(jsonUser.isNotEmpty){
+        return ProfileImageModel.fromJson(jsonUser[0]);
+      }
+      return null;
     }
     return null;
   }

@@ -1,4 +1,4 @@
-import 'package:care_app/ui/pages/map/gasoline_map_page.dart';
+import 'package:care_app/ui/pages/add_cost_gasoline_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
@@ -11,11 +11,10 @@ import 'package:care_app/ui/components/my_card_button.dart';
 import 'package:care_app/ui/components/my_icon_component.dart';
 import 'package:care_app/ui/components/my_menu.dart';
 import 'package:care_app/ui/pages/add_vehicle_page.dart';
-import 'package:care_app/ui/pages/gasoline_page.dart';
-import 'package:care_app/ui/pages/map/gasoline_page.dart';
 
 import 'base_page.dart';
 import 'filter_page.dart';
+import 'map/gasoline_page.dart';
 
 class VehiclePage extends StatelessWidget {
   static const String ID = 'vehiclePage';
@@ -147,17 +146,13 @@ class VehiclePage extends StatelessWidget {
                     text: 'GASOLINA',
                     transparency: 1,
                     icon: 'gasolina',
-                    route: GasolinePage.ID,
+                    route: AddCostGasolinePage.ID,
                   ),
                   const MyCardButton(
                     text: 'GASOLINERAS',
                     transparency: 1,
                     icon: 'gasolina',
-<<<<<<< HEAD
-                    route: GasolineMapPage.ID,
-=======
-                    route: GasolinaPage.ID,
->>>>>>> 520f8165bcfa5f107580e060f785626eedecab86
+                    route: GasolinePage.ID,
                   ),
                 ],
               ),

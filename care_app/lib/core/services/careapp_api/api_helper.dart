@@ -11,13 +11,7 @@ class ApiHelper {
   static final ApiHelper _instance = ApiHelper.internal();
 
   ///Contains the Base URL for API
-<<<<<<< HEAD
-  static const String _BASE_URL = 'http://192.168.1.12:8000/api/';
-=======
-
   static const String _BASE_URL = 'https://controlvehicular.pythonanywhere.com/api/';
-
->>>>>>> 520f8165bcfa5f107580e060f785626eedecab86
 
   http.Client getHttpClient() {
     return http.Client();

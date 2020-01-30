@@ -28,7 +28,7 @@ class _AddUserFormState extends State<AddUserForm> {
   File _image;
 
   Future<void> getImageFromGallery() async {
-    final File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    final File image = await ImagePicker.pickImage(source: ImageSource.gallery, maxWidth: 256.0, maxHeight: 256.0);
     setState(() {
       _image = image;
     });
