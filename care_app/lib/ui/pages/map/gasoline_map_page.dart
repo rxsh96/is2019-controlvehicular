@@ -43,7 +43,7 @@ class _GasolineMapPageState extends State<GasolineMapPage> {
   }
 
 
-  Future<void> _onMapCreated(GoogleMapController controller) {
+  void _onMapCreated(GoogleMapController controller) {
     setState(() {
         // controller1.Carcomplete(controller);
     });
@@ -59,19 +59,19 @@ class _GasolineMapPageState extends State<GasolineMapPage> {
     });
   }
 
-  Future<void> _onCameraMove(CameraPosition position) {
+  void _onCameraMove(CameraPosition position) {
     _lastMapPosition = position.target;
   }
 
 
-  Future<void> _updateMarkerPosition( MarkerId markerId , LatLng p){
+  void _updateMarkerPosition( MarkerId markerId , LatLng p){
     //_markers[markerId] = _markers[markerId].copyWith(positionParam: p);
 
     //_markers[markerId] = _markers.add(Marker(markerId: markerId));
     print("la nueva posicion es $p");
   }
 
-  Future<void> _onAddMarkerButtonPressed() {
+  void _onAddMarkerButtonPressed() {
 
     final id = "${_markers.length}";
     final markerId = MarkerId(id);

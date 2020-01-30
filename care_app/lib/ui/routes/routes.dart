@@ -1,3 +1,6 @@
+import 'package:care_app/ui/pages/accident_report_page.dart';
+import 'package:care_app/ui/pages/comments_page.dart';
+import 'package:care_app/ui/pages/map/gasoline_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:care_app/core/src/models/user_model.dart';
@@ -32,14 +35,23 @@ class Router {
         return MaterialPageRoute<TripPage>(builder: (_) => TripPage());
       case GasolinePage.ID:
         return MaterialPageRoute<GasolinePage>(builder: (_) => const GasolinePage());
+<<<<<<< HEAD
       case GasolineMapPage.ID:
         return MaterialPageRoute<GasolineMapPage>(builder: (_) => GasolineMapPage());
+=======
+      case GasolinaPage.ID:
+        return MaterialPageRoute<GasolinePage>(builder: (_) => const GasolinaPage());
+>>>>>>> 520f8165bcfa5f107580e060f785626eedecab86
       case AddTripPage.ID:
         return MaterialPageRoute<AddTripPage>(builder: (_) => AddTripPage());
       case LocalsPage.ID:
         return MaterialPageRoute<LocalsPage>(builder: (_) => const LocalsPage());
       case LocalDetailPage.ID:
         return MaterialPageRoute<LocalDetailPage>(builder: (_) => LocalDetailPage());
+      case AccidentReportPage.ID:
+        return MaterialPageRoute<AccidentReportPage>(builder: (_) => AccidentReportPage());
+      case CommentsPage.ID:
+        return MaterialPageRoute<CommentsPage>(builder: (_) => CommentsPage());
       case MyProfilePage.ID:
         final UserRepository userRepo = settings.arguments;
         return MaterialPageRoute<MyProfilePage>(builder: (_) => MyProfilePage(userRepo));

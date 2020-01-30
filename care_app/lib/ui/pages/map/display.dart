@@ -4,7 +4,7 @@ import 'package:dropdown_formfield/dropdown_formfield.dart';
 
 class Display extends StatefulWidget {
 
-
+  
   Display(this.tab);
   final String tab;
   @override
@@ -20,15 +20,15 @@ class _DisplayState extends State<Display> {
      _myActivityResult = '';
    }
 
-   void _saveForm() {
-     var form = formKey.currentState;
-     if (form.validate()) {
-       form.save();
-       setState(() {
-         _myActivityResult = _myActivity;
-       });
-     }
-   }
+  //  void _saveForm() {
+  //    var form = formKey.currentState;
+  //    if (form.validate()) {
+  //      form.save();
+  //      setState(() {
+  //        _myActivityResult = _myActivity;
+  //      });
+  //    }
+  //  }
 
 
   String _myActivity;
@@ -36,6 +36,8 @@ class _DisplayState extends State<Display> {
   String _myActivityResult;
 
   final formKey = GlobalKey<FormState>();
+
+  bool isPressed=false;
 
 
   @override
@@ -51,42 +53,12 @@ class _DisplayState extends State<Display> {
         makeCard(LocalDetailPage.ID),
         makeCard(LocalDetailPage.ID),
         makeCard(LocalDetailPage.ID),
-        makeCard(LocalDetailPage.ID)
+        makeCard(LocalDetailPage.ID),
         
 
       ]
     );
   }
-
-
-
-
- ListTile _makeListTile (){
-   return ListTile(
-        contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-        leading: Container(
-          padding: EdgeInsets.only(right: 12.0),
-          decoration: new BoxDecoration(
-              border: new Border(
-                  right: new BorderSide(width: 1.0, color: Colors.white24))),
-          child: Icon(Icons.autorenew, color: Colors.white),
-        ),
-        title: Text(
-          "Introduction to Driving",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
-
-        subtitle: Row(
-          children: <Widget>[
-            Icon(Icons.linear_scale, color: Colors.yellowAccent),
-            Text(" Intermediate", style: TextStyle(color: Colors.white))
-          ],
-        ),
-        trailing:
-            Icon(Icons.star_border, color: Colors.white, size: 30.0)
-    );
- } 
 
 
  Widget makeCard ( String ruta ){
@@ -99,20 +71,20 @@ class _DisplayState extends State<Display> {
         child: Card(
 
         elevation: 8.0,
-        margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+        margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
         child: Container(
-          decoration: BoxDecoration(color: Color.fromRGBO(103, 110, 122, .6)),
+          decoration: BoxDecoration(color: const Color.fromRGBO(103, 110, 122, .6)),
           child: ListTile(
-          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           leading: Container(
-            padding: EdgeInsets.only(right: 12.0),
+            padding: const EdgeInsets.only(right: 12.0),
             decoration: BoxDecoration(
                 border: Border(
                     right: BorderSide(width: 1.0, color: Colors.white24))),
             child: Icon(Icons.local_car_wash, color: Colors.white),
           ),
           title: Text(
-            "Nombre de local",
+            'Nombre de local',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
@@ -120,20 +92,25 @@ class _DisplayState extends State<Display> {
           subtitle: Row(
             children: <Widget>[
               Icon(Icons.linear_scale, color: Colors.orangeAccent),
-              Text(" Resumen de la actividad", style: TextStyle(color: Colors.white))
+              Text('Resumen de la actividad', style: TextStyle(color: Colors.white))
             ],
           ),
           trailing:
-              Icon(Icons.star,  color: Colors.white  , size: 30.0),
-              
-      ),
+              IconButton(
+                icon: Icon(Icons.star, size: 30.0,
+                            color: isPressed ? Colors.yellow
+                                             : Colors.grey[300]
+                          ),
+                onPressed: (){
+                  setState(()=>isPressed= true); 
+                },
+              ),       
         ),
-  ),
+      ),
+     ),
    );
-
  } 
  
-
 
   Widget _showFilter(){
 
@@ -144,7 +121,7 @@ class _DisplayState extends State<Display> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: DropDownFormField(
 
                   titleText: 'Mis mantenimientos',
