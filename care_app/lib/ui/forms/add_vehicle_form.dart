@@ -230,11 +230,15 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
               ),
               const SizedBox(height: 35.0),
               if (vehicleProvider.state == ViewState.Busy)
-                const CircularProgressIndicator(
-                  
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    Color.fromRGBO(203, 99, 51, 1),
-                  ),
+
+                Container(
+                  width: 50 ,
+                  height: 50,
+                  child: const CircularProgressIndicator(                
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Color.fromRGBO(203, 99, 51, 1),
+                    ),
+                  )
                 ),
               if (vehicleProvider.state == ViewState.Idle)
                 MaterialButton(

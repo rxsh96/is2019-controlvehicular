@@ -10,5 +10,6 @@ class ApiRoutes{
   static const String MAINTENANCE_DETAILS = 'mantenimientoDetails/';
   static const String AFFILIATE_BUSINESS = 'affiliatebusiness/';
   static const String UPLOAD_PROFILE_IMG = 'profilePicture/';
+  static const String BUSINESS = 'affiliatebusiness/';
 
 }

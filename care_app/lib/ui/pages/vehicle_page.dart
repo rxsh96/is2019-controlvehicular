@@ -147,6 +147,7 @@ class VehiclePage extends StatelessWidget {
                     icon: 'gasolina',
                     route: GasolinePage.ID,
                   ),
+                  const Divider(color: Colors.white, height: 0.0),
                   const MyCardButton(
                     text: 'GASOLINERAS',
                     transparency: 1,

@@ -99,7 +99,7 @@ class _GasolinaPageState extends State<GasolinaPage> {
                   onTap: (){
                     setState(() {
                       flag =true;
-                      height = 120;
+                      height = 140;
                       pc.show();
                       idMarker= id;
                       lat = _lastMapPosition.latitude;
@@ -156,8 +156,11 @@ class _GasolinaPageState extends State<GasolinaPage> {
     return Scaffold(
       body: _initialPosition == null ? Container(child: Center(child:Text('Cargando mapa..', style: TextStyle(fontFamily: 'Avenir-Medium', color: Colors.grey[400]),),),) : Container(
         child: SlidingUpPanel(
+          backdropEnabled:true,
+          backdropColor: Colors.deepOrange,
           controller: pc,
           minHeight: height,
+          maxHeight: 200,
           body: Stack(children: <Widget>[
           GoogleMap(
             markers:_markers,

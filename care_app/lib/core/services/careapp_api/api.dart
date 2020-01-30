@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:care_app/core/src/models/business.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:care_app/core/src/models/model_files.dart';
@@ -112,6 +113,17 @@ class API {
     return null;
   }
 
+    Future<List<Business>> getBusiness() async{
+    final MyResponse response = await _apiHelper.get<ModelModel>(endPoint: ApiRoutes.BUSINESS);
+    if(response.isSuccess){
+      final String businessResponse = response.result.toString();
+      return compute(parseBusiness, businessResponse);
+    }
+    return null;
+  }
+
+
+
 
 }
 
@@ -129,6 +141,12 @@ List<BrandModel> parseBrands(String responseBody){
   final dynamic parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
   return parsed.map<BrandModel>((dynamic json) => BrandModel.fromJson(json)).toList();
 }
+
+List<Business> parseBusiness(String responseBody){
+  final dynamic parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+  return parsed.map<Business>((dynamic json) => Business.fromJson(json)).toList();
+}
+
 
 /*Future<User> postUser({Map<String, String> user}) async {
     final  http.Response response = await getClient().post(ApiRoutes.BASE_URL + ApiRoutes.USERS, body: user);

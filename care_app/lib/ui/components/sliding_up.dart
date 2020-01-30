@@ -33,7 +33,7 @@ class _SlidingState extends State<Sliding> {
           SizedBox(
             width: double.infinity,
               child: CupertinoButton(
-              onPressed: (){},
+              onPressed: () => pc.open(),
               color: const Color(0xfff0f0f0),
               padding: const EdgeInsets.symmetric(horizontal:15.0,vertical: 15.0 ),            
               child: Row(

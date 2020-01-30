@@ -36,9 +36,22 @@ class _CommentsPageState extends State<CommentsPage> {
     return Scaffold(
 
       appBar: AppBar(
-        title: const Text(
-          'COMENTARIOS Y SUGERENCIAS',
-          style: TextStyle(fontSize: 18),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+
+           const Text(
+              'COMENTARIOS Y SUGERENCIAS',
+              style: TextStyle(fontSize: 18),
+            ),
+            
+            Image.asset(
+                  'images/logo2.png',
+                  fit: BoxFit.contain,
+            ),
+
+          ],
+
         ),
       ),
       body: ListView(

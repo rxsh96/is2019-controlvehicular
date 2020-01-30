@@ -75,11 +75,11 @@ class _AccidentReportPageState extends State<AccidentReportPage> {
                                   const Color.fromRGBO(203, 99, 51, 1),
                               radius: 40.0,
                             )
-                          : CircleAvatar(
+                          : const CircleAvatar(
                               backgroundImage: null,
                               radius: 80.0,
                               backgroundColor:
-                                  const Color.fromRGBO(203, 99, 51, 1),
+                                   Color.fromRGBO(203, 99, 51, 1),
                             ),
                   ),
                 onPressed: null,
