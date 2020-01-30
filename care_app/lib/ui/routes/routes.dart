@@ -54,7 +54,8 @@ class Router {
         return MaterialPageRoute<AccidentReportPage>(builder: (_) => AccidentReportPage());
 
       case CommentsPage.ID:
-        return MaterialPageRoute<CommentsPage>(builder: (_) => CommentsPage());
+        final UserRepository userRepo = settings.arguments;
+        return MaterialPageRoute<CommentsPage>(builder: (_) => CommentsPage(userRepo));
 
       case MyProfilePage.ID:
         final UserRepository userRepo = settings.arguments;

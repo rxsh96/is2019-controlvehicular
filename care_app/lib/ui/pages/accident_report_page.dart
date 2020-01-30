@@ -43,16 +43,15 @@ class _AccidentReportPageState extends State<AccidentReportPage> {
                 },
           ), 
 
-          Padding(
-            padding: const EdgeInsets.only(top:25),
-            child: const Text('Descripción del accidente'),
+          const Padding(
+            padding: EdgeInsets.only(top:25),
+            child: Text('Descripción del accidente'),
           ),
 
           TextField(
             controller:null ,
             maxLines: 7,
             decoration: InputDecoration(
-                hintText: 'Qué acontece?.',  
                 border: OutlineInputBorder()
             )
           ),
@@ -96,12 +95,14 @@ class _AccidentReportPageState extends State<AccidentReportPage> {
                 
                 Column(
                   children: <Widget>[
-                        // Checkbox(
-                        //   value: null,
-                        //   onChanged: (bool value) {
-                        //     setState(() { });
-                        //   },
-                        // ),
+                        Checkbox(
+                           value: false,
+                           onChanged: (bool value) {
+                             setState(() {
+                               value = !value;
+                             });
+                           },
+                         ),
                         const Text('Enviar Ubicación'),
                       ],
                 ),

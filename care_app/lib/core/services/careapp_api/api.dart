@@ -125,8 +125,13 @@ class API {
     return null;
   }
 
-
-
+  Future<Map<String, dynamic>> postComments({Map<String, String> data}) async {
+    final  MyResponse response = await _apiHelper.post<dynamic>(endPoint: ApiRoutes.SUGGESTIONS, data: data);
+    if(response.isSuccess){
+      return _decoder.convert(response.result);
+    }
+    return <String, dynamic>{'error': 'error'};
+  }
 
 }
 
