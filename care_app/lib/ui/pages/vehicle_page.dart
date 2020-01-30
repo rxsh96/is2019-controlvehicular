@@ -1,3 +1,4 @@
+import 'package:care_app/ui/pages/map/gasoline_map_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
@@ -22,8 +23,9 @@ class VehiclePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BasePage<VehicleProvider>(
       onModelReady: (VehicleProvider vehicleProvider){
-        vehicleProvider.fetchVehicleModels();
-        vehicleProvider.fetchVehicleBrands();
+        //vehicleProvider.fetchVehicleModels();
+        //vehicleProvider.fetchVehicleBrands();
+        vehicleProvider.fetchVehicleBrandsModels();
         locator<LoginProvider>().getProfilePic();
       },
       builder: (BuildContext context, VehicleProvider vehicleProvider, Widget child) =>
@@ -150,7 +152,7 @@ class VehiclePage extends StatelessWidget {
                     text: 'GASOLINERAS',
                     transparency: 1,
                     icon: 'gasolina',
-                    route: GasolinePage.ID,
+                    route: GasolineMapPage.ID,
                   ),
                 ],
               ),

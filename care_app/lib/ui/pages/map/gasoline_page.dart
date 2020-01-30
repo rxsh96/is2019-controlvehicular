@@ -8,16 +8,16 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 
 
-class GasolinaPage extends StatefulWidget {
-  const GasolinaPage({Key key}) : super(key: key);
+class GasolinePage extends StatefulWidget {
+  const GasolinePage({Key key}) : super(key: key);
     
   static const String ID = 'gasolineMapPage';
 
   @override
-  _GasolinaPageState createState() => _GasolinaPageState();
+  _GasolinePageState createState() => _GasolinePageState();
 }
 
-class _GasolinaPageState extends State<GasolinaPage> {
+class _GasolinePageState extends State<GasolinePage> {
   PanelController pc = PanelController();
   String localName ='Nombre de local';
   double lat;

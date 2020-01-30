@@ -42,12 +42,16 @@ class VehicleProvider extends BaseProvider{
     return response;
   }
 
-  Future<bool> fetchVehicleModels() async {
-    return await _vehicleRepository.fetchVehicleModels();
-  }
+  //Future<bool> fetchVehicleModels() async {
+  //  return await _vehicleRepository.fetchVehicleModels();
+  //}
 
-  Future<bool> fetchVehicleBrands() async {
-    return await _vehicleRepository.fetchVehicleBrands();
+  //Future<bool> fetchVehicleBrands() async {
+  //  return await _vehicleRepository.fetchVehicleBrands();
+  //}
+
+  Future<bool> fetchVehicleBrandsModels() async {
+    return await _vehicleRepository.joinBrandModel();
   }
 
 
@@ -59,7 +63,9 @@ class VehicleProvider extends BaseProvider{
   List<Vehicle> get vehicles => _vehicles;
   Vehicle get selectedVehicle => _selectedVehicle;
 
-  List<ModelModel> get models => _vehicleRepository.models;
-  List<BrandModel> get brands => _vehicleRepository.brands;
+  //List<ModelModel> get models => _vehicleRepository.models;
+  //List<BrandModel> get brands => _vehicleRepository.brands;
+
+  List<dynamic> get brandsModels => _vehicleRepository.vehiclesBrandsModelsList;
 
 }
