@@ -117,7 +117,7 @@ class VehicleView(FiltersMixin, viewsets.ModelViewSet):
 class Affiliate_businessView(FiltersMixin, viewsets.ModelViewSet):
     """Create a new Affiliate_business in the system"""
     queryset = api_model.Affiliate_business.objects.prefetch_related(
-        'ruc'  # use prefetch_related to minimize db hits.
+        'id'  # use prefetch_related to minimize db hits.
     ).all()
     serializer_class = Affiliate_businessSerializer
 

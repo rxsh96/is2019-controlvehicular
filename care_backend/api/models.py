@@ -90,8 +90,8 @@ class Affiliate_business(models.Model):
 	contact_phone_number = models.CharField(max_length=13) """
 	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
-	lon = models.DecimalField(max_digits=22, decimal_places=16, null=True)
-	lat = models.DecimalField(max_digits=22, decimal_places=16, null=True)
+	lon = models.DecimalField(max_digits=22, decimal_places=16, null=True, blank=True)
+	lat = models.DecimalField(max_digits=22, decimal_places=16, null=True, blank=True)
 
 	def __str__(self):
 		return self.business_name

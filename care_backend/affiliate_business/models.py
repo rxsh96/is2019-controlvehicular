@@ -1,2 +1,2 @@
 from django.db import models
-from api.models import City, Province, Affiliate_business
+from api.models import City, Province, Affiliate_business, User
