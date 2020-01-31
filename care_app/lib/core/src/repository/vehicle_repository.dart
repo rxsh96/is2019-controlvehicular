@@ -33,8 +33,8 @@ class VehicleRepository{
 
 
   Future<bool> joinBrandModel() async{
-    await fetchVehicleModels();
-    await fetchVehicleBrands();
+    //await fetchVehicleModels();
+    //await fetchVehicleBrands();
     for(int i = 0 ; i < _brands.length ; i++){
       final String brand = _brands[i].brand;
       final List<String> modelList = <String>[];
@@ -59,8 +59,8 @@ class VehicleRepository{
     return url;
   }
 
-  //List<ModelModel> get models => _models;
-  //List<BrandModel> get brands => _brands;
+  List<ModelModel> get models => _models;
+  List<BrandModel> get brands => _brands;
   List<dynamic> get vehiclesBrandsModelsList => _vehiclesBrandsModelsList;
 
 }

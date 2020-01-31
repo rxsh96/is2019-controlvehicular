@@ -99,32 +99,41 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                   final bool response = await loginProvider.resetPassword(body);
 
                   if (response) {
-                    AlertDialog(
-                      title: const Text('Restauración de Contraseña'),
-                      content: const Text('Revisa tu correo electrónico'),
-                      actions: <Widget>[
-                        FlatButton(
-                          child: const Text('Listo'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
+                    showDialog<dynamic>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Restauración de Contraseña'),
+                            content: const Text('Revisa tu correo electrónico'),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: const Text('Listo'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        });
                     cleanFields();
                   } else {
-                    AlertDialog(
-                      title: const Text('Restauración de Contraseña'),
-                      content: const Text('Ha surgido un problema. Vuelve a intentarlo más luego.'),
-                      actions: <Widget>[
-                        FlatButton(
-                          child: const Text('Listo'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
+                    showDialog<dynamic>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Restauración de Contraseña'),
+                            content: const Text(
+                                'Ha surgido un problema. Vuelve a intentarlo más luego.'),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: const Text('Listo'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        });
                   }
                 }
               },

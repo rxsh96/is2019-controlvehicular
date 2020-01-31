@@ -22,6 +22,8 @@ class MyMenu extends StatelessWidget {
     print(pictureURL);
 
     print('EN MYMENU, ESTA ES LA URL: $pictureURL');
+    print(Provider.of<LoginProvider>(context)
+        .userRepository.user.toString());
 
     return SafeArea(
       child: Drawer(
@@ -89,21 +91,29 @@ class MyMenu extends StatelessWidget {
                 icon: 'menu_notificaciones',
                 route: null,
               ),
-              const MyMenuOptions(
-                optionName: 'Comentarios y Sugerencias',
-                icon: 'menu_notificaciones',
-                route: CommentsPage.ID,
+              ListTile(
+                leading: Image.asset(
+                  'images/menu_reporte.png',
+                  width: 20,
+                  height: 20,
+                ),
+                title: GestureDetector(
+                  child: const Text(
+                    'Comentarios y Sugerencias',
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(context, CommentsPage.ID,
+                        arguments: Provider.of<LoginProvider>(context).userRepository);
+                  },
+                ),
               ),
               const MyMenuOptions(
                 optionName: 'Guía de mantenimiento',
                 icon: 'menu_guia',
                 route: null,
               ),
-              const MyMenuOptions(
-                optionName: 'Reporte de incidentes',
-                icon: 'menu_reporte',
-                route: AccidentReportPage.ID,
-              ),
+
               ListTile(
                 leading: Icon(Icons.call, color: const Color.fromRGBO(203, 99, 50, 1),),
                 title: GestureDetector(

@@ -44,7 +44,7 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
   File _image;
 
   Future<void> getImageFromGallery() async {
-    final File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    final File image = await ImagePicker.pickImage(source: ImageSource.gallery, maxWidth: 128.0, maxHeight: 128.0,);
     setState(() {
       _image = image;
     });
@@ -61,11 +61,21 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
   }
 
 
+
   @override
   Widget build(BuildContext context) {
     return Consumer<VehicleProvider>(
         builder: (BuildContext context, VehicleProvider vehicleProvider, _) {
 
+          final List<String> models = <String>[];
+          for (ModelModel v in vehicleProvider.models) {
+            models.add(v.model);
+          }
+
+          final List<String> brands = <String>[];
+          for (BrandModel b in vehicleProvider.brands) {
+            brands.add(b.brand);
+          }
 
       return Scaffold(
         body: Form(
@@ -101,16 +111,6 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
               ),
               const SizedBox(height: 35.0),
               MyTextFormField(
-                controller: _nameController,
-                capitalization: TextCapitalization.words,
-                textInputType: TextInputType.text,
-                label: 'Nombre',
-                hint: 'Ejemplo: Mi Viajero - Mi Taxi - Personal',
-                icon: Icons.account_box,
-                errorMsg: 'Ingresa un nombre',
-              ),
-              const SizedBox(height: 15.0),
-              MyTextFormField(
                 controller: _licensePlateController,
                 capitalization: TextCapitalization.words,
                 textInputType: TextInputType.text,
@@ -121,6 +121,33 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
               ),
               const SizedBox(height: 15.0),
 
+              DropDownField(
+                value: 'Ingresa tu marca',
+                itemsVisibleInDropdown: 3,
+                icon: Icon(Icons.directions_car),
+                labelText: 'Marca',
+                items: brands,
+                strict: false,
+                onValueChanged: (dynamic value) {
+                  final int index = brands.indexOf(value) + 1;
+                  print('EL INDEX DE LA MARCA ES: $index');
+                  _brandController.text = index.toString();
+                },
+              ),
+              const SizedBox(height: 15.0),
+              DropDownField(
+                value: 'Ingresa tu modelo',
+                itemsVisibleInDropdown: 3,
+                icon: Icon(Icons.directions_car),
+                labelText: 'Modelo',
+                items: models,
+                strict: false,
+                onValueChanged: (dynamic value) {
+                  final int index = models.indexOf(value) + 1;
+                  print('EL INDEX DEL MODELO ES: $index');
+                  _modelController.text = index.toString();
+                },
+              ),
 
 
               const SizedBox(height: 15.0),

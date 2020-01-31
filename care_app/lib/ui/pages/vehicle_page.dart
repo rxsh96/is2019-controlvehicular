@@ -23,9 +23,9 @@ class VehiclePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BasePage<VehicleProvider>(
       onModelReady: (VehicleProvider vehicleProvider){
-        //vehicleProvider.fetchVehicleModels();
-        //vehicleProvider.fetchVehicleBrands();
-        vehicleProvider.fetchVehicleBrandsModels();
+        vehicleProvider.fetchVehicleModels();
+        vehicleProvider.fetchVehicleBrands();
+        //vehicleProvider.fetchVehicleBrandsModels();
         locator<LoginProvider>().getProfilePic();
       },
       builder: (BuildContext context, VehicleProvider vehicleProvider, Widget child) =>
