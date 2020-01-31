@@ -1,3 +1,4 @@
+import 'package:care_app/ui/pages/lights_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:care_app/core/src/models/user_model.dart';
@@ -55,6 +56,9 @@ class Router {
 
       case CommentsPage.ID:
         return MaterialPageRoute<CommentsPage>(builder: (_) => CommentsPage());
+
+      case LightsPage.ID:
+        return MaterialPageRoute<LightsPage>(builder: (_) => const LightsPage());
 
       case MyProfilePage.ID:
         final UserRepository userRepo = settings.arguments;

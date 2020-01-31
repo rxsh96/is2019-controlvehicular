@@ -44,7 +44,7 @@ class _GasolinePageState extends State<GasolinePage> {
     final Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     final List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(position.latitude, position.longitude);
     setState(() {
-      _initialPosition = LatLng(-2.1530, -79.8920);
+      _initialPosition = LatLng(position.latitude, position.longitude);
       print('${placemark[0].name}');
     });
   }
