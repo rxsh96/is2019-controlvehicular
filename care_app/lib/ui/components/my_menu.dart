@@ -113,7 +113,11 @@ class MyMenu extends StatelessWidget {
                 icon: 'menu_guia',
                 route: null,
               ),
-
+              const MyMenuOptions(
+                optionName: 'Reporte de Incidentes',
+                icon: 'menu_reporte',
+                route: AccidentReportPage.ID,
+              ),
               ListTile(
                 leading: Icon(Icons.call, color: const Color.fromRGBO(203, 99, 50, 1),),
                 title: GestureDetector(

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:care_app/core/src/models/business.dart';
+import 'package:care_app/core/src/models/business_model.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:care_app/core/src/models/model_files.dart';
@@ -116,8 +116,8 @@ class API {
     return null;
   }
 
-    Future<List<Business>> getBusiness() async{
-    final MyResponse response = await _apiHelper.get<ModelModel>(endPoint: ApiRoutes.BUSINESS);
+    Future<List<BusinessModel>> getBusiness() async{
+    final MyResponse response = await _apiHelper.get<BusinessModel>(endPoint: ApiRoutes.BUSINESS);
     if(response.isSuccess){
       final String businessResponse = response.result.toString();
       return compute(parseBusiness, businessResponse);
@@ -150,9 +150,9 @@ List<BrandModel> parseBrands(String responseBody){
   return parsed.map<BrandModel>((dynamic json) => BrandModel.fromJson(json)).toList();
 }
 
-List<Business> parseBusiness(String responseBody){
+List<BusinessModel> parseBusiness(String responseBody){
   final dynamic parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-  return parsed.map<Business>((dynamic json) => Business.fromJson(json)).toList();
+  return parsed.map<BusinessModel>((dynamic json) => BusinessModel.fromJson(json)).toList();
 }
 
 

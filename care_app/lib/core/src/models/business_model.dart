@@ -1,39 +1,24 @@
 
-class Business {
+class BusinessModel {
 
-    String id;
-    String ruc;
-    String businessName;
-    String description;
-    String legalRepresentativeName;
-    String legalRepresentativeLastname;
-    String address;
-    String created;
-    String updated;
-    String lon;
-    String lat;
-    String province;
-    String city;
-    String businessOwner;
+  BusinessModel({
+    this.id,
+    this.ruc,
+    this.businessName,
+    this.description,
+    this.legalRepresentativeName,
+    this.legalRepresentativeLastname,
+    this.address,
+    this.created,
+    this.updated,
+    this.lon,
+    this.lat,
+    this.province,
+    this.city,
+    this.businessOwner,
+  });
 
-    Business({
-        this.id,
-        this.ruc,
-        this.businessName,
-        this.description,
-        this.legalRepresentativeName,
-        this.legalRepresentativeLastname,
-        this.address,
-        this.created,
-        this.updated,
-        this.lon,
-        this.lat,
-        this.province,
-        this.city,
-        this.businessOwner,
-    });
-
-      Business.initial()
+  BusinessModel.initial()
       : id = '',
         ruc = '',
         businessName = '',
@@ -50,22 +35,39 @@ class Business {
         businessOwner = '';
 
 
-    Business.fromJson(Map<String, dynamic> json) {
-        id= json['id'];
-        ruc= json['ruc'];
-        businessName: json['business_name'];
-        description: json['description'];
-        legalRepresentativeName: json['legal_representative_name'];
-        legalRepresentativeLastname: json['legal_representative_lastname'];
-        address: json['address'];
-        created: json['created'];
-        updated: json['updated'];
-        lon: json['lon'];
-        lat: json['lat'];
-        province: json['province'];
-        city: json['city'];
-        businessOwner: json['business_owner'];
-    }
+  BusinessModel.fromJson(Map<String, dynamic> json) {
+    id= json['id'].toString();
+    ruc= json['ruc'];
+    businessName= json['business_name'];
+    description= json['description'];
+    legalRepresentativeName= json['legal_representative_name'];
+    legalRepresentativeLastname= json['legal_representative_lastname'];
+    address= json['address'];
+    created= json['created'];
+    updated= json['updated'];
+    lon= json['lon'];
+    lat= json['lat'];
+    province= json['province'].toString();
+    city= json['city'].toString();
+    businessOwner= json['business_owner'].toString();
+  }
+
+    String id;
+    String ruc;
+    String businessName;
+    String description;
+    String legalRepresentativeName;
+    String legalRepresentativeLastname;
+    String address;
+    String created;
+    String updated;
+    String lon;
+    String lat;
+    String province;
+    String city;
+    String businessOwner;
+
+
 
     Map<String, dynamic> toJson()  {
       final Map<String, dynamic> data = <String, dynamic>{};

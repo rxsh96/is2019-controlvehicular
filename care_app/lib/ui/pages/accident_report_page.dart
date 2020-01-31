@@ -35,7 +35,7 @@ class _AccidentReportPageState extends State<AccidentReportPage> {
                 itemsVisibleInDropdown: 2,
                 // icon: Icon(Icons.directions_car),
                 hintText:'Tipo de accidente' ,
-                labelText: 'Marca',
+                labelText: 'Accidente',
                 items: type,
                 strict: false,
                 onValueChanged: (dynamic value) {
@@ -111,10 +111,10 @@ class _AccidentReportPageState extends State<AccidentReportPage> {
                         FloatingActionButton.extended(
                           label: const Text('Mapa'),
                           onPressed: (){},
-                          icon: Icon(Icons.remove_red_eye),
+                          icon: Icon(Icons.remove_red_eye, color: Colors.white),
                           // shape: CircleBorder(),
                           // elevation: 2.0,
-                          backgroundColor: Colors.orangeAccent,
+                          backgroundColor: const Color.fromRGBO(203, 99, 51, 1),
                           // padding: const EdgeInsets.all(7.0),
                         )
                       ],
