@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:care_app/core/src/models/business_model.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:care_app/core/src/models/model_files.dart';
@@ -57,7 +58,10 @@ class API {
     final MyResponse response = await _apiHelper.get<ProfileImageModel>(endPoint: ApiRoutes.UPLOAD_PROFILE_IMG, queryParam: '?user=$id');
     if(response.isSuccess){
       final List<dynamic> jsonUser = _decoder.convert(response.result.toString());
-      return ProfileImageModel.fromJson(jsonUser[0]);
+      if(jsonUser.isNotEmpty){
+        return ProfileImageModel.fromJson(jsonUser[0]);
+      }
+      return null;
     }
     return null;
   }
@@ -112,6 +116,22 @@ class API {
     return null;
   }
 
+    Future<List<BusinessModel>> getBusiness() async{
+    final MyResponse response = await _apiHelper.get<BusinessModel>(endPoint: ApiRoutes.BUSINESS);
+    if(response.isSuccess){
+      final String businessResponse = response.result.toString();
+      return compute(parseBusiness, businessResponse);
+    }
+    return null;
+  }
+
+  Future<Map<String, dynamic>> postComments({Map<String, String> data}) async {
+    final  MyResponse response = await _apiHelper.post<dynamic>(endPoint: ApiRoutes.SUGGESTIONS, data: data);
+    if(response.isSuccess){
+      return _decoder.convert(response.result);
+    }
+    return <String, dynamic>{'error': 'error'};
+  }
 
 }
 
@@ -129,6 +149,12 @@ List<BrandModel> parseBrands(String responseBody){
   final dynamic parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
   return parsed.map<BrandModel>((dynamic json) => BrandModel.fromJson(json)).toList();
 }
+
+List<BusinessModel> parseBusiness(String responseBody){
+  final dynamic parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+  return parsed.map<BusinessModel>((dynamic json) => BusinessModel.fromJson(json)).toList();
+}
+
 
 /*Future<User> postUser({Map<String, String> user}) async {
     final  http.Response response = await getClient().post(ApiRoutes.BASE_URL + ApiRoutes.USERS, body: user);

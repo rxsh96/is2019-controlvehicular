@@ -1,5 +1,8 @@
+import 'package:care_app/ui/pages/accident_report_page.dart';
+import 'package:care_app/ui/pages/comments_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:care_app/core/locator.dart';
 import 'package:care_app/core/src/provider/login_provider.dart';
@@ -10,13 +13,17 @@ import 'package:care_app/ui/pages/trip_page.dart';
 
 import 'my_menu_options.dart';
 
+
 class MyMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String pictureURL =
         Provider.of<LoginProvider>(context).userRepository.profileImageURL;
+    print(pictureURL);
 
     print('EN MYMENU, ESTA ES LA URL: $pictureURL');
+    print(Provider.of<LoginProvider>(context)
+        .userRepository.user.toString());
 
     return SafeArea(
       child: Drawer(
@@ -84,10 +91,22 @@ class MyMenu extends StatelessWidget {
                 icon: 'menu_notificaciones',
                 route: null,
               ),
-              const MyMenuOptions(
-                optionName: 'Encuesta',
-                icon: 'menu_notificaciones',
-                route: null,
+              ListTile(
+                leading: Image.asset(
+                  'images/menu_reporte.png',
+                  width: 20,
+                  height: 20,
+                ),
+                title: GestureDetector(
+                  child: const Text(
+                    'Comentarios y Sugerencias',
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(context, CommentsPage.ID,
+                        arguments: Provider.of<LoginProvider>(context).userRepository);
+                  },
+                ),
               ),
               const MyMenuOptions(
                 optionName: 'Guía de mantenimiento',
@@ -95,13 +114,25 @@ class MyMenu extends StatelessWidget {
                 route: null,
               ),
               const MyMenuOptions(
-                optionName: 'Reporte de accidentes',
+                optionName: 'Reporte de Incidentes',
                 icon: 'menu_reporte',
-                route: null,
+                route: AccidentReportPage.ID,
               ),
-              const SizedBox(height: 45.0),
+              ListTile(
+                leading: Icon(Icons.call, color: const Color.fromRGBO(203, 99, 50, 1),),
+                title: GestureDetector(
+                  child: const Text(
+                    'Botón de Pánico',
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                  onTap: () {
+                    launch('tel://911');
+                  },
+                ),
+              ),
+              const SizedBox(height: 10.0),
               const Divider(color: Colors.grey, height: 5.0),
-              const SizedBox(height: 15.0),
+              const SizedBox(height: 5.0),
               const MyMenuOptions(
                 optionName: 'Configuración',
                 icon: 'menu_configuracion',

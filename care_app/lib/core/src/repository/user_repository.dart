@@ -49,6 +49,10 @@ class UserRepository{
     return response;
   }
 
+  Future<bool> commentsAndSuggestions(Map<String, dynamic> data) async {
+    final Map<String, dynamic> response = await _api.postComments(data: data);
+    return !response.containsKey('error');
+  }
 
   Future<bool> addImage(Map<String, dynamic> image) async {
     final Map<String, dynamic> response = await _api.postProfilePic(image: image);

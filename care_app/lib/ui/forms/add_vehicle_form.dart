@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:care_app/ui/pages/vehicle_page.dart';
+import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -42,7 +44,7 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
   File _image;
 
   Future<void> getImageFromGallery() async {
-    final File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    final File image = await ImagePicker.pickImage(source: ImageSource.gallery, maxWidth: 128.0, maxHeight: 128.0,);
     setState(() {
       _image = image;
     });
@@ -58,31 +60,22 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Consumer<VehicleProvider>(
         builder: (BuildContext context, VehicleProvider vehicleProvider, _) {
 
-      final List<String> models = <String>[];
-      for (ModelModel v in vehicleProvider.models) {
-        models.add(v.model);
-      }
-
-      final List<String> brands = <String>[];
-      for (BrandModel b in vehicleProvider.brands) {
-        brands.add(b.brand);
-      }
-
-      final Map<dynamic, dynamic> brandModel = <dynamic, dynamic>{};
-      for(int brand = 0 ; brand < vehicleProvider.brands.length; brand++){
-        for(int model = 0; model < vehicleProvider.models.length; model++){
-          if(vehicleProvider.brands[brand].id == vehicleProvider.models[model].brand){
-            brandModel[vehicleProvider.brands[brand].brand] = vehicleProvider.models[model].model;
+          final List<String> models = <String>[];
+          for (ModelModel v in vehicleProvider.models) {
+            models.add(v.model);
           }
-        }
-      }
 
-
+          final List<String> brands = <String>[];
+          for (BrandModel b in vehicleProvider.brands) {
+            brands.add(b.brand);
+          }
 
       return Scaffold(
         body: Form(
@@ -118,16 +111,6 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
               ),
               const SizedBox(height: 35.0),
               MyTextFormField(
-                controller: _nameController,
-                capitalization: TextCapitalization.words,
-                textInputType: TextInputType.text,
-                label: 'Nombre',
-                hint: 'Ejemplo: Mi Viajero - Mi Taxi - Personal',
-                icon: Icons.account_box,
-                errorMsg: 'Ingresa un nombre',
-              ),
-              const SizedBox(height: 15.0),
-              MyTextFormField(
                 controller: _licensePlateController,
                 capitalization: TextCapitalization.words,
                 textInputType: TextInputType.text,
@@ -137,9 +120,10 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
                 errorMsg: 'Ingresa la placa del vehículo',
               ),
               const SizedBox(height: 15.0),
+
               DropDownField(
                 value: 'Ingresa tu marca',
-                itemsVisibleInDropdown: 1,
+                itemsVisibleInDropdown: 3,
                 icon: Icon(Icons.directions_car),
                 labelText: 'Marca',
                 items: brands,
@@ -153,7 +137,7 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
               const SizedBox(height: 15.0),
               DropDownField(
                 value: 'Ingresa tu modelo',
-                itemsVisibleInDropdown: 1,
+                itemsVisibleInDropdown: 3,
                 icon: Icon(Icons.directions_car),
                 labelText: 'Modelo',
                 items: models,
@@ -164,6 +148,8 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
                   _modelController.text = index.toString();
                 },
               ),
+
+
               const SizedBox(height: 15.0),
               MyTextFormField(
                 controller: _colorController,
@@ -212,15 +198,21 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
               ),
               const SizedBox(height: 35.0),
               if (vehicleProvider.state == ViewState.Busy)
-                const CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    Color.fromRGBO(203, 99, 51, 1),
-                  ),
+
+                Container(
+                  width: 50 ,
+                  height: 50,
+                  child: const CircularProgressIndicator(                
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Color.fromRGBO(203, 99, 51, 1),
+                    ),
+                  )
                 ),
               if (vehicleProvider.state == ViewState.Idle)
                 MaterialButton(
                   color: const Color.fromRGBO(203, 99, 51, 1),
                   onPressed: () async {
+                    //print(vehiclesBrandsModelsList);
                     if (_formKey.currentState.validate() && _image != null) {
                       final String imgResponse =
                           await vehicleProvider.saveVehiclePic(_user, _image);
@@ -247,10 +239,13 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
                           ),
                         );
                       } else {
+                        
                         Scaffold.of(context).showSnackBar(
                           SnackBar(
                             content: const Text('¡Registro exitoso!'),
                           ),
+                          //Navigator.pushNamed(context, VehiclePage.ID)
+
                         );
                         cleanFields();
                       }

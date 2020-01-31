@@ -50,6 +50,9 @@ class VehicleProvider extends BaseProvider{
     return await _vehicleRepository.fetchVehicleBrands();
   }
 
+  Future<bool> fetchVehicleBrandsModels() async {
+    return await _vehicleRepository.joinBrandModel();
+  }
 
   void selectVehicle(Vehicle vehicle){
     _selectedVehicle = vehicle;
@@ -61,5 +64,7 @@ class VehicleProvider extends BaseProvider{
 
   List<ModelModel> get models => _vehicleRepository.models;
   List<BrandModel> get brands => _vehicleRepository.brands;
+
+  List<dynamic> get brandsModels => _vehicleRepository.vehiclesBrandsModelsList;
 
 }
