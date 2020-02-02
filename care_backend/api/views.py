@@ -116,9 +116,7 @@ class VehicleView(FiltersMixin, viewsets.ModelViewSet):
 
 class Affiliate_businessView(FiltersMixin, viewsets.ModelViewSet):
     """Create a new Affiliate_business in the system"""
-    queryset = api_model.Affiliate_business.objects.prefetch_related(
-        'id'  # use prefetch_related to minimize db hits.
-    ).all()
+    queryset = api_model.Affiliate_business.objects.all()
     serializer_class = Affiliate_businessSerializer
 
     filter_backends = (filters.OrderingFilter,)
@@ -191,4 +189,44 @@ class ExpenseView(viewsets.ModelViewSet):
         'date': 'date',
         'address': 'address',
         'name': 'name',
+    }
+
+class SuggestionView(viewsets.ModelViewSet):
+    queryset = api_model.Suggestion.objects.all()
+    serializer_class = SuggestionSerializer
+
+class ProductNotificationsView(viewsets.ModelViewSet):
+    queryset = api_model.ProductNotifications.objects.all()
+    serializer_class = ProductNotificationsSerializer
+
+class MaintenanceItemView(FiltersMixin, viewsets.ModelViewSet):
+    """Create a new MaintenanceDetails in the system"""
+    queryset = api_model.Maintenance_item.objects.prefetch_related(
+        'item'  # use prefetch_related to minimize db hits.
+    ).all()
+    serializer_class = MaintenanceItemSerializer
+
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('id', 'item')
+    ordering = ('id',)
+
+    filter_mappings = {
+        'item': 'item',
+        'itype': 'itype',
+    }
+
+class AdvertisementView(FiltersMixin, viewsets.ModelViewSet):
+    """Create a new MaintenanceDetails in the system"""
+    queryset = api_model.Advertisement.objects.prefetch_related(
+        'affiliate_business'  # use prefetch_related to minimize db hits.
+    ).all()
+    serializer_class = AdvertisementSerializer
+
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('id', 'affiliate_business')
+    ordering = ('id',)
+
+    filter_mappings = {
+        'id': 'id',
+        'affiliate_business': 'affiliate_business',    
     }

@@ -10,6 +10,7 @@ django-widget-tweaks==1.4.5
 djangorestframework==3.9.2
 drf-url-filters==0.5.1
 Faker==2.0.2
+fcm-django==0.3.4
 Pillow==6.1.0
 psycopg2==2.8.1
 python-dateutil==2.8.0

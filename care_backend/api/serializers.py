@@ -108,3 +108,23 @@ class ExpenseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Expense
         fields = "__all__"
+
+class SuggestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Suggestion
+        fields = "__all__"
+
+class ProductNotificationsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductNotifications
+        fields = "__all__"
+
+class MaintenanceItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Maintenance_item
+        fields = '__all__'
+
+class AdvertisementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Advertisement
+        fields = '__all__'

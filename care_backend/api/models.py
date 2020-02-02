@@ -117,6 +117,7 @@ class Vehicle(models.Model):
 	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
 	imageURL = models.CharField(max_length=500, null=True, blank=True)
+	registration = models.CharField(max_length=7, null=True)
 
 	def __str__(self):
 		return self.plate
@@ -154,6 +155,7 @@ class MaintenanceDetails(models.Model):
 	local = models.ForeignKey(Affiliate_business, null=True, blank=True, on_delete = models.CASCADE)
 	date =  models.DateTimeField(default=timezone.now)
 	price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+	km = models.CharField(max_length=20, null=True)
 	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación",blank=True,null=True)
 
 
@@ -182,3 +184,14 @@ class Advertisement(models.Model):
 	affiliate_business = models.ForeignKey(Affiliate_business, null=True, blank=True, on_delete = models.CASCADE)
 	description = models.CharField(max_length=255)
 	banner = models.CharField(max_length=500, null=True, blank=True)
+
+class Suggestion(models.Model):
+    user_suggestion = models.ForeignKey(User, null=True, blank=True, on_delete = models.CASCADE)
+    title = models.CharField(max_length=150,null=True, blank=True)
+    comment_suggestion = models.CharField(max_length=255,null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="Fecha de creación")
+
+class ProductNotifications(models.Model):
+	title = models.CharField(max_length=150,null=True, blank=True)
+	description = models.CharField(max_length=255)
+	price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
