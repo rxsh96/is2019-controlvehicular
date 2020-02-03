@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'user',
     'advertisement',
     'affiliate_business',
+    'fcm_django',
     'rest_framework',
     'rest_framework.authtoken',
     'api',
@@ -63,6 +64,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+FCM_DJANGO_SETTINGS = {
+        "FCM_SERVER_KEY": "AAAAco27f9M:APA91bEOqfRSidFl3SqT0etzAnLl2kEto-brNuntZys30_pLNv_6hXumzLC9WeEagLITk-a_75f8OR6Jn2V_oGV1pthPf_1mnDtAp2vEsEgdPmBvNVjKuwV0k9DNZM-GDvE53Fj01Aq-"
+}
 
 ROOT_URLCONF = 'care_backend.urls'
 
@@ -152,6 +157,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 AUTH_USER_MODEL = 'api.User'
 
 MEDIA_URL =  '/media/'
@@ -169,6 +176,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'g7daw2018@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'g7daw2018@gmail.com'
-EMAIL_HOST_PASSWORD = 'abrs2019ESPOL'
+EMAIL_HOST_PASSWORD = 'controlvehicularESPOL2020.'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587

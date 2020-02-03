@@ -90,8 +90,8 @@ class Affiliate_business(models.Model):
 	contact_phone_number = models.CharField(max_length=13) """
 	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
-	lon = models.DecimalField(max_digits=22, decimal_places=16, null=True)
-	lat = models.DecimalField(max_digits=22, decimal_places=16, null=True)
+	lon = models.DecimalField(max_digits=22, decimal_places=16, null=True, blank=True)
+	lat = models.DecimalField(max_digits=22, decimal_places=16, null=True, blank=True)
 
 	def __str__(self):
 		return self.business_name
@@ -117,6 +117,7 @@ class Vehicle(models.Model):
 	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
 	imageURL = models.CharField(max_length=500, null=True, blank=True)
+	registration = models.CharField(max_length=7, null=True)
 
 	def __str__(self):
 		return self.plate
@@ -154,6 +155,7 @@ class MaintenanceDetails(models.Model):
 	local = models.ForeignKey(Affiliate_business, null=True, blank=True, on_delete = models.CASCADE)
 	date =  models.DateTimeField(default=timezone.now)
 	price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+	km = models.CharField(max_length=20, null=True)
 	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación",blank=True,null=True)
 
 
@@ -182,3 +184,31 @@ class Advertisement(models.Model):
 	affiliate_business = models.ForeignKey(Affiliate_business, null=True, blank=True, on_delete = models.CASCADE)
 	description = models.CharField(max_length=255)
 	banner = models.CharField(max_length=500, null=True, blank=True)
+
+class Suggestion(models.Model):
+    user_suggestion = models.ForeignKey(User, null=True, blank=True, on_delete = models.CASCADE)
+    title = models.CharField(max_length=150,null=True, blank=True)
+    comment_suggestion = models.CharField(max_length=255,null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="Fecha de creación")
+
+class Announcement(models.Model):
+	affiliate_business = models.ForeignKey(Affiliate_business, null=True, blank=True, on_delete = models.CASCADE)
+	title = models.CharField(max_length=150,null=True, blank=True)
+	description = models.CharField(max_length=255)	
+
+class Notifications(models.Model):
+	announcement = models.ForeignKey(Announcement, on_delete = models.CASCADE, null=True, blank=True)
+	user = models.ForeignKey(User, on_delete = models.CASCADE, null=True, blank=True)
+
+class UDevice(models.Model):
+	user = models.ForeignKey(User, on_delete = models.CASCADE, null=True, blank=True)
+	device_id = models.CharField(max_length=150, null=True, default=None)
+
+class Fine(models.Model):
+	value = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+	date = models.DateTimeField(default=timezone.now)
+	reason = models.CharField(max_length=255, blank=True)
+	address = models.CharField(max_length=255, blank=True)
+	agency = models.CharField(max_length=255, blank=True)
+	agent = models.CharField(max_length=255, blank=True)
+	user = models.ForeignKey(User, on_delete = models.CASCADE, null=True, blank=True)

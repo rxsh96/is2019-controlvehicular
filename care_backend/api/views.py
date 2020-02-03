@@ -116,9 +116,7 @@ class VehicleView(FiltersMixin, viewsets.ModelViewSet):
 
 class Affiliate_businessView(FiltersMixin, viewsets.ModelViewSet):
     """Create a new Affiliate_business in the system"""
-    queryset = api_model.Affiliate_business.objects.prefetch_related(
-        'ruc'  # use prefetch_related to minimize db hits.
-    ).all()
+    queryset = api_model.Affiliate_business.objects.all()
     serializer_class = Affiliate_businessSerializer
 
     filter_backends = (filters.OrderingFilter,)
@@ -192,3 +190,49 @@ class ExpenseView(viewsets.ModelViewSet):
         'address': 'address',
         'name': 'name',
     }
+
+class SuggestionView(viewsets.ModelViewSet):
+    queryset = api_model.Suggestion.objects.all()
+    serializer_class = SuggestionSerializer
+
+class NotificationsView(viewsets.ModelViewSet):
+    queryset = api_model.Notifications.objects.all()
+    serializer_class = NotificationsSerializer
+
+class MaintenanceItemView(FiltersMixin, viewsets.ModelViewSet):
+    """Create a new MaintenanceDetails in the system"""
+    queryset = api_model.Maintenance_item.objects.all()
+    serializer_class = MaintenanceItemSerializer
+
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('id', 'item')
+    ordering = ('id',)
+
+    filter_mappings = {
+        'item': 'item',
+        'itype': 'itype',
+    }
+
+class AdvertisementView(FiltersMixin, viewsets.ModelViewSet):
+    """Create a new MaintenanceDetails in the system"""
+    queryset = api_model.Advertisement.objects.prefetch_related(
+        'affiliate_business'  # use prefetch_related to minimize db hits.
+    ).all()
+    serializer_class = AdvertisementSerializer
+
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('id', 'affiliate_business')
+    ordering = ('id',)
+
+    filter_mappings = {
+        'id': 'id',
+        'affiliate_business': 'affiliate_business',    
+    }
+
+class UDeviceView(viewsets.ModelViewSet):
+    queryset = api_model.UDevice.objects.all()
+    serializer_class = UDeviceSerializer
+
+class FineView(viewsets.ModelViewSet):
+    queryset = api_model.Fine.objects.all()
+    serializer_class = FineSerializer

@@ -18,10 +18,11 @@ from api.decorators import business_owner_required
 #USERS
 @method_decorator([login_required,business_owner_required], name='dispatch')
 class UserOwnerListView(ListView):
-  model = User
+  model = Affiliate_business_Clients
   template_name = 'business_owner/user_list_owner.html'
-  queryset = User.objects.filter(is_staff=False,is_business_owner=False,is_superuser=False)
   paginate_by = 10
+  def get_queryset(self):
+    return Affiliate_business_Clients.objects.filter(business=self.kwargs['pk'])
 
 
 @method_decorator([login_required,business_owner_required], name='dispatch')
@@ -52,7 +53,7 @@ class ClientOwnerAddView(CreateView):
 
 @method_decorator([login_required,business_owner_required], name='dispatch')
 class UserOwnerDetailView(BSModalReadView):
-  model = User  
+  model = Affiliate_business_Clients  
   template_name = 'business_owner/user_detail_owner.html'
 
 

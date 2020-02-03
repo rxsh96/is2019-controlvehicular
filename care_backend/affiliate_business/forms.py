@@ -1,7 +1,7 @@
 from django import forms
 from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
 from bootstrap_modal_forms.forms import BSModalForm
-from affiliate_business.models import Affiliate_business, City
+from affiliate_business.models import Affiliate_business, City, User
 from django.utils.translation import ugettext as _
 from django.core import validators
 
@@ -31,6 +31,7 @@ class BusinessCreateForm(forms.ModelForm):
     
   def __init__(self, *args, **kwargs):
     super().__init__(*args, **kwargs)
+    self.fields['business_owner'].queryset = User.objects.filter(is_business_owner=True)
     self.fields['city'].queryset = City.objects.none()
 
     if 'province' in self.data:
