@@ -201,9 +201,7 @@ class ProductNotificationsView(viewsets.ModelViewSet):
 
 class MaintenanceItemView(FiltersMixin, viewsets.ModelViewSet):
     """Create a new MaintenanceDetails in the system"""
-    queryset = api_model.Maintenance_item.objects.prefetch_related(
-        'item'  # use prefetch_related to minimize db hits.
-    ).all()
+    queryset = api_model.Maintenance_item.objects.all()
     serializer_class = MaintenanceItemSerializer
 
     filter_backends = (filters.OrderingFilter,)
