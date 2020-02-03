@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:care_app/core/locator.dart';
+import 'package:care_app/core/src/repository/vehicle_repository.dart';
 import 'package:care_app/ui/pages/vehicle_page.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:dropdownfield/dropdownfield.dart';
@@ -44,7 +46,7 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
   File _image;
 
   Future<void> getImageFromGallery() async {
-    final File image = await ImagePicker.pickImage(source: ImageSource.gallery, maxWidth: 128.0, maxHeight: 128.0,);
+    final File image = await ImagePicker.pickImage(source: ImageSource.gallery, maxWidth: 512.0, maxHeight: 512.0,);
     setState(() {
       _image = image;
     });
@@ -59,7 +61,6 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
       _image = null;
     });
   }
-
 
 
   @override
@@ -120,7 +121,6 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
                 errorMsg: 'Ingresa la placa del vehículo',
               ),
               const SizedBox(height: 15.0),
-
               DropDownField(
                 value: 'Ingresa tu marca',
                 itemsVisibleInDropdown: 3,

@@ -13,17 +13,32 @@ import 'package:care_app/ui/pages/trip_page.dart';
 
 import 'my_menu_options.dart';
 
-
 class MyMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String pictureURL =
         Provider.of<LoginProvider>(context).userRepository.profileImageURL;
-    print(pictureURL);
 
-    print('EN MYMENU, ESTA ES LA URL: $pictureURL');
-    print(Provider.of<LoginProvider>(context)
-        .userRepository.user.toString());
+    Widget userAvatar;
+    if(pictureURL == null){
+      userAvatar = Image.asset(
+        'images/user_avatar.png',
+        height: 80,
+        width: 80,
+        fit: BoxFit.cover,
+        color: const Color.fromRGBO(203, 99, 51, 1),
+      );
+    }
+    else{
+      userAvatar = FadeInImage(
+        image: NetworkImage(pictureURL),
+        placeholder:
+        const AssetImage('images/auto-2.gif'),
+        width: 80,
+        height: 80,
+        fit: BoxFit.cover,
+      );
+    }
 
     return SafeArea(
       child: Drawer(
@@ -41,12 +56,7 @@ class MyMenu extends StatelessWidget {
                       padding: const EdgeInsets.all(30.0),
                       child: GestureDetector(
                         child: ClipOval(
-                          child: FadeInImage(image: NetworkImage(pictureURL),
-                            placeholder: const AssetImage('images/auto-2.gif'),
-                            width: 80,
-                            height: 80,
-                            fit: BoxFit.cover,
-                          ),
+                            child: userAvatar,
                         ),
                         onTap: () {
                           Navigator.pushNamed(context, MyProfilePage.ID,
@@ -68,7 +78,8 @@ class MyMenu extends StatelessWidget {
                       ),
                       onTap: () {
                         Navigator.pushNamed(context, MyProfilePage.ID,
-                            arguments: Provider.of<LoginProvider>(context).userRepository);
+                            arguments: Provider.of<LoginProvider>(context)
+                                .userRepository);
                       },
                     )
                   ],
@@ -104,7 +115,8 @@ class MyMenu extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.pushNamed(context, CommentsPage.ID,
-                        arguments: Provider.of<LoginProvider>(context).userRepository);
+                        arguments:
+                            Provider.of<LoginProvider>(context).userRepository);
                   },
                 ),
               ),
@@ -119,7 +131,10 @@ class MyMenu extends StatelessWidget {
                 route: AccidentReportPage.ID,
               ),
               ListTile(
-                leading: Icon(Icons.call, color: const Color.fromRGBO(203, 99, 50, 1),),
+                leading: Icon(
+                  Icons.call,
+                  color: const Color.fromRGBO(203, 99, 50, 1),
+                ),
                 title: GestureDetector(
                   child: const Text(
                     'Botón de Pánico',
@@ -151,7 +166,8 @@ class MyMenu extends StatelessWidget {
                   ),
                   onTap: () {
                     locator<LoginProvider>().signOut();
-                    Navigator.of(context).pushNamedAndRemoveUntil(LoginPage.ID, (Route<dynamic> route) => false);
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        LoginPage.ID, (Route<dynamic> route) => false);
                   },
                 ),
               ),

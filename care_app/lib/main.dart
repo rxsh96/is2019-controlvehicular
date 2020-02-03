@@ -9,9 +9,14 @@ import 'package:care_app/ui/pages/splash_page.dart';
 import 'package:care_app/ui/pages/vehicle_page.dart';
 import 'package:care_app/ui/routes/routes.dart';
 
+import 'core/services/firebase/firebase_notifications.dart';
+
 
 void main() {
   setupLocator();
+
+  WidgetsFlutterBinding.ensureInitialized();
+  FirebaseNotifications().setUpFirebase();
   runApp(App());
 }
 

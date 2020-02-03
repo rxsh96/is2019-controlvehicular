@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:care_app/core/src/models/business_model.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:care_app/core/src/models/model_files.dart';
@@ -58,12 +57,15 @@ class API {
     final MyResponse response = await _apiHelper.get<ProfileImageModel>(endPoint: ApiRoutes.UPLOAD_PROFILE_IMG, queryParam: '?user=$id');
     if(response.isSuccess){
       final List<dynamic> jsonUser = _decoder.convert(response.result.toString());
+      print('GET PROFILE PIC URL FROM API');
+      print(jsonUser);
       if(jsonUser.isNotEmpty){
+        print('NO ESTOY VACIO');
         return ProfileImageModel.fromJson(jsonUser[0]);
       }
-      return null;
     }
-    return null;
+    print('NO Web Image');
+    return ProfileImageModel(file: 'images/user_avatar.png', user: 0);
   }
 
   Future<Map<String, dynamic>> postUser({@required Map<String, dynamic> user}) async {
@@ -97,6 +99,16 @@ class API {
     }
     return <String, dynamic>{'error': 'error'};
   }
+
+  Future<Map<String, dynamic>> postDevice({@required DeviceModel deviceInformation}) async {
+    final Map<String, dynamic> data = deviceInformation.toJson();
+    final MyResponse response = await _apiHelper.post<DeviceModel>(endPoint: ApiRoutes.DEVICE, data: data);
+    if (response.isSuccess) {
+      return _decoder.convert(response.result);
+    }
+    return <String, dynamic>{'error': 'error'};;
+  }
+
   
   Future<List<ModelModel>> getVehicleModels() async{
     final MyResponse response = await _apiHelper.get<ModelModel>(endPoint: ApiRoutes.MODELS);

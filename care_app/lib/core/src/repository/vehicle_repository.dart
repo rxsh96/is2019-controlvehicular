@@ -33,8 +33,8 @@ class VehicleRepository{
 
 
   Future<bool> joinBrandModel() async{
-    //await fetchVehicleModels();
-    //await fetchVehicleBrands();
+    await fetchVehicleModels();
+    await fetchVehicleBrands();
     for(int i = 0 ; i < _brands.length ; i++){
       final String brand = _brands[i].brand;
       final List<String> modelList = <String>[];
