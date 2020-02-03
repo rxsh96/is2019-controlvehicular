@@ -34,7 +34,7 @@ class _LocalsPageState extends State<LocalsPage> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title:Text('LOCALES') ,
+          title: const Text('LOCALES') ,
           bottom: _getTabBar(),
         ),
       
@@ -53,10 +53,10 @@ class _LocalsPageState extends State<LocalsPage> with SingleTickerProviderStateM
   return TabBar(
     tabs: <Tab>[
       Tab(icon:Icon(Icons.clear_all),
-          child: Text('Todos'),
+          child: const Text('Todos'),
       ),
       Tab(icon:Icon(Icons.star),
-          child: Text('Favoritos'),
+          child: const Text('Favoritos'),
       
       ),
     ],

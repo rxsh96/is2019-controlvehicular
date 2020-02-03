@@ -80,17 +80,11 @@ class _FilterPageState extends State<FilterPage> {
           children: <Widget>[
 
             _crearFranjas('FILTROS', 1.0 ,'filtro'),
-            _ListarFiltro(),
-            _ListarFiltro(),
-            _ListarFiltro(),
-            _ListarFiltro(),
-
-
-
-
-
+            _listarFiltro(),
+            _listarFiltro(),
+            _listarFiltro(),
+            _listarFiltro(),
           ],
-
       ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: const Color.fromRGBO(32, 32, 32, 1),
@@ -99,99 +93,89 @@ class _FilterPageState extends State<FilterPage> {
             height: 35,
           ),
             onPressed: (){
-            //Practicando nueva forma de hacer ruteo
               Navigator.push<Object>(
-                context, MaterialPageRoute(builder: (BuildContext context) {
+                context,  MaterialPageRoute(builder: (BuildContext context) {
                   return AddFilterPage();
                 }),
               );
             }
-
-        ));
+        )
+    );
   }
 
 
 
-  Widget _ListarFiltro(){
+  Widget _listarFiltro(){
     return Container(
           child:Row(
             children: <Widget>[
-              SizedBox( width: 15.0),
-              _crearFecha(25 , "ABRIL" , 2018),
-              SizedBox( width: 15.0),
-              _TipoFiltro("FILTRO DE ACEITE"),
-              SizedBox( width: 15.0),
-              _crearLugar("Casa de Andres" , 80.0)
-
+              const SizedBox( width: 15.0),
+              _crearFecha(25 , 'ABRIL' , 2018),
+              const SizedBox( width: 15.0),
+              _tipoFiltro('FILTRO DE ACEITE'),
+              const SizedBox( width: 15.0),
+              _crearLugar('Casa de Andres' , 80.0)
             ],
           ),
           height: 70.0,
-          margin: new EdgeInsets.all(10.0),
-
-          decoration: new BoxDecoration(
-
-
-      borderRadius: new BorderRadius.only(
-          topLeft:  const  Radius.circular(20.0),
-          topRight: const  Radius.circular(20.0),
-          bottomLeft: const Radius.circular(20.0) ,
-          bottomRight: const Radius.circular(20.0),
-      ),
-      gradient: new LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-          Colors.white,
-          Colors.grey,
-
-          ],
+          margin: const EdgeInsets.all(10.0),
+          decoration: const BoxDecoration(
+          borderRadius:  BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+              bottomLeft: Radius.circular(20.0) ,
+              bottomRight: Radius.circular(20.0),
+          ),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+            Colors.white,
+            Colors.grey,
+           ],
+          )
     )
-
-    )
-
-    );
-  }
+  );
+}
 
 
   Widget _crearFecha(int dia, String mes ,int anio ){
     return Column(
      children: <Widget>[
-
         Padding(
             padding: const EdgeInsets.all(10.0),
-            child:Text("$dia"),
-
+            child:Text('$dia'),
         ),
        Text(mes),
-       Text("$anio")
+       Text('$anio')
      ],
     );
   }
 
-  Widget _TipoFiltro(String tipo){
+  Widget _tipoFiltro(String tipo){
     return Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child:Text(tipo),
-
-            ),
-          ]);
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child:Text(tipo),
+        ),
+      ]
+    );
   }
 
   Widget _crearLugar( String local , double valor){
     return Column(
       children: <Widget>[
         Image(
-            image: AssetImage('images/location_pointer.png'),
+            image: const AssetImage('images/location_pointer.png'),
             height: 15.0,
         ),
         Text(local),
         Image(
-          image: AssetImage('images/money.png'),
+          image: const AssetImage('images/money.png'),
           height: 15.0,
         ),
-        Text("$valor")
+        Text('$valor')
 
       ],
     );
@@ -204,7 +188,6 @@ class _FilterPageState extends State<FilterPage> {
       child: Row(
         children: <Widget>[
           MaterialButton(
-            //Para hacer el ruteo
             onPressed: () {
               Navigator.pushNamed(context, VehiclePage.ID);
             },
@@ -221,8 +204,7 @@ class _FilterPageState extends State<FilterPage> {
 
           ),
 
-          SizedBox(height: 105.0, width: 165),
-          //Icon(Icons.airline_seat_flat_angled),
+          const SizedBox(height: 105.0, width: 165),
           Image(
               image: AssetImage('images/$icono.png'),
               height: 60,

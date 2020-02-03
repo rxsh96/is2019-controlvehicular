@@ -51,11 +51,10 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
   IconData icon;
   String errorMsg;
 
-
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+
       controller: controller,
       keyboardType: textInputType,
       textCapitalization: capitalization,

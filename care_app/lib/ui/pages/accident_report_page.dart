@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/material.dart';
 
 class AccidentReportPage extends StatefulWidget {
@@ -14,6 +12,24 @@ class _AccidentReportPageState extends State<AccidentReportPage> {
 
   final List<String> type = <String>[];
   File _image;
+  bool flag = true;
+  Icon emoji = Icon(Icons.map);
+  Color color = Colors.grey;
+
+  Widget _floatingButton() {
+    return FloatingActionButton.extended(
+        label: flag
+            ? const Text('Enviar lugar',
+                style: TextStyle(color: Colors.white))
+            : const Text('Enviado',
+                style: TextStyle(color: Colors.black)),
+        icon: flag ? emoji : Icon(Icons.check_circle_outline, color: Colors.black),
+        backgroundColor: flag ? color : Colors.yellow,
+        onPressed: () {
+          flag = true;
+          setState(() => flag = false);
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,22 +41,23 @@ class _AccidentReportPageState extends State<AccidentReportPage> {
           style: TextStyle(fontSize: 18),
         ),
       ),
+    
       body: ListView(
-
+        
         padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 30.0),
         children: <Widget>[
 
-          DropDownField(
-                value: '',
-                itemsVisibleInDropdown: 2,
-                // icon: Icon(Icons.directions_car),
-                hintText:'Tipo de accidente' ,
-                labelText: 'Accidente',
-                items: type,
-                strict: false,
-                onValueChanged: (dynamic value) {
-                  print('...');
-                },
+          const Padding(
+            padding: EdgeInsets.only(top:10),
+            child: Text('Tipo de accidente'),
+          ),
+
+          const TextField(            
+            controller:null ,
+            maxLines: 1,
+            decoration: InputDecoration(
+                border: OutlineInputBorder()
+            )
           ), 
 
           const Padding(
@@ -48,7 +65,7 @@ class _AccidentReportPageState extends State<AccidentReportPage> {
             child: Text('Descripción del accidente'),
           ),
 
-          TextField(
+          const TextField(
             controller:null ,
             maxLines: 7,
             decoration: InputDecoration(
@@ -56,67 +73,39 @@ class _AccidentReportPageState extends State<AccidentReportPage> {
             )
           ),
 
-
-         Padding(
-           padding: const EdgeInsets.all(12.0),
-           child: Center(
-              child: RawMaterialButton(
-                
+          Padding(
+            padding: const EdgeInsets.only(top:15.0),
+            child: Row(
+              
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+              
+                RawMaterialButton(            
                   child: Container(
                       child: _image == null
                           ? CircleAvatar(
                               child: Icon(
                                 Icons.camera,
-                                size: 40.0,
-                                color: Colors.black,
+                                size: 30.0,
+                                color: Colors.white,
                               ),
                               backgroundColor:
                                   const Color.fromRGBO(203, 99, 51, 1),
-                              radius: 40.0,
+                              radius: 30.0,
                             )
                           : const CircleAvatar(
                               backgroundImage: null,
-                              radius: 80.0,
+                              radius: 30.0,
                               backgroundColor:
                                    Color.fromRGBO(203, 99, 51, 1),
                             ),
                   ),
                 onPressed: null,
               ),
-           ),
-         ),
 
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Row(
-              
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                
-                Column(
+              Column(
                   children: <Widget>[
-                        Checkbox(
-                           value: false,
-                           onChanged: (bool value) {
-                             setState(() {
-                               value = !value;
-                             });
-                           },
-                         ),
-                        const Text('Enviar Ubicación'),
-                      ],
-                ),
-                Column(
-                  children: <Widget>[
-                        FloatingActionButton.extended(
-                          label: const Text('Mapa'),
-                          onPressed: (){},
-                          icon: Icon(Icons.remove_red_eye, color: Colors.white),
-                          // shape: CircleBorder(),
-                          // elevation: 2.0,
-                          backgroundColor: const Color.fromRGBO(203, 99, 51, 1),
-                          // padding: const EdgeInsets.all(7.0),
-                        )
+                        _floatingButton()
                       ],
                 )
 
