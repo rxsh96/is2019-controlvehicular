@@ -114,9 +114,9 @@ class SuggestionSerializer(serializers.ModelSerializer):
         model = Suggestion
         fields = "__all__"
 
-class ProductNotificationsSerializer(serializers.ModelSerializer):
+class NotificationsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProductNotifications
+        model = Notifications
         fields = "__all__"
 
 class MaintenanceItemSerializer(serializers.ModelSerializer):
@@ -128,3 +128,13 @@ class AdvertisementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advertisement
         fields = '__all__'
+
+class UDeviceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UDevice
+        fields = "__all__"
+
+class FineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Fine
+        fields = "__all__"

@@ -191,6 +191,11 @@ class Suggestion(models.Model):
     comment_suggestion = models.CharField(max_length=255,null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="Fecha de creación")
 
+class Announcement(models.Model):
+	affiliate_business = models.ForeignKey(Affiliate_business, null=True, blank=True, on_delete = models.CASCADE)
+	title = models.CharField(max_length=150,null=True, blank=True)
+	description = models.CharField(max_length=255)	
+
 class Notifications(models.Model):
 	announcement = models.ForeignKey(Announcement, on_delete = models.CASCADE, null=True, blank=True)
 	user = models.ForeignKey(User, on_delete = models.CASCADE, null=True, blank=True)
@@ -198,14 +203,6 @@ class Notifications(models.Model):
 class UDevice(models.Model):
 	user = models.ForeignKey(User, on_delete = models.CASCADE, null=True, blank=True)
 	device_id = models.CharField(max_length=150, null=True, default=None)
-
-class BusinessAnnouncement(models.Model):
-	affiliate_business = models.ForeignKey(Affiliate_business, null=True, blank=True, on_delete = models.CASCADE)
-	description = models.CharField(max_length=255)
-
-class Announcement(models.Model):
-	title = models.CharField(max_length=150,null=True, blank=True)
-	description = models.CharField(max_length=255)
 
 class Fine(models.Model):
 	value = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)

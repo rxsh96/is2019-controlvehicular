@@ -195,9 +195,9 @@ class SuggestionView(viewsets.ModelViewSet):
     queryset = api_model.Suggestion.objects.all()
     serializer_class = SuggestionSerializer
 
-class ProductNotificationsView(viewsets.ModelViewSet):
-    queryset = api_model.ProductNotifications.objects.all()
-    serializer_class = ProductNotificationsSerializer
+class NotificationsView(viewsets.ModelViewSet):
+    queryset = api_model.Notifications.objects.all()
+    serializer_class = NotificationsSerializer
 
 class MaintenanceItemView(FiltersMixin, viewsets.ModelViewSet):
     """Create a new MaintenanceDetails in the system"""
@@ -228,3 +228,11 @@ class AdvertisementView(FiltersMixin, viewsets.ModelViewSet):
         'id': 'id',
         'affiliate_business': 'affiliate_business',    
     }
+
+class UDeviceView(viewsets.ModelViewSet):
+    queryset = api_model.UDevice.objects.all()
+    serializer_class = UDeviceSerializer
+
+class FineView(viewsets.ModelViewSet):
+    queryset = api_model.Fine.objects.all()
+    serializer_class = FineSerializer
