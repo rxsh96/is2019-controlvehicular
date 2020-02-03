@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:care_app/core/src/models/business_model.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:care_app/core/src/models/model_files.dart';
@@ -100,6 +99,16 @@ class API {
     }
     return <String, dynamic>{'error': 'error'};
   }
+
+  Future<Map<String, dynamic>> postDevice({@required DeviceModel deviceInformation}) async {
+    final Map<String, dynamic> data = deviceInformation.toJson();
+    final MyResponse response = await _apiHelper.post<DeviceModel>(endPoint: ApiRoutes.DEVICE, data: data);
+    if (response.isSuccess) {
+      return _decoder.convert(response.result);
+    }
+    return <String, dynamic>{'error': 'error'};;
+  }
+
   
   Future<List<ModelModel>> getVehicleModels() async{
     final MyResponse response = await _apiHelper.get<ModelModel>(endPoint: ApiRoutes.MODELS);

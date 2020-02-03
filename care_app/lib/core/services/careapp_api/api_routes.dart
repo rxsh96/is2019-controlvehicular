@@ -12,5 +12,6 @@ class ApiRoutes{
   static const String UPLOAD_PROFILE_IMG = 'profilePicture/';
   static const String BUSINESS = 'affiliatebusiness/';
   static const String SUGGESTIONS = 'suggestions/';
+  static const String DEVICE = 'devices/';
 
 }
