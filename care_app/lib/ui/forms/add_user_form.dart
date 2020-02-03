@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:care_app/core/locator.dart';
+import 'package:care_app/ui/pages/pages_files.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +30,7 @@ class _AddUserFormState extends State<AddUserForm> {
   File _image;
 
   Future<void> getImageFromGallery() async {
-    final File image = await ImagePicker.pickImage(source: ImageSource.gallery, maxWidth: 128.0, maxHeight: 128.0,);
+    final File image = await ImagePicker.pickImage(source: ImageSource.gallery, maxWidth: 512.0, maxHeight: 512.0,);
     setState(() {
       _image = image;
     });

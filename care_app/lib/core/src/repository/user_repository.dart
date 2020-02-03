@@ -43,6 +43,10 @@ class UserRepository{
   Future<ProfileImageModel> getProfilePicURL(int id) async {
     final ProfileImageModel response =  await _api.getProfilePicURL(id: id);
     if(response != null){
+      if(response.user == 0){
+        _profileImageURL = 'images/user_avatar.png';
+        return response;
+      }
       print('EN USER REPO: GETPROFILEPICURL: '+response.file);
       _profileImageURL = response.file;
     }

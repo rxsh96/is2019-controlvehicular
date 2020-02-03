@@ -23,15 +23,37 @@ class MyProfilePage extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ClipOval(
-              child: FadeInImage(
-                image: NetworkImage(userRepo.profileImageURL),
-                placeholder: const AssetImage('images/auto-2.gif'),
-                width: 200,
-                height: 200,
-                fit: BoxFit.cover,
+            if (userRepo.profileImageURL != 'images/user_avatar.png')
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: GestureDetector(
+                  child: ClipOval(
+                    child: FadeInImage(
+                      image: NetworkImage(userRepo.profileImageURL),
+                      placeholder:
+                      const AssetImage('images/auto-2.gif'),
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              )
+            else
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: GestureDetector(
+                  child: ClipOval(
+                    child: Image.asset(
+                      'images/user_avatar.png',
+                      height: 200,
+                      width: 200,
+                      fit: BoxFit.cover,
+                      color: const Color.fromRGBO(203, 99, 51, 1),
+                    ),
+                  ),
+                ),
               ),
-            ),
             const SizedBox(
               height: 20,
             ),
@@ -51,7 +73,7 @@ class MyProfilePage extends StatelessWidget {
             Card(
               color: Colors.white,
               margin:
-                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+              const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
               child: ListTile(
                 leading: Icon(
                   Icons.phone,
@@ -67,7 +89,7 @@ class MyProfilePage extends StatelessWidget {
             Card(
               color: Colors.white,
               margin:
-                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+              const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
               child: ListTile(
                 leading: Icon(
                   Icons.email,
