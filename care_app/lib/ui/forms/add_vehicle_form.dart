@@ -1,9 +1,5 @@
 import 'dart:io';
 
-import 'package:care_app/core/locator.dart';
-import 'package:care_app/core/src/repository/vehicle_repository.dart';
-import 'package:care_app/ui/pages/vehicle_page.dart';
-import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -29,13 +25,13 @@ class AddVehicleForm extends StatefulWidget {
 class _AddVehicleFormState extends State<AddVehicleForm> {
   _AddVehicleFormState(this._user);
 
-  User _user;
+  final User _user;
 
-  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _licensePlateController = TextEditingController();
   final TextEditingController _brandController = TextEditingController();
   final TextEditingController _modelController = TextEditingController();
   final TextEditingController _colorController = TextEditingController();
+
   final TextEditingController _yearController = TextEditingController();
   final TextEditingController _lastMatController = TextEditingController();
   final TextEditingController _kmController = TextEditingController();
@@ -53,8 +49,8 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
   }
 
   void cleanFields() {
-    _nameController.text = _licensePlateController.text =
-        _brandController.text = _modelController.text = _colorController.text =
+    _licensePlateController.text = _brandController.text =
+        _modelController.text = _colorController.text =
             _yearController.text = _lastMatController.text =
                 _kmController.text = _descriptionController.text = '';
     setState(() {

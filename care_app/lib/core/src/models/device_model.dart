@@ -7,14 +7,14 @@ class DeviceModel {
     name = json['name'];
     registrationId = json['registration_id'];
     deviceId = json['device_id'];
-    active = json['active'];
+    active = json['active'] == 'true';
     type = json['type'];
   }
 
   String name;
   String registrationId;
   String deviceId;
-  String active;
+  bool active;
   String type;
 
 
@@ -23,8 +23,15 @@ class DeviceModel {
     data['name'] = name;
     data['registration_id'] = registrationId;
     data['device_id'] = deviceId;
-    data['active'] = active;
+    data['active'] = active.toString();
     data['type'] = type;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'DeviceModel{name: $name, registrationId: $registrationId, deviceId: $deviceId, active: $active, type: $type}';
+  }
+
+
 }

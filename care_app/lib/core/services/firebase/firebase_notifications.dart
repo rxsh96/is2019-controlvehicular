@@ -10,6 +10,8 @@ import '../../locator.dart';
 class FirebaseNotifications {
   FirebaseMessaging _firebaseMessaging;
 
+  final API _api = locator<API>();
+
   void setUpFirebase() {
     _firebaseMessaging = FirebaseMessaging();
     firebaseCloudMessagingListeners();
@@ -36,12 +38,26 @@ class FirebaseNotifications {
       deviceType = 'android';
     }
 
-    await _firebaseMessaging.getToken().then((String token) {
-      print(token);
-      locator<API>().postDevice(deviceInformation: DeviceModel(name: '',active: 'true',
-          deviceId: deviceID, registrationId: token, type: deviceType));
+    final String token = await _firebaseMessaging.getToken();
 
-    });
+    final DeviceModel device = await _api.getFCMDevice(deviceID: deviceID);
+    final DeviceModel deviceModel = DeviceModel(name: '', type: deviceType,
+        deviceId: deviceID, registrationId: token, active: true);
+
+    if(device == null){
+      final Map<String, dynamic> fcmResponse = await _api.postFCMDevice(deviceInformation: deviceModel);
+      print('FCM RESPONSE AFTER POST');
+      print(fcmResponse);
+    }
+    else{
+      print('DEVICE MODEL INFO, INSIDE ELSE ON FIREBASE NOTIFICATIONS');
+      print(device.toString());
+      final Map<String, dynamic> fcmResponse = await _api.putFCMDevice(deviceInformation: deviceModel, registrationToken: device.registrationId);
+      print('FCM RESPONSE AFTER PUT');
+      print(fcmResponse);
+    }
+
+
 
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
