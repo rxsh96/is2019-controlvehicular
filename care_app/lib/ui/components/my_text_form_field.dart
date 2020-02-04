@@ -51,21 +51,23 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
   IconData icon;
   String errorMsg;
 
-
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+
       controller: controller,
       keyboardType: textInputType,
       textCapitalization: capitalization,
       decoration: InputDecoration(
+        border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0),
+        ),
         labelText: label,
         hintText: hint,
         suffixIcon: Icon(icon),
-        focusedBorder: UnderlineInputBorder(
+        focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(
-            color: const Color.fromRGBO(203, 99, 51, 1),
+            color: Color.fromRGBO(203, 99, 51, 1),
           ),
         ),
       ),

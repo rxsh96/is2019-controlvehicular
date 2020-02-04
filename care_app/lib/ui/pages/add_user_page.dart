@@ -24,7 +24,7 @@ class _AddUserPageState extends State<AddUserPage> {
         child: Scaffold(
           appBar: AppBar(
             title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 const Text('Registro', style: TextStyle(fontSize: 18)),
                 Image.asset(
