@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:care_app/core/extras/geolocator.dart';
 import 'package:care_app/ui/components/sliding_up.dart';
+import 'package:care_app/ui/components/toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/cupertino.dart';
@@ -48,6 +50,10 @@ class _GasolinePageState extends State<GasolinePage> {
       print('${placemark[0].name}');
     });
   }
+
+  //  Future<void> _getUserLocation(LatLng _initialPosition) async {
+  //    UserLocation().getUserLocation(_initialPosition);
+  // }
 
 
   void _onMapCreated(GoogleMapController controller) {
@@ -122,7 +128,7 @@ class _GasolinePageState extends State<GasolinePage> {
     return Positioned(
       left: 20,
       right: 20,
-      top: 20,
+      top: 80,
       child: SafeArea(
           child: Container(
             child: Row(children: <Widget>[
@@ -177,11 +183,12 @@ class _GasolinePageState extends State<GasolinePage> {
             myLocationButtonEnabled: false,
             
           ),
+          Toolbar(),
           
           Align(
-            alignment: Alignment.topRight,
+            alignment: Alignment.bottomRight,
             child: Container(
-                margin: const EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0),
+                margin: const EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
                 child: Column(
                   children: <Widget>[
                     mapButton(_onAddMarkerButtonPressed,

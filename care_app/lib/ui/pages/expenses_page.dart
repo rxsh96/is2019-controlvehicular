@@ -16,7 +16,7 @@ class _ExpensesPageState extends State<ExpensesPage> {
   String controllerSecondCell = '';
   final List<DataRow> _rowList = [
     const DataRow(cells: <DataCell>[
-      DataCell(Text('')),
+      DataCell(Text('') ),
       DataCell(Text('')),
     ]),
   ];
