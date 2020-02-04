@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:care_app/ui/pages/map/gasoline_page.dart';
 import 'package:flutter/material.dart';
 
 class AccidentReportPage extends StatefulWidget {
@@ -26,6 +27,7 @@ class _AccidentReportPageState extends State<AccidentReportPage> {
         icon: flag ? emoji : Icon(Icons.check_circle_outline, color: Colors.black),
         backgroundColor: flag ? color : Colors.yellow,
         onPressed: () {
+          
           flag = true;
           setState(() => flag = false);
         });

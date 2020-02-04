@@ -106,7 +106,7 @@ class API {
     if (response.isSuccess) {
       return _decoder.convert(response.result);
     }
-    return <String, dynamic>{'error': 'error'};;
+    return <String, dynamic>{'error': 'error'};
   }
 
   
