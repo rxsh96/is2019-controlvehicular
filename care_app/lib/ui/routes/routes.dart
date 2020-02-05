@@ -1,3 +1,4 @@
+import 'package:care_app/core/src/trips/map_trip.dart';
 import 'package:care_app/ui/pages/lights_page.dart';
 import 'package:care_app/ui/pages/transit_taxes_page.dart';
 import 'package:flutter/material.dart';
@@ -74,6 +75,9 @@ class Router {
 
       case FilterPage.ID:
         return MaterialPageRoute<FilterPage>(builder: (_) => const FilterPage());
+      
+      case MapTrip.ID:
+        return MaterialPageRoute<MapTrip>(builder: (_) =>  MapTrip());
 
       case AddVehiclePage.ID:
         final User user = settings.arguments;

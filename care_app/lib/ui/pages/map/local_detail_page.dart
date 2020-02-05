@@ -1,3 +1,4 @@
+import 'package:care_app/core/src/trips/map_trip.dart';
 import 'package:care_app/ui/pages/lights_page.dart';
 import 'package:care_app/ui/pages/map/gasoline_page.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +78,7 @@ final TextEditingController _textController2 = TextEditingController();
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           _crearFlat('Desafiliarme' , GasolinePage.ID),
-          _crearFlat('Ver en mapa', GasolinePage.ID),
+          _crearFlat('Ver en mapa', MapTrip.ID),
         ],
       ),
     );
