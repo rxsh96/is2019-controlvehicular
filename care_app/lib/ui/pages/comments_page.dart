@@ -47,22 +47,20 @@ class _CommentsPageState extends State<CommentsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            const Expanded(
-              child: Text(
-                'COMENTARIOS',
-                style: TextStyle(fontSize: 18),
-              ),
-            ),
-            Image.asset(
-              'images/logo2.png',
-              fit: BoxFit.contain,
-            ),
-          ],
-        ),
-      ),
+          title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.all(8.0),
+            child: const Text('Comentarios'),
+          ),
+          Image.asset(
+            'images/logo2.png',
+            fit: BoxFit.contain,
+            height: 32,
+          ),
+        ],
+      )),
       body: Form(
         key: _formKey,
         child: ListView(

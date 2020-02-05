@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:care_app/core/src/provider/login_provider.dart';
 import 'package:care_app/ui/forms/add_user_form.dart';
 
-
 import 'base_page.dart';
 
 class AddUserPage extends StatefulWidget {
@@ -14,7 +13,6 @@ class AddUserPage extends StatefulWidget {
 }
 
 class _AddUserPageState extends State<AddUserPage> {
-
   @override
   Widget build(BuildContext context) {
     return BasePage<LoginProvider>(
@@ -24,27 +22,29 @@ class _AddUserPageState extends State<AddUserPage> {
         child: Scaffold(
           appBar: AppBar(
             title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                const Text('Registro', style: TextStyle(fontSize: 18)),
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: const Text('Registro'),
+                ),
                 Image.asset(
                   'images/logo2.png',
                   fit: BoxFit.contain,
+                  height: 32,
                 ),
               ],
             ),
           ),
-          body:  ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 30.0),
-          children: <Widget>[
-            AddUserForm(),
-          ],
-        ),
+          body: ListView(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 30.0),
+            children: <Widget>[
+              AddUserForm(),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
-
-

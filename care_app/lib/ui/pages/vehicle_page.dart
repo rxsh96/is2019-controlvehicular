@@ -24,14 +24,14 @@ class VehiclePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BasePage<VehicleProvider>(
-      //onModelReady: (VehicleProvider vehicleProvider) async {
+      onModelReady: (VehicleProvider vehicleProvider) async {
         //if(await MyConnectivity.checkConnectivity()){
-          //vehicleProvider.fetchVehicleModels();
-          //vehicleProvider.fetchVehicleBrands();
+          vehicleProvider.fetchVehicleModels();
+          vehicleProvider.fetchVehicleBrands();
           //vehicleProvider.fetchVehicleBrandsModels();
           //locator<LoginProvider>().getProfilePic();
         //}
-      //},
+      },
       builder: (BuildContext context, VehicleProvider vehicleProvider,
               Widget child) =>
           SafeArea(

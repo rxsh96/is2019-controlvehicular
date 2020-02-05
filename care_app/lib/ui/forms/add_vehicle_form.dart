@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:care_app/core/src/enums/view_state_enum.dart';
@@ -11,7 +13,6 @@ import 'package:care_app/core/src/models/model_model.dart';
 import 'package:care_app/core/src/models/user_model.dart';
 import 'package:care_app/core/src/provider/vehicle_provider.dart';
 import 'package:care_app/ui/components/my_text_form_field.dart';
-
 
 class AddVehicleForm extends StatefulWidget {
   const AddVehicleForm(this._user);
@@ -40,9 +41,14 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   File _image;
+  DateTime _matDate;
 
   Future<void> getImageFromGallery() async {
-    final File image = await ImagePicker.pickImage(source: ImageSource.gallery, maxWidth: 512.0, maxHeight: 512.0,);
+    final File image = await ImagePicker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 512.0,
+      maxHeight: 512.0,
+    );
     setState(() {
       _image = image;
     });
@@ -50,14 +56,14 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
 
   void cleanFields() {
     _licensePlateController.text = _brandController.text =
-        _modelController.text = _colorController.text =
-            _yearController.text = _lastMatController.text =
+        _modelController.text = _colorController.text = _yearController.text =
+            _lastMatController.text =
                 _kmController.text = _descriptionController.text = '';
     setState(() {
       _image = null;
+      _matDate = null;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,14 +71,14 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
         builder: (BuildContext context, VehicleProvider vehicleProvider, _) {
 
           final List<String> models = <String>[];
-          for (ModelModel v in vehicleProvider.models) {
-            models.add(v.model);
-          }
+      for (ModelModel v in vehicleProvider.models) {
+        models.add(v.model);
+      }
 
-          final List<String> brands = <String>[];
-          for (BrandModel b in vehicleProvider.brands) {
-            brands.add(b.brand);
-          }
+      final List<String> brands = <String>[];
+      for (BrandModel b in vehicleProvider.brands) {
+        brands.add(b.brand);
+      }
 
       return Scaffold(
         body: Form(
@@ -109,7 +115,7 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
               const SizedBox(height: 35.0),
               MyTextFormField(
                 controller: _licensePlateController,
-                capitalization: TextCapitalization.words,
+                capitalization: TextCapitalization.characters,
                 textInputType: TextInputType.text,
                 label: 'Placa',
                 hint: 'Formato: ABC-1234',
@@ -144,8 +150,6 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
                   _modelController.text = index.toString();
                 },
               ),
-
-
               const SizedBox(height: 15.0),
               MyTextFormField(
                 controller: _colorController,
@@ -160,20 +164,38 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
                 controller: _yearController,
                 capitalization: TextCapitalization.words,
                 textInputType: TextInputType.number,
-                label: 'Año',
+                label: 'Año del modelo',
                 icon: Icons.timeline,
-                errorMsg: 'Ingresa el año del vehículo',
+                errorMsg: 'Ingresa el año del modelo',
               ),
               const SizedBox(height: 15.0),
-              MyTextFormField(
+              TextField(
+                  onTap: () async {
+                    _matDate = await showRoundedDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(DateTime.now().year - 10),
+                      lastDate: DateTime(DateTime.now().year + 1),
+                      borderRadius: 16,
+                    );
+                    _lastMatController.text = DateFormat('dd-MM-yyyy').format(_matDate);
+                  },
+                  focusNode: FirstDisabledFocusNode(),
                 controller: _lastMatController,
-                capitalization: TextCapitalization.words,
-                textInputType: TextInputType.datetime,
-                label: 'Última Matrícula',
-                hint: 'dd/MM/YYYY',
-                icon: Icons.color_lens,
-                errorMsg: 'Ingresa la última matrícula del vehículo',
-              ),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    labelText: 'Fecha de la última matrícula',
+                    suffixIcon: Icon(Icons.calendar_today),
+                    focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color.fromRGBO(203, 99, 51, 1),
+                      ),
+                    ),
+                  ),
+                ),
+
               const SizedBox(height: 15.0),
               MyTextFormField(
                 controller: _kmController,
@@ -194,54 +216,50 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
               ),
               const SizedBox(height: 35.0),
               if (vehicleProvider.state == ViewState.Busy)
-
-                Container(
-                  width: 50 ,
-                  height: 50,
-                  child: const CircularProgressIndicator(                
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      Color.fromRGBO(203, 99, 51, 1),
-                    ),
-                  )
+                const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Color.fromRGBO(203, 99, 51, 1),
+                  ),
                 ),
               if (vehicleProvider.state == ViewState.Idle)
                 MaterialButton(
                   color: const Color.fromRGBO(203, 99, 51, 1),
                   onPressed: () async {
                     //print(vehiclesBrandsModelsList);
-                    if (_formKey.currentState.validate() && _image != null) {
+                    if (_formKey.currentState.validate() &&
+                        _image != null &&
+                        _matDate != null) {
                       final String imgResponse =
                           await vehicleProvider.saveVehiclePic(_user, _image);
                       final Map<String, dynamic> vehicle = <String, dynamic>{
-                        'plate': _licensePlateController.text.toUpperCase(),
-                        'brand': _brandController.text.toString(),
-                        'model': _modelController.text.toString(),
+                        'plate': _licensePlateController.text,
                         'color': _colorController.text,
                         'year': _yearController.text.toString(),
-                        'km': _kmController.text,
                         'description': _descriptionController.text,
-                        'owner': _user.id.toString(),
+                        'km': _kmController.text,
                         'is_active': 'true',
                         'imageURL': imgResponse.toString(),
+                        'registration' : _lastMatController.text,
+                        'owner': _user.id.toString(),
+                        'brand': _brandController.text.toString(),
+                        'model': _modelController.text.toString(),
                       };
                       final Map<String, dynamic> response =
                           await vehicleProvider.saveVehicle(vehicle);
 
                       if (response.containsKey('error')) {
                         Scaffold.of(context).showSnackBar(
-                          SnackBar(
-                            content: const Text(
+                          const SnackBar(
+                            content: Text(
                                 'Ha surgido un problema. Inténtalo de nuevo.'),
                           ),
                         );
                       } else {
-                        
                         Scaffold.of(context).showSnackBar(
-                          SnackBar(
-                            content: const Text('¡Registro exitoso!'),
+                          const SnackBar(
+                            content: Text('¡Registro exitoso!'),
                           ),
                           //Navigator.pushNamed(context, VehiclePage.ID)
-
                         );
                         cleanFields();
                       }
@@ -260,5 +278,12 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
         ),
       );
     });
+  }
+}
+
+class FirstDisabledFocusNode extends FocusNode {
+  @override
+  bool consumeKeyboardToken() {
+    return false;
   }
 }
