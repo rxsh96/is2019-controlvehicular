@@ -10,8 +10,32 @@ class MyProfilePage extends StatelessWidget {
 
   final UserRepository userRepo;
 
+
+
   @override
   Widget build(BuildContext context) {
+
+    Widget userAvatar;
+    if(userRepo.profileImageURL == null){
+      userAvatar = Image.asset(
+        'images/user_avatar.png',
+        height: 150,
+        width: 150,
+        fit: BoxFit.cover,
+        color: const Color.fromRGBO(203, 99, 51, 1),
+      );
+    }
+    else{
+      userAvatar = FadeInImage(
+        image: NetworkImage(userRepo.profileImageURL),
+        placeholder:
+        const AssetImage('images/auto-2.gif'),
+        width: 150,
+        height: 150,
+        fit: BoxFit.cover,
+      );
+    }
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -23,15 +47,7 @@ class MyProfilePage extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ClipOval(
-              child: FadeInImage(
-                image: NetworkImage(userRepo.profileImageURL),
-                placeholder: const AssetImage('images/auto-2.gif'),
-                width: 200,
-                height: 200,
-                fit: BoxFit.cover,
-              ),
-            ),
+            userAvatar,
             const SizedBox(
               height: 20,
             ),
@@ -51,7 +67,7 @@ class MyProfilePage extends StatelessWidget {
             Card(
               color: Colors.white,
               margin:
-                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+              const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
               child: ListTile(
                 leading: Icon(
                   Icons.phone,
@@ -67,7 +83,7 @@ class MyProfilePage extends StatelessWidget {
             Card(
               color: Colors.white,
               margin:
-                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+              const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
               child: ListTile(
                 leading: Icon(
                   Icons.email,

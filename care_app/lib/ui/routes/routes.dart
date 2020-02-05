@@ -1,4 +1,5 @@
 import 'package:care_app/ui/pages/lights_page.dart';
+import 'package:care_app/ui/pages/transit_taxes_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:care_app/core/src/models/user_model.dart';
@@ -60,6 +61,12 @@ class Router {
 
       case LightsPage.ID:
         return MaterialPageRoute<LightsPage>(builder: (_) => const LightsPage());
+      
+      case TransitTaxesPage.ID:
+        return MaterialPageRoute<TransitTaxesPage>(builder: (_) => const TransitTaxesPage());
+
+      case AddTransitTaxesPage.ID:
+        return MaterialPageRoute<AddTransitTaxesPage>(builder: (_) => AddTransitTaxesPage());
 
       case MyProfilePage.ID:
         final UserRepository userRepo = settings.arguments;

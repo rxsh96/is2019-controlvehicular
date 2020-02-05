@@ -19,8 +19,8 @@ final TextEditingController _textController2 = TextEditingController();
   @override
   void initState() {   
     super.initState();
-    _textController1.text = "Dirección del local";
-    _textController2.text = "Teléfono del local";
+    _textController1.text = 'Dirección del local';
+    _textController2.text = 'Teléfono del local';
   }
 
 
@@ -86,26 +86,25 @@ final TextEditingController _textController2 = TextEditingController();
 
   Widget _crearFlat( String texto , String ruta){
     return FlatButton(
-         color: Color.fromRGBO(203, 99, 51, 0.9),
+         color: const Color.fromRGBO(203, 99, 51, 0.9),
          textColor: Colors.white,
          disabledColor: Colors.grey,
          disabledTextColor: Colors.black,
-         padding: EdgeInsets.all(18.0),
+         padding: const EdgeInsets.all(18.0),
          splashColor: Colors.blueAccent,
          onPressed: () {
            //Aquí pasamos el parámetro del lat y long de este local como un argument a la ruta
            Navigator.pushNamed(context, '$ruta');
          },
          child: Text(
-          "$texto",
+          '$texto',
           style: TextStyle(fontSize: 20.0),
          ),
        );
   }
 
 
- Widget _crearInput( TextEditingController _textController ,IconData icon , String label , String hint ){
-   
+ Widget _crearInput( TextEditingController _textController ,IconData icon , String label , String hint ){  
   return Padding(
     padding: const EdgeInsets.symmetric( horizontal: 12.0 , vertical: 5.0),
     child: TextField (

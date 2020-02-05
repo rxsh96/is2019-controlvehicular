@@ -20,7 +20,6 @@ class ApiHelper {
   ///Generic [http.post(url)] method.
   Future<MyResponse> post<T>(
       {@required String endPoint, @required Map<String, dynamic> data}) async {
-    print('EN API HELPER POST, DATA ES: $data');
     try {
       final http.Response response =
           await getHttpClient().post(_BASE_URL + endPoint, body: data);
@@ -49,4 +48,22 @@ class ApiHelper {
       return MyResponse(isSuccess: false, message: e.toString());
     }
   }
+
+  ///Generic [http.get(url)] method.
+  Future<MyResponse> put<T>(
+      {@required String endPoint, @required String instance, @required Map<String, dynamic> data}) async {
+    try {
+      print(_BASE_URL + endPoint + instance);
+      final http.Response response =
+      await getHttpClient().put(_BASE_URL + endPoint + instance + '/', body: data);
+      if (response.statusCode < 200 || response.statusCode > 400) {
+        return MyResponse(isSuccess: false, message: response.toString());
+      }
+      return MyResponse(isSuccess: true, message: 'Ok', result: response.body);
+    } catch (e) {
+      print(e);
+      return MyResponse(isSuccess: false, message: e.toString());
+    }
+  }
+
 }

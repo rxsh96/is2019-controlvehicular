@@ -42,16 +42,22 @@ class VehicleProvider extends BaseProvider{
     return response;
   }
 
-  Future<bool> fetchVehicleModels() async {
-    return await _vehicleRepository.fetchVehicleModels();
+  Future<void> fetchVehicleModels() async {
+    setState(ViewState.Busy);
+    await _vehicleRepository.fetchVehicleModels();
+    setState(ViewState.Idle);
   }
 
-  Future<bool> fetchVehicleBrands() async {
-    return await _vehicleRepository.fetchVehicleBrands();
+  Future<void> fetchVehicleBrands() async {
+    setState(ViewState.Busy);
+    await _vehicleRepository.fetchVehicleBrands();
+    setState(ViewState.Idle);
   }
 
-  Future<bool> fetchVehicleBrandsModels() async {
-    return await _vehicleRepository.joinBrandModel();
+  Future<void> fetchVehicleBrandsModels() async {
+    setState(ViewState.Busy);
+    await _vehicleRepository.joinBrandModel();
+    setState(ViewState.Idle);
   }
 
   void selectVehicle(Vehicle vehicle){

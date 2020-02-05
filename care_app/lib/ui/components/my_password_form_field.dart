@@ -60,10 +60,14 @@ class _MyPassFormFieldState extends State<MyPassFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      
       controller: controller,
       keyboardType: textInputType,
       obscureText: _obscureText,
       decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
         labelText: label,
         hintText: hint,
         suffixIcon: isLogin
