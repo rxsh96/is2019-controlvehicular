@@ -1,15 +1,15 @@
 from django.db import models
-from api.models import Advertisement,Affiliate_business,ProductNotifications
+from api.models import Advertisement,Affiliate_business,Notifications
 from django.dispatch import receiver
 from fcm_django.models import FCMDevice
 from django.db.models.signals import post_save
 
 """
 # Create your models here.
-@receiver(post_save, sender=ProductNotifications)
+@receiver(post_save, sender=Notifications)
 def notify_product_notification(sender, instance, **kwargs):
     if kwargs.get('created',False):
-        sd = ProductNotifications.objects.get(id=instance.service_details.id)
+        sd = Notifications.objects.get(id=instance.service_details.id)
         sd.assigned = True
         sd.status = 'EN CURSO'
         if sd.req_service.service_type == 'CUSTODIA':

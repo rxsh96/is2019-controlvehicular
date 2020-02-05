@@ -1,9 +1,9 @@
 from rest_framework import routers
 from api import views as myapi_views
-from fcm_django.api.rest_framework import FCMDeviceViewSet
+#from fcm_django.api.rest_framework import FCMDeviceViewSet
 
 router = routers.DefaultRouter()
-router.register(r'devices', FCMDeviceViewSet)
+router.register(r'devices',  myapi_views.FCMDeviceViewSet)
 router.register(r'users', myapi_views.UserView)
 router.register(r'vehicle', myapi_views.VehicleView)
 router.register(r'mantenimiento', myapi_views.MaintenanceView)
