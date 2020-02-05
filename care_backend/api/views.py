@@ -1,4 +1,6 @@
 from rest_framework import viewsets, filters, generics, authentication, permissions
+from fcm_django.api.rest_framework import DeviceViewSetMixin, FCMDeviceSerializer
+from fcm_django.models import FCMDevice
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 from api.serializers import *
@@ -236,3 +238,15 @@ class UDeviceView(viewsets.ModelViewSet):
 class FineView(viewsets.ModelViewSet):
     queryset = api_model.Fine.objects.all()
     serializer_class = FineSerializer
+
+class FCMDeviceViewSet(FiltersMixin, DeviceViewSetMixin, viewsets.ModelViewSet):
+    queryset = FCMDevice.objects.all()
+    serializer_class = FCMDeviceSerializer
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('id', 'device_id')
+    ordering = ('id',)
+
+    filter_mappings = {
+        'id': 'id',
+        'device_id': 'device_id',
+    }
