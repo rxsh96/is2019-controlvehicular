@@ -25,14 +25,14 @@ class Request extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Row(
             children: <Widget>[
               Icon(Icons.directions_car, size: 40),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Column(
@@ -44,27 +44,33 @@ class Request extends StatelessWidget {
               )
             ],
           ),
-          Row(
+          Column(
             children: <Widget>[
-              CupertinoButton(
-                onPressed: onReset,
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                minSize: 30,
-                color: const Color.fromRGBO(103, 110, 122, .6),
-                child: const Text('Cancelar'),
-                borderRadius: BorderRadius.circular(30),
+              const Text('¿Este fue tu viaje?', style: TextStyle(fontWeight: FontWeight.bold),),
+              const Padding(padding:  EdgeInsets.only(bottom: 8.0),),
+              Row(
+                children: <Widget>[
+                  CupertinoButton(
+                    onPressed: onReset,
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                    minSize: 30,
+                    color: const Color.fromRGBO(103, 110, 122, .6),
+                    child: const Text('Cancelar'),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  CupertinoButton(
+                    onPressed: onConfirm,
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                    minSize: 30,
+                    color: const Color.fromRGBO(203, 99, 51, 1),
+                    child: const Text('Confirmar'),
+                    borderRadius: BorderRadius.circular(30),
+                  )
+                ],
               ),
-              SizedBox(
-                width: 5,
-              ),
-              CupertinoButton(
-                onPressed: onConfirm,
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                minSize: 30,
-                color: const Color.fromRGBO(203, 99, 51, 1),
-                child: const Text('Confirmar'),
-                borderRadius: BorderRadius.circular(30),
-              )
             ],
           )
         ],

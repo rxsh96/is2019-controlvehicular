@@ -32,6 +32,7 @@ class _MapTripState extends State<MapTrip> {
   final Marker _originMarker = Marker(markerId: MarkerId('Origen'));
   final Marker _destinationMarker = Marker(markerId: MarkerId('Destino'));
 
+
   Nominatim _nominatim = Nominatim();
   OSRM _osrm = OSRM();
 
@@ -44,6 +45,8 @@ class _MapTripState extends State<MapTrip> {
   Map<MarkerId, Marker> _markers = Map();
   Map<PolylineId, Polyline> _polylines = Map();
   Map<PolygonId, Polygon> _polygons = Map();
+  Marker startPoint;
+  Marker endPoint;
 
   var _isPanelOpen = false;
   Timer _idleTimer;
@@ -107,12 +110,12 @@ class _MapTripState extends State<MapTrip> {
     });
   }
 
-  _onServiceMarkerPressed(ReverseType reverseType) {
+  void _onServiceMarkerPressed(ReverseType reverseType) {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
-            title: Text('Confirmación Requerida'),
+            title: const Text('Confirmación Requerida'),
             content: Text(
                 'desea cambiar el ${reverseType == ReverseType.origin ? "origen" : "destino"} del servicio'),
             actions: <Widget>[
@@ -134,14 +137,14 @@ class _MapTripState extends State<MapTrip> {
 
                   setState(() {});
                 },
-                child: Text('SI'),
+                child: const Text('SI'),
               )
             ],
           );
         });
   }
 
-  _onRoute(int status, dynamic data) async {
+   _onRoute(int status, dynamic data) async {
     print('$status');
 
     if (status == 200) {
@@ -163,7 +166,7 @@ class _MapTripState extends State<MapTrip> {
             polylineId: PolylineId('route'),
             points: points,
             width: 5,
-            color: Colors.cyan);
+            color: const Color.fromRGBO(203, 99, 51, 1));
 
         final startBytes = await MapUtils.loadPinFromAsset(
             'images/green-circle.png',
@@ -172,21 +175,23 @@ class _MapTripState extends State<MapTrip> {
             'images/red-circle.png',
             width: 55);
 
-        final startPoint = Marker(
-            markerId: MarkerId("start-point"),
+         startPoint = Marker(
+            markerId: MarkerId('start-point'),
             position: points[0],
-            anchor: Offset(0.5, 0.5),
+            anchor: const  Offset(0.5, 0.5),
             icon: BitmapDescriptor.fromBytes(startBytes));
 
-        final endPoint = Marker(
-            markerId: MarkerId("end-point"),
+         endPoint = Marker(
+            markerId: MarkerId('end-point'),
             anchor: Offset(0.5, 0.5),
             position: points[points.length - 1],
             icon: BitmapDescriptor.fromBytes(endBytes));
 
         setState(() {
           _markers[startPoint.markerId] = startPoint;
+          print('INCIIIIAL : ${startPoint.position}');
           _markers[endPoint.markerId] = endPoint;
+          print('FIIINAAAL : ${endPoint.position}');
           _polylines[polyline.polylineId] = polyline;
         });
       } else {
@@ -225,7 +230,7 @@ class _MapTripState extends State<MapTrip> {
         geolocator.getPositionStream(locationOptions).listen(_onLocationUpdate);
   }
 
-  _onLocationUpdate(Position position) {
+  void _onLocationUpdate(Position position) {
     if (position != null) {
       final myPosition = LatLng(position.latitude, position.longitude);
 
@@ -281,7 +286,7 @@ class _MapTripState extends State<MapTrip> {
     });
   }
 
-  _onCameraMove(CameraPosition cameraPosition) {
+  void _onCameraMove(CameraPosition cameraPosition) {
     print(
         'moving ${cameraPosition.target.latitude},${cameraPosition.target.longitude}');
     _centerPosition = cameraPosition.target;
@@ -290,13 +295,13 @@ class _MapTripState extends State<MapTrip> {
     _idleTimer = Timer(Duration(milliseconds: 400), _onCameraIdle);
   }
 
-  _onCameraIdle() {
+  void _onCameraIdle() {
     if (_origin == null || _destination == null) {
       _nominatim.reverse(_centerPosition);
     }
   }
 
-  _onSearch(SearchResult result) {
+  void _onSearch(SearchResult result) {
     _moveCamera(result.position, zoom: 16);
 
     if (result.polygon.length > 0) {
@@ -316,7 +321,7 @@ class _MapTripState extends State<MapTrip> {
     }
   }
 
-  _onGoMyPosition() {
+  void _onGoMyPosition() {
     if (_myPosition != null) {
       _moveCamera(_myPosition, zoom: 15);
     }
@@ -347,6 +352,43 @@ class _MapTripState extends State<MapTrip> {
   }
 
 
+  Widget mapButton(Function function, Icon icon, Color color) {
+    return RawMaterialButton(
+      onPressed: function,
+      child: icon,
+      shape: const CircleBorder(),
+      // elevation: 2.0,
+      fillColor: color,
+      padding: const EdgeInsets.all(10.0),
+    );
+  }
+
+
+  void _createDialog(   ){
+    showDialog <AlertDialog>(
+      context: context,
+      builder: ( BuildContext context){
+          return  AlertDialog(
+            title: const Center(child:  Text('¿Qué puedo ver aquí?')),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+              
+              ],
+            ),
+            actions: <Widget>[
+                FlatButton(
+                child: const Text('Entendido!',style: TextStyle(color: Colors.black)),
+                onPressed: () => Navigator.of(context).pop(),
+              ),    
+            ],
+          );
+      }
+
+    );
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -361,7 +403,7 @@ class _MapTripState extends State<MapTrip> {
         height: double.infinity,
         child: _initialCameraPosition == null
             ? Center(
-                child: CupertinoActivityIndicator(radius: 15),
+                child: const CupertinoActivityIndicator(radius: 15),
               )
             : SafeArea(
                 child: SlidingUpPanel(
@@ -397,6 +439,20 @@ class _MapTripState extends State<MapTrip> {
                               _mapController = controller;
                             },
                           ),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: Container(
+                                margin: const EdgeInsets.fromLTRB(1.0, 60.0, 0.0, 0.0),
+                                child: Column(
+                                  children: <Widget>[  
+                                    mapButton(_createDialog,
+                                        Icon(
+                                            Icons.info_outline
+                                        ), Colors.white),
+                                  ],
+                                )
+                            ),
+                          ),
                           pop(),
                           _origin == null || _destination == null
                               ? MyCenterPosition(
@@ -423,7 +479,7 @@ class _MapTripState extends State<MapTrip> {
                               color: Colors.white,
                               onPressed: _onGoMyPosition,
                               borderRadius: BorderRadius.circular(30),
-                              padding: EdgeInsets.all(5),
+                              padding: const EdgeInsets.all(5),
                               child: Icon(
                                 Icons.gps_fixed,
                                 color: Colors.black,
@@ -455,7 +511,7 @@ class _MapTripState extends State<MapTrip> {
                                       _panelController.open();
                                     },
                                     color: const Color(0xfff0f0f0),
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         horizontal: 15, vertical: 15),
                                     child: Row(
                                       mainAxisAlignment:
@@ -480,7 +536,11 @@ class _MapTripState extends State<MapTrip> {
                                 )
                           : Request(
                               onReset: _reset,
-                              onConfirm: () {},
+                              onConfirm: () {
+                                //Guardar en db, con startPoint y endPoint
+                                print('El punto inicial es: ${startPoint.position} , El punto final es ${endPoint.position}');
+
+                              },
                               route: _route,
                             )
                     ],

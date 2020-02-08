@@ -72,7 +72,7 @@ class _ToolbarState extends State<Toolbar> {
     final isNotEmpty = _query.trim().length > 0;
     return Container(
       height: widget.containerHeight,
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       child: Column(
         children: <Widget>[
           CupertinoTextField(
@@ -89,7 +89,7 @@ class _ToolbarState extends State<Toolbar> {
                   )
                 : null,
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           isNotEmpty

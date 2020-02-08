@@ -11,6 +11,7 @@ class MyValidator{
     final RegExp emailAddressRegExp = RegExp(emailAddressPattern);
     return emailAddressRegExp.hasMatch(value);
   }
+  
 
   bool validatePlate(String value){
     const String platePattern = r'^[A-Z]{3}-[1-9]{3,4}$';
