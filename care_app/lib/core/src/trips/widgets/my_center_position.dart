@@ -49,9 +49,9 @@ class MyCenterPosition extends StatelessWidget {
           Container(
             width: 4,
             height: 15,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 color: Colors.white,
-                borderRadius: const BorderRadius.only(
+                borderRadius:  BorderRadius.only(
                   bottomLeft:  Radius.circular(4),
                   bottomRight: Radius.circular(4),
                 )),

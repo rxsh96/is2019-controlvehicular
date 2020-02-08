@@ -11,5 +11,6 @@ class MyValidator{
     final RegExp emailAddressRegExp = RegExp(emailAddressPattern);
     return emailAddressRegExp.hasMatch(value);
   }
+  
 
 }

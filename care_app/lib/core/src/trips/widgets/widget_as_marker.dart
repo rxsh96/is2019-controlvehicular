@@ -22,21 +22,21 @@ class WidgetAsMarker extends StatelessWidget {
       child: RepaintBoundary(
         key: repaintKey,
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Row(
             children: <Widget>[
               Icon(
                 Icons.brightness_1,
                 color: dotColor,
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: 150),
+                constraints: const BoxConstraints(maxWidth: 150),
                 child: Text(
                   text,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 13, letterSpacing: 1),
+                  style: const TextStyle(fontSize: 13, letterSpacing: 1),
                 ),
               )
             ],

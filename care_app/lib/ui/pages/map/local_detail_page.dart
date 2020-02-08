@@ -49,7 +49,7 @@ final TextEditingController _textController2 = TextEditingController();
                  fontWeight: FontWeight.bold , fontSize: 25
                 ),
               ) ,
-             subtitle:Text(
+             subtitle:const Text(
                'Descripción del local',
                 style: TextStyle(
                  fontSize: 10
@@ -99,7 +99,7 @@ final TextEditingController _textController2 = TextEditingController();
          },
          child: Text(
           '$texto',
-          style: TextStyle(fontSize: 20.0),
+          style: const TextStyle(fontSize: 20.0),
          ),
        );
   }
@@ -116,7 +116,7 @@ final TextEditingController _textController2 = TextEditingController();
         //helperText: 'Solo es el nombre',
           labelText: label ,
           hintText: hint,
-          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: const Color.fromRGBO(203, 99, 51, 1),)),
+          focusedBorder: const  UnderlineInputBorder(borderSide: BorderSide(color:  Color.fromRGBO(203, 99, 51, 1),)),
           suffixIcon: Icon(icon),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),

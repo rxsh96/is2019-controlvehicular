@@ -82,6 +82,32 @@ class _GasolinePageState extends State<GasolinePage> {
     print('la nueva posicion es $p');
   }
 
+void _createDialog(   ){
+    showDialog <AlertDialog>(
+      context: context,
+      builder: ( BuildContext context){
+          return  AlertDialog(
+            title: const Center(child:  Text('¿Qué puedo ver aquí?')),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+
+                      
+              ],
+            ),
+            actions: <Widget>[
+                FlatButton(
+                child: const Text('Entendido!',style: TextStyle(color: Colors.black)),
+                onPressed: () => Navigator.of(context).pop(),
+              ),    
+            ],
+          );
+      }
+
+    );
+  }
+
+
   void _onAddMarkerButtonPressed() {
 
     final id = '${_markers.length}';
@@ -126,7 +152,7 @@ class _GasolinePageState extends State<GasolinePage> {
     return Positioned(
       left: 20,
       right: 20,
-      top: 80,
+      top: 20,
       child: SafeArea(
           child: Container(
             child: Row(children: <Widget>[
@@ -151,7 +177,7 @@ class _GasolinePageState extends State<GasolinePage> {
     return RawMaterialButton(
       onPressed: function,
       child: icon,
-      shape: CircleBorder(),
+      shape: const CircleBorder(),
       elevation: 2.0,
       fillColor: color,
       padding: const EdgeInsets.all(7.0),
@@ -186,7 +212,7 @@ class _GasolinePageState extends State<GasolinePage> {
           
           
           Align(
-            alignment: Alignment.bottomRight,
+            alignment: Alignment.topRight,
             child: Container(
                 margin: const EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
                 child: Column(
@@ -198,11 +224,13 @@ class _GasolinePageState extends State<GasolinePage> {
                     mapButton(
                         _onMapTypeButtonPressed,
                         Icon(
-                          IconData(0xf473,
-                              fontFamily: CupertinoIcons.iconFont,
-                              fontPackage: CupertinoIcons.iconFontPackage),
+                            Icons.map
                         ),
                         Colors.deepOrange[300]),
+                    mapButton(_createDialog,
+                        Icon(
+                            Icons.info_outline
+                        ), Colors.grey[300]),
                   ],
                 )
             ),
