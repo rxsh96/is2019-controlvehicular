@@ -24,19 +24,38 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
   @override
   Widget build(BuildContext context) {
     return BasePage<VehicleProvider>(
-        builder:
-        (BuildContext context, VehicleProvider vehicleProvider, Widget child) {
-      return SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text(
-              'AÑADIR VEHÍCULO',
-              style: TextStyle(fontSize: 16),
+      builder:
+          (BuildContext context, VehicleProvider vehicleProvider, Widget child) =>
+          SafeArea(
+            child: Scaffold(
+              appBar: AppBar(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.all(8.0),
+                      child: const Text('Registrar Vehículo', style: TextStyle(fontSize: 16),),
+                    ),
+                    Image.asset(
+                      'images/logo2.png',
+                      fit: BoxFit.contain,
+                      height: 32,
+                    ),
+                  ],
+                ),
+              ),
+              body: ListView(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 30.0),
+                children: <Widget>[
+                  AddVehicleForm(_user),
+                ],
+              ),
             ),
           ),
-          body: AddVehicleForm(_user),
-        ),
-      );
-    });
+    );
   }
+
+
+
 }

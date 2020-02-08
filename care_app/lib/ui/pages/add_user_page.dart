@@ -26,7 +26,7 @@ class _AddUserPageState extends State<AddUserPage> {
               children: <Widget>[
                 Container(
                   padding: const EdgeInsets.all(8.0),
-                  child: const Text('Registro'),
+                  child: const Text('Registro', style: TextStyle(fontSize: 16),),
                 ),
                 Image.asset(
                   'images/logo2.png',

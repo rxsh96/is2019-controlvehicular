@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:care_app/core/extras/connectivity.dart';
 import 'package:care_app/ui/pages/add_cost_gasoline_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -38,8 +37,8 @@ class VehiclePage extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             title: const Text(
-              'MIS VEHÍCULOS',
-              style: TextStyle(fontSize: 16),
+              'CareApp',
+              style: TextStyle(fontSize: 20),
             ),
             actions: <Widget>[
               MyIconButton(
