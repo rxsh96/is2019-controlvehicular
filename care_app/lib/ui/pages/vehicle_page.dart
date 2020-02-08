@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:care_app/core/extras/connectivity.dart';
 import 'package:care_app/ui/pages/add_cost_gasoline_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -24,22 +23,22 @@ class VehiclePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BasePage<VehicleProvider>(
-      //onModelReady: (VehicleProvider vehicleProvider) async {
+      onModelReady: (VehicleProvider vehicleProvider) async {
         //if(await MyConnectivity.checkConnectivity()){
-          //vehicleProvider.fetchVehicleModels();
-          //vehicleProvider.fetchVehicleBrands();
+          vehicleProvider.fetchVehicleModels();
+          vehicleProvider.fetchVehicleBrands();
           //vehicleProvider.fetchVehicleBrandsModels();
           //locator<LoginProvider>().getProfilePic();
         //}
-      //},
+      },
       builder: (BuildContext context, VehicleProvider vehicleProvider,
               Widget child) =>
           SafeArea(
         child: Scaffold(
           appBar: AppBar(
             title: const Text(
-              'MIS VEHÍCULOS',
-              style: TextStyle(fontSize: 16),
+              'CareApp',
+              style: TextStyle(fontSize: 20),
             ),
             actions: <Widget>[
               MyIconButton(

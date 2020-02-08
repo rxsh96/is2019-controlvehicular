@@ -1,3 +1,4 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +25,13 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: <LocalizationsDelegate<dynamic>>[
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: const <Locale>[
+        Locale('es'), // English
+      ],
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       onGenerateRoute: Router.generateRoute,
@@ -40,8 +48,8 @@ class App extends StatelessWidget {
               case AuthStatus.Authenticated:
                 return VehiclePage();
               default:
-                return Scaffold(
-                  body: const Center(
+                return const Scaffold(
+                  body: Center(
                     child: Text('SURGIO UN PROBLEMA'),
                   ),
                 );

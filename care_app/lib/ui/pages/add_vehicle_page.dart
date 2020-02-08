@@ -1,4 +1,3 @@
-import 'package:care_app/core/src/enums/my_enum.dart';
 import 'package:flutter/material.dart';
 
 import 'package:care_app/core/src/models/user_model.dart';
@@ -20,41 +19,43 @@ class AddVehiclePage extends StatefulWidget {
 class _AddVehiclePageState extends State<AddVehiclePage> {
   _AddVehiclePageState(this._user);
 
-  User _user;
+  final User _user;
 
   @override
   Widget build(BuildContext context) {
-    return BasePage<VehicleProvider>(onModelReady:
-        (VehicleProvider vehicleProvider) async {
-      await vehicleProvider.fetchVehicleBrands();
-      await vehicleProvider.fetchVehicleModels();
-    }, builder:
-        (BuildContext context, VehicleProvider vehicleProvider, Widget child) {
-      Widget body;
-      if (vehicleProvider.state == ViewState.Idle) {
-        body = AddVehicleForm(_user);
-      } else {
-        body = Center(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            CircularProgressIndicator(),
-            Text('Cargando Marcas y Modelos de Vehículos'),
-          ],
-        ));
-      }
-      return SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text(
-              'AÑADIR VEHÍCULO',
-              style: TextStyle(fontSize: 16),
+    return BasePage<VehicleProvider>(
+      builder:
+          (BuildContext context, VehicleProvider vehicleProvider, Widget child) =>
+          SafeArea(
+            child: Scaffold(
+              appBar: AppBar(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.all(8.0),
+                      child: const Text('Registrar Vehículo', style: TextStyle(fontSize: 16),),
+                    ),
+                    Image.asset(
+                      'images/logo2.png',
+                      fit: BoxFit.contain,
+                      height: 32,
+                    ),
+                  ],
+                ),
+              ),
+              body: ListView(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 30.0),
+                children: <Widget>[
+                  AddVehicleForm(_user),
+                ],
+              ),
             ),
           ),
-          body: body,
-        ),
-      );
-    });
+    );
   }
+
+
+
 }

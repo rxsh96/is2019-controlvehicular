@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:care_app/core/locator.dart';
-import 'package:care_app/ui/pages/pages_files.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -157,20 +155,20 @@ class _AddUserFormState extends State<AddUserForm> {
 
                     if (response.containsKey('error')) {
                       Scaffold.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text(
+                        const SnackBar(
+                          content: Text(
                               'Ha surgido un problema. Inténtalo de nuevo.'),
                         ),
                       );
                     } else {
                       Scaffold.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text('¡Registro exitoso!'),
+                        const SnackBar(
+                          content: Text('¡Registro exitoso!'),
                           duration: Duration(seconds: 2),
                         ),
                       );
                       cleanFields();
-                      await Future<dynamic>.delayed(Duration(seconds: 2));
+                      await Future<dynamic>.delayed(const Duration(seconds: 2));
                       Navigator.pushNamed(context, '/');
                     }
                   }

@@ -117,8 +117,8 @@ class _LoginFormState extends State<LoginForm> {
                             _usernameController.text, _passwordController.text);
                         if (!response) {
                           Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                              content: const Text(
+                            const SnackBar(
+                              content: Text(
                                   'No se puede iniciar sesión con las credenciales proporcionadas'),
                             ),
                           );
@@ -128,8 +128,8 @@ class _LoginFormState extends State<LoginForm> {
                       }
                       else{
                         Scaffold.of(context).showSnackBar(
-                          SnackBar(
-                            content: const Text(
+                          const SnackBar(
+                            content: Text(
                                 'Usuario no registrado'),
                           ),
                         );

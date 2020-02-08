@@ -85,6 +85,11 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
             return 'Número de Teléfono Inválido';
           }
         }
+        if (label == 'Placa') {
+          if (!MyValidator().validatePlate(value)) {
+            return 'Placa Inválida';
+          }
+        }
         return null;
       },
     );
