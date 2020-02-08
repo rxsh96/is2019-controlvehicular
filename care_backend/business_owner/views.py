@@ -44,7 +44,7 @@ class ClientOwnerAddView(CreateView):
   def form_valid(self,form):
     self.object = form.save(commit=False)
     self.object.save()
-    return HttpResponseRedirect(reverse_lazy('usuario_owner'))
+    return HttpResponseRedirect(reverse_lazy('usuario_owner',args=[self.request.user.id]))
     
   def get_form_kwargs(self):
         kwargs = super(ClientOwnerAddView, self).get_form_kwargs()
