@@ -11,6 +11,8 @@ import 'package:care_app/core/src/trips/widgets/my_center_position.dart';
 import 'package:care_app/core/src/trips/widgets/request.dart';
 import 'package:care_app/core/src/trips/widgets/toolbar.dart';
 import 'package:care_app/core/src/trips/widgets/widget_as_marker.dart';
+import 'package:care_app/ui/pages/add_trip_page.dart';
+import 'package:care_app/ui/pages/map/local_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -21,6 +23,7 @@ enum ReverseType { origin, destination }
 
 class MapTrip extends StatefulWidget {
 
+ 
   static const String ID = 'mapTripPage';
   @override
   _MapTripState createState() => _MapTripState();
@@ -55,6 +58,8 @@ class _MapTripState extends State<MapTrip> {
   ReverseResult _reverseResult;
   ReverseType _reverseType = ReverseType.origin;
   dynamic _route;
+  String initName;
+  String endName;
 
   @override
   void initState() {
@@ -262,16 +267,16 @@ class _MapTripState extends State<MapTrip> {
     _mapController.animateCamera(cameraUpdate);
   }
 
-  _onMarkerTap(String id) {
+   _onMarkerTap(String id) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
-            title: Text('Click'),
+            title: const Text('Click'),
             content: Text('marker id $id'),
             actions: <Widget>[
               CupertinoDialogAction(
-                child: Text('OK'),
+                child: const Text('OK'),
                 onPressed: () => Navigator.pop(context),
               )
             ],
@@ -442,7 +447,7 @@ class _MapTripState extends State<MapTrip> {
                           Align(
                             alignment: Alignment.topRight,
                             child: Container(
-                                margin: const EdgeInsets.fromLTRB(1.0, 60.0, 0.0, 0.0),
+                                margin: const EdgeInsets.fromLTRB(0.0, 60.0, 0.0, 0.0),
                                 child: Column(
                                   children: <Widget>[  
                                     mapButton(_createDialog,
@@ -538,7 +543,16 @@ class _MapTripState extends State<MapTrip> {
                               onReset: _reset,
                               onConfirm: () {
                                 //Guardar en db, con startPoint y endPoint
-                                print('El punto inicial es: ${startPoint.position} , El punto final es ${endPoint.position}');
+                                print('El punto inicial es: ${startPoint.position} , El punto final es ${endPoint.position} , El origen es :${_origin.address}, El destino es: ${_destination.address}');
+                                setState(() {
+                                  initName = _origin.address.toString();
+                                  endName = _destination.address.toString();
+                                  
+                                });
+                                //  Navigator.pushNamed(context, AddTripPage.ID(init: initName,end:endName));
+
+                                 //Revisar!
+
 
                               },
                               route: _route,

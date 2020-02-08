@@ -22,7 +22,8 @@ class _InfoCardState extends State<InfoCard> {
   final String description;
   final IconData iconLeading;
 
-  bool isPressed=false;
+  bool isPressed = false;
+  int count = 1 ;
 
 
 
@@ -65,9 +66,14 @@ class _InfoCardState extends State<InfoCard> {
                                              : Colors.grey[300]
                 ),
                 onPressed: (){
-                  setState(()=>isPressed= true); 
+                  count ++ ;
+                  count.isEven ? 
+                              setState(() => isPressed= true ) 
+                              : 
+                              setState(() => isPressed= false );              
                 },
-              ),       
+              )
+                
         ),
       ),
      ),
