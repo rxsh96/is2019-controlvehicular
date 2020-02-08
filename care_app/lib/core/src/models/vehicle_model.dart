@@ -1,15 +1,16 @@
 class Vehicle {
   Vehicle(
       {this.id,
-        this.brand,
-        this.model,
         this.plate,
         this.color,
         this.year,
         this.description,
         this.km,
         this.imageURL,
-        this.owner});
+        this.registration,
+        this.owner,
+        this.brand,
+        this.model});
 
   Vehicle.initial()
       : id = 0,
@@ -29,6 +30,7 @@ class Vehicle {
     color = json['color'];
     year = json['year'];
     description = json['description'];
+    registration = json['registration'];
     km = json['km'];
     imageURL = json['imageURL'];
     owner = json['owner'];
@@ -43,6 +45,7 @@ class Vehicle {
     data['color'] = color;
     data['year'] = year;
     data['description'] = description;
+    data['registration'] = registration;
     data['km'] = km;
     data['imageURL'] = imageURL;
     data['owner'] = owner;
@@ -52,7 +55,8 @@ class Vehicle {
   @override
   String toString() {
     return 'Vehicle{id: $id, brand: $brand, model: $model, plate: $plate, '
-        'color: $color, year: $year, description: $description, km: $km, '
+        'color: $color, year: $year, registration $registration, '
+        'description: $description, km: $km, '
         'imageURL: $imageURL, owner: $owner}';
   }
 
@@ -65,5 +69,6 @@ class Vehicle {
   String description;
   String km;
   String imageURL;
+  String registration;
   int owner;
 }

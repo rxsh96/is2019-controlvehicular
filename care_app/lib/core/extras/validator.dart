@@ -13,4 +13,10 @@ class MyValidator{
   }
   
 
+  bool validatePlate(String value){
+    const String platePattern = r'^[A-Z]{3}-[1-9]{3,4}$';
+    final RegExp plateRegExp = RegExp(platePattern);
+    return plateRegExp.hasMatch(value);
+  }
+
 }
