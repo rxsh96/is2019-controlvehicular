@@ -1,5 +1,7 @@
 import 'package:care_app/core/src/trips/map_trip.dart';
 import 'package:care_app/ui/pages/lights_page.dart';
+import 'package:care_app/ui/pages/maintenance_guide_page.dart';
+import 'package:care_app/ui/pages/model_selection_page.dart';
 import 'package:care_app/ui/pages/transit_taxes_page.dart';
 import 'package:flutter/material.dart';
 
@@ -82,6 +84,14 @@ class Router {
       case AddVehiclePage.ID:
         final User user = settings.arguments;
         return MaterialPageRoute<AddVehiclePage>(builder: (_) => AddVehiclePage(user));
+
+      case ModelSelectionPage.ID:
+        return MaterialPageRoute<ModelSelectionPage>(builder: (_) => ModelSelectionPage());
+
+      case MaintenanceGuidePage.ID:
+        final int modelID = settings.arguments;
+        return MaterialPageRoute<MaintenanceGuidePage>(builder: (_) => MaintenanceGuidePage(modelID));
+
 
       default:
         return MaterialPageRoute<Scaffold>(

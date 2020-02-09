@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:care_app/core/src/models/item_model.dart';
+import 'package:care_app/core/src/models/maintenance_model.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:care_app/core/src/models/model_files.dart';
@@ -63,6 +65,30 @@ class API {
     }
     return ProfileImageModel(file: 'images/user_avatar.png', user: 0);
   }
+
+  Future<List<MaintenanceModel>> getMaintenanceGuide({@required int vehicleModel}) async {
+    final MyResponse response = await _apiHelper.get<MaintenanceModel>(endPoint: ApiRoutes.MAINTENANCE,
+        queryParam: '?model=$vehicleModel&ordering=km');
+    if(response.isSuccess){
+      final String maintenanceResponse = response.result.toString();
+      if(maintenanceResponse.isNotEmpty){
+        return compute(parseMaintenance, maintenanceResponse);
+      }
+    }
+    return null;
+  }
+
+  Future<List<ItemModel>> getMaintenanceItem() async {
+    final MyResponse response = await _apiHelper.get<MaintenanceModel>(endPoint: ApiRoutes.MAINTENANCE_ITEMS);
+    if(response.isSuccess){
+      final String maintenanceItemsResponse = response.result.toString();
+      if(maintenanceItemsResponse.isNotEmpty){
+        return compute(parseMaintenanceItem, maintenanceItemsResponse);
+      }
+    }
+    return null;
+  }
+
 
   Future<Map<String, dynamic>> postUser({@required Map<String, dynamic> user}) async {
     final MyResponse response = await _apiHelper.post<User>(endPoint: ApiRoutes.USERS, data: user);
@@ -183,72 +209,14 @@ List<BusinessModel> parseBusiness(String responseBody){
   return parsed.map<BusinessModel>((dynamic json) => BusinessModel.fromJson(json)).toList();
 }
 
-
-/*Future<User> postUser({Map<String, String> user}) async {
-    final  http.Response response = await getClient().post(ApiRoutes.BASE_URL + ApiRoutes.USERS, body: user);
-    return compute(parseUser, response.body);
-  }
-
-  Future<String> getEmail() async {
-    final SharedPreferences preferences = await SharedPreferences.getInstance();
-    return preferences.getString('email');
-  }
-
-  Future<User> getUser() async {
-    final String email = await getEmail();
-    final http.Response response = await getClient().get(ApiRoutes.BASE_URL+ApiRoutes.USERS+'?email=$email');
-    return compute(parseUser, response.body);
-  }
-
-  http.Client getClient(){
-    return http.Client();
-  }
-
-  Future<List<Vehicle>> fetchVehicles() async {
-    final User user = await getUser();
-    final int id = user.id;
-    final String url = ApiRoutes.BASE_URL+ApiRoutes.VEHICLES+'?owner=$id';
-    final http.Response response = await getClient().get(url);
-    if(response.statusCode == 200)
-    return compute(parseVehicles, response.body);
-  }
-
-
-  Future<bool> postReset({Map<String, String> body}) async {
-    final  http.Response response = await getClient().post(ApiRoutes.BASE_URL + ApiRoutes.RESET, body: body);
-    return response.statusCode == 200;
-}
-
-  Future<Vehicle> postVehicle({Map<String, String> vehicle}) async {
-    final  http.Response response = await getClient().post(ApiRoutes.BASE_URL + ApiRoutes.VEHICLES, body: vehicle);
-    return compute(parseVehicle, response.body);
-  }
-
-  Future<ProfileImage> postImage({Map<String, String> img}) async{
-    final  http.Response response = await getClient().post(ApiRoutes.BASE_URL + ApiRoutes.UPLOAD_PROFILE_IMG, body: img);
-    return json.decode(response.body);
-  }
-
-
-}
-
-List<Vehicle> parseVehicles(String responseBody) {
+List<MaintenanceModel> parseMaintenance(String responseBody){
   final dynamic parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-  return parsed.map<Vehicle>((dynamic json) => Vehicle.fromJson(json)).toList();
+  return parsed.map<MaintenanceModel>((dynamic json) => MaintenanceModel.fromJson(json)).toList();
 }
 
-Vehicle parseVehicle(String responseBody) {
+List<ItemModel> parseMaintenanceItem(String responseBody){
   final dynamic parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-  return parsed.map<Vehicle>((dynamic json) => Vehicle.fromJson(json)).toList()[0];
+  return parsed.map<ItemModel>((dynamic json) => ItemModel.fromJson(json)).toList();
 }
 
-User parseUser(String responseBody){
-  final dynamic parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-  return parsed.map<User>((dynamic json) => User.fromJson(json)).toList()[0];
-}
 
-ProfileImage parseImage(String responseBody){
-  final dynamic parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-  return parsed.map<ProfileImage>((dynamic json) => ProfileImage.fromJson(json)).toList()[0];
-}
-*/

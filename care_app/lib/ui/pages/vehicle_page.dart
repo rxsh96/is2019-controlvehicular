@@ -25,8 +25,12 @@ class VehiclePage extends StatelessWidget {
     return BasePage<VehicleProvider>(
       onModelReady: (VehicleProvider vehicleProvider) async {
         //if(await MyConnectivity.checkConnectivity()){
-          vehicleProvider.fetchVehicleModels();
-          vehicleProvider.fetchVehicleBrands();
+          await vehicleProvider.fetchVehicleModels();
+          await vehicleProvider.fetchVehicleBrands();
+          await vehicleProvider.fetchMaintenanceItem();
+          await vehicleProvider.loadMyModels(Provider.of<LoginProvider>(context)
+              .userRepository
+              .user);
           //vehicleProvider.fetchVehicleBrandsModels();
           //locator<LoginProvider>().getProfilePic();
         //}

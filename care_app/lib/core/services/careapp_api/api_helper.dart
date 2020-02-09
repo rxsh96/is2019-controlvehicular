@@ -13,6 +13,8 @@ class ApiHelper {
   ///Contains the Base URL for API
   static const String _BASE_URL = 'https://controlvehicular.pythonanywhere.com/api/';
 
+  //final Map<String, dynamic> _headers = <String, dynamic>{'charset': 'utf-8', 'Accept-Charset':'utf-8'};
+
   http.Client getHttpClient() {
     return http.Client();
   }
