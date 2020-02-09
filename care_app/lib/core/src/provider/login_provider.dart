@@ -34,6 +34,13 @@ class LoginProvider extends BaseProvider {
     return response;
   }
 
+  Future<String> saveAccidentPic(String userEmail, File image) async {
+    setState(ViewState.Busy);
+    final String response = await _userRepository.uploadAccidentPic(userEmail, image);
+    setState(ViewState.Idle);
+    return response;
+  }
+
   Future<void> getProfilePic() async {
     setState(ViewState.Busy);
     final User u = await _auth.loadAuthUser();

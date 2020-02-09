@@ -98,6 +98,14 @@ class API {
     return <String, dynamic>{'error': 'error'};
   }
 
+  Future<Map<String, dynamic>> postAccident({@required Map<String, dynamic> data}) async {
+    final MyResponse response = await _apiHelper.post<User>(endPoint: ApiRoutes.ACCIDENTS, data: data);
+    if(response.isSuccess){
+      return _decoder.convert(response.result);
+    }
+    return <String, dynamic>{'error': 'error'};
+  }
+
   Future<Map<String, dynamic>> postPasswordReset({Map<String, String> data}) async {
     final  MyResponse response = await _apiHelper.post<dynamic>(endPoint: ApiRoutes.RESET, data: data);
     if(response.isSuccess){

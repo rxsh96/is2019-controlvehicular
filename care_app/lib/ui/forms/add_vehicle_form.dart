@@ -248,7 +248,6 @@ class _AddVehicleFormState extends State<AddVehicleForm> {
                       'brand': _brandController.text.toString(),
                       'model': _modelController.text.toString(),
                     };
-                    print(vehicle);
                     final Map<String, dynamic> response =
                         await vehicleProvider.saveVehicle(vehicle);
 

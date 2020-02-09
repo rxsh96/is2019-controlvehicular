@@ -26,12 +26,24 @@ class UserRepository{
     return await _api.getUser(email: userEmail) != null;
   }
 
+  Future<Map<String, dynamic>> postAccident(Map<String, dynamic> data) async {
+    return await _api.postAccident(data: data);
+}
+
   Future<String> uploadProfilePic(String userEmail, File image) async {
     final StorageReference storageReference = FirebaseStorage.instance.ref().child('images/$userEmail/profile-pictures/${path.basename(image.path)}}');
     final StorageUploadTask uploadTask = storageReference.putFile(image);
     final StorageTaskSnapshot downloadUrl = await uploadTask.onComplete;
     final String url = await downloadUrl.ref.getDownloadURL();
     _profileImageURL = url;
+    return url;
+  }
+
+  Future<String> uploadAccidentPic(String userEmail, File image) async {
+    final StorageReference storageReference = FirebaseStorage.instance.ref().child('images/$userEmail/accident-pictures/${path.basename(image.path)}}');
+    final StorageUploadTask uploadTask = storageReference.putFile(image);
+    final StorageTaskSnapshot downloadUrl = await uploadTask.onComplete;
+    final String url = await downloadUrl.ref.getDownloadURL();
     return url;
   }
 
