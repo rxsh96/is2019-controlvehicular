@@ -1,3 +1,5 @@
+import 'package:care_app/core/src/trips/map_trip.dart';
+import 'package:care_app/ui/pages/pages_files.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -13,11 +15,25 @@ class AddTripPage extends StatefulWidget {
   // NewTravelPage(this.tab);
   // NewTravelPage({Key key}) : super(key: key);
 
+
+
+  // AddTripPage ({this.init,this.end});
+  // String init ;
+  // String end ;
+  
+
   @override
-  _AddTripPageState createState() => _AddTripPageState();
+  _AddTripPageState createState() => _AddTripPageState(
+    // init : init,
+    // end  : end
+  );
 }
 
 class _AddTripPageState extends State<AddTripPage> with SingleTickerProviderStateMixin  {
+
+  //  _AddTripPageState ({this.init,this.end});
+  //  final String init ;
+  //  final String end ;
 
   bool state = true;
   String _myActivity;
@@ -28,11 +44,16 @@ class _AddTripPageState extends State<AddTripPage> with SingleTickerProviderStat
   String date;
   String hour;
   TabController _controller;
+  TextEditingController controller ;
+
+
+
 
   @override
   void initState(){
     super.initState();
     _controller = TabController(length: 2 , vsync: this );
+    //  controller.text = init;
   }
   @override
   void dispose (){
@@ -210,11 +231,15 @@ class _AddTripPageState extends State<AddTripPage> with SingleTickerProviderStat
     return TextFormField(
       // controller: controller,
       // keyboardType: textInputType,
-      decoration: InputDecoration(
 
+      decoration: InputDecoration(
+        
         labelText: label,
         hintText: hint,
-        suffixIcon: Icon(Icons.location_on),
+        suffixIcon: IconButton(
+          icon: Icon(Icons.location_on),
+          onPressed: () => Navigator.pushNamed(context, MapTrip.ID),
+        ),
 
         focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(

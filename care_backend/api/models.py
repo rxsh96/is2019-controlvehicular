@@ -117,7 +117,7 @@ class Vehicle(models.Model):
 	created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
 	updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
 	imageURL = models.CharField(max_length=500, null=True, blank=True)
-	registration = models.CharField(max_length=7, null=True)
+	registration = models.DateField(null=True, blank=True)
 
 	def __str__(self):
 		return self.plate

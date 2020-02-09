@@ -19,7 +19,7 @@ class Nominatim {
   Future<void> search(String query) async {
     try {
       final url =
-          '$apiHost/search.php?q=${Uri.encodeFull(query)}&polygon_geojson=1&format=json';
+          '$apiHost/search.php?q=${Uri.encodeFull(query)}&polygon_geojson=1&format=json&countrycodes=ec';
 
       _searchSub?.cancel();
       _searchSub = http.get(url).asStream().listen((response) {
