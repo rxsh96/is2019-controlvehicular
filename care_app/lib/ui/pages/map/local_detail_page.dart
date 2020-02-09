@@ -1,5 +1,3 @@
-import 'package:care_app/core/src/trips/map_trip.dart';
-import 'package:care_app/ui/pages/lights_page.dart';
 import 'package:care_app/ui/pages/map/gasoline_page.dart';
 import 'package:flutter/material.dart';
 
@@ -27,13 +25,15 @@ final TextEditingController _textController2 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-       appBar: AppBar(
-         backgroundColor: Theme.of(context).primaryColor,
-         title: const Text('LOCALES'),
-       ),
-       body: _showLocal(),
+    return SafeArea(
+      child: Scaffold(
+         appBar: AppBar(
+           backgroundColor: Theme.of(context).primaryColor,
+           title: const Text('LOCALES', style: TextStyle(fontSize: 16),),
+         ),
+         body: _showLocal(),
 
+      ),
     );
   }
 

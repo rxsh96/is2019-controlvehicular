@@ -32,20 +32,22 @@ class _LocalsPageState extends State<LocalsPage> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('LOCALES') ,
-          bottom: _getTabBar(),
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+            title: const Text('LOCALES', style: TextStyle(fontSize: 16),) ,
+            bottom: _getTabBar(),
+          ),
+        
+        
+        body: _getTabBarView(
+          <Widget>[
+            Display('Primera'),
+            Display('Segunda')
+          ]
         ),
-      
-      
-      body: _getTabBarView(
-        <Widget>[
-          Display('Primera'),
-          Display('Segunda')
-        ]
+        
       ),
-      
     );
   }
 
