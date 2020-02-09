@@ -37,7 +37,7 @@ class _CommentsPageState extends State<CommentsPage> {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.all(8.0),
-            child: const Text('Comentarios'),
+            child: const Text('Comentarios', style: TextStyle(fontSize: 16),),
           ),
           Image.asset(
             'images/logo2.png',

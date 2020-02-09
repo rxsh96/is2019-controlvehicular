@@ -38,10 +38,10 @@ class _TripPageState extends State<TripPage> {
 
   Widget topAppBar ( BuildContext context){
     return AppBar(
-        title: Text('VIAJES'),
+        title: const Text('Viajes', style: TextStyle(fontSize: 16),),
         backgroundColor: Colors.black,
         leading: GestureDetector(
-          child: Icon(Icons.clear_all,color: Color.fromRGBO(210, 100, 50, 1),),
+          child: Icon(Icons.clear_all,color: const Color.fromRGBO(210, 100, 50, 1),),
           onTap: () {
             Navigator.pop(context);
           },
