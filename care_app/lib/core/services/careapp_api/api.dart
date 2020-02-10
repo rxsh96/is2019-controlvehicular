@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:care_app/core/src/models/item_model.dart';
+import 'package:care_app/core/src/models/maintenance_detail_model.dart';
 import 'package:care_app/core/src/models/maintenance_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -84,6 +85,17 @@ class API {
       final String maintenanceItemsResponse = response.result.toString();
       if(maintenanceItemsResponse.isNotEmpty){
         return compute(parseMaintenanceItem, maintenanceItemsResponse);
+      }
+    }
+    return null;
+  }
+
+  Future<List<MaintenanceDetailsModel>> getMaintenanceDetails({@required int vehicleID}) async {
+    final MyResponse response = await _apiHelper.get<MaintenanceModel>(endPoint: ApiRoutes.MAINTENANCE_DETAILS, queryParam: '?vehicle=$vehicleID');
+    if(response.isSuccess){
+      final String maintenanceDetailsResponse = response.result.toString();
+      if(maintenanceDetailsResponse.isNotEmpty){
+        return compute(parseMaintenanceDetails, maintenanceDetailsResponse);
       }
     }
     return null;
@@ -225,6 +237,11 @@ List<MaintenanceModel> parseMaintenance(String responseBody){
 List<ItemModel> parseMaintenanceItem(String responseBody){
   final dynamic parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
   return parsed.map<ItemModel>((dynamic json) => ItemModel.fromJson(json)).toList();
+}
+
+List<MaintenanceDetailsModel> parseMaintenanceDetails(String responseBody){
+  final dynamic parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+  return parsed.map<MaintenanceDetailsModel>((dynamic json) => MaintenanceDetailsModel.fromJson(json)).toList();
 }
 
 

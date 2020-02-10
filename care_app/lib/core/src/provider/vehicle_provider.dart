@@ -5,10 +5,10 @@ import 'package:care_app/core/services/careapp_api/api.dart';
 import 'package:care_app/core/src/enums/view_state_enum.dart';
 import 'package:care_app/core/src/models/brand_model.dart';
 import 'package:care_app/core/src/models/item_model.dart';
-import 'package:care_app/core/src/models/maintenance_model.dart';
 import 'package:care_app/core/src/models/model_files.dart';
 import 'package:care_app/core/src/models/model_model.dart';
 import 'package:care_app/core/src/models/my_guide_model.dart';
+import 'package:care_app/core/src/models/my_maintenance_detail_model.dart';
 import 'package:care_app/core/src/repository/vehicle_repository.dart';
 
 import 'base_provider.dart';
@@ -21,12 +21,13 @@ class VehicleProvider extends BaseProvider{
 
   Vehicle _selectedVehicle;
   ModelModel _selectedModel;
+  ItemModel _selectedItem;
   List<Vehicle> _vehicles;
 
   Future<List<Vehicle>> fetchUserVehicles(User user) async{
     setState(ViewState.Busy);
     final List<Vehicle> vehicles = await _api.getUserVehicles(owner: user.id);
-    _vehicles = vehicles;
+    _vehicleRepository.myVehicles = vehicles;
     setState(ViewState.Idle);
     notifyListeners();
     return vehicles;
@@ -52,6 +53,13 @@ class VehicleProvider extends BaseProvider{
     final List<MyGuideModel> maintenanceGuide = await _vehicleRepository.maintenanceGuide(vehicleModel);
     setState(ViewState.Idle);
     return maintenanceGuide;
+  }
+
+  Future<List<MyMaintenanceDetailModel>> fetchMaintenanceDetails(int vehicleModel) async {
+    setState(ViewState.Busy);
+    final List<MyMaintenanceDetailModel> maintenanceDetails = await _vehicleRepository.maintenanceDetails(vehicleModel);
+    setState(ViewState.Idle);
+    return maintenanceDetails;
   }
 
   Future<void> fetchMaintenanceItem() async {
@@ -93,27 +101,40 @@ class VehicleProvider extends BaseProvider{
     setState(ViewState.Idle);
   }
 
-  void selectVehicle(Vehicle vehicle){
-    _selectedVehicle = vehicle;
+//  void selectVehicle(Vehicle vehicle){
+//    _selectedVehicle = vehicle;
+//    notifyListeners();
+//  }
+
+  void selectItem(ItemModel item){
+    _selectedItem = item;
     notifyListeners();
   }
 
   void selectModel(ModelModel model){
     _selectedModel = model;
     notifyListeners();
+    for(Vehicle v in _vehicleRepository.myVehicles){
+      if(model.id == v.model){
+        _selectedVehicle = v;
+        notifyListeners();
+      }
+    }
   }
 
 
 
 
-  List<Vehicle> get vehicles => _vehicles;
+  //List<Vehicle> get vehicles => _vehicles;
   Vehicle get selectedVehicle => _selectedVehicle;
   ModelModel get selectedModel => _selectedModel;
+  ItemModel get selectedItem => _selectedItem;
 
   List<ModelModel> get models => _vehicleRepository.models;
   List<BrandModel> get brands => _vehicleRepository.brands;
 
   List<ModelModel> get myModels => _vehicleRepository.myModel;
+  List<ItemModel> get items => _vehicleRepository.itemMaintenance;
 
 
   List<dynamic> get brandsModels => _vehicleRepository.vehiclesBrandsModelsList;

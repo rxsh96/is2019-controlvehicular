@@ -1,9 +1,15 @@
 import 'dart:io';
 
+import 'package:care_app/core/src/models/business_model.dart';
 import 'package:care_app/core/src/models/item_model.dart';
+import 'package:care_app/core/src/models/maintenance_detail_model.dart';
 import 'package:care_app/core/src/models/maintenance_model.dart';
 import 'package:care_app/core/src/models/my_guide_model.dart';
+import 'package:care_app/core/src/models/my_maintenance_detail_model.dart';
 import 'package:care_app/core/src/models/user_model.dart';
+import 'package:care_app/core/src/models/vehicle_model.dart';
+import 'package:care_app/core/src/repository/business_repository.dart';
+import 'package:care_app/main.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
 
@@ -20,6 +26,7 @@ class VehicleRepository{
   List<BrandModel> _brands;
 
   List<ModelModel> _myModels;
+  List<Vehicle> myVehicles;
 
   final List<dynamic> _vehiclesBrandsModelsList = <dynamic>[];
 
@@ -32,6 +39,10 @@ class VehicleRepository{
 
   Future<List<MaintenanceModel>> fetchMaintenanceGuide(int vehicleModel) async {
     return await _api.getMaintenanceGuide(vehicleModel: vehicleModel);
+  }
+
+  Future<List<MaintenanceDetailsModel>> fetchMaintenanceDetails(int vehicleID) async {
+    return await _api.getMaintenanceDetails(vehicleID: vehicleID);
   }
 
 
@@ -49,6 +60,34 @@ class VehicleRepository{
     }
     return myGuide;
   }
+
+  Future<List<MyMaintenanceDetailModel>> maintenanceDetails (int vehicleID) async {
+    final List<MaintenanceDetailsModel> maintenance = await fetchMaintenanceDetails(vehicleID);
+    final List<MyMaintenanceDetailModel> myMaintenance = <MyMaintenanceDetailModel>[];
+    final List<BusinessModel> business = locator<BusinessRepository>().business;
+    MyMaintenanceDetailModel tmp = MyMaintenanceDetailModel();
+    for (int i = 0 ; i < maintenance.length ; i++){
+      tmp.date = maintenance[i].date;
+      tmp.price = maintenance[i].price;
+      tmp.km = maintenance[i].km;
+
+      for (int j = 0 ; j < _itemMaintenance.length ; j++){
+        if(maintenance[i].item == _itemMaintenance[j].id){
+          tmp.item = _itemMaintenance[j].item;
+        }
+      }
+
+      for(int j = 0 ; j < business.length ; j++){
+        if(maintenance[i].local == business[j].id){
+          tmp.localName = business[j].businessName;
+        }
+      }
+      myMaintenance.add(tmp);
+    }
+
+    return myMaintenance;
+  }
+
 
 
   Future<Map<String, dynamic>> addVehicle(Map<String, dynamic> vehicle) async {
@@ -104,6 +143,8 @@ class VehicleRepository{
   set myModels(List<ModelModel> value) {
     _myModels = value;
   }
+
+
 
 
 }

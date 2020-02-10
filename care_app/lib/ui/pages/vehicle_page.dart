@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:care_app/core/src/repository/business_repository.dart';
 import 'package:care_app/ui/pages/add_cost_gasoline_page.dart';
+import 'package:care_app/ui/pages/maintenance_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +33,7 @@ class VehiclePage extends StatelessWidget {
           await vehicleProvider.loadMyModels(Provider.of<LoginProvider>(context)
               .userRepository
               .user);
+          await locator<BusinessRepository>().fetchBusiness();
           //vehicleProvider.fetchVehicleBrandsModels();
           //locator<LoginProvider>().getProfilePic();
         //}
@@ -141,12 +144,12 @@ class VehiclePage extends StatelessWidget {
               ),
               const Divider(color: Colors.white, height: 0),
               MyCardButton(
-                text: 'FILTROS',
+                text: 'MANTENIMIENTOS',
                 transparency: 1,
                 icon: 'filtro',
-                route: FilterPage.ID,
+                route: MaintenancePage.ID,
               ),
-              const Divider(color: Colors.white, height: 0.0),
+              /*const Divider(color: Colors.white, height: 0.0),
               const MyCardButton(
                 text: 'FRENOS',
                 transparency: 1,
@@ -159,7 +162,7 @@ class VehiclePage extends StatelessWidget {
                 transparency: 1,
                 icon: 'luces',
                 route: 'lightPage',
-              ),
+              ),*/
               const Divider(color: Colors.white, height: 0.0),
               const MyCardButton(
                 text: 'MULTAS',

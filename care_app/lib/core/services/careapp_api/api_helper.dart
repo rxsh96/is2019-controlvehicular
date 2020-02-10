@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
@@ -42,6 +44,7 @@ class ApiHelper {
       final http.Response response =
           await getHttpClient().get(_BASE_URL + endPoint + queryParam);
       if (response.statusCode < 200 || response.statusCode > 400) {
+        //final String body = utf8.decode(response.bodyBytes);
         return MyResponse(isSuccess: false, message: response.toString());
       }
       return MyResponse(isSuccess: true, message: 'Ok', result: response.body);
