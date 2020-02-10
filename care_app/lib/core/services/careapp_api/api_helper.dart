@@ -55,12 +55,12 @@ class ApiHelper {
   }
 
   ///Generic [http.get(url)] method.
-  Future<MyResponse> put<T>(
+  Future<MyResponse> patch<T>(
       {@required String endPoint, @required String instance, @required Map<String, dynamic> data}) async {
     try {
-      print(_BASE_URL + endPoint + instance);
+      print(_BASE_URL + endPoint + instance + '/');
       final http.Response response =
-      await getHttpClient().put(_BASE_URL + endPoint + instance + '/', body: data);
+      await getHttpClient().patch(_BASE_URL + endPoint + instance + '/', body: data);
       if (response.statusCode < 200 || response.statusCode > 400) {
         return MyResponse(isSuccess: false, message: response.toString());
       }

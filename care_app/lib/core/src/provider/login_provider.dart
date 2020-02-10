@@ -41,6 +41,14 @@ class LoginProvider extends BaseProvider {
     return response;
   }
 
+  Future<Map<String, dynamic>> postAccident(Map<String, dynamic> data) async {
+    setState(ViewState.Busy);
+    final Map<String, dynamic> response = await _userRepository.postAccident(data);
+    setState(ViewState.Idle);
+    return response;
+  }
+
+
   Future<void> getProfilePic() async {
     setState(ViewState.Busy);
     final User u = await _auth.loadAuthUser();

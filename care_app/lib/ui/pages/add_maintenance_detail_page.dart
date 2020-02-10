@@ -16,9 +16,16 @@ class AddMaintenancePage extends StatelessWidget {
 
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _costController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _kmController = TextEditingController();
+
   DateTime _matDate;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+
+  void cleanFields(){
+    _dateController.text = _costController.text = _kmController.text = '';
+    _matDate = null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,14 +117,23 @@ class AddMaintenancePage extends StatelessWidget {
                     icon: Icons.attach_money,
                     errorMsg: 'Ingresa el costo',
               ),
+              const SizedBox(height: 15.0),
+              MyTextFormField(
+                controller: _kmController,
+                capitalization: TextCapitalization.sentences,
+                textInputType: TextInputType.number,
+                label: 'Km del mantenimiento',
+                icon: Icons.confirmation_number,
+                errorMsg: 'Ingresa el kilometraje',
+              ),
 
               const SizedBox(height: 15.0),
               DropdownButton<BusinessModel>(
                     isExpanded: true,
                     hint: const Text('Seleccione local'),
-                    value: locator<BusinessProvider>().selectedBusiness,
+                    value: vehicleProvider.selectedBusiness,
                     onChanged: (BusinessModel newValue) {
-                      locator<BusinessProvider>().selectBusiness(newValue);
+                      vehicleProvider.selectBusiness(newValue);
                     },
                     items: locator<BusinessProvider>().business
                         .map<DropdownMenuItem<BusinessModel>>(
@@ -145,16 +161,6 @@ class AddMaintenancePage extends StatelessWidget {
                       );
                     }).toList(),
               ),
-              const SizedBox(height: 15.0),
-              MyTextFormField(
-                    controller: _addressController,
-                    capitalization: TextCapitalization.words,
-                    textInputType: TextInputType.number,
-                    label: 'Dirección del Local',
-                    icon: Icons.map,
-                    errorMsg: 'Ingresa la dirección',
-              ),
-
               const SizedBox(height: 30.0),
                     if (vehicleProvider.state == ViewState.Busy)
                       const CircularProgressIndicator(
@@ -168,32 +174,35 @@ class AddMaintenancePage extends StatelessWidget {
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
                             final Map<String, dynamic> data = <String, dynamic>{
-                              'date': "2020-02-06T15:30:00Z",
-                              'price': "200.00",
-                              'km': "20000",
-                              'item': 3,
-                              'vehicle': 2,
-                              'local': 2
+                              'date': _dateController.text,
+                              'price': _costController.text,
+                              'km': _kmController.text,
+                              'item': vehicleProvider.selectedItem.id.toString(),
+                              'vehicle': vehicleProvider.selectedVehicle.id.toString(),
+                              'local': vehicleProvider.selectedBusiness.id.toString(),
                             };
-                          }
-                          //print(vehiclesBrandsModelsList);
 
-//                          if (response.containsKey('error')) {
-//                            Scaffold.of(context).showSnackBar(
-//                              const SnackBar(
-//                                content: Text(
-//                                    'Ha surgido un problema. Inténtalo de nuevo.'),
-//                              ),
-//                            );
-//                          } else {
-//                            Scaffold.of(context).showSnackBar(
-//                              const SnackBar(
-//                                content: Text('¡Registro exitoso!'),
-//                              ),
-//                              //Navigator.pushNamed(context, VehiclePage.ID)
-//                            );
-//                          }
-//                        }
+                            final Map<String,
+                                dynamic> response = await vehicleProvider
+                                .registerMaintenance(data);
+
+                            if (response.containsKey('error')) {
+                              Scaffold.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      'Ha surgido un problema. Inténtalo de nuevo.'),
+                                ),
+                              );
+                            }
+                            else {
+                              Scaffold.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('¡Registro exitoso!'),
+                                ),
+                              );
+                              cleanFields();
+                            }
+                          }
                         },
                         child: const Text(
                           'Registrar Mantenimiento',

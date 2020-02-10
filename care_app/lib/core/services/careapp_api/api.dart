@@ -110,6 +110,17 @@ class API {
     return <String, dynamic>{'error': 'error'};
   }
 
+
+  Future<Map<String, dynamic>> postMaintenance({@required Map<String, dynamic> maintenance}) async {
+    final MyResponse response = await _apiHelper.post<MaintenanceModel>(endPoint: ApiRoutes.MAINTENANCE_DETAILS, data: maintenance);
+    if(response.isSuccess){
+      return _decoder.convert(response.result);
+    }
+    return <String, dynamic>{'error': 'error'};
+  }
+
+
+
   Future<Map<String, dynamic>> postAccident({@required Map<String, dynamic> data}) async {
     final MyResponse response = await _apiHelper.post<User>(endPoint: ApiRoutes.ACCIDENTS, data: data);
     if(response.isSuccess){
@@ -164,7 +175,15 @@ class API {
 
   Future<Map<String, dynamic>> putFCMDevice({@required DeviceModel deviceInformation, String registrationToken}) async {
     final Map<String, dynamic> data = deviceInformation.toJson();
-    final MyResponse response = await _apiHelper.put<DeviceModel>(endPoint: ApiRoutes.DEVICE, instance: registrationToken, data: data);
+    final MyResponse response = await _apiHelper.patch<DeviceModel>(endPoint: ApiRoutes.DEVICE, instance: registrationToken, data: data);
+    if (response.isSuccess) {
+      return _decoder.convert(response.result);
+    }
+    return <String, dynamic>{'error': 'error'};
+  }
+
+  Future<Map<String, dynamic>> putKm({@required String vehicleID, Map<String, dynamic> data}) async {
+    final MyResponse response = await _apiHelper.patch(endPoint: ApiRoutes.VEHICLES, instance: vehicleID, data: data);
     if (response.isSuccess) {
       return _decoder.convert(response.result);
     }

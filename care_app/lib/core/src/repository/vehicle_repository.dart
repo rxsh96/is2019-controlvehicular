@@ -94,6 +94,15 @@ class VehicleRepository{
     return await _api.postVehicle(vehicle: vehicle);
   }
 
+  Future<Map<String, dynamic>> registerMaintenance(Map<String, dynamic> maintenance) async {
+    return await _api.postMaintenance(maintenance: maintenance);
+  }
+
+  Future<Map<String, dynamic>> updateKm(int vehicleID, Map<String, dynamic> km) async {
+    return await _api.putKm(vehicleID: vehicleID.toString(), data: km);
+  }
+
+
   Future<bool> fetchVehicleModels() async {
     _models = await _api.getVehicleModels();
     return _models != null;

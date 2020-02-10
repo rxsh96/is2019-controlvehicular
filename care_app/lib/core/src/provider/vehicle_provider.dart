@@ -22,6 +22,7 @@ class VehicleProvider extends BaseProvider{
   Vehicle _selectedVehicle;
   ModelModel _selectedModel;
   ItemModel _selectedItem;
+  BusinessModel _selectedBusiness;
   List<Vehicle> _vehicles;
 
   Future<List<Vehicle>> fetchUserVehicles(User user) async{
@@ -76,6 +77,19 @@ class VehicleProvider extends BaseProvider{
     return response;
   }
 
+  Future<Map<String, dynamic>> registerMaintenance(Map<String, dynamic> maintenance) async{
+    setState(ViewState.Busy);
+    final Map<String, dynamic> response = await _vehicleRepository.registerMaintenance(maintenance);
+    setState(ViewState.Idle);
+    return response;
+  }
+  Future<Map<String, dynamic>> updateKm(int vehicleID, Map<String, dynamic> data) async {
+    setState(ViewState.Busy);
+    final Map<String, dynamic> response = await _vehicleRepository.updateKm(vehicleID, data);
+    setState(ViewState.Idle);
+    return response;
+  }
+
   Future<String> saveVehiclePic(User user, File image) async {
     setState(ViewState.Busy);
     final String response = await _vehicleRepository.uploadVehicleImage(user, image);
@@ -122,6 +136,10 @@ class VehicleProvider extends BaseProvider{
     }
   }
 
+  void selectBusiness(BusinessModel business){
+    _selectedBusiness = business;
+    notifyListeners();
+  }
 
 
 
@@ -129,6 +147,7 @@ class VehicleProvider extends BaseProvider{
   Vehicle get selectedVehicle => _selectedVehicle;
   ModelModel get selectedModel => _selectedModel;
   ItemModel get selectedItem => _selectedItem;
+  BusinessModel get selectedBusiness => _selectedBusiness;
 
   List<ModelModel> get models => _vehicleRepository.models;
   List<BrandModel> get brands => _vehicleRepository.brands;
@@ -138,5 +157,6 @@ class VehicleProvider extends BaseProvider{
 
 
   List<dynamic> get brandsModels => _vehicleRepository.vehiclesBrandsModelsList;
+
 
 }

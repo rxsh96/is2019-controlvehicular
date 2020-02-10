@@ -1,5 +1,6 @@
 import 'package:care_app/core/src/trips/map_trip.dart';
 import 'package:care_app/ui/pages/add_maintenance_detail_page.dart';
+import 'package:care_app/ui/pages/kms_page.dart';
 import 'package:care_app/ui/pages/lights_page.dart';
 import 'package:care_app/ui/pages/maintenance_guide_page.dart';
 import 'package:care_app/ui/pages/maintenance_page.dart';
@@ -94,6 +95,9 @@ class Router {
 
       case AddMaintenancePage.ID:
         return MaterialPageRoute<AddMaintenancePage>(builder: (_) => AddMaintenancePage());
+
+      case KmsPage.ID:
+        return MaterialPageRoute<KmsPage>(builder: (_) => KmsPage());
 
 
       default:
