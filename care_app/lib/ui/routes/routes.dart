@@ -68,7 +68,7 @@ class Router {
         return MaterialPageRoute<LightsPage>(builder: (_) => const LightsPage());
       
       case TransitTaxesPage.ID:
-        return MaterialPageRoute<TransitTaxesPage>(builder: (_) => const TransitTaxesPage());
+        return MaterialPageRoute<TransitTaxesPage>(builder: (_) => TransitTaxesPage());
 
       case AddTransitTaxesPage.ID:
         return MaterialPageRoute<AddTransitTaxesPage>(builder: (_) => AddTransitTaxesPage());

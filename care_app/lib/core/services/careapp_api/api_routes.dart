@@ -15,5 +15,6 @@ class ApiRoutes{
   static const String SUGGESTIONS = 'suggestions/';
   static const String DEVICE = 'devices/';
   static const String ACCIDENTS = 'accident/';
+  static const String TRANSIT_TAX = 'fine/';
 
 }

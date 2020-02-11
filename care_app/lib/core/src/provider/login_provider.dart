@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:care_app/core/locator.dart';
 import 'package:care_app/core/services/auth/auth_service.dart';
 import 'package:care_app/core/src/enums/my_enum.dart';
+import 'package:care_app/core/src/models/transit_tax_model.dart';
 import 'package:care_app/core/src/models/user_model.dart';
 import 'package:care_app/core/src/repository/user_repository.dart';
 
@@ -55,6 +56,23 @@ class LoginProvider extends BaseProvider {
     print('LOGIN PROVIDER GETPROFILEPIC: '+u.toString());
     await _userRepository.getProfilePicURL(u.id);
     setState(ViewState.Idle);
+  }
+
+  Future<List<TransitTaxModel>> fetchTaxes(int userID) async {
+    //setState(ViewState.Busy);
+    print('ACA');
+    final List<TransitTaxModel> taxes = await _userRepository.fetchTaxes(userID);
+    print('ESTOS SON LOS TAXES');
+    print(taxes);
+    //setState(ViewState.Idle);
+    return taxes;
+  }
+
+  Future<Map<String, dynamic>> postTaxes(Map<String, dynamic> tax) async {
+    setState(ViewState.Busy);
+    final Map<String, dynamic> taxes = await _userRepository.postTaxes(tax);
+    setState(ViewState.Idle);
+    return taxes;
   }
 
   Future<bool> saveImage(Map<String, dynamic> image) async {

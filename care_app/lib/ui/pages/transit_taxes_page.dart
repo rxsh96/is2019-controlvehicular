@@ -1,149 +1,255 @@
+import 'package:care_app/core/locator.dart';
+import 'package:care_app/core/src/models/transit_tax_model.dart';
+import 'package:care_app/core/src/provider/login_provider.dart';
 import 'package:care_app/ui/pages/pages_files.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class TransitTaxesPage extends StatefulWidget {
-  const TransitTaxesPage({Key key}) : super(key: key);
+class TransitTaxesPage extends StatelessWidget {
   static const String ID = 'transitTaxPage';
 
-  @override
-  _TransitTaxesPageState createState() => _TransitTaxesPageState(); 
-}
-
-class _TransitTaxesPageState extends State<TransitTaxesPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-       appBar: AppBar(
-         title: Text('MIS VEHICULOS', style: TextStyle(fontSize: 17),),
-       ),
-      body: ListView(
-          children: <Widget>[
-            _crearFranjas('MULTAS', 1.0 ,'multas'),
-            const SizedBox(height: 20.0,),
-            _listarFiltro(),
-            _listarFiltro(),
-            
-          ],
-      ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: const Color.fromRGBO(32, 32, 32, 1),
-          child:Image(
-            image: const AssetImage('images/agregar_auto.png'),
-            height: 35,
-          ),
-            onPressed: (){
-              Navigator.pushNamed(context, AddTransitTaxesPage.ID);
-            }
-        )
-    );
-  }
-
-
-  Widget _listarFiltro(){
+  Widget _taxList(TransitTaxModel model) {
     return Container(
-          child:Row(
-            children: <Widget>[
-              const SizedBox( width: 10.0),
-              _crearFecha(25 , 'ABRIL' , 2018),
-              const SizedBox( width: 15.0),
-              _tipoFiltro('NOMBRE DE MULTA'),
-              const SizedBox( width: 15.0),
-              _crearLugar('Casa de Andres' , 80.0)
-            ],
-          ),
-          height: 80.0,
-          margin: const EdgeInsets.all(10.0),
-          decoration: const BoxDecoration(
-          borderRadius:  BorderRadius.only(
+        child: Row(
+          children: <Widget>[
+            const SizedBox(width: 10.0),
+            _date(model.date),
+            const SizedBox(width: 15.0),
+            _reason(model.reason),
+            const SizedBox(width: 15.0),
+            _moreInfo(model.address, model.value)
+          ],
+        ),
+        height: 80.0,
+        margin: const EdgeInsets.all(10.0),
+        decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20.0),
               topRight: Radius.circular(20.0),
-              bottomLeft: Radius.circular(20.0) ,
+              bottomLeft: Radius.circular(20.0),
               bottomRight: Radius.circular(20.0),
+            ),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: <Color>[
+                Colors.white,
+                Colors.grey,
+              ],
+            )));
+  }
+
+  Widget _date(String date) {
+    final String myDate = date.split('T')[0];
+    final String year = myDate.split('-')[0];
+    final String month = myDate.split('-')[1];
+    final String day = myDate.split('-')[2];
+
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Text(
+            day,
+            style: const TextStyle(
+                color: Color.fromRGBO(203, 99, 51, 1), fontSize: 30.0),
           ),
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-            Colors.white,
-            Colors.grey,
-           ],
-          )
-    )
-  );
-}
-
-
-  Widget _crearFecha(int dia, String mes ,int anio ){
-    return Column(
-     children: <Widget>[
-        Padding(
-            padding: const EdgeInsets.all(5.0),
-            child:Text('$dia', 
-                style: TextStyle(
-                color: const Color.fromRGBO(203, 99, 51, 1),
-                fontSize: 30.0
-              ), ),
         ),
-       Text(mes, ),
-       Text('$anio')
-     ],
+        Text(month),
+        Text(year)
+      ],
     );
   }
 
-  Widget _tipoFiltro(String tipo){
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child:Text(tipo),
-        ),
-      ]
-    );
+  Widget _reason(String reason) {
+    return Column(children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Text(reason),
+      ),
+    ]);
   }
 
-  Widget _crearLugar( String local , double valor){
+  Widget _moreInfo(String local, double valor) {
     return Column(
       children: <Widget>[
-        Image(
-            image: const AssetImage('images/location_pointer.png'),
-            height: 15.0,
+        const Image(
+          image: AssetImage('images/location_pointer.png'),
+          height: 15.0,
         ),
         Text(local),
-        Image(
-          image: const AssetImage('images/money.png'),
+        const Image(
+          image: AssetImage('images/money.png'),
           height: 15.0,
         ),
         Text('$valor')
-
       ],
     );
   }
 
 
-  Widget _crearFranjas(String mantenimiento, double transparencia , String icono) {
-    return BottomAppBar(
-      color: Color.fromRGBO(203, 99, 51, transparencia),
-      child: Row(
+  Widget makeGuideCard(TransitTaxModel model) {
+    return Card(
+      child: Center(
+        child: Container(
+          decoration:
+          const BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+          child: makeListTile(model),
+        ),
+      ),
+    );
+  }
+
+  Widget makeListTile(TransitTaxModel model) {
+    return ListTile(
+      contentPadding:
+      const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+      trailing: Text(model.value.toString(),
+        style: const TextStyle(color: Colors.white, fontSize: 16),),
+      leading: Container(
+        padding: const EdgeInsets.only(right: 12.0),
+        decoration: BoxDecoration(
+          border: Border(
+            right: BorderSide(width: 1.0, color: Colors.orange),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+
+            Text(
+              model.date.split('-')[0],
+              style: const TextStyle(color: Colors.white, fontSize: 10),
+            ),
+            Text(
+              model.date.split('-')[1],
+              style: const TextStyle(color: Colors.white, fontSize: 10),
+            ),
+            Text(
+              model.date.split('-')[2],
+              style: const TextStyle(color: Colors.white, fontSize: 10),
+            ),
+          ],
+        ),
+      ),
+      title: Text(
+        model.reason,
+        style: const TextStyle(
+            color: Colors.white,
+          fontWeight: FontWeight.bold
+        ),
+      ),
+      // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          MaterialButton(
-            onPressed: () {
-              //Navigator.pushNamed(context, VehiclePage.ID);
-            },
-            child: Text(
-              mantenimiento,
-              textAlign: TextAlign.center,
-              style: TextStyle(
+          Text(
+            model.address,
+            style: const TextStyle(
                 color: Colors.white,
-                fontSize: 20.0
-              ),
+              fontSize: 10,
             ),
           ),
-          const SizedBox(height: 105.0, width: 165),
-          Image(
-              image: AssetImage('images/$icono.png'),
-              height: 60,
-              alignment: Alignment.bottomRight)
+          Text('Agente: ' +model.agent,
+            style: const TextStyle(
+                color: Colors.white,
+              fontSize: 10,
+            ),
+          ),
         ],
+      ),
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              child: const Text(
+                'Multas',
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+            Image.asset(
+              'images/logo2.png',
+              fit: BoxFit.contain,
+              height: 32,
+            ),
+          ],
+        ),
+      ),
+      body: ChangeNotifierProvider<LoginProvider>(
+        create: (BuildContext context) => locator<LoginProvider>(),
+        child: Consumer<LoginProvider>(
+          builder: (BuildContext context, LoginProvider loginProvider,
+                  Widget child) =>
+              Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(children: <Widget>[
+                  Expanded(
+                    flex: 2,
+                    child: FutureBuilder<List<TransitTaxModel>>(
+                        future: loginProvider
+                            .fetchTaxes(loginProvider.userRepository.user.id),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<TransitTaxModel>> snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done){
+                            if (snapshot.data == null) {
+                              return Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: const <Widget>[
+                                    Text('Hubo un error. Inténtalo de nuevo más tarde.'),
+                                  ],
+                                ),
+                              );
+                            }
+                            if (snapshot.data.isEmpty) {
+                              return const Center(
+                                child: Text('¡No tienes multas!'),
+                              );
+                            }
+                            return ListView.builder(
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return makeGuideCard(snapshot.data[index]);
+                                });
+                          }
+                          else{
+                            return const Center(
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Color.fromRGBO(203, 99, 51, 1),
+                                ),
+                              ),
+                            );
+                          }
+                        }),
+                  ),
+                const SizedBox(height: 30.0),
+              ]),
+            ),
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color.fromRGBO(32, 32, 32, 1),
+        child: const Image(
+          image: AssetImage('images/agregar_auto.png'),
+          height: 35,
+        ),
+        onPressed: () {
+          Navigator.pushNamed(context, AddTransitTaxesPage.ID);
+        },
       ),
     );
   }

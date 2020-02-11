@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:care_app/core/src/models/transit_tax_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
 
@@ -74,6 +75,18 @@ class UserRepository{
     final Map<String, dynamic> response = await _api.postProfilePic(image: image);
     return !response.containsKey('error');
   }
+
+  Future<List<TransitTaxModel>> fetchTaxes(int userID) async {
+    print('USER REPO');
+    final List<TransitTaxModel> list = await _api.getTransitTax(userID: userID);
+    print(list);
+    return list;
+  }
+
+  Future<Map<String, dynamic>> postTaxes(Map<String, dynamic> data) async {
+    return await _api.postTransitTax(tax: data);
+  }
+
 
   String get profileImageURL => _profileImageURL;
 
