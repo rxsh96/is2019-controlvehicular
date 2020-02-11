@@ -17,7 +17,6 @@ import 'package:care_app/ui/components/my_menu.dart';
 import 'package:care_app/ui/pages/add_vehicle_page.dart';
 
 import 'base_page.dart';
-import 'filter_page.dart';
 import 'map/gasoline_page.dart';
 
 class VehiclePage extends StatelessWidget {
@@ -27,7 +26,6 @@ class VehiclePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BasePage<VehicleProvider>(
       onModelReady: (VehicleProvider vehicleProvider) async {
-        //if(await MyConnectivity.checkConnectivity()){
           await vehicleProvider.fetchVehicleModels();
           await vehicleProvider.fetchVehicleBrands();
           await vehicleProvider.fetchMaintenanceItem();
@@ -35,8 +33,6 @@ class VehiclePage extends StatelessWidget {
               .userRepository
               .user);
           await locator<BusinessRepository>().fetchBusiness();
-          //vehicleProvider.fetchVehicleBrandsModels();
-          //locator<LoginProvider>().getProfilePic();
         //}
       },
       builder: (BuildContext context, VehicleProvider vehicleProvider,
@@ -56,14 +52,6 @@ class VehiclePage extends StatelessWidget {
                 argument:
                     Provider.of<LoginProvider>(context).userRepository.user,
               ),
-              //MyIconButton(
-              //  icon: Icons.note_add,
-              //  color: const Color.fromRGBO(203, 99, 51, 1),
-              //),
-              //MyIconButton(
-              //  icon: Icons.event_note,
-              //  color: const Color.fromRGBO(203, 99, 51, 1),
-              //),
             ],
           ),
           body: ListView(
