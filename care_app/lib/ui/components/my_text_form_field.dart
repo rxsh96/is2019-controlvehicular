@@ -10,7 +10,8 @@ class MyTextFormField extends StatefulWidget {
         this.label,
         this.hint,
         this.icon,
-        this.errorMsg});
+        this.errorMsg,
+      this.maxLines});
 
   final TextEditingController controller;
   final TextCapitalization capitalization;
@@ -19,6 +20,7 @@ class MyTextFormField extends StatefulWidget {
   final String hint;
   final IconData icon;
   final String errorMsg;
+  final int maxLines;
 
 
 
@@ -30,7 +32,8 @@ class MyTextFormField extends StatefulWidget {
       label: label,
       hint: hint,
       icon: icon,
-      errorMsg: errorMsg);
+      errorMsg: errorMsg,
+  maxLines: maxLines);
 }
 
 class _MyTextFormFieldState extends State<MyTextFormField> {
@@ -41,7 +44,8 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
         this.label,
         this.hint,
         this.icon,
-        this.errorMsg});
+        this.errorMsg,
+      this.maxLines});
 
   TextEditingController controller;
   TextCapitalization capitalization;
@@ -50,11 +54,11 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
   String hint;
   IconData icon;
   String errorMsg;
+  int maxLines;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-
       controller: controller,
       keyboardType: textInputType,
       textCapitalization: capitalization,
@@ -71,6 +75,7 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
           ),
         ),
       ),
+      maxLines: maxLines,
       validator: (String value) {
         if (value.isEmpty) {
           return errorMsg;

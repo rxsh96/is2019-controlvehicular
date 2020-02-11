@@ -114,7 +114,6 @@ class _AddUserFormState extends State<AddUserForm> {
                     controller: _inputPassword,
                     textInputType: TextInputType.text,
                     label: 'Contraseña',
-                    icon: Icons.enhanced_encryption,
                     errorMsg: 'Ingresa una contraseña',
                     isLogin: false,
                   ),

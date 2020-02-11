@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:care_app/core/src/repository/business_repository.dart';
 import 'package:care_app/ui/pages/add_cost_gasoline_page.dart';
+import 'package:care_app/ui/pages/kms_page.dart';
 import 'package:care_app/ui/pages/maintenance_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -26,8 +28,13 @@ class VehiclePage extends StatelessWidget {
     return BasePage<VehicleProvider>(
       onModelReady: (VehicleProvider vehicleProvider) async {
         //if(await MyConnectivity.checkConnectivity()){
-          vehicleProvider.fetchVehicleModels();
-          vehicleProvider.fetchVehicleBrands();
+          await vehicleProvider.fetchVehicleModels();
+          await vehicleProvider.fetchVehicleBrands();
+          await vehicleProvider.fetchMaintenanceItem();
+          await vehicleProvider.loadMyModels(Provider.of<LoginProvider>(context)
+              .userRepository
+              .user);
+          await locator<BusinessRepository>().fetchBusiness();
           //vehicleProvider.fetchVehicleBrandsModels();
           //locator<LoginProvider>().getProfilePic();
         //}
@@ -137,32 +144,11 @@ class VehiclePage extends StatelessWidget {
                     }),
               ),
               const Divider(color: Colors.white, height: 0),
-              MyCardButton(
-                text: 'MANTENIMIENTO',
+              const MyCardButton(
+                text: 'MANTENIMIENTOS',
                 transparency: 1,
                 icon: 'filtro',
                 route: MaintenancePage.ID,
-              ),
-              const Divider(color: Colors.white, height: 0),
-              MyCardButton(
-                text: 'FILTROS',
-                transparency: 1,
-                icon: 'filtro',
-                route: FilterPage.ID,
-              ),
-              const Divider(color: Colors.white, height: 0.0),
-              const MyCardButton(
-                text: 'FRENOS',
-                transparency: 1,
-                icon: 'frenos',
-                route: 'brakePage',
-              ),
-              const Divider(color: Colors.white, height: 0.0),
-              const MyCardButton(
-                text: 'LUCES',
-                transparency: 1,
-                icon: 'luces',
-                route: 'lightPage',
               ),
               const Divider(color: Colors.white, height: 0.0),
               const MyCardButton(
@@ -176,7 +162,7 @@ class VehiclePage extends StatelessWidget {
                 text: 'KMS',
                 transparency: 1,
                 icon: 'kilometraje',
-                route: 'kmPage',
+                route: KmsPage.ID,
               ),
               const Divider(color: Colors.white, height: 0.0),
               const MyCardButton(

@@ -1,4 +1,5 @@
 import 'package:care_app/core/src/repository/user_repository.dart';
+import 'package:care_app/ui/components/my_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class CommentsPage extends StatefulWidget {
@@ -21,23 +22,7 @@ class _CommentsPageState extends State<CommentsPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool flag = true;
-  Icon emoji = Icon(Icons.mood_bad);
   Color color = Colors.grey;
-
-  Widget _floatingButton() {
-    return FloatingActionButton.extended(
-        label: flag
-            ? const Text('¿Te gusta CareApp?',
-                style: TextStyle(color: Colors.white))
-            : const Text('Gracias por valorar',
-                style: TextStyle(color: Colors.black)),
-        icon: flag ? emoji : Icon(Icons.mood, color: Colors.black),
-        backgroundColor: flag ? color : Colors.yellow,
-        onPressed: () {
-          flag = true;
-          setState(() => flag = false);
-        });
-  }
 
   void cleanFields() {
     _inputTitle.text = _inputDescription.text = '';
@@ -52,7 +37,7 @@ class _CommentsPageState extends State<CommentsPage> {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.all(8.0),
-            child: const Text('Comentarios'),
+            child: const Text('Comentarios', style: TextStyle(fontSize: 16),),
           ),
           Image.asset(
             'images/logo2.png',
@@ -63,52 +48,26 @@ class _CommentsPageState extends State<CommentsPage> {
       )),
       body: Form(
         key: _formKey,
-        child: ListView(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 50.0, vertical: 30.0),
-            children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.only(top: 25),
-                child: Text('Asunto'),
-              ),
-              TextFormField(
-                  controller: _inputTitle,
-                  maxLines: 1,
-                  decoration: InputDecoration(
-                      hintText: 'Título', border: OutlineInputBorder()),
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return 'Ingresa un título';
-                    }
-                    return null;
-                  }),
-              const Padding(
-                padding: EdgeInsets.only(top: 25),
-                child: Text('Ingrese su comentario o sugerencia'),
-              ),
-              TextFormField(
-                  controller: _inputDescription,
-                  maxLines: 5,
-                  decoration: InputDecoration(
-                      hintText: 'Descripción', border: OutlineInputBorder()),
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return 'Ingresa una descripción';
-                    }
-                    return null;
-                  }),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[_floatingButton()],
-                    )
-                  ],
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                const SizedBox(height: 15.0,),
+                MyTextFormField(controller: _inputTitle,
+                hint: '¡Me gusta CareApp!', capitalization: TextCapitalization.sentences,
+                label: 'Título', errorMsg: 'Ingresa un título',
+                icon: Icons.title,),
+                const SizedBox(height: 25.0,),
+                MyTextFormField(controller: _inputDescription,
+                  hint: '¡Me ayudan a estar al tanto de que mantenimientos hacerle a mi vehículo!', capitalization: TextCapitalization.sentences,
+                  label: 'Descripción', errorMsg: 'Ingresa una descripción',
+                  icon: Icons.description,
+                  maxLines: 3,
                 ),
-              )
-            ]),
+                const SizedBox(height: 25.0,),
+              ]),
+        ),
       ),
       bottomNavigationBar: BottomAppBar(
         color: const Color.fromRGBO(203, 99, 51, 1),

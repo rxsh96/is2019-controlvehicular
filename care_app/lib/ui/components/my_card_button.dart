@@ -38,12 +38,11 @@ class _MyCardButtonState extends State<MyCardButton> {
               onPressed: null,
               child: Text(
                 text,
-                textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.white),
               ),
             ),
             const SizedBox(
-              height: 75,
+              height: 85,
             ),
             Image.asset(
               'images/$icon.png',

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,6 +14,8 @@ class ApiHelper {
 
   ///Contains the Base URL for API
   static const String _BASE_URL = 'https://controlvehicular.pythonanywhere.com/api/';
+
+  //final Map<String, dynamic> _headers = <String, dynamic>{'charset': 'utf-8', 'Accept-Charset':'utf-8'};
 
   http.Client getHttpClient() {
     return http.Client();
@@ -40,6 +44,7 @@ class ApiHelper {
       final http.Response response =
           await getHttpClient().get(_BASE_URL + endPoint + queryParam);
       if (response.statusCode < 200 || response.statusCode > 400) {
+        //final String body = utf8.decode(response.bodyBytes);
         return MyResponse(isSuccess: false, message: response.toString());
       }
       return MyResponse(isSuccess: true, message: 'Ok', result: response.body);
@@ -50,12 +55,12 @@ class ApiHelper {
   }
 
   ///Generic [http.get(url)] method.
-  Future<MyResponse> put<T>(
+  Future<MyResponse> patch<T>(
       {@required String endPoint, @required String instance, @required Map<String, dynamic> data}) async {
     try {
-      print(_BASE_URL + endPoint + instance);
+      print(_BASE_URL + endPoint + instance + '/');
       final http.Response response =
-      await getHttpClient().put(_BASE_URL + endPoint + instance + '/', body: data);
+      await getHttpClient().patch(_BASE_URL + endPoint + instance + '/', body: data);
       if (response.statusCode < 200 || response.statusCode > 400) {
         return MyResponse(isSuccess: false, message: response.toString());
       }

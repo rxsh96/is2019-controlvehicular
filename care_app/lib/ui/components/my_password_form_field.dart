@@ -77,9 +77,9 @@ class _MyPassFormFieldState extends State<MyPassFormField> {
           child: Icon(
               _obscureText ? Icons.visibility : Icons.visibility_off),
         ),
-        focusedBorder: UnderlineInputBorder(
+        focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(
-            color: const Color.fromRGBO(203, 99, 51, 1),
+            color: Color.fromRGBO(203, 99, 51, 1),
           ),
         ),
       ),

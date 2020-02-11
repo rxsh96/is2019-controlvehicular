@@ -46,6 +46,7 @@ class MyProfilePage extends StatelessWidget {
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             userAvatar,
             const SizedBox(
@@ -54,7 +55,7 @@ class MyProfilePage extends StatelessWidget {
             Text(
               userRepo.user.name + ' ' + userRepo.user.lastname,
               style: const TextStyle(
-                fontSize: 30.0,
+                fontSize: 20.0,
               ),
             ),
             const SizedBox(
@@ -75,7 +76,7 @@ class MyProfilePage extends StatelessWidget {
                 title: Text(
                   userRepo.user.phone_number,
                   style: const TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 16.0,
                   ),
                 ),
               ),
@@ -91,7 +92,7 @@ class MyProfilePage extends StatelessWidget {
                 title: Text(
                   userRepo.user.email,
                   style: const TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 16.0,
                   ),
                 ),
               ),

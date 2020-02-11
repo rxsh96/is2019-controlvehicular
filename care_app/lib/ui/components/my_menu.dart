@@ -1,5 +1,6 @@
 import 'package:care_app/ui/pages/accident_report_page.dart';
 import 'package:care_app/ui/pages/comments_page.dart';
+import 'package:care_app/ui/pages/maintenance_guide_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -123,7 +124,7 @@ class MyMenu extends StatelessWidget {
               const MyMenuOptions(
                 optionName: 'Guía de mantenimiento',
                 icon: 'menu_guia',
-                route: null,
+                route: MaintenanceGuidePage.ID,
               ),
               const MyMenuOptions(
                 optionName: 'Reporte de Incidentes',

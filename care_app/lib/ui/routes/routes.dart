@@ -1,5 +1,8 @@
 import 'package:care_app/core/src/trips/map_trip.dart';
+import 'package:care_app/ui/pages/add_maintenance_detail_page.dart';
+import 'package:care_app/ui/pages/kms_page.dart';
 import 'package:care_app/ui/pages/lights_page.dart';
+import 'package:care_app/ui/pages/maintenance_guide_page.dart';
 import 'package:care_app/ui/pages/maintenance_page.dart';
 import 'package:care_app/ui/pages/transit_taxes_page.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +71,7 @@ class Router {
         return MaterialPageRoute<LightsPage>(builder: (_) => const LightsPage());
       
       case TransitTaxesPage.ID:
-        return MaterialPageRoute<TransitTaxesPage>(builder: (_) => const TransitTaxesPage());
+        return MaterialPageRoute<TransitTaxesPage>(builder: (_) => TransitTaxesPage());
 
       case AddTransitTaxesPage.ID:
         return MaterialPageRoute<AddTransitTaxesPage>(builder: (_) => AddTransitTaxesPage());
@@ -87,6 +90,19 @@ class Router {
       case AddVehiclePage.ID:
         final User user = settings.arguments;
         return MaterialPageRoute<AddVehiclePage>(builder: (_) => AddVehiclePage(user));
+
+      case MaintenanceGuidePage.ID:
+        return MaterialPageRoute<MaintenanceGuidePage>(builder: (_) => MaintenanceGuidePage());
+
+      case MaintenancePage.ID:
+        return MaterialPageRoute<MaintenancePage>(builder: (_) => MaintenancePage());
+
+      case AddMaintenancePage.ID:
+        return MaterialPageRoute<AddMaintenancePage>(builder: (_) => AddMaintenancePage());
+
+      case KmsPage.ID:
+        return MaterialPageRoute<KmsPage>(builder: (_) => KmsPage());
+
 
       default:
         return MaterialPageRoute<Scaffold>(

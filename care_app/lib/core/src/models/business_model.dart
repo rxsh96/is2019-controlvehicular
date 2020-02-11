@@ -18,25 +18,25 @@ class BusinessModel {
     this.businessOwner,
   });
 
-  BusinessModel.initial()
-      : id = '',
-        ruc = '',
-        businessName = '',
-        description = '',
-        legalRepresentativeName = '',
-        legalRepresentativeLastname = '',
-        address = '',
-        created = '',
-        updated = '',
-        lon = '',
-        lat = '',
-        province = '',
-        city = '',
-        businessOwner = '';
+//  BusinessModel.initial()
+//      : id = 0,
+//        ruc = '',
+//        businessName = '',
+//        description = '',
+//        legalRepresentativeName = '',
+//        legalRepresentativeLastname = '',
+//        address = '',
+//        created = '',
+//        updated = '',
+//        lon = '',
+//        lat = '',
+//        province = '',
+//        city = '',
+//        businessOwner = '';
 
 
   BusinessModel.fromJson(Map<String, dynamic> json) {
-    id= json['id'].toString();
+    id= json['id'];
     ruc= json['ruc'];
     businessName= json['business_name'];
     description= json['description'];
@@ -52,7 +52,7 @@ class BusinessModel {
     businessOwner= json['business_owner'].toString();
   }
 
-    String id;
+    int id;
     String ruc;
     String businessName;
     String description;
