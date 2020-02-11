@@ -108,7 +108,7 @@ class _AddTransitTaxesFormState extends State<AddTransitTaxesForm> {
                 ),
                 DropdownButton<String>(
                   hint: const Text('Seleccione la agencia'),
-                  value: _agency[0],
+                  value: _selected,
                   onChanged: (String newValue) {
                     setState(() {
                       _selected = newValue;

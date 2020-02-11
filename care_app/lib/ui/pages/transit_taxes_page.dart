@@ -24,7 +24,7 @@ class TransitTaxesPage extends StatelessWidget {
     return ListTile(
       contentPadding:
       const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-      trailing: Text(model.value.toString(),
+      trailing: Text(r'$'+model.value.toString(),
         style: const TextStyle(color: Colors.white, fontSize: 16),),
       leading: Container(
         padding: const EdgeInsets.only(right: 12.0),
