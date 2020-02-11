@@ -91,6 +91,15 @@ class VehicleProvider extends BaseProvider{
     setState(ViewState.Idle);
     return response;
   }
+
+  Future<Map<String, dynamic>>  registerTrip(Map<String, dynamic> data) async {
+    setState(ViewState.Busy);
+    final Map<String, dynamic> response = await _vehicleRepository.registerTrip(data);
+    setState(ViewState.Idle);
+    return response;
+  }
+
+
   Future<Map<String, dynamic>> updateKm(int vehicleID, Map<String, dynamic> data) async {
     setState(ViewState.Busy);
     final Map<String, dynamic> response = await _vehicleRepository.updateKm(vehicleID, data);
@@ -165,6 +174,7 @@ class VehicleProvider extends BaseProvider{
 
 
   List<dynamic> get brandsModels => _vehicleRepository.vehiclesBrandsModelsList;
+
 
 
 }

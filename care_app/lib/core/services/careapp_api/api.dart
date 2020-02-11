@@ -132,6 +132,16 @@ class API {
     return <String, dynamic>{'error': 'error'};
   }
 
+  Future<Map<String, dynamic>> postTrip(
+      {@required Map<String, dynamic> trip}) async {
+    final MyResponse response = await _apiHelper.post(
+        endPoint: ApiRoutes.TRIPS, data: trip);
+    if (response.isSuccess) {
+      return _decoder.convert(response.result);
+    }
+    return <String, dynamic>{'error': 'error'};
+  }
+
   Future<Map<String, dynamic>> postAccident(
       {@required Map<String, dynamic> data}) async {
     final MyResponse response =
