@@ -1,5 +1,6 @@
 import 'package:care_app/core/src/trips/map_trip.dart';
 import 'package:care_app/ui/pages/lights_page.dart';
+import 'package:care_app/ui/pages/maintenance_page.dart';
 import 'package:care_app/ui/pages/transit_taxes_page.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +32,9 @@ class Router {
 
       case VehiclePage.ID:
         return MaterialPageRoute<VehiclePage>(builder: (_) => VehiclePage());
+      
+      case MaintenancePage.ID:
+        return MaterialPageRoute<MaintenancePage>(builder: (_) => MaintenancePage());
 
       case ExpensesPage.ID:
         return MaterialPageRoute<ExpensesPage>(builder: (_) => ExpensesPage());
@@ -68,6 +72,7 @@ class Router {
 
       case AddTransitTaxesPage.ID:
         return MaterialPageRoute<AddTransitTaxesPage>(builder: (_) => AddTransitTaxesPage());
+
 
       case MyProfilePage.ID:
         final UserRepository userRepo = settings.arguments;

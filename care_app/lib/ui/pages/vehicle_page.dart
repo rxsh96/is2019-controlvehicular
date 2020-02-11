@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:care_app/ui/pages/add_cost_gasoline_page.dart';
+import 'package:care_app/ui/pages/maintenance_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
@@ -134,6 +135,13 @@ class VehiclePage extends StatelessWidget {
                         );
                       }
                     }),
+              ),
+              const Divider(color: Colors.white, height: 0),
+              MyCardButton(
+                text: 'MANTENIMIENTO',
+                transparency: 1,
+                icon: 'filtro',
+                route: MaintenancePage.ID,
               ),
               const Divider(color: Colors.white, height: 0),
               MyCardButton(
