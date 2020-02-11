@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:care_app/ui/components/sliding_up.dart';
+import 'package:care_app/ui/components/sliding_up_map.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/cupertino.dart';
