@@ -2,6 +2,7 @@ import 'package:care_app/core/locator.dart';
 import 'package:care_app/core/src/models/trip_model.dart';
 import 'package:care_app/core/src/provider/login_provider.dart';
 import 'package:care_app/ui/pages/add_trip_page.dart';
+import 'package:care_app/ui/pages/expenses_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -156,7 +157,11 @@ class TripPage extends StatelessWidget {
                                 return ListView.builder(
                                     itemCount: snapshot.data.length,
                                     itemBuilder: (BuildContext context, int index) {
-                                      return makeGuideCard(snapshot.data[index]);
+                                      return GestureDetector(
+                                          onTap: (){
+                                            Navigator.pushNamed(context, ExpensesPage.ID);
+                                          },
+                                          child: makeGuideCard(snapshot.data[index]));
                                     });
                               }
                               else{
