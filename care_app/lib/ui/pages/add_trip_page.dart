@@ -1,10 +1,16 @@
+import 'package:care_app/core/locator.dart';
+import 'package:care_app/core/src/models/trip_model.dart';
+import 'package:care_app/core/src/provider/login_provider.dart';
 import 'package:care_app/core/src/trips/map_trip.dart';
 import 'package:care_app/ui/pages/pages_files.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import 'expenses_page.dart';
+
+
 
 
 class AddTripPage extends StatefulWidget {

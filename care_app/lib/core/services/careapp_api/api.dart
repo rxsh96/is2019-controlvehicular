@@ -4,6 +4,7 @@ import 'package:care_app/core/src/models/item_model.dart';
 import 'package:care_app/core/src/models/maintenance_detail_model.dart';
 import 'package:care_app/core/src/models/maintenance_model.dart';
 import 'package:care_app/core/src/models/transit_tax_model.dart';
+import 'package:care_app/core/src/models/trip_model.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:care_app/core/src/models/model_files.dart';
@@ -177,9 +178,21 @@ class API {
     if (response.isSuccess) {
       final String taxResponse = response.result.toString();
       if (taxResponse.isNotEmpty) {
-        print('YEAH, TAX RESPONSE IS NOT EMPTY');
-        print(compute(parseTax, taxResponse));
         return compute(parseTax, taxResponse);
+      }
+    }
+    return null;
+  }
+
+  Future<List<TripModel>> getTrips({@required int userID}) async {
+    final MyResponse response = await _apiHelper.get(
+        endPoint: ApiRoutes.TRIPS, queryParam: '?user=$userID');
+    if (response.isSuccess) {
+      final String tripResponse = response.result.toString();
+      print('EN API');
+      print(tripResponse);
+      if (tripResponse.isNotEmpty) {
+        return compute(parseTrip, tripResponse);
       }
     }
     return null;
@@ -344,5 +357,17 @@ List<TransitTaxModel> parseTax(String responseBody) {
   final dynamic parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
   return parsed
       .map<TransitTaxModel>((dynamic json) => TransitTaxModel.fromJson(json))
+      .toList();
+}
+
+List<TripModel> parseTrip(String responseBody) {
+  final dynamic parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+  print('PARSED');
+  print(parsed);
+  print(parsed
+      .map<TripModel>((dynamic json) => TripModel.fromJson(json))
+      .toList());
+  return parsed
+      .map<TripModel>((dynamic json) => TripModel.fromJson(json))
       .toList();
 }

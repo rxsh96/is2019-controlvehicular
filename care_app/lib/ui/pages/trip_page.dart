@@ -1,142 +1,192 @@
+import 'package:care_app/core/locator.dart';
+import 'package:care_app/core/src/models/trip_model.dart';
+import 'package:care_app/core/src/provider/login_provider.dart';
 import 'package:care_app/ui/pages/add_trip_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class TripPage extends StatefulWidget {
+
+class TripPage extends StatelessWidget {
 
   static const String ID = 'tripPage';
 
-  @override
-  _TripPageState createState() => _TripPageState();
-}
+  Widget makeGuideCard(TripModel model) {
+    return Card(
+      child: Center(
+        child: Container(
+          decoration:
+          const BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+          child: makeListTile(model),
+        ),
+      ),
+    );
+  }
 
-class _TripPageState extends State<TripPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: topAppBar(context),
-      body: ListView(
+  Widget makeListTile(TripModel model) {
+    final String status = (model.isActive==true) ? 'Activo' : 'Terminado';
+    return ListTile(
+      contentPadding:
+      const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+      trailing: Column(
         children: <Widget>[
-          SizedBox(height: 25.0,),
-          _listarViaje(),
-
-
-
+          Image.asset(
+            'images/kilometraje_2.png',
+            width: 20,
+            height: 20,
+          ),
+          Text((model.finalKm-model.startKm).toString(),
+            style: const TextStyle(color: Colors.white, fontSize: 16),),
+          const Text('kms',
+            style: TextStyle(color: Colors.white, fontSize: 14),),
         ],
       ),
-
-      floatingActionButton: FloatingActionButton(
-        child: Image.asset('images/boton_agregar.png'),
-        onPressed: (){
-          Navigator.pushNamed(context, AddTripPage.ID);
-        },
-      ),
-
-
-    );
-  }
-
-
-  Widget topAppBar ( BuildContext context){
-    return AppBar(
-        title: const Text('Viajes', style: TextStyle(fontSize: 16),),
-        backgroundColor: Colors.black,
-        leading: GestureDetector(
-          child: Icon(Icons.clear_all,color: const Color.fromRGBO(210, 100, 50, 1),),
-          onTap: () {
-            Navigator.pop(context);
-          },
-        )
-
-    );
-  }
-
-
-
-  Widget _listarViaje(){
-    return Container(
-        child:Row(
+      leading: Container(
+        padding: const EdgeInsets.only(right: 12.0),
+        decoration: BoxDecoration(
+          border: Border(
+            right: BorderSide(width: 1.0, color: Colors.orange),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox( width: 15.0),
-            _crearFecha(25 , "ABRIL" , 2018),
-            SizedBox( width: 15.0),
-            _tipoFiltro("FILTRO DE ACEITE"),
-            SizedBox( width: 15.0),
-            _crearLugar("Casa de Andres" , 80.0)
-
+            Text(
+              model.date.split('-')[0],
+              style: const TextStyle(color: Colors.white, fontSize: 10),
+            ),
+            Text(
+              model.date.split('-')[1],
+              style: const TextStyle(color: Colors.white, fontSize: 10),
+            ),
+            Text(
+              model.date.split('-')[2],
+              style: const TextStyle(color: Colors.white, fontSize: 10),
+            ),
           ],
         ),
-        height: 70.0,
-        margin: new EdgeInsets.all(10.0),
-
-        decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              topLeft:   Radius.circular(20.0),
-              topRight:   Radius.circular(20.0),
-              bottomLeft:  Radius.circular(20.0) ,
-              bottomRight:  Radius.circular(20.0),
-            ),
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.white,
-                Colors.grey,
-
-              ],
-            )
-        )
-    );
-  }
-
-
-
-  Widget _crearFecha(int dia, String mes ,int anio ){
-    return Column(
-      children: <Widget>[
-
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child:Text("$dia"),
-
+      ),
+      title: Text(
+        model.description,
+        style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold
         ),
-        Text(mes),
-        Text("$anio")
-      ],
-    );
-  }
-
-
-  Widget _tipoFiltro(String tipo){
-    return Column(
+      ),
+      // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child:Text(tipo),
-
+          Text(
+            model.startPlace+' - '+model.endPlace,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+            ),
           ),
-        ]);
-  }
-
-  Widget _crearLugar( String local , double valor){
-    return Column(
-      children: <Widget>[
-        Image(
-          image: const AssetImage('images/kilometraje_2.png'),
-          height: 15.0,
-        ),
-        Text(local),
-        Image(
-          image: const AssetImage('images/money.png'),
-          height: 15.0,
-        ),
-        Text('$valor')
-
-      ],
+          Text(
+            status,
+            style: const TextStyle(
+              color: Colors.white,
+              fontStyle: FontStyle.italic,
+              fontSize: 10,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-
-
-
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                child: const Text(
+                  'Viajes',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+              Image.asset(
+                'images/logo2.png',
+                fit: BoxFit.contain,
+                height: 32,
+              ),
+            ],
+          ),
+        ),
+        body: ChangeNotifierProvider<LoginProvider>(
+          create: (BuildContext context) => locator<LoginProvider>(),
+          child: Consumer<LoginProvider>(
+            builder: (BuildContext context, LoginProvider loginProvider,
+                Widget child) =>
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(children: <Widget>[
+                      Expanded(
+                        flex: 2,
+                        child: FutureBuilder<List<TripModel>>(
+                            future: loginProvider
+                                .fetchTrips(loginProvider.userRepository.user.id),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<List<TripModel>> snapshot) {
+                              if (snapshot.connectionState == ConnectionState.done){
+                                if (snapshot.data == null) {
+                                  return Center(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: const <Widget>[
+                                        Text('Hubo un error. Inténtalo de nuevo más tarde.'),
+                                      ],
+                                    ),
+                                  );
+                                }
+                                if (snapshot.data.isEmpty) {
+                                  return const Center(
+                                    child: Text('¡No tienes viajes!'),
+                                  );
+                                }
+                                return ListView.builder(
+                                    itemCount: snapshot.data.length,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return makeGuideCard(snapshot.data[index]);
+                                    });
+                              }
+                              else{
+                                return const Center(
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Color.fromRGBO(203, 99, 51, 1),
+                                    ),
+                                  ),
+                                );
+                              }
+                            }),
+                      ),
+                      const SizedBox(height: 30.0),
+                    ]),
+                  ),
+                ),
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color.fromRGBO(32, 32, 32, 1),
+          child: const Image(
+            image: AssetImage('images/agregar_auto.png'),
+            height: 35,
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, AddTripPage.ID);
+          },
+        ),
+      ),
+    );
+  }
 }
-

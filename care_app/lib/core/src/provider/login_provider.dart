@@ -4,6 +4,7 @@ import 'package:care_app/core/locator.dart';
 import 'package:care_app/core/services/auth/auth_service.dart';
 import 'package:care_app/core/src/enums/my_enum.dart';
 import 'package:care_app/core/src/models/transit_tax_model.dart';
+import 'package:care_app/core/src/models/trip_model.dart';
 import 'package:care_app/core/src/models/user_model.dart';
 import 'package:care_app/core/src/repository/user_repository.dart';
 
@@ -60,12 +61,17 @@ class LoginProvider extends BaseProvider {
 
   Future<List<TransitTaxModel>> fetchTaxes(int userID) async {
     //setState(ViewState.Busy);
-    print('ACA');
     final List<TransitTaxModel> taxes = await _userRepository.fetchTaxes(userID);
-    print('ESTOS SON LOS TAXES');
-    print(taxes);
     //setState(ViewState.Idle);
     return taxes;
+  }
+
+
+  Future<List<TripModel>> fetchTrips(int userID) async {
+    //setState(ViewState.Busy);
+    final List<TripModel> trips = await _userRepository.fetchTrips(userID);
+    //setState(ViewState.Idle);
+    return trips;
   }
 
   Future<Map<String, dynamic>> postTaxes(Map<String, dynamic> tax) async {
