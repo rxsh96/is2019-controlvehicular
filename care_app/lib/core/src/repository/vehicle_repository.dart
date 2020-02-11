@@ -113,6 +113,10 @@ class VehicleRepository{
     return _brands != null;
   }
 
+  Future<Map<String, dynamic>> postExpense(Map<String, dynamic> expense) async {
+    return await _api.postExpense(expense: expense);
+  }
+
 
   Future<bool> joinBrandModel() async{
     await fetchVehicleModels();

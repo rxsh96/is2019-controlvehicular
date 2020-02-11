@@ -63,6 +63,14 @@ class VehicleProvider extends BaseProvider{
     return maintenanceDetails;
   }
 
+  Future<Map<String, dynamic>>  postExpense (Map<String, dynamic> expense) async{
+    setState(ViewState.Busy);
+    final Map<String, dynamic> response = await _vehicleRepository.postExpense(expense);
+    setState(ViewState.Idle);
+    return response;
+  }
+
+
   Future<void> fetchMaintenanceItem() async {
     setState(ViewState.Busy);
     await _vehicleRepository.fetchMaintenanceItems();

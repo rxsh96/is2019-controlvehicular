@@ -1,6 +1,13 @@
+import 'package:care_app/core/locator.dart';
+import 'package:care_app/core/src/enums/view_state_enum.dart';
+import 'package:care_app/core/src/provider/vehicle_provider.dart';
+import 'package:care_app/core/src/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 
 import 'package:care_app/ui/components/my_text_form_field.dart';
+import 'package:flutter_rounded_date_picker/rounded_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 
 class AddCostGasolinePage extends StatefulWidget {
@@ -13,158 +20,211 @@ class AddCostGasolinePage extends StatefulWidget {
 }
 
 class _AddCostGasolinePageState extends State<AddCostGasolinePage> {
-  final TextEditingController _type = TextEditingController();
-  final TextEditingController _value = TextEditingController();
-  final TextEditingController _date = TextEditingController();
-  final TextEditingController _name = TextEditingController();
-  final TextEditingController _address = TextEditingController();
+  final TextEditingController _buyController = TextEditingController();
+  final TextEditingController _valueController = TextEditingController();
+  final TextEditingController _namePlaceController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
 
-  bool isEco = false;
-  bool isSuper = false;
-  bool isDiesel = false;
-  bool isCash = false;
-  bool isCard = false;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  final List<String> _gasolineList = <String>['Super', 'Eco', 'Diesel'];
+  String _selectedGasoline;
+
+  final List<String> _paymentList = <String>['Efectivo', 'T. Crédito', 'T. Débito'];
+  String _selectedPayment;
+
+  DateTime _buyDate;
+
+  void cleanFields(){
+    _buyController.text = _valueController.text = _namePlaceController.text = _addressController.text = '';
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'NUEVO GASTO',
-          style: TextStyle(fontSize: 18),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              child: const Text(
+                'Registro de Gasolina',
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+            Image.asset(
+              'images/logo2.png',
+              fit: BoxFit.contain,
+              height: 32,
+            ),
+          ],
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 30.0),
-        children: <Widget>[
-          const Text('Tipo'),
-          MyTextFormField(
-              controller: _type,
-              capitalization: TextCapitalization.words,
-              textInputType: TextInputType.text,
-              label: 'Gasolina',
-              icon: Icons.local_gas_station,
-              errorMsg: 'Ingresa tipo de Gasolina'),
-          MyTextFormField(
-              controller: _value,
-              capitalization: TextCapitalization.none,
-              textInputType: TextInputType.number,
-              label: 'Precio',
-              icon: Icons.attach_money,
-              errorMsg: 'Ingresa valor de compra'),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Column(
+      body: ChangeNotifierProvider<VehicleProvider>(
+        create: (BuildContext context) => locator<VehicleProvider>(),
+        child: Consumer<VehicleProvider>(
+            builder: (BuildContext context, VehicleProvider vehicleProvider,
+                Widget child) =>
+          SingleChildScrollView(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Checkbox(
-                        value: isEco,
-                        onChanged: (bool value) {
+                      DropdownButton<String>(
+                        hint: const Text('Seleccione tipo de gasolina'),
+                        value: _selectedGasoline,
+                        onChanged: (String newValue) {
                           setState(() {
-                            isEco = value;
+                            _selectedGasoline = newValue;
                           });
-                        },),
-                      const Text('Eco'),
-                    ],
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Checkbox(
-                        value: isSuper,
-                        onChanged: (bool value) {
+                        },
+                        items: _gasolineList.map((String gasolineType) {
+                          return DropdownMenuItem<String>(
+                            child: Text(gasolineType),
+                            value: gasolineType,
+                          );
+                        }).toList(),
+                      ),
+                      const SizedBox(height: 15.0),
+                      MyTextFormField(
+                          controller: _valueController,
+                          capitalization: TextCapitalization.none,
+                          textInputType: TextInputType.number,
+                          label: 'Precio',
+                          icon: Icons.attach_money,
+                          errorMsg: 'Ingresa valor de la compra'),
+                      const SizedBox(height: 15,),
+                      DropdownButton<String>(
+                        hint: const Text('Seleccione forma de pago'),
+                        value: _selectedPayment,
+                        onChanged: (String newValue) {
                           setState(() {
-                            isSuper = value;
+                            _selectedPayment = newValue;
                           });
-                        },),
-                      const Text('Super'),
-                    ],
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Checkbox(
-                        value: isDiesel,
-                        onChanged: (bool value) {
-                          setState(() {
-                            isDiesel = value;
-                          });
-                        },),
-                      const Text('Diesel'),
-                    ],
-                  ),
-                ],
-              ),
-          const SizedBox(height: 20,),
-          const Text('Forma de Pago'),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Checkbox(
-                    value: isCash,
-                    onChanged: (bool value) {
-                      setState(() {
-                        isCash = value;
-                      });
-                    },),
-                  const Text('Efectivo'),
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  Checkbox(
-                    value: isCard,
-                    onChanged: (bool value) {
-                      setState(() {
-                        isCard = value;
-                      });
-                    },),
-                  const Text('Tarjeta'),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 20,),
-          MyTextFormField(
-              controller: _date,
-              capitalization: TextCapitalization.none,
-              textInputType: TextInputType.datetime,
-              label: 'Fecha',
-              icon: Icons.date_range,
-              errorMsg: 'Ingresa la fecha de compra'),
-          MyTextFormField(
-              controller: _name,
-              capitalization: TextCapitalization.words,
-              textInputType: TextInputType.text,
-              label: 'Nombre',
-              icon: Icons.text_fields,
-              errorMsg: 'Ingresa nombre del local'),
-          MyTextFormField(
-              controller: _address,
-              capitalization: TextCapitalization.words,
-              textInputType: TextInputType.text,
-              label: 'Dirección',
-              icon: Icons.map,
-              errorMsg: 'Ingresa la dirección del local'),
-            ],
+                        },
+                        items: _paymentList.map((String paymentType) {
+                          return DropdownMenuItem<String>(
+                            child: Text(paymentType),
+                            value: paymentType,
+                          );
+                        }).toList(),
+                      ),
+                      const SizedBox(height: 15,),
+                      TextField(
+                        onTap: () async {
+                          _buyDate = await showRoundedDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(DateTime.now().year - 10),
+                            lastDate: DateTime(DateTime.now().year + 1),
+                            borderRadius: 16,
+                          );
+                          _buyController.text =
+                              DateFormat('yyyy-MM-dd').format(_buyDate);
+                        },
+                        focusNode: FirstDisabledFocusNode(),
+                        controller: _buyController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          labelText: 'Fecha de la compra',
+                          suffixIcon: Icon(Icons.calendar_today),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color.fromRGBO(203, 99, 51, 1),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15,),
+                      MyTextFormField(
+                          controller: _namePlaceController,
+                          capitalization: TextCapitalization.words,
+                          textInputType: TextInputType.text,
+                          label: 'Nombre del establecimiento',
+                          icon: Icons.text_fields,
+                          errorMsg: 'Ingresa nombre del local'),
+                      const SizedBox(height: 15,),
+                      MyTextFormField(
+                          controller: _addressController,
+                          capitalization: TextCapitalization.words,
+                          textInputType: TextInputType.text,
+                          label: 'Dirección',
+                          icon: Icons.map,
+                          errorMsg: 'Ingresa la dirección del local'),
+                      const SizedBox(height: 15,),
+                      if (vehicleProvider.state == ViewState.Busy)
+                        const CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Color.fromRGBO(203, 99, 51, 1),
+                          ),
+                        ),
+                      if (vehicleProvider.state == ViewState.Idle)
+                        MaterialButton(
+                          color: const Color.fromRGBO(203, 99, 51, 1),
+                          onPressed: () async {
+                            if (_formKey.currentState.validate()) {
 
-          ),
-      bottomNavigationBar: BottomAppBar(
-        color: const Color.fromRGBO(203, 99, 51, 1),
-        child: MaterialButton(
-          onPressed: () {
+                            final Map<String, dynamic> data = <String, dynamic>{
+                              'expense_value': _valueController.text,
+                              'payment_method': _selectedPayment,
+                              'date': _buyController.text,
+                              'address': _addressController.text,
+                              'name': _namePlaceController.text,
+                              'user': locator<UserRepository>().user.id.toString(),
+                            };
 
-          },
-          child: const Text(
-            'Registrar',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
+                            print(data);
+
+                              final Map<String, dynamic> response = await vehicleProvider.postExpense(data);
+
+                              if (response.containsKey('error')) {
+                                Scaffold.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                        'Ha surgido un problema. Inténtalo de nuevo.'),
+                                  ),
+                                );
+                              } else {
+                                Scaffold.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('¡Registro exitoso!'),
+                                  ),
+                                  //Navigator.pushNamed(context, VehiclePage.ID)
+                                );
+                                cleanFields();
+                              }
+                            }
+                          },
+                          child: const Text(
+                            'Añadir Vehículo',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        ],
+                      ),
+                ),
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+}
+
+class FirstDisabledFocusNode extends FocusNode {
+  @override
+  bool consumeKeyboardToken() {
+    return false;
   }
 }

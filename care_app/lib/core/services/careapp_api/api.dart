@@ -195,6 +195,17 @@ class API {
     return <String, dynamic>{'error': 'error'};
   }
 
+  Future<Map<String, dynamic>> postExpense(
+      {@required Map<String, dynamic> expense}) async {
+    final MyResponse response =
+    await _apiHelper.post(endPoint: ApiRoutes.EXPENSE, data: expense);
+    if (response.isSuccess) {
+      return _decoder.convert(response.result);
+    }
+    return <String, dynamic>{'error': 'error'};
+  }
+
+
   Future<DeviceModel> getFCMDevice({@required String deviceID}) async {
     final MyResponse response = await _apiHelper.get<DeviceModel>(
         endPoint: ApiRoutes.DEVICE, queryParam: '?device_id=$deviceID');
